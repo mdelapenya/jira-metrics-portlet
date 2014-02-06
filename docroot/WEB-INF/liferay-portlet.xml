@@ -6,6 +6,15 @@
 	<portlet>
 		<portlet-name>jirametricsportlet</portlet-name>
 		<icon>/icon.png</icon>
+		<scheduler-entry>
+			<scheduler-description>Triggers JIRA load at 00:01, every day</scheduler-description>
+			<scheduler-event-listener-class>com.liferay.jira.metrics.messaging.JiraLoadMessageListener</scheduler-event-listener-class>
+			<trigger>
+				<cron>
+					<cron-trigger-value>0 1 0 * * ?</cron-trigger-value>
+				</cron>
+			</trigger>
+		</scheduler-entry>
 		<instanceable>false</instanceable>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>
