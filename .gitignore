@@ -1,3 +1,4 @@
 bin
+docroot/src/portlet-ext.properties
 docroot/WEB-INF/classes
 docroot/css/.sass-cache
