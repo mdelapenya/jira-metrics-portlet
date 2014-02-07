@@ -1,4 +1,8 @@
 bin
+<<<<<<< HEAD
 docroot/src/portlet-ext.properties
+=======
+docroot/WEB-INF/src/portlet-ext.properties
+>>>>>>> ffe5916c35a4eed208c0c58f7ed1457362b8e598
 docroot/WEB-INF/classes
 docroot/css/.sass-cache
