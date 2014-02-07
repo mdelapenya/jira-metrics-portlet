@@ -18,7 +18,10 @@ import java.net.URISyntaxException;
 
 import com.atlassian.jira.rest.client.JiraRestClient;
 import com.atlassian.jira.rest.client.JiraRestClientFactory;
+import com.atlassian.jira.rest.client.SearchRestClient;
 import com.atlassian.jira.rest.client.UserRestClient;
+import com.atlassian.jira.rest.client.domain.BasicIssue;
+import com.atlassian.jira.rest.client.domain.SearchResult;
 import com.atlassian.jira.rest.client.domain.User;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
@@ -33,6 +36,27 @@ import com.liferay.portal.kernel.util.StringBundler;
  * @author Manuel de la Peña
  */
 public class JiraUtil {
+
+	public static void getDefaultSearch() throws JiraConnectionException {
+		SearchRestClient searchClient = _getClient().getSearchClient();
+
+		String sampleJql = "project = LPS AND status in (Open, Reopened, \"" +
+			"In Progress\", \"Contributed Solution\", \"Community Resolved\"," +
+			" Verified) AND \"Business Value\" is not EMPTY AND assignee in " +
+			"(\"manuel.delapenya\", \"support-lep@liferay.com\") ORDER BY \"" +
+			"Business Value\" DESC";
+
+		Promise<SearchResult> promise = searchClient.searchJql(sampleJql);
+
+		SearchResult searchResult = promise.claim();
+
+		_log.info("Searching using JQL query has returned " +
+			searchResult.getTotal() + " entries");
+
+		for (BasicIssue issue : searchResult.getIssues()) {
+			_log.info("Retrieving " + issue.getKey());
+		}
+	}
 
 	public static User getJiraUserData() throws JiraConnectionException {
 		UserRestClient userClient = _getClient().getUserClient();
