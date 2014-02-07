@@ -13,12 +13,40 @@
  */
 package com.liferay.jira.metrics.util;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import com.atlassian.jira.rest.client.JiraRestClient;
+import com.atlassian.jira.rest.client.JiraRestClientFactory;
+import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
+import com.liferay.jira.metrics.exception.JiraConnectionException;
 
 /**
  * @author Cristina González
+ * @author Manuel de la Peña
  */
 public class JiraUtil {
+
+	private static JiraRestClient _getClient() throws JiraConnectionException {
+		if (_client == null) {
+			JiraRestClientFactory factory =
+				new AsynchronousJiraRestClientFactory();
+
+			try {
+				_client = factory.createWithBasicHttpAuthentication(
+					new URI(PortletPropsValues.JIRA_SERVER_URI),
+					PortletPropsValues.JIRA_USERNAME,
+					PortletPropsValues.JIRA_PASSWORD);
+			}
+			catch (URISyntaxException e) {
+				throw new JiraConnectionException(
+					"Could not understand the JIRA Base URL: " + e.getMessage(),
+					e);
+			}
+		}
+
+		return _client;
+	}
 
 	private static JiraRestClient _client;
 
