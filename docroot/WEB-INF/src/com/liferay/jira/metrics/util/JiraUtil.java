@@ -18,14 +18,45 @@ import java.net.URISyntaxException;
 
 import com.atlassian.jira.rest.client.JiraRestClient;
 import com.atlassian.jira.rest.client.JiraRestClientFactory;
+import com.atlassian.jira.rest.client.UserRestClient;
+import com.atlassian.jira.rest.client.domain.User;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
+import com.atlassian.util.concurrent.Promise;
+
 import com.liferay.jira.metrics.exception.JiraConnectionException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 
 /**
  * @author Cristina González
  * @author Manuel de la Peña
  */
 public class JiraUtil {
+
+	public static User getJiraUserData() throws JiraConnectionException {
+		UserRestClient userClient = _getClient().getUserClient();
+
+		Promise<User> promise = userClient.getUser(
+			PortletPropsValues.JIRA_USERNAME);
+
+		User user = promise.claim();
+
+		StringBundler sb = new StringBundler(8);
+
+		sb.append("The name of ");
+		sb.append(PortletPropsValues.JIRA_USERNAME);
+		sb.append(" is ");
+		sb.append(user.getName());
+		sb.append("; his display name is ");
+		sb.append(user.getDisplayName());
+		sb.append("; and his small avatar uri is ");
+		sb.append(user.getSmallAvatarUri());
+
+		_log.info(sb.toString());
+
+		return user;
+	}
 
 	private static JiraRestClient _getClient() throws JiraConnectionException {
 		if (_client == null) {
@@ -49,5 +80,6 @@ public class JiraUtil {
 	}
 
 	private static JiraRestClient _client;
+	private static Log _log = LogFactoryUtil.getLog(JiraUtil.class);
 
 }
