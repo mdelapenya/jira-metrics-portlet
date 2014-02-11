@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+<service-builder package-path="com.liferay.jira.metrics">
+	<author>Manuel de la Peña</author>
+	<namespace>jirametrics</namespace>
+
+	<entity name="JiraProject" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="jiraProjectId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="label" type="String" />
+		<column name="jiraProjectCode" type="long" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="JiraProjectCode" return-type="JiraProject" unique="true">
+			<finder-column name="jiraProjectCode" />
+		</finder>
+		<finder name="Label" return-type="JiraProject" unique="true">
+			<finder-column name="label" />
+		</finder>
+		<finder name="Name" return-type="JiraProject" unique="true">
+			<finder-column name="name" />
+		</finder>
+	</entity>
+
+	<entity name="JiraComponent" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="jiraComponentId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="jiraComponentCode" type="long" />
+		<column name="jiraProjectId" type="long" />
+		<column name="name" type="String" />
+		<column name="status" type="int" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="JiraComponent" return-type="JiraComponent" unique="true">
+			<finder-column name="name" />
+		</finder>
+		<finder name="JiraComponentCode" return-type="JiraComponent" unique="true">
+			<finder-column name="jiraComponentCode" />
+		</finder>
+		<finder name="JiraProjectId" return-type="Collection">
+			<finder-column name="jiraProjectId" />
+		</finder>
+	</entity>
+
+	<entity name="JiraStatus" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="jiraStatusId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="jiraStatusCode" type="long" />
+		<column name="jiraProjectId" type="long" />
+		<column name="name" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="Status" return-type="JiraStatus" unique="true">
+			<finder-column name="name" />
+		</finder>
+		<finder name="JiraStatusCode" return-type="JiraStatus" unique="true">
+			<finder-column name="jiraStatusCode" />
+		</finder>
+		<finder name="JiraProjectId" return-type="Collection">
+			<finder-column name="jiraProjectId" />
+		</finder>
+	</entity>
+
+	<entity name="JiraMetric" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="jiraMetricId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="jiraProjectId" type="long" />
+		<column name="jiraComponentId" type="long" />
+		<column name="jiraStatusId" type="long" />
+		<column name="priority" type="int" />
+		<column name="day" type="int" />
+		<column name="month" type="int" />
+		<column name="year" type="int" />
+		<column name="total" type="int" />
+
+		<!-- Finder methods -->
+
+		<finder name="P_C_S_D_M_Y" return-type="Collection">
+			<finder-column name="jiraProjectId" />
+			<finder-column name="jiraComponentId" />
+			<finder-column name="jiraStatusId" />
+			<finder-column name="day" />
+			<finder-column name="month" />
+			<finder-column name="year" />
+		</finder>
+	</entity>
+</service-builder>
