@@ -14,6 +14,8 @@
 
 package com.liferay.jira.metrics.messaging;
 
+import com.liferay.jira.metrics.exception.JiraConnectionException;
+import com.liferay.jira.metrics.util.JiraUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -23,7 +25,13 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 public class JiraLoadScheduler {
 
 	public static void load() {
-		_log.info("Loading data from JIRA...");
+		try {
+			JiraUtil.getJiraUserData();
+
+			JiraUtil.getDefaultSearch();
+		} catch (JiraConnectionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(JiraLoadScheduler.class);
