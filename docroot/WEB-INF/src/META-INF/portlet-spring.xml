@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.liferay.jira.metrics.service.JiraComponentLocalService" class="com.liferay.jira.metrics.service.impl.JiraComponentLocalServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.JiraComponentService" class="com.liferay.jira.metrics.service.impl.JiraComponentServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.persistence.JiraComponentPersistence" class="com.liferay.jira.metrics.service.persistence.JiraComponentPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.jira.metrics.service.JiraMetricLocalService" class="com.liferay.jira.metrics.service.impl.JiraMetricLocalServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.JiraMetricService" class="com.liferay.jira.metrics.service.impl.JiraMetricServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.persistence.JiraMetricPersistence" class="com.liferay.jira.metrics.service.persistence.JiraMetricPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.jira.metrics.service.JiraProjectLocalService" class="com.liferay.jira.metrics.service.impl.JiraProjectLocalServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.JiraProjectService" class="com.liferay.jira.metrics.service.impl.JiraProjectServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.persistence.JiraProjectPersistence" class="com.liferay.jira.metrics.service.persistence.JiraProjectPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.jira.metrics.service.JiraStatusLocalService" class="com.liferay.jira.metrics.service.impl.JiraStatusLocalServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.JiraStatusService" class="com.liferay.jira.metrics.service.impl.JiraStatusServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.persistence.JiraStatusPersistence" class="com.liferay.jira.metrics.service.persistence.JiraStatusPersistenceImpl" parent="basePersistence" />
+</beans>

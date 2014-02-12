@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.jira.metrics.model.JiraComponent">
+		<field name="jiraComponentId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="jiraComponentCode" type="long" />
+		<field name="jiraProjectId" type="long" />
+		<field name="name" type="String" />
+		<field name="status" type="int" />
+	</model>
+	<model name="com.liferay.jira.metrics.model.JiraMetric">
+		<field name="jiraMetricId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="jiraProjectId" type="long" />
+		<field name="jiraComponentId" type="long" />
+		<field name="jiraStatusId" type="long" />
+		<field name="priority" type="int" />
+		<field name="day" type="int" />
+		<field name="month" type="int" />
+		<field name="year" type="int" />
+		<field name="total" type="int" />
+	</model>
+	<model name="com.liferay.jira.metrics.model.JiraProject">
+		<field name="jiraProjectId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="key" type="String" />
+		<field name="name" type="String" />
+	</model>
+	<model name="com.liferay.jira.metrics.model.JiraStatus">
+		<field name="jiraStatusId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="jiraStatusCode" type="long" />
+		<field name="jiraProjectId" type="long" />
+		<field name="name" type="String" />
+	</model>
+</model-hints>

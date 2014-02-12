@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+
+<ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+
+	<info module="jira-metrics" organisation="com.liferay" />
+
+	<dependencies defaultconf="default">
+		<dependency name="util-taglib" org="com.liferay.portal" rev="6.1.2" />
+		<dependency name="util-java" org="com.liferay.portal" rev="6.1.2" />
+		<dependency name="util-bridges" org="com.liferay.portal" rev="6.1.2" />
+
+		<dependency name="jira-rest-java-client" org="com.atlassian.jira" rev="2.0.0-m2" />
+	</dependencies>
+</ivy-module>
