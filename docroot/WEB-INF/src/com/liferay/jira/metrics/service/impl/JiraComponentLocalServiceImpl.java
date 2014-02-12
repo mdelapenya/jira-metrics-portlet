@@ -42,8 +42,7 @@ public class JiraComponentLocalServiceImpl
 	extends JiraComponentLocalServiceBaseImpl {
 
 	public JiraComponent addJiraComponent(
-			long jiraComponentCode, long jiraProjectId, String name,
-			int jiraStatusId)
+			String uri, long jiraProjectId, String name, int jiraStatusId)
 		throws PortalException, SystemException {
 
 		long id = counterLocalService.increment();
@@ -55,7 +54,7 @@ public class JiraComponentLocalServiceImpl
 		jiraComponent.setCreateDate(now);
 		jiraComponent.setModifiedDate(now);
 
-		jiraComponent.setJiraComponentCode(jiraComponentCode);
+		jiraComponent.setUri(uri);
 		jiraComponent.setJiraProjectId(jiraProjectId);
 		jiraComponent.setName(name);
 		jiraComponent.setStatus(jiraStatusId);
@@ -72,10 +71,10 @@ public class JiraComponentLocalServiceImpl
 		return jiraComponentPersistence.findByJiraComponent(name);
 	}
 
-	public JiraComponent getJiraComponentCode(long code)
+	public JiraComponent getJiraComponentByUri(String uri)
 		throws NoSuchJiraComponentException, SystemException {
 
-		return jiraComponentPersistence.findByJiraComponentCode(code);
+		return jiraComponentPersistence.findByUri(uri);
 	}
 
 	public List<JiraComponent> getJiraComponentsByJiraProjectId(

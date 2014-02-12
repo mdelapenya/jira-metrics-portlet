@@ -49,7 +49,7 @@
 
 		<!-- Other fields -->
 
-		<column name="jiraComponentCode" type="long" />
+		<column name="uri" type="String" />
 		<column name="jiraProjectId" type="long" />
 		<column name="name" type="String" />
 		<column name="status" type="int" />
@@ -65,8 +65,8 @@
 		<finder name="JiraComponent" return-type="JiraComponent" unique="true">
 			<finder-column name="name" />
 		</finder>
-		<finder name="JiraComponentCode" return-type="JiraComponent" unique="true">
-			<finder-column name="jiraComponentCode" />
+		<finder name="Uri" return-type="JiraComponent" unique="true">
+			<finder-column name="uri" />
 		</finder>
 		<finder name="JiraProjectId" return-type="Collection">
 			<finder-column name="jiraProjectId" />
