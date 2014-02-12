@@ -44,17 +44,11 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 			int priority, Date date)
 		throws NoSuchJiraMetricException, SystemException {
 
-		Calendar calendar = Calendar.getInstance();
-
-		calendar.setTime(date);
-
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		int month = calendar.get(Calendar.MONTH);
-		int year = calendar.get(Calendar.YEAR);
+		int[] dateElements = parseDate(date);
 
 		return jiraMetricPersistence.findByP_C_S_P_D_M_Y(
-			jiraProjectId, jiraComponentId, jiraStatusId, priority, day, month,
-			year);
+			jiraProjectId, jiraComponentId, jiraStatusId, priority,
+			dateElements[0], dateElements[1], dateElements[2]);
 	}
 
 	public JiraMetric getJiraMetric(
@@ -72,16 +66,11 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 			Date date)
 		throws SystemException {
 
-		Calendar calendar = Calendar.getInstance();
-
-		calendar.setTime(date);
-
-		int day = calendar.get(Calendar.DAY_OF_MONTH);
-		int month = calendar.get(Calendar.MONTH);
-		int year = calendar.get(Calendar.YEAR);
+		int[] dateElements = parseDate(date);
 
 		return getJiraMetrics(
-			jiraProjectId, jiraComponentId, jiraStatusId, day, month, year);
+			jiraProjectId, jiraComponentId, jiraStatusId, dateElements[0],
+			dateElements[1], dateElements[2]);
 	}
 
 	public List<JiraMetric> getJiraMetrics(
@@ -91,6 +80,20 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 
 		return jiraMetricPersistence.findByP_C_S_D_M_Y(
 			jiraProjectId, jiraComponentId, jiraStatusId, day, month, year);
+	}
+
+	protected int[] parseDate(Date date) {
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.setTime(date);
+
+		int[] dateElements = new int[3];
+
+		dateElements[0] = calendar.get(Calendar.DAY_OF_MONTH);
+		dateElements[1] = calendar.get(Calendar.MONTH);
+		dateElements[2] = calendar.get(Calendar.YEAR);
+
+		return dateElements;
 	}
 
 }
