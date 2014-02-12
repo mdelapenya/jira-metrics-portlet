@@ -1,6 +1,7 @@
 create unique index IX_3ACBB661 on jirametrics_JiraComponent (jiraComponentCode);
 create index IX_BBC84FEB on jirametrics_JiraComponent (jiraProjectId);
 create unique index IX_2DBA0D6A on jirametrics_JiraComponent (name);
+create unique index IX_3BB25991 on jirametrics_JiraComponent (uri);
 
 create index IX_C13FF376 on jirametrics_JiraMetric (jiraProjectId, jiraComponentId, jiraStatusId, day, month, year);
 create unique index IX_FA8763CE on jirametrics_JiraMetric (jiraProjectId, jiraComponentId, jiraStatusId, priority, day, month, year);

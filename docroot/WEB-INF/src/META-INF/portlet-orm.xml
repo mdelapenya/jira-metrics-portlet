@@ -16,7 +16,7 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="jiraComponentCode" />
+			<basic name="uri" />
 			<basic name="jiraProjectId" />
 			<basic name="name" />
 			<basic name="status" />

@@ -2,7 +2,7 @@ create table jirametrics_JiraComponent (
 	jiraComponentId LONG not null primary key,
 	createDate DATE null,
 	modifiedDate DATE null,
-	jiraComponentCode LONG,
+	uri VARCHAR(75) null,
 	jiraProjectId LONG,
 	name VARCHAR(75) null,
 	status INTEGER

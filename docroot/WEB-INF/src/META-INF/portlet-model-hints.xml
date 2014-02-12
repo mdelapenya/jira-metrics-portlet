@@ -5,7 +5,7 @@
 		<field name="jiraComponentId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="jiraComponentCode" type="long" />
+		<field name="uri" type="String" />
 		<field name="jiraProjectId" type="long" />
 		<field name="name" type="String" />
 		<field name="status" type="int" />

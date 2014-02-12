@@ -118,16 +118,16 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 		_methodName19 = "addJiraComponent";
 
 		_methodParameterTypes19 = new String[] {
-				"long", "long", "java.lang.String", "int"
+				"java.lang.String", "long", "java.lang.String", "int"
 			};
 
 		_methodName20 = "getJiraComponentByName";
 
 		_methodParameterTypes20 = new String[] { "java.lang.String" };
 
-		_methodName21 = "getJiraComponentCode";
+		_methodName21 = "getJiraComponentByUri";
 
-		_methodParameterTypes21 = new String[] { "long" };
+		_methodParameterTypes21 = new String[] { "java.lang.String" };
 
 		_methodName22 = "getJiraComponentsByJiraProjectId";
 
@@ -686,7 +686,7 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
-		long jiraComponentCode, long jiraProjectId, java.lang.String name,
+		java.lang.String uri, long jiraProjectId, java.lang.String name,
 		int jiraStatusId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -696,7 +696,7 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
 					new Object[] {
-						jiraComponentCode,
+						ClpSerializer.translateInput(uri),
 						
 					jiraProjectId,
 						
@@ -764,15 +764,16 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentCode(
-		long code)
+	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { code });
+					_methodParameterTypes21,
+					new Object[] { ClpSerializer.translateInput(uri) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

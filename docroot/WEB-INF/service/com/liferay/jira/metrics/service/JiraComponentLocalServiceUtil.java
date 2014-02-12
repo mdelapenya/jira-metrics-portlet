@@ -276,13 +276,12 @@ public class JiraComponentLocalServiceUtil {
 	}
 
 	public static com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
-		long jiraComponentCode, long jiraProjectId, java.lang.String name,
+		java.lang.String uri, long jiraProjectId, java.lang.String name,
 		int jiraStatusId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addJiraComponent(jiraComponentCode, jiraProjectId, name,
-			jiraStatusId);
+				   .addJiraComponent(uri, jiraProjectId, name, jiraStatusId);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
@@ -292,11 +291,11 @@ public class JiraComponentLocalServiceUtil {
 		return getService().getJiraComponentByName(name);
 	}
 
-	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentCode(
-		long code)
+	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getJiraComponentCode(code);
+		return getService().getJiraComponentByUri(uri);
 	}
 
 	public static java.util.List<com.liferay.jira.metrics.model.JiraComponent> getJiraComponentsByJiraProjectId(

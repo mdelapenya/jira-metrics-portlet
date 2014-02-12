@@ -117,16 +117,16 @@ public class JiraComponentLocalServiceClpInvoker {
 		_methodName58 = "addJiraComponent";
 
 		_methodParameterTypes58 = new String[] {
-				"long", "long", "java.lang.String", "int"
+				"java.lang.String", "long", "java.lang.String", "int"
 			};
 
 		_methodName59 = "getJiraComponentByName";
 
 		_methodParameterTypes59 = new String[] { "java.lang.String" };
 
-		_methodName60 = "getJiraComponentCode";
+		_methodName60 = "getJiraComponentByUri";
 
-		_methodParameterTypes60 = new String[] { "long" };
+		_methodParameterTypes60 = new String[] { "java.lang.String" };
 
 		_methodName61 = "getJiraComponentsByJiraProjectId";
 
@@ -236,7 +236,7 @@ public class JiraComponentLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.addJiraComponent(((Long)arguments[0]).longValue(),
+			return JiraComponentLocalServiceUtil.addJiraComponent((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2],
 				((Integer)arguments[3]).intValue());
@@ -249,7 +249,7 @@ public class JiraComponentLocalServiceClpInvoker {
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.getJiraComponentCode(((Long)arguments[0]).longValue());
+			return JiraComponentLocalServiceUtil.getJiraComponentByUri((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName61.equals(name) &&

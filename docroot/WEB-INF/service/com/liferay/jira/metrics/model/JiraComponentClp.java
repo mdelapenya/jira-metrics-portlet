@@ -77,7 +77,7 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		attributes.put("jiraComponentId", getJiraComponentId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("jiraComponentCode", getJiraComponentCode());
+		attributes.put("uri", getUri());
 		attributes.put("jiraProjectId", getJiraProjectId());
 		attributes.put("name", getName());
 		attributes.put("status", getStatus());
@@ -105,10 +105,10 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 			setModifiedDate(modifiedDate);
 		}
 
-		Long jiraComponentCode = (Long)attributes.get("jiraComponentCode");
+		String uri = (String)attributes.get("uri");
 
-		if (jiraComponentCode != null) {
-			setJiraComponentCode(jiraComponentCode);
+		if (uri != null) {
+			setUri(uri);
 		}
 
 		Long jiraProjectId = (Long)attributes.get("jiraProjectId");
@@ -200,22 +200,21 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 	}
 
 	@Override
-	public long getJiraComponentCode() {
-		return _jiraComponentCode;
+	public String getUri() {
+		return _uri;
 	}
 
 	@Override
-	public void setJiraComponentCode(long jiraComponentCode) {
-		_jiraComponentCode = jiraComponentCode;
+	public void setUri(String uri) {
+		_uri = uri;
 
 		if (_jiraComponentRemoteModel != null) {
 			try {
 				Class<?> clazz = _jiraComponentRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setJiraComponentCode",
-						long.class);
+				Method method = clazz.getMethod("setUri", String.class);
 
-				method.invoke(_jiraComponentRemoteModel, jiraComponentCode);
+				method.invoke(_jiraComponentRemoteModel, uri);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -365,7 +364,7 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		clone.setJiraComponentId(getJiraComponentId());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
-		clone.setJiraComponentCode(getJiraComponentCode());
+		clone.setUri(getUri());
 		clone.setJiraProjectId(getJiraProjectId());
 		clone.setName(getName());
 		clone.setStatus(getStatus());
@@ -423,8 +422,8 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", jiraComponentCode=");
-		sb.append(getJiraComponentCode());
+		sb.append(", uri=");
+		sb.append(getUri());
 		sb.append(", jiraProjectId=");
 		sb.append(getJiraProjectId());
 		sb.append(", name=");
@@ -457,8 +456,8 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>jiraComponentCode</column-name><column-value><![CDATA[");
-		sb.append(getJiraComponentCode());
+			"<column><column-name>uri</column-name><column-value><![CDATA[");
+		sb.append(getUri());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>jiraProjectId</column-name><column-value><![CDATA[");
@@ -481,7 +480,7 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 	private long _jiraComponentId;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _jiraComponentCode;
+	private String _uri;
 	private long _jiraProjectId;
 	private String _name;
 	private int _status;

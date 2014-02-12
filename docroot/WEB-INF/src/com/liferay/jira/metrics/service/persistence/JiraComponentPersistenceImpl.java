@@ -327,36 +327,36 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_1 = "jiraComponent.name IS NULL";
 	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_2 = "jiraComponent.name = ?";
 	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_3 = "(jiraComponent.name IS NULL OR jiraComponent.name = '')";
-	public static final FinderPath FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE = new FinderPath(JiraComponentModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_URI = new FinderPath(JiraComponentModelImpl.ENTITY_CACHE_ENABLED,
 			JiraComponentModelImpl.FINDER_CACHE_ENABLED,
-			JiraComponentImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByJiraComponentCode", new String[] { Long.class.getName() },
-			JiraComponentModelImpl.JIRACOMPONENTCODE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_JIRACOMPONENTCODE = new FinderPath(JiraComponentModelImpl.ENTITY_CACHE_ENABLED,
+			JiraComponentImpl.class, FINDER_CLASS_NAME_ENTITY, "fetchByUri",
+			new String[] { String.class.getName() },
+			JiraComponentModelImpl.URI_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_URI = new FinderPath(JiraComponentModelImpl.ENTITY_CACHE_ENABLED,
 			JiraComponentModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByJiraComponentCode", new String[] { Long.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUri",
+			new String[] { String.class.getName() });
 
 	/**
-	 * Returns the jira component where jiraComponentCode = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
+	 * Returns the jira component where uri = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
 	 *
-	 * @param jiraComponentCode the jira component code
+	 * @param uri the uri
 	 * @return the matching jira component
 	 * @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a matching jira component could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraComponent findByJiraComponentCode(long jiraComponentCode)
+	public JiraComponent findByUri(String uri)
 		throws NoSuchJiraComponentException, SystemException {
-		JiraComponent jiraComponent = fetchByJiraComponentCode(jiraComponentCode);
+		JiraComponent jiraComponent = fetchByUri(uri);
 
 		if (jiraComponent == null) {
 			StringBundler msg = new StringBundler(4);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("jiraComponentCode=");
-			msg.append(jiraComponentCode);
+			msg.append("uri=");
+			msg.append(uri);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -371,42 +371,41 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 	}
 
 	/**
-	 * Returns the jira component where jiraComponentCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the jira component where uri = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @param jiraComponentCode the jira component code
+	 * @param uri the uri
 	 * @return the matching jira component, or <code>null</code> if a matching jira component could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraComponent fetchByJiraComponentCode(long jiraComponentCode)
-		throws SystemException {
-		return fetchByJiraComponentCode(jiraComponentCode, true);
+	public JiraComponent fetchByUri(String uri) throws SystemException {
+		return fetchByUri(uri, true);
 	}
 
 	/**
-	 * Returns the jira component where jiraComponentCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the jira component where uri = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
-	 * @param jiraComponentCode the jira component code
+	 * @param uri the uri
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching jira component, or <code>null</code> if a matching jira component could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraComponent fetchByJiraComponentCode(long jiraComponentCode,
-		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { jiraComponentCode };
+	public JiraComponent fetchByUri(String uri, boolean retrieveFromCache)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { uri };
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_URI,
 					finderArgs, this);
 		}
 
 		if (result instanceof JiraComponent) {
 			JiraComponent jiraComponent = (JiraComponent)result;
 
-			if ((jiraComponentCode != jiraComponent.getJiraComponentCode())) {
+			if (!Validator.equals(uri, jiraComponent.getUri())) {
 				result = null;
 			}
 		}
@@ -416,7 +415,19 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 
 			query.append(_SQL_SELECT_JIRACOMPONENT_WHERE);
 
-			query.append(_FINDER_COLUMN_JIRACOMPONENTCODE_JIRACOMPONENTCODE_2);
+			boolean bindUri = false;
+
+			if (uri == null) {
+				query.append(_FINDER_COLUMN_URI_URI_1);
+			}
+			else if (uri.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_URI_URI_3);
+			}
+			else {
+				bindUri = true;
+
+				query.append(_FINDER_COLUMN_URI_URI_2);
+			}
 
 			String sql = query.toString();
 
@@ -429,12 +440,14 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(jiraComponentCode);
+				if (bindUri) {
+					qPos.add(uri);
+				}
 
 				List<JiraComponent> list = q.list();
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI,
 						finderArgs, list);
 				}
 				else {
@@ -444,14 +457,15 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 
 					cacheResult(jiraComponent);
 
-					if ((jiraComponent.getJiraComponentCode() != jiraComponentCode)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
+					if ((jiraComponent.getUri() == null) ||
+							!jiraComponent.getUri().equals(uri)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI,
 							finderArgs, jiraComponent);
 					}
 				}
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_URI,
 					finderArgs);
 
 				throw processException(e);
@@ -470,33 +484,32 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 	}
 
 	/**
-	 * Removes the jira component where jiraComponentCode = &#63; from the database.
+	 * Removes the jira component where uri = &#63; from the database.
 	 *
-	 * @param jiraComponentCode the jira component code
+	 * @param uri the uri
 	 * @return the jira component that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraComponent removeByJiraComponentCode(long jiraComponentCode)
+	public JiraComponent removeByUri(String uri)
 		throws NoSuchJiraComponentException, SystemException {
-		JiraComponent jiraComponent = findByJiraComponentCode(jiraComponentCode);
+		JiraComponent jiraComponent = findByUri(uri);
 
 		return remove(jiraComponent);
 	}
 
 	/**
-	 * Returns the number of jira components where jiraComponentCode = &#63;.
+	 * Returns the number of jira components where uri = &#63;.
 	 *
-	 * @param jiraComponentCode the jira component code
+	 * @param uri the uri
 	 * @return the number of matching jira components
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByJiraComponentCode(long jiraComponentCode)
-		throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_JIRACOMPONENTCODE;
+	public int countByUri(String uri) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_URI;
 
-		Object[] finderArgs = new Object[] { jiraComponentCode };
+		Object[] finderArgs = new Object[] { uri };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
@@ -506,7 +519,19 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 
 			query.append(_SQL_COUNT_JIRACOMPONENT_WHERE);
 
-			query.append(_FINDER_COLUMN_JIRACOMPONENTCODE_JIRACOMPONENTCODE_2);
+			boolean bindUri = false;
+
+			if (uri == null) {
+				query.append(_FINDER_COLUMN_URI_URI_1);
+			}
+			else if (uri.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_URI_URI_3);
+			}
+			else {
+				bindUri = true;
+
+				query.append(_FINDER_COLUMN_URI_URI_2);
+			}
 
 			String sql = query.toString();
 
@@ -519,7 +544,9 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(jiraComponentCode);
+				if (bindUri) {
+					qPos.add(uri);
+				}
 
 				count = (Long)q.uniqueResult();
 
@@ -538,8 +565,9 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_JIRACOMPONENTCODE_JIRACOMPONENTCODE_2 =
-		"jiraComponent.jiraComponentCode = ?";
+	private static final String _FINDER_COLUMN_URI_URI_1 = "jiraComponent.uri IS NULL";
+	private static final String _FINDER_COLUMN_URI_URI_2 = "jiraComponent.uri = ?";
+	private static final String _FINDER_COLUMN_URI_URI_3 = "(jiraComponent.uri IS NULL OR jiraComponent.uri = '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_JIRAPROJECTID =
 		new FinderPath(JiraComponentModelImpl.ENTITY_CACHE_ENABLED,
 			JiraComponentModelImpl.FINDER_CACHE_ENABLED,
@@ -1061,8 +1089,8 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENT,
 			new Object[] { jiraComponent.getName() }, jiraComponent);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
-			new Object[] { jiraComponent.getJiraComponentCode() }, jiraComponent);
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI,
+			new Object[] { jiraComponent.getUri() }, jiraComponent);
 
 		jiraComponent.resetOriginalValues();
 	}
@@ -1146,12 +1174,12 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENT, args,
 				jiraComponent);
 
-			args = new Object[] { jiraComponent.getJiraComponentCode() };
+			args = new Object[] { jiraComponent.getUri() };
 
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JIRACOMPONENTCODE,
-				args, Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
-				args, jiraComponent);
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_URI, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI, args,
+				jiraComponent);
 		}
 		else {
 			JiraComponentModelImpl jiraComponentModelImpl = (JiraComponentModelImpl)jiraComponent;
@@ -1167,15 +1195,13 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 			}
 
 			if ((jiraComponentModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						jiraComponent.getJiraComponentCode()
-					};
+					FINDER_PATH_FETCH_BY_URI.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { jiraComponent.getUri() };
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JIRACOMPONENTCODE,
-					args, Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
-					args, jiraComponent);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_URI, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI, args,
+					jiraComponent);
 			}
 		}
 	}
@@ -1198,23 +1224,17 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 				args);
 		}
 
-		args = new Object[] { jiraComponent.getJiraComponentCode() };
+		args = new Object[] { jiraComponent.getUri() };
 
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRACOMPONENTCODE,
-			args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
-			args);
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_URI, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_URI, args);
 
 		if ((jiraComponentModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE.getColumnBitmask()) != 0) {
-			args = new Object[] {
-					jiraComponentModelImpl.getOriginalJiraComponentCode()
-				};
+				FINDER_PATH_FETCH_BY_URI.getColumnBitmask()) != 0) {
+			args = new Object[] { jiraComponentModelImpl.getOriginalUri() };
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRACOMPONENTCODE,
-				args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRACOMPONENTCODE,
-				args);
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_URI, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_URI, args);
 		}
 	}
 
@@ -1403,7 +1423,7 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 		jiraComponentImpl.setJiraComponentId(jiraComponent.getJiraComponentId());
 		jiraComponentImpl.setCreateDate(jiraComponent.getCreateDate());
 		jiraComponentImpl.setModifiedDate(jiraComponent.getModifiedDate());
-		jiraComponentImpl.setJiraComponentCode(jiraComponent.getJiraComponentCode());
+		jiraComponentImpl.setUri(jiraComponent.getUri());
 		jiraComponentImpl.setJiraProjectId(jiraComponent.getJiraProjectId());
 		jiraComponentImpl.setName(jiraComponent.getName());
 		jiraComponentImpl.setStatus(jiraComponent.getStatus());

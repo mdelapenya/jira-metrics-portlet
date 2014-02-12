@@ -250,7 +250,7 @@ public interface JiraComponentLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
-		long jiraComponentCode, long jiraProjectId, java.lang.String name,
+		java.lang.String uri, long jiraProjectId, java.lang.String name,
 		int jiraStatusId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -262,8 +262,8 @@ public interface JiraComponentLocalService extends BaseLocalService,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentCode(
-		long code)
+	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException;
 

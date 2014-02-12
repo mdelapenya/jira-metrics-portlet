@@ -179,73 +179,71 @@ public class JiraComponentUtil {
 	}
 
 	/**
-	* Returns the jira component where jiraComponentCode = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
+	* Returns the jira component where uri = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
 	*
-	* @param jiraComponentCode the jira component code
+	* @param uri the uri
 	* @return the matching jira component
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a matching jira component could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.jira.metrics.model.JiraComponent findByJiraComponentCode(
-		long jiraComponentCode)
+	public static com.liferay.jira.metrics.model.JiraComponent findByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByJiraComponentCode(jiraComponentCode);
+		return getPersistence().findByUri(uri);
 	}
 
 	/**
-	* Returns the jira component where jiraComponentCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the jira component where uri = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param jiraComponentCode the jira component code
+	* @param uri the uri
 	* @return the matching jira component, or <code>null</code> if a matching jira component could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.jira.metrics.model.JiraComponent fetchByJiraComponentCode(
-		long jiraComponentCode)
+	public static com.liferay.jira.metrics.model.JiraComponent fetchByUri(
+		java.lang.String uri)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByJiraComponentCode(jiraComponentCode);
+		return getPersistence().fetchByUri(uri);
 	}
 
 	/**
-	* Returns the jira component where jiraComponentCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the jira component where uri = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param jiraComponentCode the jira component code
+	* @param uri the uri
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira component, or <code>null</code> if a matching jira component could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.jira.metrics.model.JiraComponent fetchByJiraComponentCode(
-		long jiraComponentCode, boolean retrieveFromCache)
+	public static com.liferay.jira.metrics.model.JiraComponent fetchByUri(
+		java.lang.String uri, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .fetchByJiraComponentCode(jiraComponentCode,
-			retrieveFromCache);
+		return getPersistence().fetchByUri(uri, retrieveFromCache);
 	}
 
 	/**
-	* Removes the jira component where jiraComponentCode = &#63; from the database.
+	* Removes the jira component where uri = &#63; from the database.
 	*
-	* @param jiraComponentCode the jira component code
+	* @param uri the uri
 	* @return the jira component that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.jira.metrics.model.JiraComponent removeByJiraComponentCode(
-		long jiraComponentCode)
+	public static com.liferay.jira.metrics.model.JiraComponent removeByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().removeByJiraComponentCode(jiraComponentCode);
+		return getPersistence().removeByUri(uri);
 	}
 
 	/**
-	* Returns the number of jira components where jiraComponentCode = &#63;.
+	* Returns the number of jira components where uri = &#63;.
 	*
-	* @param jiraComponentCode the jira component code
+	* @param uri the uri
 	* @return the number of matching jira components
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByJiraComponentCode(long jiraComponentCode)
+	public static int countByUri(java.lang.String uri)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByJiraComponentCode(jiraComponentCode);
+		return getPersistence().countByUri(uri);
 	}
 
 	/**

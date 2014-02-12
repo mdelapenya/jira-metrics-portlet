@@ -102,18 +102,19 @@ public interface JiraComponentModel extends BaseModel<JiraComponent> {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the jira component code of this jira component.
+	 * Returns the uri of this jira component.
 	 *
-	 * @return the jira component code of this jira component
+	 * @return the uri of this jira component
 	 */
-	public long getJiraComponentCode();
+	@AutoEscape
+	public String getUri();
 
 	/**
-	 * Sets the jira component code of this jira component.
+	 * Sets the uri of this jira component.
 	 *
-	 * @param jiraComponentCode the jira component code of this jira component
+	 * @param uri the uri of this jira component
 	 */
-	public void setJiraComponentCode(long jiraComponentCode);
+	public void setUri(String uri);
 
 	/**
 	 * Returns the jira project ID of this jira component.

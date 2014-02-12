@@ -67,12 +67,12 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 			{ "jiraComponentId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "jiraComponentCode", Types.BIGINT },
+			{ "uri", Types.VARCHAR },
 			{ "jiraProjectId", Types.BIGINT },
 			{ "name", Types.VARCHAR },
 			{ "status", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraComponent (jiraComponentId LONG not null primary key,createDate DATE null,modifiedDate DATE null,jiraComponentCode LONG,jiraProjectId LONG,name VARCHAR(75) null,status INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraComponent (jiraComponentId LONG not null primary key,createDate DATE null,modifiedDate DATE null,uri VARCHAR(75) null,jiraProjectId LONG,name VARCHAR(75) null,status INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table jirametrics_JiraComponent";
 	public static final String ORDER_BY_JPQL = " ORDER BY jiraComponent.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY jirametrics_JiraComponent.name ASC";
@@ -88,9 +88,9 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.jira.metrics.model.JiraComponent"),
 			true);
-	public static long JIRACOMPONENTCODE_COLUMN_BITMASK = 1L;
-	public static long JIRAPROJECTID_COLUMN_BITMASK = 2L;
-	public static long NAME_COLUMN_BITMASK = 4L;
+	public static long JIRAPROJECTID_COLUMN_BITMASK = 1L;
+	public static long NAME_COLUMN_BITMASK = 2L;
+	public static long URI_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -108,7 +108,7 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		model.setJiraComponentId(soapModel.getJiraComponentId());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setJiraComponentCode(soapModel.getJiraComponentCode());
+		model.setUri(soapModel.getUri());
 		model.setJiraProjectId(soapModel.getJiraProjectId());
 		model.setName(soapModel.getName());
 		model.setStatus(soapModel.getStatus());
@@ -179,7 +179,7 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		attributes.put("jiraComponentId", getJiraComponentId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("jiraComponentCode", getJiraComponentCode());
+		attributes.put("uri", getUri());
 		attributes.put("jiraProjectId", getJiraProjectId());
 		attributes.put("name", getName());
 		attributes.put("status", getStatus());
@@ -207,10 +207,10 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 			setModifiedDate(modifiedDate);
 		}
 
-		Long jiraComponentCode = (Long)attributes.get("jiraComponentCode");
+		String uri = (String)attributes.get("uri");
 
-		if (jiraComponentCode != null) {
-			setJiraComponentCode(jiraComponentCode);
+		if (uri != null) {
+			setUri(uri);
 		}
 
 		Long jiraProjectId = (Long)attributes.get("jiraProjectId");
@@ -267,25 +267,28 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 
 	@JSON
 	@Override
-	public long getJiraComponentCode() {
-		return _jiraComponentCode;
+	public String getUri() {
+		if (_uri == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _uri;
+		}
 	}
 
 	@Override
-	public void setJiraComponentCode(long jiraComponentCode) {
-		_columnBitmask |= JIRACOMPONENTCODE_COLUMN_BITMASK;
+	public void setUri(String uri) {
+		_columnBitmask |= URI_COLUMN_BITMASK;
 
-		if (!_setOriginalJiraComponentCode) {
-			_setOriginalJiraComponentCode = true;
-
-			_originalJiraComponentCode = _jiraComponentCode;
+		if (_originalUri == null) {
+			_originalUri = _uri;
 		}
 
-		_jiraComponentCode = jiraComponentCode;
+		_uri = uri;
 	}
 
-	public long getOriginalJiraComponentCode() {
-		return _originalJiraComponentCode;
+	public String getOriginalUri() {
+		return GetterUtil.getString(_originalUri);
 	}
 
 	@JSON
@@ -382,7 +385,7 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		jiraComponentImpl.setJiraComponentId(getJiraComponentId());
 		jiraComponentImpl.setCreateDate(getCreateDate());
 		jiraComponentImpl.setModifiedDate(getModifiedDate());
-		jiraComponentImpl.setJiraComponentCode(getJiraComponentCode());
+		jiraComponentImpl.setUri(getUri());
 		jiraComponentImpl.setJiraProjectId(getJiraProjectId());
 		jiraComponentImpl.setName(getName());
 		jiraComponentImpl.setStatus(getStatus());
@@ -436,9 +439,7 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 	public void resetOriginalValues() {
 		JiraComponentModelImpl jiraComponentModelImpl = this;
 
-		jiraComponentModelImpl._originalJiraComponentCode = jiraComponentModelImpl._jiraComponentCode;
-
-		jiraComponentModelImpl._setOriginalJiraComponentCode = false;
+		jiraComponentModelImpl._originalUri = jiraComponentModelImpl._uri;
 
 		jiraComponentModelImpl._originalJiraProjectId = jiraComponentModelImpl._jiraProjectId;
 
@@ -473,7 +474,13 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 			jiraComponentCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		jiraComponentCacheModel.jiraComponentCode = getJiraComponentCode();
+		jiraComponentCacheModel.uri = getUri();
+
+		String uri = jiraComponentCacheModel.uri;
+
+		if ((uri != null) && (uri.length() == 0)) {
+			jiraComponentCacheModel.uri = null;
+		}
 
 		jiraComponentCacheModel.jiraProjectId = getJiraProjectId();
 
@@ -500,8 +507,8 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", jiraComponentCode=");
-		sb.append(getJiraComponentCode());
+		sb.append(", uri=");
+		sb.append(getUri());
 		sb.append(", jiraProjectId=");
 		sb.append(getJiraProjectId());
 		sb.append(", name=");
@@ -534,8 +541,8 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>jiraComponentCode</column-name><column-value><![CDATA[");
-		sb.append(getJiraComponentCode());
+			"<column><column-name>uri</column-name><column-value><![CDATA[");
+		sb.append(getUri());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>jiraProjectId</column-name><column-value><![CDATA[");
@@ -562,9 +569,8 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 	private long _jiraComponentId;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _jiraComponentCode;
-	private long _originalJiraComponentCode;
-	private boolean _setOriginalJiraComponentCode;
+	private String _uri;
+	private String _originalUri;
 	private long _jiraProjectId;
 	private long _originalJiraProjectId;
 	private boolean _setOriginalJiraProjectId;

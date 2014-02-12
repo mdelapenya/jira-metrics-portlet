@@ -46,8 +46,8 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", jiraComponentCode=");
-		sb.append(jiraComponentCode);
+		sb.append(", uri=");
+		sb.append(uri);
 		sb.append(", jiraProjectId=");
 		sb.append(jiraProjectId);
 		sb.append(", name=");
@@ -79,7 +79,13 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 			jiraComponentImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		jiraComponentImpl.setJiraComponentCode(jiraComponentCode);
+		if (uri == null) {
+			jiraComponentImpl.setUri(StringPool.BLANK);
+		}
+		else {
+			jiraComponentImpl.setUri(uri);
+		}
+
 		jiraComponentImpl.setJiraProjectId(jiraProjectId);
 
 		if (name == null) {
@@ -101,7 +107,7 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 		jiraComponentId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		jiraComponentCode = objectInput.readLong();
+		uri = objectInput.readUTF();
 		jiraProjectId = objectInput.readLong();
 		name = objectInput.readUTF();
 		status = objectInput.readInt();
@@ -113,7 +119,14 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 		objectOutput.writeLong(jiraComponentId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
-		objectOutput.writeLong(jiraComponentCode);
+
+		if (uri == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(uri);
+		}
+
 		objectOutput.writeLong(jiraProjectId);
 
 		if (name == null) {
@@ -129,7 +142,7 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 	public long jiraComponentId;
 	public long createDate;
 	public long modifiedDate;
-	public long jiraComponentCode;
+	public String uri;
 	public long jiraProjectId;
 	public String name;
 	public int status;

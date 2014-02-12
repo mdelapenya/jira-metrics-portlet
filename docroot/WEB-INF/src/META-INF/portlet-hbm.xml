@@ -13,7 +13,7 @@
 		</id>
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="jiraComponentCode" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="uri" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="jiraProjectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />

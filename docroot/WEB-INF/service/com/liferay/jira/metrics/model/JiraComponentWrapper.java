@@ -53,7 +53,7 @@ public class JiraComponentWrapper implements JiraComponent,
 		attributes.put("jiraComponentId", getJiraComponentId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("jiraComponentCode", getJiraComponentCode());
+		attributes.put("uri", getUri());
 		attributes.put("jiraProjectId", getJiraProjectId());
 		attributes.put("name", getName());
 		attributes.put("status", getStatus());
@@ -81,10 +81,10 @@ public class JiraComponentWrapper implements JiraComponent,
 			setModifiedDate(modifiedDate);
 		}
 
-		Long jiraComponentCode = (Long)attributes.get("jiraComponentCode");
+		String uri = (String)attributes.get("uri");
 
-		if (jiraComponentCode != null) {
-			setJiraComponentCode(jiraComponentCode);
+		if (uri != null) {
+			setUri(uri);
 		}
 
 		Long jiraProjectId = (Long)attributes.get("jiraProjectId");
@@ -187,23 +187,23 @@ public class JiraComponentWrapper implements JiraComponent,
 	}
 
 	/**
-	* Returns the jira component code of this jira component.
+	* Returns the uri of this jira component.
 	*
-	* @return the jira component code of this jira component
+	* @return the uri of this jira component
 	*/
 	@Override
-	public long getJiraComponentCode() {
-		return _jiraComponent.getJiraComponentCode();
+	public java.lang.String getUri() {
+		return _jiraComponent.getUri();
 	}
 
 	/**
-	* Sets the jira component code of this jira component.
+	* Sets the uri of this jira component.
 	*
-	* @param jiraComponentCode the jira component code of this jira component
+	* @param uri the uri of this jira component
 	*/
 	@Override
-	public void setJiraComponentCode(long jiraComponentCode) {
-		_jiraComponent.setJiraComponentCode(jiraComponentCode);
+	public void setUri(java.lang.String uri) {
+		_jiraComponent.setUri(uri);
 	}
 
 	/**
