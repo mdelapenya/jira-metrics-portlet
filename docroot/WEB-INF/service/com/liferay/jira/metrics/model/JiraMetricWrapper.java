@@ -50,8 +50,6 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraMetricId", getJiraMetricId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraProjectId", getJiraProjectId());
@@ -72,18 +70,6 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 
 		if (jiraMetricId != null) {
 			setJiraMetricId(jiraMetricId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -185,68 +171,6 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 	@Override
 	public void setJiraMetricId(long jiraMetricId) {
 		_jiraMetric.setJiraMetricId(jiraMetricId);
-	}
-
-	/**
-	* Returns the user ID of this jira metric.
-	*
-	* @return the user ID of this jira metric
-	*/
-	@Override
-	public long getUserId() {
-		return _jiraMetric.getUserId();
-	}
-
-	/**
-	* Sets the user ID of this jira metric.
-	*
-	* @param userId the user ID of this jira metric
-	*/
-	@Override
-	public void setUserId(long userId) {
-		_jiraMetric.setUserId(userId);
-	}
-
-	/**
-	* Returns the user uuid of this jira metric.
-	*
-	* @return the user uuid of this jira metric
-	* @throws SystemException if a system exception occurred
-	*/
-	@Override
-	public java.lang.String getUserUuid()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _jiraMetric.getUserUuid();
-	}
-
-	/**
-	* Sets the user uuid of this jira metric.
-	*
-	* @param userUuid the user uuid of this jira metric
-	*/
-	@Override
-	public void setUserUuid(java.lang.String userUuid) {
-		_jiraMetric.setUserUuid(userUuid);
-	}
-
-	/**
-	* Returns the user name of this jira metric.
-	*
-	* @return the user name of this jira metric
-	*/
-	@Override
-	public java.lang.String getUserName() {
-		return _jiraMetric.getUserName();
-	}
-
-	/**
-	* Sets the user name of this jira metric.
-	*
-	* @param userName the user name of this jira metric
-	*/
-	@Override
-	public void setUserName(java.lang.String userName) {
-		_jiraMetric.setUserName(userName);
 	}
 
 	/**

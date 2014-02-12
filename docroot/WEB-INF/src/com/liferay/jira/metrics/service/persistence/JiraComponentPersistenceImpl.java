@@ -1401,8 +1401,6 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 		jiraComponentImpl.setPrimaryKey(jiraComponent.getPrimaryKey());
 
 		jiraComponentImpl.setJiraComponentId(jiraComponent.getJiraComponentId());
-		jiraComponentImpl.setUserId(jiraComponent.getUserId());
-		jiraComponentImpl.setUserName(jiraComponent.getUserName());
 		jiraComponentImpl.setCreateDate(jiraComponent.getCreateDate());
 		jiraComponentImpl.setModifiedDate(jiraComponent.getModifiedDate());
 		jiraComponentImpl.setJiraComponentCode(jiraComponent.getJiraComponentCode());

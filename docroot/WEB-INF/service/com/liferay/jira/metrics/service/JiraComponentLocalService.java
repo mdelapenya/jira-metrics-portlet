@@ -250,8 +250,8 @@ public interface JiraComponentLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
-		com.liferay.portal.model.User user, long jiraComponentCode,
-		long jiraProjectId, java.lang.String name, int jiraStatusId)
+		long jiraComponentCode, long jiraProjectId, java.lang.String name,
+		int jiraStatusId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

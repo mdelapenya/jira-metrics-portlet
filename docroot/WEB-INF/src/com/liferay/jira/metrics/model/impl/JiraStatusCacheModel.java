@@ -38,14 +38,10 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{jiraStatusId=");
 		sb.append(jiraStatusId);
-		sb.append(", userId=");
-		sb.append(userId);
-		sb.append(", userName=");
-		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
@@ -66,14 +62,6 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 		JiraStatusImpl jiraStatusImpl = new JiraStatusImpl();
 
 		jiraStatusImpl.setJiraStatusId(jiraStatusId);
-		jiraStatusImpl.setUserId(userId);
-
-		if (userName == null) {
-			jiraStatusImpl.setUserName(StringPool.BLANK);
-		}
-		else {
-			jiraStatusImpl.setUserName(userName);
-		}
 
 		if (createDate == Long.MIN_VALUE) {
 			jiraStatusImpl.setCreateDate(null);
@@ -107,8 +95,6 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		jiraStatusId = objectInput.readLong();
-		userId = objectInput.readLong();
-		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		jiraStatusCode = objectInput.readLong();
@@ -120,15 +106,6 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(jiraStatusId);
-		objectOutput.writeLong(userId);
-
-		if (userName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(userName);
-		}
-
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 		objectOutput.writeLong(jiraStatusCode);
@@ -143,8 +120,6 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 	}
 
 	public long jiraStatusId;
-	public long userId;
-	public String userName;
 	public long createDate;
 	public long modifiedDate;
 	public long jiraStatusCode;

@@ -1,7 +1,5 @@
 create table jirametrics_JiraComponent (
 	jiraComponentId LONG not null primary key,
-	userId LONG,
-	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
 	jiraComponentCode LONG,
@@ -12,8 +10,6 @@ create table jirametrics_JiraComponent (
 
 create table jirametrics_JiraMetric (
 	jiraMetricId LONG not null primary key,
-	userId LONG,
-	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
 	jiraProjectId LONG,
@@ -28,19 +24,14 @@ create table jirametrics_JiraMetric (
 
 create table jirametrics_JiraProject (
 	jiraProjectId LONG not null primary key,
-	userId LONG,
-	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	name VARCHAR(75) null,
-	label VARCHAR(75) null,
-	jiraProjectCode LONG
+	key_ VARCHAR(75) null,
+	name VARCHAR(75) null
 );
 
 create table jirametrics_JiraStatus (
 	jiraStatusId LONG not null primary key,
-	userId LONG,
-	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
 	jiraStatusCode LONG,

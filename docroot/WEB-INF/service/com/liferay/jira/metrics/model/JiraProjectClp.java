@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.util.PortalUtil;
 
 import java.io.Serializable;
 
@@ -76,13 +75,10 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraProjectId", getJiraProjectId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("key", getKey());
 		attributes.put("name", getName());
-		attributes.put("label", getLabel());
-		attributes.put("jiraProjectCode", getJiraProjectCode());
 
 		return attributes;
 	}
@@ -93,18 +89,6 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 
 		if (jiraProjectId != null) {
 			setJiraProjectId(jiraProjectId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -119,22 +103,16 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 			setModifiedDate(modifiedDate);
 		}
 
+		String key = (String)attributes.get("key");
+
+		if (key != null) {
+			setKey(key);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
 			setName(name);
-		}
-
-		String label = (String)attributes.get("label");
-
-		if (label != null) {
-			setLabel(label);
-		}
-
-		Long jiraProjectCode = (Long)attributes.get("jiraProjectCode");
-
-		if (jiraProjectCode != null) {
-			setJiraProjectCode(jiraProjectCode);
 		}
 	}
 
@@ -154,62 +132,6 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 				Method method = clazz.getMethod("setJiraProjectId", long.class);
 
 				method.invoke(_jiraProjectRemoteModel, jiraProjectId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getUserId() {
-		return _userId;
-	}
-
-	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
-
-		if (_jiraProjectRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraProjectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserId", long.class);
-
-				method.invoke(_jiraProjectRemoteModel, userId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
-	}
-
-	@Override
-	public String getUserName() {
-		return _userName;
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
-
-		if (_jiraProjectRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraProjectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserName", String.class);
-
-				method.invoke(_jiraProjectRemoteModel, userName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -264,6 +186,29 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 	}
 
 	@Override
+	public String getKey() {
+		return _key;
+	}
+
+	@Override
+	public void setKey(String key) {
+		_key = key;
+
+		if (_jiraProjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _jiraProjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setKey", String.class);
+
+				method.invoke(_jiraProjectRemoteModel, key);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getName() {
 		return _name;
 	}
@@ -279,52 +224,6 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 				Method method = clazz.getMethod("setName", String.class);
 
 				method.invoke(_jiraProjectRemoteModel, name);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getLabel() {
-		return _label;
-	}
-
-	@Override
-	public void setLabel(String label) {
-		_label = label;
-
-		if (_jiraProjectRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraProjectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setLabel", String.class);
-
-				method.invoke(_jiraProjectRemoteModel, label);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getJiraProjectCode() {
-		return _jiraProjectCode;
-	}
-
-	@Override
-	public void setJiraProjectCode(long jiraProjectCode) {
-		_jiraProjectCode = jiraProjectCode;
-
-		if (_jiraProjectRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraProjectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setJiraProjectCode", long.class);
-
-				method.invoke(_jiraProjectRemoteModel, jiraProjectCode);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -402,13 +301,10 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 		JiraProjectClp clone = new JiraProjectClp();
 
 		clone.setJiraProjectId(getJiraProjectId());
-		clone.setUserId(getUserId());
-		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
+		clone.setKey(getKey());
 		clone.setName(getName());
-		clone.setLabel(getLabel());
-		clone.setJiraProjectCode(getJiraProjectCode());
 
 		return clone;
 	}
@@ -455,24 +351,18 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{jiraProjectId=");
 		sb.append(getJiraProjectId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", key=");
+		sb.append(getKey());
 		sb.append(", name=");
 		sb.append(getName());
-		sb.append(", label=");
-		sb.append(getLabel());
-		sb.append(", jiraProjectCode=");
-		sb.append(getJiraProjectCode());
 		sb.append("}");
 
 		return sb.toString();
@@ -480,7 +370,7 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraProject");
@@ -491,14 +381,6 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 		sb.append(getJiraProjectId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
 		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
@@ -507,16 +389,12 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>key</column-name><column-value><![CDATA[");
+		sb.append(getKey());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>name</column-name><column-value><![CDATA[");
 		sb.append(getName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>label</column-name><column-value><![CDATA[");
-		sb.append(getLabel());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>jiraProjectCode</column-name><column-value><![CDATA[");
-		sb.append(getJiraProjectCode());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -525,13 +403,9 @@ public class JiraProjectClp extends BaseModelImpl<JiraProject>
 	}
 
 	private long _jiraProjectId;
-	private long _userId;
-	private String _userUuid;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _key;
 	private String _name;
-	private String _label;
-	private long _jiraProjectCode;
 	private BaseModel<?> _jiraProjectRemoteModel;
 }

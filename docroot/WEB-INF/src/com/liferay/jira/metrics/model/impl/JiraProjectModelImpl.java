@@ -19,7 +19,6 @@ import com.liferay.jira.metrics.model.JiraProjectModel;
 import com.liferay.jira.metrics.model.JiraProjectSoap;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -28,7 +27,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
@@ -67,15 +65,12 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 	public static final String TABLE_NAME = "jirametrics_JiraProject";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "jiraProjectId", Types.BIGINT },
-			{ "userId", Types.BIGINT },
-			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "name", Types.VARCHAR },
-			{ "label", Types.VARCHAR },
-			{ "jiraProjectCode", Types.BIGINT }
+			{ "key_", Types.VARCHAR },
+			{ "name", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraProject (jiraProjectId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,label VARCHAR(75) null,jiraProjectCode LONG)";
+	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraProject (jiraProjectId LONG not null primary key,createDate DATE null,modifiedDate DATE null,key_ VARCHAR(75) null,name VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table jirametrics_JiraProject";
 	public static final String ORDER_BY_JPQL = " ORDER BY jiraProject.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY jirametrics_JiraProject.name ASC";
@@ -91,9 +86,8 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.jira.metrics.model.JiraProject"),
 			true);
-	public static long JIRAPROJECTCODE_COLUMN_BITMASK = 1L;
-	public static long LABEL_COLUMN_BITMASK = 2L;
-	public static long NAME_COLUMN_BITMASK = 4L;
+	public static long KEY_COLUMN_BITMASK = 1L;
+	public static long NAME_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -109,13 +103,10 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 		JiraProject model = new JiraProjectImpl();
 
 		model.setJiraProjectId(soapModel.getJiraProjectId());
-		model.setUserId(soapModel.getUserId());
-		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setKey(soapModel.getKey());
 		model.setName(soapModel.getName());
-		model.setLabel(soapModel.getLabel());
-		model.setJiraProjectCode(soapModel.getJiraProjectCode());
 
 		return model;
 	}
@@ -181,13 +172,10 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraProjectId", getJiraProjectId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("key", getKey());
 		attributes.put("name", getName());
-		attributes.put("label", getLabel());
-		attributes.put("jiraProjectCode", getJiraProjectCode());
 
 		return attributes;
 	}
@@ -198,18 +186,6 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 
 		if (jiraProjectId != null) {
 			setJiraProjectId(jiraProjectId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -224,22 +200,16 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 			setModifiedDate(modifiedDate);
 		}
 
+		String key = (String)attributes.get("key");
+
+		if (key != null) {
+			setKey(key);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
 			setName(name);
-		}
-
-		String label = (String)attributes.get("label");
-
-		if (label != null) {
-			setLabel(label);
-		}
-
-		Long jiraProjectCode = (Long)attributes.get("jiraProjectCode");
-
-		if (jiraProjectCode != null) {
-			setJiraProjectCode(jiraProjectCode);
 		}
 	}
 
@@ -252,43 +222,6 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 	@Override
 	public void setJiraProjectId(long jiraProjectId) {
 		_jiraProjectId = jiraProjectId;
-	}
-
-	@JSON
-	@Override
-	public long getUserId() {
-		return _userId;
-	}
-
-	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
-	}
-
-	@JSON
-	@Override
-	public String getUserName() {
-		if (_userName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _userName;
-		}
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
 	}
 
 	@JSON
@@ -315,6 +248,32 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 
 	@JSON
 	@Override
+	public String getKey() {
+		if (_key == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _key;
+		}
+	}
+
+	@Override
+	public void setKey(String key) {
+		_columnBitmask |= KEY_COLUMN_BITMASK;
+
+		if (_originalKey == null) {
+			_originalKey = _key;
+		}
+
+		_key = key;
+	}
+
+	public String getOriginalKey() {
+		return GetterUtil.getString(_originalKey);
+	}
+
+	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return StringPool.BLANK;
@@ -337,55 +296,6 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 
 	public String getOriginalName() {
 		return GetterUtil.getString(_originalName);
-	}
-
-	@JSON
-	@Override
-	public String getLabel() {
-		if (_label == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _label;
-		}
-	}
-
-	@Override
-	public void setLabel(String label) {
-		_columnBitmask |= LABEL_COLUMN_BITMASK;
-
-		if (_originalLabel == null) {
-			_originalLabel = _label;
-		}
-
-		_label = label;
-	}
-
-	public String getOriginalLabel() {
-		return GetterUtil.getString(_originalLabel);
-	}
-
-	@JSON
-	@Override
-	public long getJiraProjectCode() {
-		return _jiraProjectCode;
-	}
-
-	@Override
-	public void setJiraProjectCode(long jiraProjectCode) {
-		_columnBitmask |= JIRAPROJECTCODE_COLUMN_BITMASK;
-
-		if (!_setOriginalJiraProjectCode) {
-			_setOriginalJiraProjectCode = true;
-
-			_originalJiraProjectCode = _jiraProjectCode;
-		}
-
-		_jiraProjectCode = jiraProjectCode;
-	}
-
-	public long getOriginalJiraProjectCode() {
-		return _originalJiraProjectCode;
 	}
 
 	public long getColumnBitmask() {
@@ -420,13 +330,10 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 		JiraProjectImpl jiraProjectImpl = new JiraProjectImpl();
 
 		jiraProjectImpl.setJiraProjectId(getJiraProjectId());
-		jiraProjectImpl.setUserId(getUserId());
-		jiraProjectImpl.setUserName(getUserName());
 		jiraProjectImpl.setCreateDate(getCreateDate());
 		jiraProjectImpl.setModifiedDate(getModifiedDate());
+		jiraProjectImpl.setKey(getKey());
 		jiraProjectImpl.setName(getName());
-		jiraProjectImpl.setLabel(getLabel());
-		jiraProjectImpl.setJiraProjectCode(getJiraProjectCode());
 
 		jiraProjectImpl.resetOriginalValues();
 
@@ -477,13 +384,9 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 	public void resetOriginalValues() {
 		JiraProjectModelImpl jiraProjectModelImpl = this;
 
+		jiraProjectModelImpl._originalKey = jiraProjectModelImpl._key;
+
 		jiraProjectModelImpl._originalName = jiraProjectModelImpl._name;
-
-		jiraProjectModelImpl._originalLabel = jiraProjectModelImpl._label;
-
-		jiraProjectModelImpl._originalJiraProjectCode = jiraProjectModelImpl._jiraProjectCode;
-
-		jiraProjectModelImpl._setOriginalJiraProjectCode = false;
 
 		jiraProjectModelImpl._columnBitmask = 0;
 	}
@@ -493,16 +396,6 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 		JiraProjectCacheModel jiraProjectCacheModel = new JiraProjectCacheModel();
 
 		jiraProjectCacheModel.jiraProjectId = getJiraProjectId();
-
-		jiraProjectCacheModel.userId = getUserId();
-
-		jiraProjectCacheModel.userName = getUserName();
-
-		String userName = jiraProjectCacheModel.userName;
-
-		if ((userName != null) && (userName.length() == 0)) {
-			jiraProjectCacheModel.userName = null;
-		}
 
 		Date createDate = getCreateDate();
 
@@ -522,6 +415,14 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 			jiraProjectCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+		jiraProjectCacheModel.key = getKey();
+
+		String key = jiraProjectCacheModel.key;
+
+		if ((key != null) && (key.length() == 0)) {
+			jiraProjectCacheModel.key = null;
+		}
+
 		jiraProjectCacheModel.name = getName();
 
 		String name = jiraProjectCacheModel.name;
@@ -530,39 +431,23 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 			jiraProjectCacheModel.name = null;
 		}
 
-		jiraProjectCacheModel.label = getLabel();
-
-		String label = jiraProjectCacheModel.label;
-
-		if ((label != null) && (label.length() == 0)) {
-			jiraProjectCacheModel.label = null;
-		}
-
-		jiraProjectCacheModel.jiraProjectCode = getJiraProjectCode();
-
 		return jiraProjectCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{jiraProjectId=");
 		sb.append(getJiraProjectId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", key=");
+		sb.append(getKey());
 		sb.append(", name=");
 		sb.append(getName());
-		sb.append(", label=");
-		sb.append(getLabel());
-		sb.append(", jiraProjectCode=");
-		sb.append(getJiraProjectCode());
 		sb.append("}");
 
 		return sb.toString();
@@ -570,7 +455,7 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraProject");
@@ -581,14 +466,6 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 		sb.append(getJiraProjectId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
 		sb.append(getCreateDate());
 		sb.append("]]></column-value></column>");
@@ -597,16 +474,12 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>key</column-name><column-value><![CDATA[");
+		sb.append(getKey());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>name</column-name><column-value><![CDATA[");
 		sb.append(getName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>label</column-name><column-value><![CDATA[");
-		sb.append(getLabel());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>jiraProjectCode</column-name><column-value><![CDATA[");
-		sb.append(getJiraProjectCode());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -619,18 +492,12 @@ public class JiraProjectModelImpl extends BaseModelImpl<JiraProject>
 			JiraProject.class
 		};
 	private long _jiraProjectId;
-	private long _userId;
-	private String _userUuid;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _key;
+	private String _originalKey;
 	private String _name;
 	private String _originalName;
-	private String _label;
-	private String _originalLabel;
-	private long _jiraProjectCode;
-	private long _originalJiraProjectCode;
-	private boolean _setOriginalJiraProjectCode;
 	private long _columnBitmask;
 	private JiraProject _escapedModel;
 }

@@ -117,8 +117,7 @@ public class JiraStatusLocalServiceClpInvoker {
 		_methodName58 = "addJiraStatus";
 
 		_methodParameterTypes58 = new String[] {
-				"com.liferay.portal.model.User", "long", "long",
-				"java.lang.String"
+				"long", "long", "java.lang.String"
 			};
 
 		_methodName59 = "getJiraStatusByJiraStatusCode";
@@ -237,9 +236,8 @@ public class JiraStatusLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.addJiraStatus((com.liferay.portal.model.User)arguments[0],
-				((Long)arguments[1]).longValue(),
-				((Long)arguments[2]).longValue(), (java.lang.String)arguments[3]);
+			return JiraStatusLocalServiceUtil.addJiraStatus(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(), (java.lang.String)arguments[2]);
 		}
 
 		if (_methodName59.equals(name) &&

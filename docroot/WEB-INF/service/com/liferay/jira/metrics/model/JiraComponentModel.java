@@ -15,7 +15,6 @@
 package com.liferay.jira.metrics.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.service.ServiceContext;
@@ -73,50 +72,6 @@ public interface JiraComponentModel extends BaseModel<JiraComponent> {
 	 * @param jiraComponentId the jira component ID of this jira component
 	 */
 	public void setJiraComponentId(long jiraComponentId);
-
-	/**
-	 * Returns the user ID of this jira component.
-	 *
-	 * @return the user ID of this jira component
-	 */
-	public long getUserId();
-
-	/**
-	 * Sets the user ID of this jira component.
-	 *
-	 * @param userId the user ID of this jira component
-	 */
-	public void setUserId(long userId);
-
-	/**
-	 * Returns the user uuid of this jira component.
-	 *
-	 * @return the user uuid of this jira component
-	 * @throws SystemException if a system exception occurred
-	 */
-	public String getUserUuid() throws SystemException;
-
-	/**
-	 * Sets the user uuid of this jira component.
-	 *
-	 * @param userUuid the user uuid of this jira component
-	 */
-	public void setUserUuid(String userUuid);
-
-	/**
-	 * Returns the user name of this jira component.
-	 *
-	 * @return the user name of this jira component
-	 */
-	@AutoEscape
-	public String getUserName();
-
-	/**
-	 * Sets the user name of this jira component.
-	 *
-	 * @param userName the user name of this jira component
-	 */
-	public void setUserName(String userName);
 
 	/**
 	 * Returns the create date of this jira component.

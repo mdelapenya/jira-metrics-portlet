@@ -118,25 +118,20 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 		_methodName19 = "addJiraProject";
 
 		_methodParameterTypes19 = new String[] {
-				"com.liferay.portal.model.User", "long", "java.lang.String",
-				"java.lang.String"
+				"java.lang.String", "java.lang.String"
 			};
 
 		_methodName20 = "getJiraProjectByName";
 
 		_methodParameterTypes20 = new String[] { "java.lang.String" };
 
-		_methodName21 = "getJiraProjectByProjectCode";
+		_methodName21 = "getJiraProjectByProjectLabel";
 
-		_methodParameterTypes21 = new String[] { "long" };
+		_methodParameterTypes21 = new String[] { "java.lang.String" };
 
-		_methodName22 = "getJiraProjectByProjectLabel";
+		_methodName22 = "getAllJiraProjects";
 
-		_methodParameterTypes22 = new String[] { "java.lang.String" };
-
-		_methodName23 = "getAllJiraProjects";
-
-		_methodParameterTypes23 = new String[] {  };
+		_methodParameterTypes22 = new String[] {  };
 	}
 
 	@Override
@@ -691,8 +686,7 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraProject addJiraProject(
-		com.liferay.portal.model.User user, long jiraProjectCode,
-		java.lang.String label, java.lang.String name)
+		java.lang.String key, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -701,11 +695,7 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
 					new Object[] {
-						ClpSerializer.translateInput(user),
-						
-					jiraProjectCode,
-						
-					ClpSerializer.translateInput(label),
+						ClpSerializer.translateInput(key),
 						
 					ClpSerializer.translateInput(name)
 					});
@@ -769,40 +759,6 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectCode(
-		long projectCode)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { projectCode });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.jira.metrics.NoSuchJiraProjectException) {
-				throw (com.liferay.jira.metrics.NoSuchJiraProjectException)t;
-			}
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.liferay.jira.metrics.model.JiraProject)ClpSerializer.translateOutput(returnObj);
-	}
-
-	@Override
 	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectLabel(
 		java.lang.String label)
 		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
@@ -810,8 +766,8 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] { ClpSerializer.translateInput(label) });
 		}
 		catch (Throwable t) {
@@ -843,8 +799,8 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -910,6 +866,4 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 	private String[] _methodParameterTypes21;
 	private String _methodName22;
 	private String[] _methodParameterTypes22;
-	private String _methodName23;
-	private String[] _methodParameterTypes23;
 }

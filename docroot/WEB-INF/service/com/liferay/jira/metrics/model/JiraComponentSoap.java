@@ -32,8 +32,6 @@ public class JiraComponentSoap implements Serializable {
 		JiraComponentSoap soapModel = new JiraComponentSoap();
 
 		soapModel.setJiraComponentId(model.getJiraComponentId());
-		soapModel.setUserId(model.getUserId());
-		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setJiraComponentCode(model.getJiraComponentCode());
@@ -100,22 +98,6 @@ public class JiraComponentSoap implements Serializable {
 		_jiraComponentId = jiraComponentId;
 	}
 
-	public long getUserId() {
-		return _userId;
-	}
-
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -165,8 +147,6 @@ public class JiraComponentSoap implements Serializable {
 	}
 
 	private long _jiraComponentId;
-	private long _userId;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _jiraComponentCode;

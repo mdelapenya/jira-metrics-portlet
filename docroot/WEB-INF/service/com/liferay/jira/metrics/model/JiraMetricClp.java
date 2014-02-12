@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.util.PortalUtil;
 
 import java.io.Serializable;
 
@@ -76,8 +75,6 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraMetricId", getJiraMetricId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraProjectId", getJiraProjectId());
@@ -98,18 +95,6 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 
 		if (jiraMetricId != null) {
 			setJiraMetricId(jiraMetricId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -189,62 +174,6 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 				Method method = clazz.getMethod("setJiraMetricId", long.class);
 
 				method.invoke(_jiraMetricRemoteModel, jiraMetricId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getUserId() {
-		return _userId;
-	}
-
-	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
-
-		if (_jiraMetricRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraMetricRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserId", long.class);
-
-				method.invoke(_jiraMetricRemoteModel, userId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
-	}
-
-	@Override
-	public String getUserName() {
-		return _userName;
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
-
-		if (_jiraMetricRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraMetricRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserName", String.class);
-
-				method.invoke(_jiraMetricRemoteModel, userName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -552,8 +481,6 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		JiraMetricClp clone = new JiraMetricClp();
 
 		clone.setJiraMetricId(getJiraMetricId());
-		clone.setUserId(getUserId());
-		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setJiraProjectId(getJiraProjectId());
@@ -612,14 +539,10 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{jiraMetricId=");
 		sb.append(getJiraMetricId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
@@ -647,7 +570,7 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraMetric");
@@ -656,14 +579,6 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		sb.append(
 			"<column><column-name>jiraMetricId</column-name><column-value><![CDATA[");
 		sb.append(getJiraMetricId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
@@ -712,9 +627,6 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 	}
 
 	private long _jiraMetricId;
-	private long _userId;
-	private String _userUuid;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _jiraProjectId;

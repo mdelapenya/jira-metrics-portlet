@@ -32,13 +32,10 @@ public class JiraProjectSoap implements Serializable {
 		JiraProjectSoap soapModel = new JiraProjectSoap();
 
 		soapModel.setJiraProjectId(model.getJiraProjectId());
-		soapModel.setUserId(model.getUserId());
-		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setKey(model.getKey());
 		soapModel.setName(model.getName());
-		soapModel.setLabel(model.getLabel());
-		soapModel.setJiraProjectCode(model.getJiraProjectCode());
 
 		return soapModel;
 	}
@@ -99,22 +96,6 @@ public class JiraProjectSoap implements Serializable {
 		_jiraProjectId = jiraProjectId;
 	}
 
-	public long getUserId() {
-		return _userId;
-	}
-
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	public String getUserName() {
-		return _userName;
-	}
-
-	public void setUserName(String userName) {
-		_userName = userName;
-	}
-
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -131,6 +112,14 @@ public class JiraProjectSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public String getKey() {
+		return _key;
+	}
+
+	public void setKey(String key) {
+		_key = key;
+	}
+
 	public String getName() {
 		return _name;
 	}
@@ -139,28 +128,9 @@ public class JiraProjectSoap implements Serializable {
 		_name = name;
 	}
 
-	public String getLabel() {
-		return _label;
-	}
-
-	public void setLabel(String label) {
-		_label = label;
-	}
-
-	public long getJiraProjectCode() {
-		return _jiraProjectCode;
-	}
-
-	public void setJiraProjectCode(long jiraProjectCode) {
-		_jiraProjectCode = jiraProjectCode;
-	}
-
 	private long _jiraProjectId;
-	private long _userId;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _key;
 	private String _name;
-	private String _label;
-	private long _jiraProjectCode;
 }

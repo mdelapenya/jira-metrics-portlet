@@ -118,8 +118,7 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 		_methodName19 = "addJiraStatus";
 
 		_methodParameterTypes19 = new String[] {
-				"com.liferay.portal.model.User", "long", "long",
-				"java.lang.String"
+				"long", "long", "java.lang.String"
 			};
 
 		_methodName20 = "getJiraStatusByJiraStatusCode";
@@ -687,8 +686,7 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraStatus addJiraStatus(
-		com.liferay.portal.model.User user, long jiraStatusCode,
-		long jiraProjectId, java.lang.String name)
+		long jiraStatusCode, long jiraProjectId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -697,9 +695,7 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
 					new Object[] {
-						ClpSerializer.translateInput(user),
-						
-					jiraStatusCode,
+						jiraStatusCode,
 						
 					jiraProjectId,
 						

@@ -14,8 +14,6 @@
 
 package com.liferay.jira.metrics.model;
 
-import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.service.ServiceContext;
@@ -73,50 +71,6 @@ public interface JiraMetricModel extends BaseModel<JiraMetric> {
 	 * @param jiraMetricId the jira metric ID of this jira metric
 	 */
 	public void setJiraMetricId(long jiraMetricId);
-
-	/**
-	 * Returns the user ID of this jira metric.
-	 *
-	 * @return the user ID of this jira metric
-	 */
-	public long getUserId();
-
-	/**
-	 * Sets the user ID of this jira metric.
-	 *
-	 * @param userId the user ID of this jira metric
-	 */
-	public void setUserId(long userId);
-
-	/**
-	 * Returns the user uuid of this jira metric.
-	 *
-	 * @return the user uuid of this jira metric
-	 * @throws SystemException if a system exception occurred
-	 */
-	public String getUserUuid() throws SystemException;
-
-	/**
-	 * Sets the user uuid of this jira metric.
-	 *
-	 * @param userUuid the user uuid of this jira metric
-	 */
-	public void setUserUuid(String userUuid);
-
-	/**
-	 * Returns the user name of this jira metric.
-	 *
-	 * @return the user name of this jira metric
-	 */
-	@AutoEscape
-	public String getUserName();
-
-	/**
-	 * Sets the user name of this jira metric.
-	 *
-	 * @param userName the user name of this jira metric
-	 */
-	public void setUserName(String userName);
 
 	/**
 	 * Returns the create date of this jira metric.

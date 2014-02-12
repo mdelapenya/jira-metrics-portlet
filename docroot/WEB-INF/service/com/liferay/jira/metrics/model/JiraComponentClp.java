@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.util.PortalUtil;
 
 import java.io.Serializable;
 
@@ -76,8 +75,6 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraComponentId", getJiraComponentId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraComponentCode", getJiraComponentCode());
@@ -94,18 +91,6 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 
 		if (jiraComponentId != null) {
 			setJiraComponentId(jiraComponentId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -161,62 +146,6 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 				Method method = clazz.getMethod("setJiraComponentId", long.class);
 
 				method.invoke(_jiraComponentRemoteModel, jiraComponentId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getUserId() {
-		return _userId;
-	}
-
-	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
-
-		if (_jiraComponentRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraComponentRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserId", long.class);
-
-				method.invoke(_jiraComponentRemoteModel, userId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
-	}
-
-	@Override
-	public String getUserName() {
-		return _userName;
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
-
-		if (_jiraComponentRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraComponentRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserName", String.class);
-
-				method.invoke(_jiraComponentRemoteModel, userName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -434,8 +363,6 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		JiraComponentClp clone = new JiraComponentClp();
 
 		clone.setJiraComponentId(getJiraComponentId());
-		clone.setUserId(getUserId());
-		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setJiraComponentCode(getJiraComponentCode());
@@ -488,14 +415,10 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{jiraComponentId=");
 		sb.append(getJiraComponentId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
@@ -515,7 +438,7 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraComponent");
@@ -524,14 +447,6 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		sb.append(
 			"<column><column-name>jiraComponentId</column-name><column-value><![CDATA[");
 		sb.append(getJiraComponentId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
@@ -564,9 +479,6 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 	}
 
 	private long _jiraComponentId;
-	private long _userId;
-	private String _userUuid;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _jiraComponentCode;

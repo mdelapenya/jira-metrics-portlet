@@ -19,7 +19,6 @@ import com.liferay.jira.metrics.model.JiraStatusModel;
 import com.liferay.jira.metrics.model.JiraStatusSoap;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -28,7 +27,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
@@ -67,15 +65,13 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 	public static final String TABLE_NAME = "jirametrics_JiraStatus";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "jiraStatusId", Types.BIGINT },
-			{ "userId", Types.BIGINT },
-			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "jiraStatusCode", Types.BIGINT },
 			{ "jiraProjectId", Types.BIGINT },
 			{ "name", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraStatus (jiraStatusId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,jiraStatusCode LONG,jiraProjectId LONG,name VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraStatus (jiraStatusId LONG not null primary key,createDate DATE null,modifiedDate DATE null,jiraStatusCode LONG,jiraProjectId LONG,name VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table jirametrics_JiraStatus";
 	public static final String ORDER_BY_JPQL = " ORDER BY jiraStatus.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY jirametrics_JiraStatus.name ASC";
@@ -109,8 +105,6 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		JiraStatus model = new JiraStatusImpl();
 
 		model.setJiraStatusId(soapModel.getJiraStatusId());
-		model.setUserId(soapModel.getUserId());
-		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setJiraStatusCode(soapModel.getJiraStatusCode());
@@ -181,8 +175,6 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraStatusId", getJiraStatusId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraStatusCode", getJiraStatusCode());
@@ -198,18 +190,6 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 
 		if (jiraStatusId != null) {
 			setJiraStatusId(jiraStatusId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -252,43 +232,6 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 	@Override
 	public void setJiraStatusId(long jiraStatusId) {
 		_jiraStatusId = jiraStatusId;
-	}
-
-	@JSON
-	@Override
-	public long getUserId() {
-		return _userId;
-	}
-
-	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
-	}
-
-	@JSON
-	@Override
-	public String getUserName() {
-		if (_userName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _userName;
-		}
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
 	}
 
 	@JSON
@@ -417,8 +360,6 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		JiraStatusImpl jiraStatusImpl = new JiraStatusImpl();
 
 		jiraStatusImpl.setJiraStatusId(getJiraStatusId());
-		jiraStatusImpl.setUserId(getUserId());
-		jiraStatusImpl.setUserName(getUserName());
 		jiraStatusImpl.setCreateDate(getCreateDate());
 		jiraStatusImpl.setModifiedDate(getModifiedDate());
 		jiraStatusImpl.setJiraStatusCode(getJiraStatusCode());
@@ -493,16 +434,6 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 
 		jiraStatusCacheModel.jiraStatusId = getJiraStatusId();
 
-		jiraStatusCacheModel.userId = getUserId();
-
-		jiraStatusCacheModel.userName = getUserName();
-
-		String userName = jiraStatusCacheModel.userName;
-
-		if ((userName != null) && (userName.length() == 0)) {
-			jiraStatusCacheModel.userName = null;
-		}
-
 		Date createDate = getCreateDate();
 
 		if (createDate != null) {
@@ -538,14 +469,10 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{jiraStatusId=");
 		sb.append(getJiraStatusId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
@@ -563,7 +490,7 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(22);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraStatus");
@@ -572,14 +499,6 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		sb.append(
 			"<column><column-name>jiraStatusId</column-name><column-value><![CDATA[");
 		sb.append(getJiraStatusId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
@@ -612,9 +531,6 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 			JiraStatus.class
 		};
 	private long _jiraStatusId;
-	private long _userId;
-	private String _userUuid;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _jiraStatusCode;

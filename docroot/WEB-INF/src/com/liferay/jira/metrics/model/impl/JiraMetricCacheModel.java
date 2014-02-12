@@ -17,7 +17,6 @@ package com.liferay.jira.metrics.model.impl;
 import com.liferay.jira.metrics.model.JiraMetric;
 
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 
 import java.io.Externalizable;
@@ -38,14 +37,10 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{jiraMetricId=");
 		sb.append(jiraMetricId);
-		sb.append(", userId=");
-		sb.append(userId);
-		sb.append(", userName=");
-		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
@@ -76,14 +71,6 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 		JiraMetricImpl jiraMetricImpl = new JiraMetricImpl();
 
 		jiraMetricImpl.setJiraMetricId(jiraMetricId);
-		jiraMetricImpl.setUserId(userId);
-
-		if (userName == null) {
-			jiraMetricImpl.setUserName(StringPool.BLANK);
-		}
-		else {
-			jiraMetricImpl.setUserName(userName);
-		}
 
 		if (createDate == Long.MIN_VALUE) {
 			jiraMetricImpl.setCreateDate(null);
@@ -116,8 +103,6 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		jiraMetricId = objectInput.readLong();
-		userId = objectInput.readLong();
-		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		jiraProjectId = objectInput.readLong();
@@ -134,15 +119,6 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(jiraMetricId);
-		objectOutput.writeLong(userId);
-
-		if (userName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(userName);
-		}
-
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 		objectOutput.writeLong(jiraProjectId);
@@ -156,8 +132,6 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 	}
 
 	public long jiraMetricId;
-	public long userId;
-	public String userName;
 	public long createDate;
 	public long modifiedDate;
 	public long jiraProjectId;

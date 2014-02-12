@@ -38,14 +38,10 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{jiraComponentId=");
 		sb.append(jiraComponentId);
-		sb.append(", userId=");
-		sb.append(userId);
-		sb.append(", userName=");
-		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
@@ -68,14 +64,6 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 		JiraComponentImpl jiraComponentImpl = new JiraComponentImpl();
 
 		jiraComponentImpl.setJiraComponentId(jiraComponentId);
-		jiraComponentImpl.setUserId(userId);
-
-		if (userName == null) {
-			jiraComponentImpl.setUserName(StringPool.BLANK);
-		}
-		else {
-			jiraComponentImpl.setUserName(userName);
-		}
 
 		if (createDate == Long.MIN_VALUE) {
 			jiraComponentImpl.setCreateDate(null);
@@ -111,8 +99,6 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		jiraComponentId = objectInput.readLong();
-		userId = objectInput.readLong();
-		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		jiraComponentCode = objectInput.readLong();
@@ -125,15 +111,6 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(jiraComponentId);
-		objectOutput.writeLong(userId);
-
-		if (userName == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(userName);
-		}
-
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 		objectOutput.writeLong(jiraComponentCode);
@@ -150,8 +127,6 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 	}
 
 	public long jiraComponentId;
-	public long userId;
-	public String userName;
 	public long createDate;
 	public long modifiedDate;
 	public long jiraComponentCode;

@@ -276,12 +276,10 @@ public class JiraStatusLocalServiceUtil {
 	}
 
 	public static com.liferay.jira.metrics.model.JiraStatus addJiraStatus(
-		com.liferay.portal.model.User user, long jiraStatusCode,
-		long jiraProjectId, java.lang.String name)
+		long jiraStatusCode, long jiraProjectId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .addJiraStatus(user, jiraStatusCode, jiraProjectId, name);
+		return getService().addJiraStatus(jiraStatusCode, jiraProjectId, name);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByJiraStatusCode(

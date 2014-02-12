@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
-import com.liferay.portal.util.PortalUtil;
 
 import java.io.Serializable;
 
@@ -76,8 +75,6 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraStatusId", getJiraStatusId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraStatusCode", getJiraStatusCode());
@@ -93,18 +90,6 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 
 		if (jiraStatusId != null) {
 			setJiraStatusId(jiraStatusId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -154,62 +139,6 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 				Method method = clazz.getMethod("setJiraStatusId", long.class);
 
 				method.invoke(_jiraStatusRemoteModel, jiraStatusId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getUserId() {
-		return _userId;
-	}
-
-	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
-
-		if (_jiraStatusRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraStatusRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserId", long.class);
-
-				method.invoke(_jiraStatusRemoteModel, userId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
-	}
-
-	@Override
-	public String getUserName() {
-		return _userName;
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
-
-		if (_jiraStatusRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraStatusRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setUserName", String.class);
-
-				method.invoke(_jiraStatusRemoteModel, userName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -402,8 +331,6 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		JiraStatusClp clone = new JiraStatusClp();
 
 		clone.setJiraStatusId(getJiraStatusId());
-		clone.setUserId(getUserId());
-		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setJiraStatusCode(getJiraStatusCode());
@@ -455,14 +382,10 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{jiraStatusId=");
 		sb.append(getJiraStatusId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
@@ -480,7 +403,7 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(28);
+		StringBundler sb = new StringBundler(22);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraStatus");
@@ -489,14 +412,6 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		sb.append(
 			"<column><column-name>jiraStatusId</column-name><column-value><![CDATA[");
 		sb.append(getJiraStatusId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
@@ -525,9 +440,6 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 	}
 
 	private long _jiraStatusId;
-	private long _userId;
-	private String _userUuid;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _jiraStatusCode;

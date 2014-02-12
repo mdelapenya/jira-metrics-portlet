@@ -111,140 +111,71 @@ public class JiraProjectUtil {
 	}
 
 	/**
-	* Returns the jira project where jiraProjectCode = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraProjectException} if it could not be found.
+	* Returns the jira project where key = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraProjectException} if it could not be found.
 	*
-	* @param jiraProjectCode the jira project code
-	* @return the matching jira project
-	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.jira.metrics.model.JiraProject findByJiraProjectCode(
-		long jiraProjectCode)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByJiraProjectCode(jiraProjectCode);
-	}
-
-	/**
-	* Returns the jira project where jiraProjectCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	*
-	* @param jiraProjectCode the jira project code
-	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.jira.metrics.model.JiraProject fetchByJiraProjectCode(
-		long jiraProjectCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByJiraProjectCode(jiraProjectCode);
-	}
-
-	/**
-	* Returns the jira project where jiraProjectCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	*
-	* @param jiraProjectCode the jira project code
-	* @param retrieveFromCache whether to use the finder cache
-	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.jira.metrics.model.JiraProject fetchByJiraProjectCode(
-		long jiraProjectCode, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .fetchByJiraProjectCode(jiraProjectCode, retrieveFromCache);
-	}
-
-	/**
-	* Removes the jira project where jiraProjectCode = &#63; from the database.
-	*
-	* @param jiraProjectCode the jira project code
-	* @return the jira project that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.jira.metrics.model.JiraProject removeByJiraProjectCode(
-		long jiraProjectCode)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().removeByJiraProjectCode(jiraProjectCode);
-	}
-
-	/**
-	* Returns the number of jira projects where jiraProjectCode = &#63;.
-	*
-	* @param jiraProjectCode the jira project code
-	* @return the number of matching jira projects
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByJiraProjectCode(long jiraProjectCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByJiraProjectCode(jiraProjectCode);
-	}
-
-	/**
-	* Returns the jira project where label = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraProjectException} if it could not be found.
-	*
-	* @param label the label
+	* @param key the key
 	* @return the matching jira project
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a matching jira project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject findByLabel(
-		java.lang.String label)
+		java.lang.String key)
 		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByLabel(label);
+		return getPersistence().findByLabel(key);
 	}
 
 	/**
-	* Returns the jira project where label = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the jira project where key = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param label the label
+	* @param key the key
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject fetchByLabel(
-		java.lang.String label)
+		java.lang.String key)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByLabel(label);
+		return getPersistence().fetchByLabel(key);
 	}
 
 	/**
-	* Returns the jira project where label = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the jira project where key = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param label the label
+	* @param key the key
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject fetchByLabel(
-		java.lang.String label, boolean retrieveFromCache)
+		java.lang.String key, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByLabel(label, retrieveFromCache);
+		return getPersistence().fetchByLabel(key, retrieveFromCache);
 	}
 
 	/**
-	* Removes the jira project where label = &#63; from the database.
+	* Removes the jira project where key = &#63; from the database.
 	*
-	* @param label the label
+	* @param key the key
 	* @return the jira project that was removed
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject removeByLabel(
-		java.lang.String label)
+		java.lang.String key)
 		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().removeByLabel(label);
+		return getPersistence().removeByLabel(key);
 	}
 
 	/**
-	* Returns the number of jira projects where label = &#63;.
+	* Returns the number of jira projects where key = &#63;.
 	*
-	* @param label the label
+	* @param key the key
 	* @return the number of matching jira projects
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByLabel(java.lang.String label)
+	public static int countByLabel(java.lang.String key)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByLabel(label);
+		return getPersistence().countByLabel(key);
 	}
 
 	/**

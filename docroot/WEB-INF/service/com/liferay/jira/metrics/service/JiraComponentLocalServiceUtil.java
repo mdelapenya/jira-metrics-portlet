@@ -276,13 +276,13 @@ public class JiraComponentLocalServiceUtil {
 	}
 
 	public static com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
-		com.liferay.portal.model.User user, long jiraComponentCode,
-		long jiraProjectId, java.lang.String name, int jiraStatusId)
+		long jiraComponentCode, long jiraProjectId, java.lang.String name,
+		int jiraStatusId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addJiraComponent(user, jiraComponentCode, jiraProjectId,
-			name, jiraStatusId);
+				   .addJiraComponent(jiraComponentCode, jiraProjectId, name,
+			jiraStatusId);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(

@@ -10,8 +10,6 @@
 	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraComponentModelImpl">
 		<attributes>
 			<id name="jiraComponentId" />
-			<basic name="userId" />
-			<basic name="userName" />
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
@@ -25,14 +23,11 @@
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
-			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraMetricModelImpl">
 		<attributes>
 			<id name="jiraMetricId" />
-			<basic name="userId" />
-			<basic name="userName" />
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
@@ -50,34 +45,29 @@
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
-			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraProjectModelImpl">
 		<attributes>
 			<id name="jiraProjectId" />
-			<basic name="userId" />
-			<basic name="userName" />
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="key">
+				<column name="KEY_" />
+			</basic>
 			<basic name="name" />
-			<basic name="label" />
-			<basic name="jiraProjectCode" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
-			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
 	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraStatusModelImpl">
 		<attributes>
 			<id name="jiraStatusId" />
-			<basic name="userId" />
-			<basic name="userName" />
 			<basic name="createDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
@@ -90,7 +80,6 @@
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
-			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
 	<entity class="com.liferay.jira.metrics.model.impl.JiraComponentImpl" name="JiraComponent">

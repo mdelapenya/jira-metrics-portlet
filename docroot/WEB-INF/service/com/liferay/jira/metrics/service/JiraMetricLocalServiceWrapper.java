@@ -289,12 +289,11 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric addJiraMetric(
-		com.liferay.portal.model.User user, long jiraProjectId,
-		long jiraComponentId, long jiraStatusId, int priority,
-		java.util.Date date, int total)
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, java.util.Date date, int total)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _jiraMetricLocalService.addJiraMetric(user, jiraProjectId,
+		return _jiraMetricLocalService.addJiraMetric(jiraProjectId,
 			jiraComponentId, jiraStatusId, priority, date, total);
 	}
 

@@ -250,8 +250,7 @@ public interface JiraProjectLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public com.liferay.jira.metrics.model.JiraProject addJiraProject(
-		com.liferay.portal.model.User user, long jiraProjectCode,
-		java.lang.String label, java.lang.String name)
+		java.lang.String key, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -266,20 +265,6 @@ public interface JiraProjectLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByName(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Gets a Jira Project by projectCode
-	*
-	* @param projectCode
-	* @return
-	* @throws NoSuchJiraProjectException
-	* @throws SystemException
-	*/
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectCode(
-		long projectCode)
 		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
 			com.liferay.portal.kernel.exception.SystemException;
 

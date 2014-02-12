@@ -19,7 +19,6 @@ import com.liferay.jira.metrics.model.JiraComponentModel;
 import com.liferay.jira.metrics.model.JiraComponentSoap;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
@@ -28,7 +27,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
@@ -67,8 +65,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 	public static final String TABLE_NAME = "jirametrics_JiraComponent";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "jiraComponentId", Types.BIGINT },
-			{ "userId", Types.BIGINT },
-			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "jiraComponentCode", Types.BIGINT },
@@ -76,7 +72,7 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 			{ "name", Types.VARCHAR },
 			{ "status", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraComponent (jiraComponentId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,jiraComponentCode LONG,jiraProjectId LONG,name VARCHAR(75) null,status INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraComponent (jiraComponentId LONG not null primary key,createDate DATE null,modifiedDate DATE null,jiraComponentCode LONG,jiraProjectId LONG,name VARCHAR(75) null,status INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table jirametrics_JiraComponent";
 	public static final String ORDER_BY_JPQL = " ORDER BY jiraComponent.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY jirametrics_JiraComponent.name ASC";
@@ -110,8 +106,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		JiraComponent model = new JiraComponentImpl();
 
 		model.setJiraComponentId(soapModel.getJiraComponentId());
-		model.setUserId(soapModel.getUserId());
-		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setJiraComponentCode(soapModel.getJiraComponentCode());
@@ -183,8 +177,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraComponentId", getJiraComponentId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraComponentCode", getJiraComponentCode());
@@ -201,18 +193,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 
 		if (jiraComponentId != null) {
 			setJiraComponentId(jiraComponentId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -261,43 +241,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 	@Override
 	public void setJiraComponentId(long jiraComponentId) {
 		_jiraComponentId = jiraComponentId;
-	}
-
-	@JSON
-	@Override
-	public long getUserId() {
-		return _userId;
-	}
-
-	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
-	}
-
-	@JSON
-	@Override
-	public String getUserName() {
-		if (_userName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _userName;
-		}
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
 	}
 
 	@JSON
@@ -437,8 +380,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		JiraComponentImpl jiraComponentImpl = new JiraComponentImpl();
 
 		jiraComponentImpl.setJiraComponentId(getJiraComponentId());
-		jiraComponentImpl.setUserId(getUserId());
-		jiraComponentImpl.setUserName(getUserName());
 		jiraComponentImpl.setCreateDate(getCreateDate());
 		jiraComponentImpl.setModifiedDate(getModifiedDate());
 		jiraComponentImpl.setJiraComponentCode(getJiraComponentCode());
@@ -514,16 +455,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 
 		jiraComponentCacheModel.jiraComponentId = getJiraComponentId();
 
-		jiraComponentCacheModel.userId = getUserId();
-
-		jiraComponentCacheModel.userName = getUserName();
-
-		String userName = jiraComponentCacheModel.userName;
-
-		if ((userName != null) && (userName.length() == 0)) {
-			jiraComponentCacheModel.userName = null;
-		}
-
 		Date createDate = getCreateDate();
 
 		if (createDate != null) {
@@ -561,14 +492,10 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(19);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{jiraComponentId=");
 		sb.append(getJiraComponentId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
@@ -588,7 +515,7 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraComponent");
@@ -597,14 +524,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 		sb.append(
 			"<column><column-name>jiraComponentId</column-name><column-value><![CDATA[");
 		sb.append(getJiraComponentId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
@@ -641,9 +560,6 @@ public class JiraComponentModelImpl extends BaseModelImpl<JiraComponent>
 			JiraComponent.class
 		};
 	private long _jiraComponentId;
-	private long _userId;
-	private String _userUuid;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _jiraComponentCode;

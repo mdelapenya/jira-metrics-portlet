@@ -3,8 +3,6 @@
 <model-hints>
 	<model name="com.liferay.jira.metrics.model.JiraComponent">
 		<field name="jiraComponentId" type="long" />
-		<field name="userId" type="long" />
-		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="jiraComponentCode" type="long" />
@@ -14,8 +12,6 @@
 	</model>
 	<model name="com.liferay.jira.metrics.model.JiraMetric">
 		<field name="jiraMetricId" type="long" />
-		<field name="userId" type="long" />
-		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="jiraProjectId" type="long" />
@@ -29,18 +25,13 @@
 	</model>
 	<model name="com.liferay.jira.metrics.model.JiraProject">
 		<field name="jiraProjectId" type="long" />
-		<field name="userId" type="long" />
-		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="key" type="String" />
 		<field name="name" type="String" />
-		<field name="label" type="String" />
-		<field name="jiraProjectCode" type="long" />
 	</model>
 	<model name="com.liferay.jira.metrics.model.JiraStatus">
 		<field name="jiraStatusId" type="long" />
-		<field name="userId" type="long" />
-		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="jiraStatusCode" type="long" />

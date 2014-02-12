@@ -117,8 +117,7 @@ public class JiraComponentLocalServiceClpInvoker {
 		_methodName58 = "addJiraComponent";
 
 		_methodParameterTypes58 = new String[] {
-				"com.liferay.portal.model.User", "long", "long",
-				"java.lang.String", "int"
+				"long", "long", "java.lang.String", "int"
 			};
 
 		_methodName59 = "getJiraComponentByName";
@@ -237,11 +236,10 @@ public class JiraComponentLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.addJiraComponent((com.liferay.portal.model.User)arguments[0],
+			return JiraComponentLocalServiceUtil.addJiraComponent(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
-				((Long)arguments[2]).longValue(),
-				(java.lang.String)arguments[3],
-				((Integer)arguments[4]).intValue());
+				(java.lang.String)arguments[2],
+				((Integer)arguments[3]).intValue());
 		}
 
 		if (_methodName59.equals(name) &&

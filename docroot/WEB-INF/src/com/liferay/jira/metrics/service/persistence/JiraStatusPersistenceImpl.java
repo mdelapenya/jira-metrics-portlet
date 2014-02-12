@@ -1384,8 +1384,6 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 		jiraStatusImpl.setPrimaryKey(jiraStatus.getPrimaryKey());
 
 		jiraStatusImpl.setJiraStatusId(jiraStatus.getJiraStatusId());
-		jiraStatusImpl.setUserId(jiraStatus.getUserId());
-		jiraStatusImpl.setUserName(jiraStatus.getUserName());
 		jiraStatusImpl.setCreateDate(jiraStatus.getCreateDate());
 		jiraStatusImpl.setModifiedDate(jiraStatus.getModifiedDate());
 		jiraStatusImpl.setJiraStatusCode(jiraStatus.getJiraStatusCode());

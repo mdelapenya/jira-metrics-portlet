@@ -51,8 +51,6 @@ public class JiraComponentWrapper implements JiraComponent,
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraComponentId", getJiraComponentId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraComponentCode", getJiraComponentCode());
@@ -69,18 +67,6 @@ public class JiraComponentWrapper implements JiraComponent,
 
 		if (jiraComponentId != null) {
 			setJiraComponentId(jiraComponentId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -158,68 +144,6 @@ public class JiraComponentWrapper implements JiraComponent,
 	@Override
 	public void setJiraComponentId(long jiraComponentId) {
 		_jiraComponent.setJiraComponentId(jiraComponentId);
-	}
-
-	/**
-	* Returns the user ID of this jira component.
-	*
-	* @return the user ID of this jira component
-	*/
-	@Override
-	public long getUserId() {
-		return _jiraComponent.getUserId();
-	}
-
-	/**
-	* Sets the user ID of this jira component.
-	*
-	* @param userId the user ID of this jira component
-	*/
-	@Override
-	public void setUserId(long userId) {
-		_jiraComponent.setUserId(userId);
-	}
-
-	/**
-	* Returns the user uuid of this jira component.
-	*
-	* @return the user uuid of this jira component
-	* @throws SystemException if a system exception occurred
-	*/
-	@Override
-	public java.lang.String getUserUuid()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _jiraComponent.getUserUuid();
-	}
-
-	/**
-	* Sets the user uuid of this jira component.
-	*
-	* @param userUuid the user uuid of this jira component
-	*/
-	@Override
-	public void setUserUuid(java.lang.String userUuid) {
-		_jiraComponent.setUserUuid(userUuid);
-	}
-
-	/**
-	* Returns the user name of this jira component.
-	*
-	* @return the user name of this jira component
-	*/
-	@Override
-	public java.lang.String getUserName() {
-		return _jiraComponent.getUserName();
-	}
-
-	/**
-	* Sets the user name of this jira component.
-	*
-	* @param userName the user name of this jira component
-	*/
-	@Override
-	public void setUserName(java.lang.String userName) {
-		_jiraComponent.setUserName(userName);
 	}
 
 	/**

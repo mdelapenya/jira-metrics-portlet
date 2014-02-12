@@ -15,7 +15,6 @@
 package com.liferay.jira.metrics.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.service.ServiceContext;
@@ -75,50 +74,6 @@ public interface JiraProjectModel extends BaseModel<JiraProject> {
 	public void setJiraProjectId(long jiraProjectId);
 
 	/**
-	 * Returns the user ID of this jira project.
-	 *
-	 * @return the user ID of this jira project
-	 */
-	public long getUserId();
-
-	/**
-	 * Sets the user ID of this jira project.
-	 *
-	 * @param userId the user ID of this jira project
-	 */
-	public void setUserId(long userId);
-
-	/**
-	 * Returns the user uuid of this jira project.
-	 *
-	 * @return the user uuid of this jira project
-	 * @throws SystemException if a system exception occurred
-	 */
-	public String getUserUuid() throws SystemException;
-
-	/**
-	 * Sets the user uuid of this jira project.
-	 *
-	 * @param userUuid the user uuid of this jira project
-	 */
-	public void setUserUuid(String userUuid);
-
-	/**
-	 * Returns the user name of this jira project.
-	 *
-	 * @return the user name of this jira project
-	 */
-	@AutoEscape
-	public String getUserName();
-
-	/**
-	 * Sets the user name of this jira project.
-	 *
-	 * @param userName the user name of this jira project
-	 */
-	public void setUserName(String userName);
-
-	/**
 	 * Returns the create date of this jira project.
 	 *
 	 * @return the create date of this jira project
@@ -147,6 +102,21 @@ public interface JiraProjectModel extends BaseModel<JiraProject> {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the key of this jira project.
+	 *
+	 * @return the key of this jira project
+	 */
+	@AutoEscape
+	public String getKey();
+
+	/**
+	 * Sets the key of this jira project.
+	 *
+	 * @param key the key of this jira project
+	 */
+	public void setKey(String key);
+
+	/**
 	 * Returns the name of this jira project.
 	 *
 	 * @return the name of this jira project
@@ -160,35 +130,6 @@ public interface JiraProjectModel extends BaseModel<JiraProject> {
 	 * @param name the name of this jira project
 	 */
 	public void setName(String name);
-
-	/**
-	 * Returns the label of this jira project.
-	 *
-	 * @return the label of this jira project
-	 */
-	@AutoEscape
-	public String getLabel();
-
-	/**
-	 * Sets the label of this jira project.
-	 *
-	 * @param label the label of this jira project
-	 */
-	public void setLabel(String label);
-
-	/**
-	 * Returns the jira project code of this jira project.
-	 *
-	 * @return the jira project code of this jira project
-	 */
-	public long getJiraProjectCode();
-
-	/**
-	 * Sets the jira project code of this jira project.
-	 *
-	 * @param jiraProjectCode the jira project code of this jira project
-	 */
-	public void setJiraProjectCode(long jiraProjectCode);
 
 	@Override
 	public boolean isNew();

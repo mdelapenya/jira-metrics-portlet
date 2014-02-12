@@ -50,8 +50,6 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraStatusId", getJiraStatusId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraStatusCode", getJiraStatusCode());
@@ -67,18 +65,6 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 
 		if (jiraStatusId != null) {
 			setJiraStatusId(jiraStatusId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -150,68 +136,6 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	@Override
 	public void setJiraStatusId(long jiraStatusId) {
 		_jiraStatus.setJiraStatusId(jiraStatusId);
-	}
-
-	/**
-	* Returns the user ID of this jira status.
-	*
-	* @return the user ID of this jira status
-	*/
-	@Override
-	public long getUserId() {
-		return _jiraStatus.getUserId();
-	}
-
-	/**
-	* Sets the user ID of this jira status.
-	*
-	* @param userId the user ID of this jira status
-	*/
-	@Override
-	public void setUserId(long userId) {
-		_jiraStatus.setUserId(userId);
-	}
-
-	/**
-	* Returns the user uuid of this jira status.
-	*
-	* @return the user uuid of this jira status
-	* @throws SystemException if a system exception occurred
-	*/
-	@Override
-	public java.lang.String getUserUuid()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _jiraStatus.getUserUuid();
-	}
-
-	/**
-	* Sets the user uuid of this jira status.
-	*
-	* @param userUuid the user uuid of this jira status
-	*/
-	@Override
-	public void setUserUuid(java.lang.String userUuid) {
-		_jiraStatus.setUserUuid(userUuid);
-	}
-
-	/**
-	* Returns the user name of this jira status.
-	*
-	* @return the user name of this jira status
-	*/
-	@Override
-	public java.lang.String getUserName() {
-		return _jiraStatus.getUserName();
-	}
-
-	/**
-	* Sets the user name of this jira status.
-	*
-	* @param userName the user name of this jira status
-	*/
-	@Override
-	public void setUserName(java.lang.String userName) {
-		_jiraStatus.setUserName(userName);
 	}
 
 	/**

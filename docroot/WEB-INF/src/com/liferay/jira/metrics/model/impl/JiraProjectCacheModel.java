@@ -38,24 +38,18 @@ public class JiraProjectCacheModel implements CacheModel<JiraProject>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(17);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{jiraProjectId=");
 		sb.append(jiraProjectId);
-		sb.append(", userId=");
-		sb.append(userId);
-		sb.append(", userName=");
-		sb.append(userName);
 		sb.append(", createDate=");
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", key=");
+		sb.append(key);
 		sb.append(", name=");
 		sb.append(name);
-		sb.append(", label=");
-		sb.append(label);
-		sb.append(", jiraProjectCode=");
-		sb.append(jiraProjectCode);
 		sb.append("}");
 
 		return sb.toString();
@@ -66,14 +60,6 @@ public class JiraProjectCacheModel implements CacheModel<JiraProject>,
 		JiraProjectImpl jiraProjectImpl = new JiraProjectImpl();
 
 		jiraProjectImpl.setJiraProjectId(jiraProjectId);
-		jiraProjectImpl.setUserId(userId);
-
-		if (userName == null) {
-			jiraProjectImpl.setUserName(StringPool.BLANK);
-		}
-		else {
-			jiraProjectImpl.setUserName(userName);
-		}
 
 		if (createDate == Long.MIN_VALUE) {
 			jiraProjectImpl.setCreateDate(null);
@@ -89,21 +75,19 @@ public class JiraProjectCacheModel implements CacheModel<JiraProject>,
 			jiraProjectImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		if (key == null) {
+			jiraProjectImpl.setKey(StringPool.BLANK);
+		}
+		else {
+			jiraProjectImpl.setKey(key);
+		}
+
 		if (name == null) {
 			jiraProjectImpl.setName(StringPool.BLANK);
 		}
 		else {
 			jiraProjectImpl.setName(name);
 		}
-
-		if (label == null) {
-			jiraProjectImpl.setLabel(StringPool.BLANK);
-		}
-		else {
-			jiraProjectImpl.setLabel(label);
-		}
-
-		jiraProjectImpl.setJiraProjectCode(jiraProjectCode);
 
 		jiraProjectImpl.resetOriginalValues();
 
@@ -113,30 +97,25 @@ public class JiraProjectCacheModel implements CacheModel<JiraProject>,
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		jiraProjectId = objectInput.readLong();
-		userId = objectInput.readLong();
-		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		key = objectInput.readUTF();
 		name = objectInput.readUTF();
-		label = objectInput.readUTF();
-		jiraProjectCode = objectInput.readLong();
 	}
 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(jiraProjectId);
-		objectOutput.writeLong(userId);
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
 
-		if (userName == null) {
+		if (key == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
-			objectOutput.writeUTF(userName);
+			objectOutput.writeUTF(key);
 		}
-
-		objectOutput.writeLong(createDate);
-		objectOutput.writeLong(modifiedDate);
 
 		if (name == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -144,23 +123,11 @@ public class JiraProjectCacheModel implements CacheModel<JiraProject>,
 		else {
 			objectOutput.writeUTF(name);
 		}
-
-		if (label == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(label);
-		}
-
-		objectOutput.writeLong(jiraProjectCode);
 	}
 
 	public long jiraProjectId;
-	public long userId;
-	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public String key;
 	public String name;
-	public String label;
-	public long jiraProjectCode;
 }

@@ -15,7 +15,6 @@
 package com.liferay.jira.metrics.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.service.ServiceContext;
@@ -73,50 +72,6 @@ public interface JiraStatusModel extends BaseModel<JiraStatus> {
 	 * @param jiraStatusId the jira status ID of this jira status
 	 */
 	public void setJiraStatusId(long jiraStatusId);
-
-	/**
-	 * Returns the user ID of this jira status.
-	 *
-	 * @return the user ID of this jira status
-	 */
-	public long getUserId();
-
-	/**
-	 * Sets the user ID of this jira status.
-	 *
-	 * @param userId the user ID of this jira status
-	 */
-	public void setUserId(long userId);
-
-	/**
-	 * Returns the user uuid of this jira status.
-	 *
-	 * @return the user uuid of this jira status
-	 * @throws SystemException if a system exception occurred
-	 */
-	public String getUserUuid() throws SystemException;
-
-	/**
-	 * Sets the user uuid of this jira status.
-	 *
-	 * @param userUuid the user uuid of this jira status
-	 */
-	public void setUserUuid(String userUuid);
-
-	/**
-	 * Returns the user name of this jira status.
-	 *
-	 * @return the user name of this jira status
-	 */
-	@AutoEscape
-	public String getUserName();
-
-	/**
-	 * Sets the user name of this jira status.
-	 *
-	 * @param userName the user name of this jira status
-	 */
-	public void setUserName(String userName);
 
 	/**
 	 * Returns the create date of this jira status.

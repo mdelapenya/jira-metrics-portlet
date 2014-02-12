@@ -1483,8 +1483,6 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 		jiraMetricImpl.setPrimaryKey(jiraMetric.getPrimaryKey());
 
 		jiraMetricImpl.setJiraMetricId(jiraMetric.getJiraMetricId());
-		jiraMetricImpl.setUserId(jiraMetric.getUserId());
-		jiraMetricImpl.setUserName(jiraMetric.getUserName());
 		jiraMetricImpl.setCreateDate(jiraMetric.getCreateDate());
 		jiraMetricImpl.setModifiedDate(jiraMetric.getModifiedDate());
 		jiraMetricImpl.setJiraProjectId(jiraMetric.getJiraProjectId());

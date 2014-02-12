@@ -19,16 +19,13 @@ import com.liferay.jira.metrics.model.JiraMetricModel;
 import com.liferay.jira.metrics.model.JiraMetricSoap;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.util.PortalUtil;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
@@ -67,8 +64,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 	public static final String TABLE_NAME = "jirametrics_JiraMetric";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "jiraMetricId", Types.BIGINT },
-			{ "userId", Types.BIGINT },
-			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "jiraProjectId", Types.BIGINT },
@@ -80,7 +75,7 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 			{ "year", Types.INTEGER },
 			{ "total", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraMetric (jiraMetricId LONG not null primary key,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,jiraProjectId LONG,jiraComponentId LONG,jiraStatusId LONG,priority INTEGER,day INTEGER,month INTEGER,year INTEGER,total INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraMetric (jiraMetricId LONG not null primary key,createDate DATE null,modifiedDate DATE null,jiraProjectId LONG,jiraComponentId LONG,jiraStatusId LONG,priority INTEGER,day INTEGER,month INTEGER,year INTEGER,total INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table jirametrics_JiraMetric";
 	public static final String ORDER_BY_JPQL = " ORDER BY jiraMetric.jiraMetricId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY jirametrics_JiraMetric.jiraMetricId ASC";
@@ -119,8 +114,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		JiraMetric model = new JiraMetricImpl();
 
 		model.setJiraMetricId(soapModel.getJiraMetricId());
-		model.setUserId(soapModel.getUserId());
-		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setJiraProjectId(soapModel.getJiraProjectId());
@@ -196,8 +189,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraMetricId", getJiraMetricId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("jiraProjectId", getJiraProjectId());
@@ -218,18 +209,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 		if (jiraMetricId != null) {
 			setJiraMetricId(jiraMetricId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -302,43 +281,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 	@Override
 	public void setJiraMetricId(long jiraMetricId) {
 		_jiraMetricId = jiraMetricId;
-	}
-
-	@JSON
-	@Override
-	public long getUserId() {
-		return _userId;
-	}
-
-	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
-	}
-
-	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
-	}
-
-	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
-	}
-
-	@JSON
-	@Override
-	public String getUserName() {
-		if (_userName == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _userName;
-		}
-	}
-
-	@Override
-	public void setUserName(String userName) {
-		_userName = userName;
 	}
 
 	@JSON
@@ -567,8 +509,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		JiraMetricImpl jiraMetricImpl = new JiraMetricImpl();
 
 		jiraMetricImpl.setJiraMetricId(getJiraMetricId());
-		jiraMetricImpl.setUserId(getUserId());
-		jiraMetricImpl.setUserName(getUserName());
 		jiraMetricImpl.setCreateDate(getCreateDate());
 		jiraMetricImpl.setModifiedDate(getModifiedDate());
 		jiraMetricImpl.setJiraProjectId(getJiraProjectId());
@@ -668,16 +608,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 		jiraMetricCacheModel.jiraMetricId = getJiraMetricId();
 
-		jiraMetricCacheModel.userId = getUserId();
-
-		jiraMetricCacheModel.userName = getUserName();
-
-		String userName = jiraMetricCacheModel.userName;
-
-		if ((userName != null) && (userName.length() == 0)) {
-			jiraMetricCacheModel.userName = null;
-		}
-
 		Date createDate = getCreateDate();
 
 		if (createDate != null) {
@@ -717,14 +647,10 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{jiraMetricId=");
 		sb.append(getJiraMetricId());
-		sb.append(", userId=");
-		sb.append(getUserId());
-		sb.append(", userName=");
-		sb.append(getUserName());
 		sb.append(", createDate=");
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
@@ -752,7 +678,7 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraMetric");
@@ -761,14 +687,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		sb.append(
 			"<column><column-name>jiraMetricId</column-name><column-value><![CDATA[");
 		sb.append(getJiraMetricId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userId</column-name><column-value><![CDATA[");
-		sb.append(getUserId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>userName</column-name><column-value><![CDATA[");
-		sb.append(getUserName());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>createDate</column-name><column-value><![CDATA[");
@@ -821,9 +739,6 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 			JiraMetric.class
 		};
 	private long _jiraMetricId;
-	private long _userId;
-	private String _userUuid;
-	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _jiraProjectId;

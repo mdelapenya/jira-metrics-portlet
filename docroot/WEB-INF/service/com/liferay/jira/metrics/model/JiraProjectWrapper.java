@@ -51,13 +51,10 @@ public class JiraProjectWrapper implements JiraProject,
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("jiraProjectId", getJiraProjectId());
-		attributes.put("userId", getUserId());
-		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("key", getKey());
 		attributes.put("name", getName());
-		attributes.put("label", getLabel());
-		attributes.put("jiraProjectCode", getJiraProjectCode());
 
 		return attributes;
 	}
@@ -68,18 +65,6 @@ public class JiraProjectWrapper implements JiraProject,
 
 		if (jiraProjectId != null) {
 			setJiraProjectId(jiraProjectId);
-		}
-
-		Long userId = (Long)attributes.get("userId");
-
-		if (userId != null) {
-			setUserId(userId);
-		}
-
-		String userName = (String)attributes.get("userName");
-
-		if (userName != null) {
-			setUserName(userName);
 		}
 
 		Date createDate = (Date)attributes.get("createDate");
@@ -94,22 +79,16 @@ public class JiraProjectWrapper implements JiraProject,
 			setModifiedDate(modifiedDate);
 		}
 
+		String key = (String)attributes.get("key");
+
+		if (key != null) {
+			setKey(key);
+		}
+
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
 			setName(name);
-		}
-
-		String label = (String)attributes.get("label");
-
-		if (label != null) {
-			setLabel(label);
-		}
-
-		Long jiraProjectCode = (Long)attributes.get("jiraProjectCode");
-
-		if (jiraProjectCode != null) {
-			setJiraProjectCode(jiraProjectCode);
 		}
 	}
 
@@ -154,68 +133,6 @@ public class JiraProjectWrapper implements JiraProject,
 	}
 
 	/**
-	* Returns the user ID of this jira project.
-	*
-	* @return the user ID of this jira project
-	*/
-	@Override
-	public long getUserId() {
-		return _jiraProject.getUserId();
-	}
-
-	/**
-	* Sets the user ID of this jira project.
-	*
-	* @param userId the user ID of this jira project
-	*/
-	@Override
-	public void setUserId(long userId) {
-		_jiraProject.setUserId(userId);
-	}
-
-	/**
-	* Returns the user uuid of this jira project.
-	*
-	* @return the user uuid of this jira project
-	* @throws SystemException if a system exception occurred
-	*/
-	@Override
-	public java.lang.String getUserUuid()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _jiraProject.getUserUuid();
-	}
-
-	/**
-	* Sets the user uuid of this jira project.
-	*
-	* @param userUuid the user uuid of this jira project
-	*/
-	@Override
-	public void setUserUuid(java.lang.String userUuid) {
-		_jiraProject.setUserUuid(userUuid);
-	}
-
-	/**
-	* Returns the user name of this jira project.
-	*
-	* @return the user name of this jira project
-	*/
-	@Override
-	public java.lang.String getUserName() {
-		return _jiraProject.getUserName();
-	}
-
-	/**
-	* Sets the user name of this jira project.
-	*
-	* @param userName the user name of this jira project
-	*/
-	@Override
-	public void setUserName(java.lang.String userName) {
-		_jiraProject.setUserName(userName);
-	}
-
-	/**
 	* Returns the create date of this jira project.
 	*
 	* @return the create date of this jira project
@@ -256,6 +173,26 @@ public class JiraProjectWrapper implements JiraProject,
 	}
 
 	/**
+	* Returns the key of this jira project.
+	*
+	* @return the key of this jira project
+	*/
+	@Override
+	public java.lang.String getKey() {
+		return _jiraProject.getKey();
+	}
+
+	/**
+	* Sets the key of this jira project.
+	*
+	* @param key the key of this jira project
+	*/
+	@Override
+	public void setKey(java.lang.String key) {
+		_jiraProject.setKey(key);
+	}
+
+	/**
 	* Returns the name of this jira project.
 	*
 	* @return the name of this jira project
@@ -273,46 +210,6 @@ public class JiraProjectWrapper implements JiraProject,
 	@Override
 	public void setName(java.lang.String name) {
 		_jiraProject.setName(name);
-	}
-
-	/**
-	* Returns the label of this jira project.
-	*
-	* @return the label of this jira project
-	*/
-	@Override
-	public java.lang.String getLabel() {
-		return _jiraProject.getLabel();
-	}
-
-	/**
-	* Sets the label of this jira project.
-	*
-	* @param label the label of this jira project
-	*/
-	@Override
-	public void setLabel(java.lang.String label) {
-		_jiraProject.setLabel(label);
-	}
-
-	/**
-	* Returns the jira project code of this jira project.
-	*
-	* @return the jira project code of this jira project
-	*/
-	@Override
-	public long getJiraProjectCode() {
-		return _jiraProject.getJiraProjectCode();
-	}
-
-	/**
-	* Sets the jira project code of this jira project.
-	*
-	* @param jiraProjectCode the jira project code of this jira project
-	*/
-	@Override
-	public void setJiraProjectCode(long jiraProjectCode) {
-		_jiraProject.setJiraProjectCode(jiraProjectCode);
 	}
 
 	@Override

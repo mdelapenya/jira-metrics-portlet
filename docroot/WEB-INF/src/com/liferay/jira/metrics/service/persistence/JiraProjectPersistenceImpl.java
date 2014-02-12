@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -49,6 +50,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistence implementation for the jira project service.
@@ -83,249 +85,36 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(JiraProjectModelImpl.ENTITY_CACHE_ENABLED,
 			JiraProjectModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_FETCH_BY_JIRAPROJECTCODE = new FinderPath(JiraProjectModelImpl.ENTITY_CACHE_ENABLED,
-			JiraProjectModelImpl.FINDER_CACHE_ENABLED, JiraProjectImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByJiraProjectCode",
-			new String[] { Long.class.getName() },
-			JiraProjectModelImpl.JIRAPROJECTCODE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_JIRAPROJECTCODE = new FinderPath(JiraProjectModelImpl.ENTITY_CACHE_ENABLED,
-			JiraProjectModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByJiraProjectCode", new String[] { Long.class.getName() });
-
-	/**
-	 * Returns the jira project where jiraProjectCode = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraProjectException} if it could not be found.
-	 *
-	 * @param jiraProjectCode the jira project code
-	 * @return the matching jira project
-	 * @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a matching jira project could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraProject findByJiraProjectCode(long jiraProjectCode)
-		throws NoSuchJiraProjectException, SystemException {
-		JiraProject jiraProject = fetchByJiraProjectCode(jiraProjectCode);
-
-		if (jiraProject == null) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("jiraProjectCode=");
-			msg.append(jiraProjectCode);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchJiraProjectException(msg.toString());
-		}
-
-		return jiraProject;
-	}
-
-	/**
-	 * Returns the jira project where jiraProjectCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param jiraProjectCode the jira project code
-	 * @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraProject fetchByJiraProjectCode(long jiraProjectCode)
-		throws SystemException {
-		return fetchByJiraProjectCode(jiraProjectCode, true);
-	}
-
-	/**
-	 * Returns the jira project where jiraProjectCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param jiraProjectCode the jira project code
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraProject fetchByJiraProjectCode(long jiraProjectCode,
-		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { jiraProjectCode };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE,
-					finderArgs, this);
-		}
-
-		if (result instanceof JiraProject) {
-			JiraProject jiraProject = (JiraProject)result;
-
-			if ((jiraProjectCode != jiraProject.getJiraProjectCode())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_SELECT_JIRAPROJECT_WHERE);
-
-			query.append(_FINDER_COLUMN_JIRAPROJECTCODE_JIRAPROJECTCODE_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(jiraProjectCode);
-
-				List<JiraProject> list = q.list();
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE,
-						finderArgs, list);
-				}
-				else {
-					JiraProject jiraProject = list.get(0);
-
-					result = jiraProject;
-
-					cacheResult(jiraProject);
-
-					if ((jiraProject.getJiraProjectCode() != jiraProjectCode)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE,
-							finderArgs, jiraProject);
-					}
-				}
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE,
-					finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		if (result instanceof List<?>) {
-			return null;
-		}
-		else {
-			return (JiraProject)result;
-		}
-	}
-
-	/**
-	 * Removes the jira project where jiraProjectCode = &#63; from the database.
-	 *
-	 * @param jiraProjectCode the jira project code
-	 * @return the jira project that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraProject removeByJiraProjectCode(long jiraProjectCode)
-		throws NoSuchJiraProjectException, SystemException {
-		JiraProject jiraProject = findByJiraProjectCode(jiraProjectCode);
-
-		return remove(jiraProject);
-	}
-
-	/**
-	 * Returns the number of jira projects where jiraProjectCode = &#63;.
-	 *
-	 * @param jiraProjectCode the jira project code
-	 * @return the number of matching jira projects
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public int countByJiraProjectCode(long jiraProjectCode)
-		throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_JIRAPROJECTCODE;
-
-		Object[] finderArgs = new Object[] { jiraProjectCode };
-
-		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
-				this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_JIRAPROJECT_WHERE);
-
-			query.append(_FINDER_COLUMN_JIRAPROJECTCODE_JIRAPROJECTCODE_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(jiraProjectCode);
-
-				count = (Long)q.uniqueResult();
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_JIRAPROJECTCODE_JIRAPROJECTCODE_2 =
-		"jiraProject.jiraProjectCode = ?";
 	public static final FinderPath FINDER_PATH_FETCH_BY_LABEL = new FinderPath(JiraProjectModelImpl.ENTITY_CACHE_ENABLED,
 			JiraProjectModelImpl.FINDER_CACHE_ENABLED, JiraProjectImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByLabel",
 			new String[] { String.class.getName() },
-			JiraProjectModelImpl.LABEL_COLUMN_BITMASK);
+			JiraProjectModelImpl.KEY_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_LABEL = new FinderPath(JiraProjectModelImpl.ENTITY_CACHE_ENABLED,
 			JiraProjectModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByLabel",
 			new String[] { String.class.getName() });
 
 	/**
-	 * Returns the jira project where label = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraProjectException} if it could not be found.
+	 * Returns the jira project where key = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraProjectException} if it could not be found.
 	 *
-	 * @param label the label
+	 * @param key the key
 	 * @return the matching jira project
 	 * @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a matching jira project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraProject findByLabel(String label)
+	public JiraProject findByLabel(String key)
 		throws NoSuchJiraProjectException, SystemException {
-		JiraProject jiraProject = fetchByLabel(label);
+		JiraProject jiraProject = fetchByLabel(key);
 
 		if (jiraProject == null) {
 			StringBundler msg = new StringBundler(4);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("label=");
-			msg.append(label);
+			msg.append("key=");
+			msg.append(key);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -340,29 +129,29 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 	}
 
 	/**
-	 * Returns the jira project where label = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the jira project where key = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @param label the label
+	 * @param key the key
 	 * @return the matching jira project, or <code>null</code> if a matching jira project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraProject fetchByLabel(String label) throws SystemException {
-		return fetchByLabel(label, true);
+	public JiraProject fetchByLabel(String key) throws SystemException {
+		return fetchByLabel(key, true);
 	}
 
 	/**
-	 * Returns the jira project where label = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the jira project where key = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
-	 * @param label the label
+	 * @param key the key
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching jira project, or <code>null</code> if a matching jira project could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraProject fetchByLabel(String label, boolean retrieveFromCache)
+	public JiraProject fetchByLabel(String key, boolean retrieveFromCache)
 		throws SystemException {
-		Object[] finderArgs = new Object[] { label };
+		Object[] finderArgs = new Object[] { key };
 
 		Object result = null;
 
@@ -374,7 +163,7 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 		if (result instanceof JiraProject) {
 			JiraProject jiraProject = (JiraProject)result;
 
-			if (!Validator.equals(label, jiraProject.getLabel())) {
+			if (!Validator.equals(key, jiraProject.getKey())) {
 				result = null;
 			}
 		}
@@ -384,18 +173,18 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 
 			query.append(_SQL_SELECT_JIRAPROJECT_WHERE);
 
-			boolean bindLabel = false;
+			boolean bindKey = false;
 
-			if (label == null) {
-				query.append(_FINDER_COLUMN_LABEL_LABEL_1);
+			if (key == null) {
+				query.append(_FINDER_COLUMN_LABEL_KEY_1);
 			}
-			else if (label.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_LABEL_LABEL_3);
+			else if (key.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_LABEL_KEY_3);
 			}
 			else {
-				bindLabel = true;
+				bindKey = true;
 
-				query.append(_FINDER_COLUMN_LABEL_LABEL_2);
+				query.append(_FINDER_COLUMN_LABEL_KEY_2);
 			}
 
 			String sql = query.toString();
@@ -409,8 +198,8 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (bindLabel) {
-					qPos.add(label);
+				if (bindKey) {
+					qPos.add(key);
 				}
 
 				List<JiraProject> list = q.list();
@@ -426,8 +215,8 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 
 					cacheResult(jiraProject);
 
-					if ((jiraProject.getLabel() == null) ||
-							!jiraProject.getLabel().equals(label)) {
+					if ((jiraProject.getKey() == null) ||
+							!jiraProject.getKey().equals(key)) {
 						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_LABEL,
 							finderArgs, jiraProject);
 					}
@@ -453,32 +242,32 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 	}
 
 	/**
-	 * Removes the jira project where label = &#63; from the database.
+	 * Removes the jira project where key = &#63; from the database.
 	 *
-	 * @param label the label
+	 * @param key the key
 	 * @return the jira project that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraProject removeByLabel(String label)
+	public JiraProject removeByLabel(String key)
 		throws NoSuchJiraProjectException, SystemException {
-		JiraProject jiraProject = findByLabel(label);
+		JiraProject jiraProject = findByLabel(key);
 
 		return remove(jiraProject);
 	}
 
 	/**
-	 * Returns the number of jira projects where label = &#63;.
+	 * Returns the number of jira projects where key = &#63;.
 	 *
-	 * @param label the label
+	 * @param key the key
 	 * @return the number of matching jira projects
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByLabel(String label) throws SystemException {
+	public int countByLabel(String key) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_LABEL;
 
-		Object[] finderArgs = new Object[] { label };
+		Object[] finderArgs = new Object[] { key };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
@@ -488,18 +277,18 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 
 			query.append(_SQL_COUNT_JIRAPROJECT_WHERE);
 
-			boolean bindLabel = false;
+			boolean bindKey = false;
 
-			if (label == null) {
-				query.append(_FINDER_COLUMN_LABEL_LABEL_1);
+			if (key == null) {
+				query.append(_FINDER_COLUMN_LABEL_KEY_1);
 			}
-			else if (label.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_LABEL_LABEL_3);
+			else if (key.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_LABEL_KEY_3);
 			}
 			else {
-				bindLabel = true;
+				bindKey = true;
 
-				query.append(_FINDER_COLUMN_LABEL_LABEL_2);
+				query.append(_FINDER_COLUMN_LABEL_KEY_2);
 			}
 
 			String sql = query.toString();
@@ -513,8 +302,8 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (bindLabel) {
-					qPos.add(label);
+				if (bindKey) {
+					qPos.add(key);
 				}
 
 				count = (Long)q.uniqueResult();
@@ -534,9 +323,9 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_LABEL_LABEL_1 = "jiraProject.label IS NULL";
-	private static final String _FINDER_COLUMN_LABEL_LABEL_2 = "jiraProject.label = ?";
-	private static final String _FINDER_COLUMN_LABEL_LABEL_3 = "(jiraProject.label IS NULL OR jiraProject.label = '')";
+	private static final String _FINDER_COLUMN_LABEL_KEY_1 = "jiraProject.key IS NULL";
+	private static final String _FINDER_COLUMN_LABEL_KEY_2 = "jiraProject.key = ?";
+	private static final String _FINDER_COLUMN_LABEL_KEY_3 = "(jiraProject.key IS NULL OR jiraProject.key = '')";
 	public static final FinderPath FINDER_PATH_FETCH_BY_NAME = new FinderPath(JiraProjectModelImpl.ENTITY_CACHE_ENABLED,
 			JiraProjectModelImpl.FINDER_CACHE_ENABLED, JiraProjectImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByName",
@@ -793,11 +582,8 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 		EntityCacheUtil.putResult(JiraProjectModelImpl.ENTITY_CACHE_ENABLED,
 			JiraProjectImpl.class, jiraProject.getPrimaryKey(), jiraProject);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE,
-			new Object[] { jiraProject.getJiraProjectCode() }, jiraProject);
-
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_LABEL,
-			new Object[] { jiraProject.getLabel() }, jiraProject);
+			new Object[] { jiraProject.getKey() }, jiraProject);
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_NAME,
 			new Object[] { jiraProject.getName() }, jiraProject);
@@ -877,14 +663,7 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 
 	protected void cacheUniqueFindersCache(JiraProject jiraProject) {
 		if (jiraProject.isNew()) {
-			Object[] args = new Object[] { jiraProject.getJiraProjectCode() };
-
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JIRAPROJECTCODE,
-				args, Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE,
-				args, jiraProject);
-
-			args = new Object[] { jiraProject.getLabel() };
+			Object[] args = new Object[] { jiraProject.getKey() };
 
 			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_LABEL, args,
 				Long.valueOf(1));
@@ -902,18 +681,8 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 			JiraProjectModelImpl jiraProjectModelImpl = (JiraProjectModelImpl)jiraProject;
 
 			if ((jiraProjectModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_JIRAPROJECTCODE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { jiraProject.getJiraProjectCode() };
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JIRAPROJECTCODE,
-					args, Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE,
-					args, jiraProject);
-			}
-
-			if ((jiraProjectModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_LABEL.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { jiraProject.getLabel() };
+				Object[] args = new Object[] { jiraProject.getKey() };
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_LABEL, args,
 					Long.valueOf(1));
@@ -936,31 +705,14 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 	protected void clearUniqueFindersCache(JiraProject jiraProject) {
 		JiraProjectModelImpl jiraProjectModelImpl = (JiraProjectModelImpl)jiraProject;
 
-		Object[] args = new Object[] { jiraProject.getJiraProjectCode() };
-
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRAPROJECTCODE, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE, args);
-
-		if ((jiraProjectModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_JIRAPROJECTCODE.getColumnBitmask()) != 0) {
-			args = new Object[] {
-					jiraProjectModelImpl.getOriginalJiraProjectCode()
-				};
-
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRAPROJECTCODE,
-				args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRAPROJECTCODE,
-				args);
-		}
-
-		args = new Object[] { jiraProject.getLabel() };
+		Object[] args = new Object[] { jiraProject.getKey() };
 
 		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LABEL, args);
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_LABEL, args);
 
 		if ((jiraProjectModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_LABEL.getColumnBitmask()) != 0) {
-			args = new Object[] { jiraProjectModelImpl.getOriginalLabel() };
+			args = new Object[] { jiraProjectModelImpl.getOriginalKey() };
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_LABEL, args);
 			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_LABEL, args);
@@ -1139,13 +891,10 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 		jiraProjectImpl.setPrimaryKey(jiraProject.getPrimaryKey());
 
 		jiraProjectImpl.setJiraProjectId(jiraProject.getJiraProjectId());
-		jiraProjectImpl.setUserId(jiraProject.getUserId());
-		jiraProjectImpl.setUserName(jiraProject.getUserName());
 		jiraProjectImpl.setCreateDate(jiraProject.getCreateDate());
 		jiraProjectImpl.setModifiedDate(jiraProject.getModifiedDate());
+		jiraProjectImpl.setKey(jiraProject.getKey());
 		jiraProjectImpl.setName(jiraProject.getName());
-		jiraProjectImpl.setLabel(jiraProject.getLabel());
-		jiraProjectImpl.setJiraProjectCode(jiraProject.getJiraProjectCode());
 
 		return jiraProjectImpl;
 	}
@@ -1423,6 +1172,11 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 		return count.intValue();
 	}
 
+	@Override
+	protected Set<String> getBadColumnNames() {
+		return _badColumnNames;
+	}
+
 	/**
 	 * Initializes the jira project persistence.
 	 */
@@ -1465,6 +1219,9 @@ public class JiraProjectPersistenceImpl extends BasePersistenceImpl<JiraProject>
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(JiraProjectPersistenceImpl.class);
+	private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
+				"key"
+			});
 	private static JiraProject _nullJiraProject = new JiraProjectImpl() {
 			@Override
 			public Object clone() {

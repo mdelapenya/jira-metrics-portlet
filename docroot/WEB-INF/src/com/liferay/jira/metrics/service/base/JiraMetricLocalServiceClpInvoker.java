@@ -117,8 +117,7 @@ public class JiraMetricLocalServiceClpInvoker {
 		_methodName58 = "addJiraMetric";
 
 		_methodParameterTypes58 = new String[] {
-				"com.liferay.portal.model.User", "long", "long", "long", "int",
-				"java.util.Date", "int"
+				"long", "long", "long", "int", "java.util.Date", "int"
 			};
 
 		_methodName59 = "getJiraMetric";
@@ -249,12 +248,11 @@ public class JiraMetricLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return JiraMetricLocalServiceUtil.addJiraMetric((com.liferay.portal.model.User)arguments[0],
+			return JiraMetricLocalServiceUtil.addJiraMetric(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
-				((Long)arguments[3]).longValue(),
-				((Integer)arguments[4]).intValue(),
-				(java.util.Date)arguments[5], ((Integer)arguments[6]).intValue());
+				((Integer)arguments[3]).intValue(),
+				(java.util.Date)arguments[4], ((Integer)arguments[5]).intValue());
 		}
 
 		if (_methodName59.equals(name) &&

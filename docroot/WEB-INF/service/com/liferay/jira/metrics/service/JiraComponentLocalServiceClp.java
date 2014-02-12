@@ -118,8 +118,7 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 		_methodName19 = "addJiraComponent";
 
 		_methodParameterTypes19 = new String[] {
-				"com.liferay.portal.model.User", "long", "long",
-				"java.lang.String", "int"
+				"long", "long", "java.lang.String", "int"
 			};
 
 		_methodName20 = "getJiraComponentByName";
@@ -687,8 +686,8 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
-		com.liferay.portal.model.User user, long jiraComponentCode,
-		long jiraProjectId, java.lang.String name, int jiraStatusId)
+		long jiraComponentCode, long jiraProjectId, java.lang.String name,
+		int jiraStatusId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -697,9 +696,7 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
 					new Object[] {
-						ClpSerializer.translateInput(user),
-						
-					jiraComponentCode,
+						jiraComponentCode,
 						
 					jiraProjectId,
 						
