@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.jira.metrics.messaging;
+package com.liferay.jira.metrics.util;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
