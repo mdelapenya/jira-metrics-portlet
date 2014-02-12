@@ -14,7 +14,12 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import java.util.List;
+
+import com.liferay.jira.metrics.NoSuchJiraProjectException;
+import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * The implementation of the jira project local service.
@@ -31,9 +36,57 @@ import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
  * @see com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil
  */
 public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
+
+	/**
+	 * Gets a Jira Project by name
 	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil} to access the jira project local service.
+	 * @param projectCode
+	 * @return
+	 * @throws NoSuchJiraProjectException
+	 * @throws SystemException
 	 */
+	public JiraProject getJiraProjectByName(String name)
+		throws NoSuchJiraProjectException, SystemException {
+
+		return jiraProjectPersistence.findByName(name);
+	}
+
+	/**
+	 * Gets a Jira Project by projectCode
+	 *
+	 * @param projectCode
+	 * @return
+	 * @throws NoSuchJiraProjectException
+	 * @throws SystemException
+	 */
+	public JiraProject getJiraProjectByProjectCode(long projectCode)
+		throws NoSuchJiraProjectException, SystemException {
+
+		return jiraProjectPersistence.findByJiraProjectCode(projectCode);
+	}
+
+	/**
+	 * Gets a Jira Project by label
+	 *
+	 * @param label 
+	 * @return the Jira project
+	 * @throws NoSuchJiraProjectException
+	 * @throws SystemException
+	 */
+	public JiraProject getJiraProjectByProjectLabel(String label)
+		throws NoSuchJiraProjectException, SystemException {
+
+		return jiraProjectPersistence.findByLabel(label);
+	}
+
+	/**
+	 * Retrieves all Jira projects
+	 * 
+	 * @return a list with all Jira projects
+	 * @throws SystemException
+	 */
+	public List<JiraProject> getAllJiraProjects() throws SystemException {
+		return jiraProjectPersistence.findAll();
+	}
+
 }

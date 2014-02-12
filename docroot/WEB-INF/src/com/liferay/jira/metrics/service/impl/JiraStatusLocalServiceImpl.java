@@ -14,7 +14,12 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import java.util.List;
+
+import com.liferay.jira.metrics.NoSuchJiraStatusException;
+import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * The implementation of the jira status local service.
@@ -31,9 +36,23 @@ import com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl;
  * @see com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil
  */
 public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil} to access the jira status local service.
-	 */
+
+	public JiraStatus getJiraStatusByJiraStatusCode(long jiraStatusCode)
+		throws NoSuchJiraStatusException, SystemException {
+
+		return jiraStatusPersistence.findByJiraStatusCode(jiraStatusCode);
+	}
+
+	public JiraStatus getJiraStatusByName(String name)
+		throws NoSuchJiraStatusException, SystemException {
+
+		return jiraStatusPersistence.findByStatus(name);
+	}
+
+	public List<JiraStatus> getJiraStatusesByJiraProjectId(long jiraProjectId)
+		throws SystemException {
+
+		return jiraStatusPersistence.findByJiraProjectId(jiraProjectId);
+	}
+
 }

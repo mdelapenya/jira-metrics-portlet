@@ -14,7 +14,12 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import java.util.List;
+
+import com.liferay.jira.metrics.NoSuchJiraComponentException;
+import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.service.base.JiraComponentLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * The implementation of the jira component local service.
@@ -32,9 +37,24 @@ import com.liferay.jira.metrics.service.base.JiraComponentLocalServiceBaseImpl;
  */
 public class JiraComponentLocalServiceImpl
 	extends JiraComponentLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil} to access the jira component local service.
-	 */
+
+	public JiraComponent getJiraComponentByName(String name)
+		throws NoSuchJiraComponentException, SystemException {
+
+		return jiraComponentPersistence.findByJiraComponent(name);
+	}
+
+	public JiraComponent getJiraComponentCode(long code)
+		throws NoSuchJiraComponentException, SystemException {
+
+		return jiraComponentPersistence.findByJiraComponentCode(code);
+	}
+
+	public List<JiraComponent> getJiraComponentsByJiraProjectId(
+			long jiraProjectId)
+		throws SystemException {
+
+		return jiraComponentPersistence.findByJiraProjectId(jiraProjectId);
+	}
+
 }
