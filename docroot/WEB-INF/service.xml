@@ -151,4 +151,10 @@
 			<finder-column name="year" />
 		</finder>
 	</entity>
+
+	<exceptions>
+		<exception>DuplicateJiraProject</exception>
+		<exception>DuplicateJiraComponent</exception>
+		<exception>DuplicateJiraStatus</exception>
+	</exceptions>
 </service-builder>
