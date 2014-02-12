@@ -21,7 +21,9 @@ import java.util.List;
 import com.liferay.jira.metrics.NoSuchJiraMetricException;
 import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.service.base.JiraMetricLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
 
 /**
  * The implementation of the jira metric local service.
@@ -38,6 +40,39 @@ import com.liferay.portal.kernel.exception.SystemException;
  * @see com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil
  */
 public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
+
+	public JiraMetric addJiraMetric(
+			User user, long jiraProjectId, long jiraComponentId, long jiraStatusId,
+			int priority, Date date, int total)
+		throws PortalException, SystemException {
+
+		long id = counterLocalService.increment();
+
+		JiraMetric jiraMetric = jiraMetricPersistence.create(id);
+
+		Date now = new Date();
+
+		int[] dateElements = parseDate(date);
+
+		jiraMetric.setUserId(user.getUserId());
+		jiraMetric.setUserName(user.getFullName());
+		jiraMetric.setCreateDate(now);
+		jiraMetric.setModifiedDate(now);
+
+		jiraMetric.setJiraProjectId(jiraProjectId);
+		jiraMetric.setJiraComponentId(jiraComponentId);
+		jiraMetric.setJiraStatusId(jiraStatusId);
+		jiraMetric.setPriority(priority);
+		jiraMetric.setDay(dateElements[0]);
+		jiraMetric.setMonth(dateElements[1]);
+		jiraMetric.setYear(dateElements[2]);
+		jiraMetric.setTotal(total);
+
+		jiraMetricPersistence.update(jiraMetric);
+
+		return jiraMetricPersistence.findByPrimaryKey(
+			jiraMetric.getPrimaryKey());
+	}
 
 	public JiraMetric getJiraMetric(
 			long jiraProjectId, long jiraComponentId, long jiraStatusId,

@@ -14,12 +14,15 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.liferay.jira.metrics.NoSuchJiraProjectException;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
 
 /**
  * The implementation of the jira project local service.
@@ -36,6 +39,31 @@ import com.liferay.portal.kernel.exception.SystemException;
  * @see com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil
  */
 public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl {
+
+	public JiraProject addJiraProject(
+			User user, long jiraProjectCode, String label, String name)
+		throws PortalException, SystemException {
+
+		long id = counterLocalService.increment();
+
+		JiraProject jiraProject = jiraProjectPersistence.create(id);
+
+		Date now = new Date();
+
+		jiraProject.setUserId(user.getUserId());
+		jiraProject.setUserName(user.getFullName());
+		jiraProject.setCreateDate(now);
+		jiraProject.setModifiedDate(now);
+
+		jiraProject.setJiraProjectCode(jiraProjectCode);
+		jiraProject.setLabel(label);
+		jiraProject.setName(name);
+
+		jiraProjectPersistence.update(jiraProject);
+
+		return jiraProjectPersistence.findByPrimaryKey(
+			jiraProject.getPrimaryKey());
+	}
 
 	/**
 	 * Gets a Jira Project by name

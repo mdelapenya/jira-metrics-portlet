@@ -14,12 +14,15 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.liferay.jira.metrics.NoSuchJiraStatusException;
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
 
 /**
  * The implementation of the jira status local service.
@@ -36,6 +39,31 @@ import com.liferay.portal.kernel.exception.SystemException;
  * @see com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil
  */
 public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
+
+	public JiraStatus addJiraStatus(
+			User user, long jiraStatusCode, long jiraProjectId, String name)
+		throws PortalException, SystemException {
+
+		long id = counterLocalService.increment();
+
+		JiraStatus jiraStatus = jiraStatusPersistence.create(id);
+
+		Date now = new Date();
+
+		jiraStatus.setUserId(user.getUserId());
+		jiraStatus.setUserName(user.getFullName());
+		jiraStatus.setCreateDate(now);
+		jiraStatus.setModifiedDate(now);
+
+		jiraStatus.setJiraStatusCode(jiraStatusCode);
+		jiraStatus.setJiraProjectId(jiraProjectId);
+		jiraStatus.setName(name);
+
+		jiraStatusPersistence.update(jiraStatus);
+
+		return jiraStatusPersistence.findByPrimaryKey(
+			jiraStatus.getPrimaryKey());
+	}
 
 	public JiraStatus getJiraStatusByJiraStatusCode(long jiraStatusCode)
 		throws NoSuchJiraStatusException, SystemException {

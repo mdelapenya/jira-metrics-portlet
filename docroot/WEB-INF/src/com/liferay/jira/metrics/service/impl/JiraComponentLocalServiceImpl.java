@@ -14,12 +14,15 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.liferay.jira.metrics.NoSuchJiraComponentException;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.service.base.JiraComponentLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.model.User;
 
 /**
  * The implementation of the jira component local service.
@@ -37,6 +40,33 @@ import com.liferay.portal.kernel.exception.SystemException;
  */
 public class JiraComponentLocalServiceImpl
 	extends JiraComponentLocalServiceBaseImpl {
+
+	public JiraComponent addJiraComponent(
+			User user, long jiraComponentCode, long jiraProjectId, String name,
+			int jiraStatusId)
+		throws PortalException, SystemException {
+
+		long id = counterLocalService.increment();
+
+		JiraComponent jiraComponent = jiraComponentPersistence.create(id);
+
+		Date now = new Date();
+
+		jiraComponent.setUserId(user.getUserId());
+		jiraComponent.setUserName(user.getFullName());
+		jiraComponent.setCreateDate(now);
+		jiraComponent.setModifiedDate(now);
+
+		jiraComponent.setJiraComponentCode(jiraComponentCode);
+		jiraComponent.setJiraProjectId(jiraProjectId);
+		jiraComponent.setName(name);
+		jiraComponent.setStatus(jiraStatusId);
+
+		jiraComponentPersistence.update(jiraComponent);
+
+		return jiraComponentPersistence.findByPrimaryKey(
+			jiraComponent.getPrimaryKey());
+	}
 
 	public JiraComponent getJiraComponentByName(String name)
 		throws NoSuchJiraComponentException, SystemException {
