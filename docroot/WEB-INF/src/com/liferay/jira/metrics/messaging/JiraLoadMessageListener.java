@@ -14,6 +14,7 @@
 
 package com.liferay.jira.metrics.messaging;
 
+import com.liferay.jira.metrics.util.JiraETLUtil;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 
@@ -24,7 +25,7 @@ public class JiraLoadMessageListener extends BaseMessageListener {
 
 	@Override
 	protected void doReceive(Message message) throws Exception {
-		JiraLoadScheduler.load();
+		JiraETLUtil.load();
 	}
 
 }

@@ -20,12 +20,12 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 /**
  * @author Manuel de la Peña
  */
-public class JiraLoadScheduler {
+public class JiraETLUtil {
 
 	public static void load() {
 		_log.info("Loading data from JIRA...");
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(JiraLoadScheduler.class);
+	private static Log _log = LogFactoryUtil.getLog(JiraETLUtil.class);
 
 }
