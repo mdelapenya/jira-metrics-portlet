@@ -31,6 +31,7 @@ import com.atlassian.util.concurrent.Promise;
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
@@ -195,17 +196,31 @@ public class JiraUtil {
 			Priority priority)
 		throws JiraConnectionException {
 
-		String jql =
-			PortletPropsValues.JIRA_BASE_QUERY +
-				" AND project = "+project.getKey() +
-					" AND status = \"" + status.getName() + "\"" +
-						" AND component = \"" + component.getName() + "\"" +
-							" AND \"Fix Priority\" = \"" + priority.getId() +
-								"\"";
+		StringBundler sb = new StringBundler(19);
+
+		sb.append(PortletPropsValues.JIRA_BASE_QUERY);
+		sb.append(" AND project = ");
+		sb.append(project.getKey());
+		sb.append(" AND status = ");
+		sb.append(StringPool.QUOTE);
+		sb.append(status.getName());
+		sb.append(StringPool.QUOTE);
+		sb.append(" AND component = ");
+		sb.append(StringPool.QUOTE);
+		sb.append(component.getName());
+		sb.append(StringPool.QUOTE);
+		sb.append(" AND ");
+		sb.append(StringPool.QUOTE);
+		sb.append("Fix Priority");
+		sb.append(StringPool.QUOTE);
+		sb.append(" = ");
+		sb.append(StringPool.QUOTE);
+		sb.append(priority.getId());
+		sb.append(StringPool.QUOTE);
 
 		SearchRestClient searchClient = _getClient().getSearchClient();
 
-		Promise<SearchResult> promise = searchClient.searchJql(jql);
+		Promise<SearchResult> promise = searchClient.searchJql(sb.toString());
 
 		SearchResult result = promise.claim();
 
