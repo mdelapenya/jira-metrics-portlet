@@ -145,6 +145,15 @@
 
 		<!-- Finder methods -->
 
+		<finder name="P_C_S_P_D_M_Y" return-type="JiraMetric" unique="true">
+			<finder-column name="jiraProjectId" />
+			<finder-column name="jiraComponentId" />
+			<finder-column name="jiraStatusId" />
+			<finder-column name="priority" />
+			<finder-column name="day" />
+			<finder-column name="month" />
+			<finder-column name="year" />
+		</finder>
 		<finder name="P_C_S_D_M_Y" return-type="Collection">
 			<finder-column name="jiraProjectId" />
 			<finder-column name="jiraComponentId" />
