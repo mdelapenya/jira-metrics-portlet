@@ -13,23 +13,37 @@
  */
 package com.liferay.jira.metrics.util;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
+import com.atlassian.jira.rest.client.ComponentRestClient;
 import com.atlassian.jira.rest.client.JiraRestClient;
 import com.atlassian.jira.rest.client.JiraRestClientFactory;
+import com.atlassian.jira.rest.client.MetadataRestClient;
+import com.atlassian.jira.rest.client.ProjectRestClient;
 import com.atlassian.jira.rest.client.SearchRestClient;
-import com.atlassian.jira.rest.client.UserRestClient;
-import com.atlassian.jira.rest.client.domain.BasicIssue;
+import com.atlassian.jira.rest.client.domain.BasicComponent;
+import com.atlassian.jira.rest.client.domain.BasicProject;
+import com.atlassian.jira.rest.client.domain.Component;
+import com.atlassian.jira.rest.client.domain.Priority;
+import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.SearchResult;
-import com.atlassian.jira.rest.client.domain.User;
+import com.atlassian.jira.rest.client.domain.Status;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
-
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.util.Base64;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Cristina González
@@ -37,49 +51,154 @@ import com.liferay.portal.kernel.util.StringBundler;
  */
 public class JiraUtil {
 
-	public static void getDefaultSearch() throws JiraConnectionException {
-		SearchRestClient searchClient = _getClient().getSearchClient();
+	public static List<Project> getAllJiraProjects()
+		throws JiraConnectionException {
 
-		String sampleJql = "project = LPS AND status in (Open, Reopened, \"" +
-			"In Progress\", \"Contributed Solution\", \"Community Resolved\"," +
-			" Verified) AND \"Business Value\" is not EMPTY AND assignee in " +
-			"(\"manuel.delapenya\", \"support-lep@liferay.com\") ORDER BY \"" +
-			"Business Value\" DESC";
+		ProjectRestClient projectClient = _getClient().getProjectClient();
 
-		Promise<SearchResult> promise = searchClient.searchJql(sampleJql);
+		Iterable<BasicProject> basicProjects =
+			projectClient.getAllProjects().claim();
 
-		SearchResult searchResult = promise.claim();
+		List<Project> projects = new ArrayList();
 
-		_log.info("Searching using JQL query has returned " +
-			searchResult.getTotal() + " entries");
-
-		for (BasicIssue issue : searchResult.getIssues()) {
-			_log.info("Retrieving " + issue.getKey());
+		for (BasicProject basicProject : basicProjects) {
+			projects.add(projectClient.getProject(basicProject.getKey()).claim());
 		}
+
+		return projects;
 	}
 
-	public static User getJiraUserData() throws JiraConnectionException {
-		UserRestClient userClient = _getClient().getUserClient();
+	public static List<Status> getAllJiraStatuses()
+		throws JiraConnectionException {
 
-		Promise<User> promise = userClient.getUser(
-			PortletPropsValues.JIRA_USERNAME);
+		String auth = new String(
+			Base64.encode(
+				PortletPropsValues.JIRA_USERNAME+":" +
+					PortletPropsValues.JIRA_PASSWORD));
 
-		User user = promise.claim();
+		Client client = Client.create();
 
-		StringBundler sb = new StringBundler(8);
+		String restStatusURL = PortletPropsValues.JIRA_SERVER_URI;
 
-		sb.append("The name of ");
-		sb.append(PortletPropsValues.JIRA_USERNAME);
-		sb.append(" is ");
-		sb.append(user.getName());
-		sb.append("; his display name is ");
-		sb.append(user.getDisplayName());
-		sb.append("; and his small avatar uri is ");
-		sb.append(user.getSmallAvatarUri());
+		if (!restStatusURL.endsWith(StringPool.SLASH)) {
+			restStatusURL += StringPool.SLASH;
+		}
 
-		_log.info(sb.toString());
+		restStatusURL += "rest/api/2/status";
 
-		return user;
+		WebResource webResource = client.resource(restStatusURL);
+
+		ClientResponse response = webResource.header(
+			"Authorization", "Basic " + auth).
+				type("application/json").
+					accept("application/json"). get(ClientResponse.class);
+
+		if (response.getStatus() != 200) {
+			throw new JiraConnectionException(
+					"Failed to connect to JIRA Rest API " + restStatusURL +
+						" " + response.getStatus());
+		}
+
+		String output = response.getEntity(String.class);
+
+		List<Status> statuses = new ArrayList<Status>();
+
+		try {
+			JSONArray arrayResponse = new JSONArray(output);
+
+			for (int i = 0; i < arrayResponse.length() - 1; i++) {
+				JSONObject statusRestObject = arrayResponse.getJSONObject(i);
+
+				URI self = new URI(statusRestObject.getString("self"));
+				String name = statusRestObject.getString("name");
+				String description = statusRestObject.getString("description");
+				URI iconUrl = new URI(statusRestObject.getString("iconUrl"));
+
+				Status status = new Status(self, name, description, iconUrl);
+
+				statuses.add(status);
+			}
+
+		} catch (JSONException e) {
+			throw new RuntimeException("JSONException " + e.getMessage(), e);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(
+				"URISyntaxException " + e.getMessage(), e);
+		}
+
+		return statuses;
+	}
+
+	public static Component getComponent(URI componentURI)
+		throws JiraConnectionException {
+
+		ComponentRestClient componentClient = _getClient().getComponentClient();
+
+		Promise<Component> promise = componentClient.getComponent(componentURI);
+
+		return promise.claim();
+	}
+
+	public static List<TotalIssues> getIssuesCountByProjectStatus(
+			Project project, List<Status> statuses)
+		throws JiraConnectionException {
+
+		MetadataRestClient metaClient = _getClient().getMetadataClient();
+
+		Iterable<Priority> priorities = metaClient.getPriorities().claim();
+
+		if (statuses == null || statuses.isEmpty()) {
+			throw new RuntimeException("The statuses can't be empty");
+		}
+
+		List<TotalIssues> results = new ArrayList<TotalIssues>();
+
+		for (Status status : statuses) {
+
+			for (BasicComponent basicComponent : project.getComponents()) {
+				Component component = getComponent(basicComponent.getSelf());
+
+				for (Priority priority : priorities) {
+
+					int total = getIssuesCountByProjectStatusComponentPriority(
+						project, status, component, priority);
+
+					results.add(new TotalIssues(
+						project, component, status, priority, total));
+				}
+			}
+		}
+
+		return results;
+	}
+
+	public static Project getProject(String projectKey)
+		throws JiraConnectionException {
+
+		ProjectRestClient projectClient = _getClient().getProjectClient();
+
+		Promise<Project> promise = projectClient.getProject(projectKey);
+
+		return promise.claim();
+	}
+
+	protected static int getIssuesCountByProjectStatusComponentPriority(
+			Project project, Status status, Component component,
+			Priority priority)
+		throws JiraConnectionException {
+
+		SearchRestClient searchClient = _getClient().getSearchClient();
+
+		String jql =
+			PortletPropsValues.JIRA_BASE_QUERY +
+				" AND project = "+project.getKey() +
+					" AND status = \""+status.getName() +"\"" +
+						" AND component = \""+component.getName() +"\"" +
+							" AND \"Fix Priority\" = \""+priority.getId() +"\"";
+
+		SearchResult result = searchClient.searchJql(jql).claim();
+
+		return result.getTotal();
 	}
 
 	private static JiraRestClient _getClient() throws JiraConnectionException {
@@ -103,7 +222,8 @@ public class JiraUtil {
 		return _client;
 	}
 
-	private static JiraRestClient _client;
 	private static Log _log = LogFactoryUtil.getLog(JiraUtil.class);
+
+	private static JiraRestClient _client;
 
 }
