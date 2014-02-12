@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.core.util.Base64;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -56,10 +57,12 @@ public class JiraUtil {
 
 		ProjectRestClient projectClient = _getClient().getProjectClient();
 
-		Iterable<BasicProject> basicProjects =
-			projectClient.getAllProjects().claim();
+		Promise<Iterable<BasicProject>> promise =
+			projectClient.getAllProjects();
 
-		List<Project> projects = new ArrayList();
+		Iterable<BasicProject> basicProjects = promise.claim();
+
+		List<Project> projects = new ArrayList<Project>();
 
 		for (BasicProject basicProject : basicProjects) {
 			projects.add(projectClient.getProject(basicProject.getKey()).claim());
@@ -73,7 +76,7 @@ public class JiraUtil {
 
 		String auth = new String(
 			Base64.encode(
-				PortletPropsValues.JIRA_USERNAME+":" +
+				PortletPropsValues.JIRA_USERNAME + ":" +
 					PortletPropsValues.JIRA_PASSWORD));
 
 		Client client = Client.create();
@@ -88,15 +91,18 @@ public class JiraUtil {
 
 		WebResource webResource = client.resource(restStatusURL);
 
-		ClientResponse response = webResource.header(
-			"Authorization", "Basic " + auth).
-				type("application/json").
-					accept("application/json"). get(ClientResponse.class);
+		Builder header = webResource.header("Authorization", "Basic " + auth);
+
+		Builder type = header.type("application/json");
+
+		Builder accept = type.accept("application/json");
+
+		ClientResponse response = accept.get(ClientResponse.class);
 
 		if (response.getStatus() != 200) {
 			throw new JiraConnectionException(
-					"Failed to connect to JIRA Rest API " + restStatusURL +
-						" " + response.getStatus());
+				"Failed to connect to JIRA Rest API " + restStatusURL + ": " +
+					response.getStatus());
 		}
 
 		String output = response.getEntity(String.class);
@@ -110,18 +116,22 @@ public class JiraUtil {
 				JSONObject statusRestObject = arrayResponse.getJSONObject(i);
 
 				URI self = new URI(statusRestObject.getString("self"));
+
 				String name = statusRestObject.getString("name");
+
 				String description = statusRestObject.getString("description");
+
 				URI iconUrl = new URI(statusRestObject.getString("iconUrl"));
 
 				Status status = new Status(self, name, description, iconUrl);
 
 				statuses.add(status);
 			}
-
-		} catch (JSONException e) {
+		}
+		catch (JSONException e) {
 			throw new RuntimeException("JSONException " + e.getMessage(), e);
-		} catch (URISyntaxException e) {
+		}
+		catch (URISyntaxException e) {
 			throw new RuntimeException(
 				"URISyntaxException " + e.getMessage(), e);
 		}
@@ -154,12 +164,10 @@ public class JiraUtil {
 		List<TotalIssues> results = new ArrayList<TotalIssues>();
 
 		for (Status status : statuses) {
-
 			for (BasicComponent basicComponent : project.getComponents()) {
 				Component component = getComponent(basicComponent.getSelf());
 
 				for (Priority priority : priorities) {
-
 					int total = getIssuesCountByProjectStatusComponentPriority(
 						project, status, component, priority);
 
@@ -187,16 +195,19 @@ public class JiraUtil {
 			Priority priority)
 		throws JiraConnectionException {
 
-		SearchRestClient searchClient = _getClient().getSearchClient();
-
 		String jql =
 			PortletPropsValues.JIRA_BASE_QUERY +
 				" AND project = "+project.getKey() +
-					" AND status = \""+status.getName() +"\"" +
-						" AND component = \""+component.getName() +"\"" +
-							" AND \"Fix Priority\" = \""+priority.getId() +"\"";
+					" AND status = \"" + status.getName() + "\"" +
+						" AND component = \"" + component.getName() + "\"" +
+							" AND \"Fix Priority\" = \"" + priority.getId() +
+								"\"";
 
-		SearchResult result = searchClient.searchJql(jql).claim();
+		SearchRestClient searchClient = _getClient().getSearchClient();
+
+		Promise<SearchResult> promise = searchClient.searchJql(jql);
+
+		SearchResult result = promise.claim();
 
 		return result.getTotal();
 	}
