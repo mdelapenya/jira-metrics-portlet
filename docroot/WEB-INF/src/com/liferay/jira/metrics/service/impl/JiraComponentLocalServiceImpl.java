@@ -42,7 +42,7 @@ public class JiraComponentLocalServiceImpl
 	extends JiraComponentLocalServiceBaseImpl {
 
 	public JiraComponent addJiraComponent(
-			User user, long jiraComponentCode, long jiraProjectId, String name,
+			long jiraComponentCode, long jiraProjectId, String name,
 			int jiraStatusId)
 		throws PortalException, SystemException {
 
@@ -52,8 +52,6 @@ public class JiraComponentLocalServiceImpl
 
 		Date now = new Date();
 
-		jiraComponent.setUserId(user.getUserId());
-		jiraComponent.setUserName(user.getFullName());
 		jiraComponent.setCreateDate(now);
 		jiraComponent.setModifiedDate(now);
 

@@ -41,7 +41,7 @@ import com.liferay.portal.model.User;
 public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 
 	public JiraStatus addJiraStatus(
-			User user, long jiraStatusCode, long jiraProjectId, String name)
+			long jiraStatusCode, long jiraProjectId, String name)
 		throws PortalException, SystemException {
 
 		long id = counterLocalService.increment();
@@ -50,8 +50,6 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 
 		Date now = new Date();
 
-		jiraStatus.setUserId(user.getUserId());
-		jiraStatus.setUserName(user.getFullName());
 		jiraStatus.setCreateDate(now);
 		jiraStatus.setModifiedDate(now);
 

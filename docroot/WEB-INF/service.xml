@@ -12,16 +12,13 @@
 
 		<!-- Audit fields -->
 
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
 
+		<column name="key" type="String" />
 		<column name="name" type="String" />
-		<column name="label" type="String" />
-		<column name="jiraProjectCode" type="long" />
 
 		<!-- Order -->
 
@@ -31,11 +28,8 @@
 
 		<!-- Finder methods -->
 
-		<finder name="JiraProjectCode" return-type="JiraProject" unique="true">
-			<finder-column name="jiraProjectCode" />
-		</finder>
 		<finder name="Label" return-type="JiraProject" unique="true">
-			<finder-column name="label" />
+			<finder-column name="key" />
 		</finder>
 		<finder name="Name" return-type="JiraProject" unique="true">
 			<finder-column name="name" />
@@ -50,8 +44,6 @@
 
 		<!-- Audit fields -->
 
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 
@@ -89,8 +81,6 @@
 
 		<!-- Audit fields -->
 
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 
@@ -127,8 +117,6 @@
 
 		<!-- Audit fields -->
 
-		<column name="userId" type="long" />
-		<column name="userName" type="String" />
 		<column name="createDate" type="Date" />
 		<column name="modifiedDate" type="Date" />
 

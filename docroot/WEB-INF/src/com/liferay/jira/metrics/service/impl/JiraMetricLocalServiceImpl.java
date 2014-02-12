@@ -42,7 +42,7 @@ import com.liferay.portal.model.User;
 public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 
 	public JiraMetric addJiraMetric(
-			User user, long jiraProjectId, long jiraComponentId, long jiraStatusId,
+			long jiraProjectId, long jiraComponentId, long jiraStatusId,
 			int priority, Date date, int total)
 		throws PortalException, SystemException {
 
@@ -54,8 +54,6 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 
 		int[] dateElements = parseDate(date);
 
-		jiraMetric.setUserId(user.getUserId());
-		jiraMetric.setUserName(user.getFullName());
 		jiraMetric.setCreateDate(now);
 		jiraMetric.setModifiedDate(now);
 

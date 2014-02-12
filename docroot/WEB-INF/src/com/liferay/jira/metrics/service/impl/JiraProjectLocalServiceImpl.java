@@ -40,8 +40,7 @@ import com.liferay.portal.model.User;
  */
 public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl {
 
-	public JiraProject addJiraProject(
-			User user, long jiraProjectCode, String label, String name)
+	public JiraProject addJiraProject(String key, String name)
 		throws PortalException, SystemException {
 
 		long id = counterLocalService.increment();
@@ -50,13 +49,10 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 
 		Date now = new Date();
 
-		jiraProject.setUserId(user.getUserId());
-		jiraProject.setUserName(user.getFullName());
 		jiraProject.setCreateDate(now);
 		jiraProject.setModifiedDate(now);
 
-		jiraProject.setJiraProjectCode(jiraProjectCode);
-		jiraProject.setLabel(label);
+		jiraProject.setKey(key);
 		jiraProject.setName(name);
 
 		jiraProjectPersistence.update(jiraProject);
@@ -77,20 +73,6 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 		throws NoSuchJiraProjectException, SystemException {
 
 		return jiraProjectPersistence.findByName(name);
-	}
-
-	/**
-	 * Gets a Jira Project by projectCode
-	 *
-	 * @param projectCode
-	 * @return
-	 * @throws NoSuchJiraProjectException
-	 * @throws SystemException
-	 */
-	public JiraProject getJiraProjectByProjectCode(long projectCode)
-		throws NoSuchJiraProjectException, SystemException {
-
-		return jiraProjectPersistence.findByJiraProjectCode(projectCode);
 	}
 
 	/**
