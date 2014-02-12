@@ -82,6 +82,361 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(JiraMetricModelImpl.ENTITY_CACHE_ENABLED,
 			JiraMetricModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y = new FinderPath(JiraMetricModelImpl.ENTITY_CACHE_ENABLED,
+			JiraMetricModelImpl.FINDER_CACHE_ENABLED, JiraMetricImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByP_C_S_P_D_M_Y",
+			new String[] {
+				Long.class.getName(), Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), Integer.class.getName()
+			},
+			JiraMetricModelImpl.JIRAPROJECTID_COLUMN_BITMASK |
+			JiraMetricModelImpl.JIRACOMPONENTID_COLUMN_BITMASK |
+			JiraMetricModelImpl.JIRASTATUSID_COLUMN_BITMASK |
+			JiraMetricModelImpl.PRIORITY_COLUMN_BITMASK |
+			JiraMetricModelImpl.DAY_COLUMN_BITMASK |
+			JiraMetricModelImpl.MONTH_COLUMN_BITMASK |
+			JiraMetricModelImpl.YEAR_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_P_C_S_P_D_M_Y = new FinderPath(JiraMetricModelImpl.ENTITY_CACHE_ENABLED,
+			JiraMetricModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByP_C_S_P_D_M_Y",
+			new String[] {
+				Long.class.getName(), Long.class.getName(), Long.class.getName(),
+				Integer.class.getName(), Integer.class.getName(),
+				Integer.class.getName(), Integer.class.getName()
+			});
+
+	/**
+	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraMetricException} if it could not be found.
+	 *
+	 * @param jiraProjectId the jira project ID
+	 * @param jiraComponentId the jira component ID
+	 * @param jiraStatusId the jira status ID
+	 * @param priority the priority
+	 * @param day the day
+	 * @param month the month
+	 * @param year the year
+	 * @return the matching jira metric
+	 * @throws com.liferay.jira.metrics.NoSuchJiraMetricException if a matching jira metric could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public JiraMetric findByP_C_S_P_D_M_Y(long jiraProjectId,
+		long jiraComponentId, long jiraStatusId, int priority, int day,
+		int month, int year) throws NoSuchJiraMetricException, SystemException {
+		JiraMetric jiraMetric = fetchByP_C_S_P_D_M_Y(jiraProjectId,
+				jiraComponentId, jiraStatusId, priority, day, month, year);
+
+		if (jiraMetric == null) {
+			StringBundler msg = new StringBundler(16);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("jiraProjectId=");
+			msg.append(jiraProjectId);
+
+			msg.append(", jiraComponentId=");
+			msg.append(jiraComponentId);
+
+			msg.append(", jiraStatusId=");
+			msg.append(jiraStatusId);
+
+			msg.append(", priority=");
+			msg.append(priority);
+
+			msg.append(", day=");
+			msg.append(day);
+
+			msg.append(", month=");
+			msg.append(month);
+
+			msg.append(", year=");
+			msg.append(year);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchJiraMetricException(msg.toString());
+		}
+
+		return jiraMetric;
+	}
+
+	/**
+	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param jiraProjectId the jira project ID
+	 * @param jiraComponentId the jira component ID
+	 * @param jiraStatusId the jira status ID
+	 * @param priority the priority
+	 * @param day the day
+	 * @param month the month
+	 * @param year the year
+	 * @return the matching jira metric, or <code>null</code> if a matching jira metric could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public JiraMetric fetchByP_C_S_P_D_M_Y(long jiraProjectId,
+		long jiraComponentId, long jiraStatusId, int priority, int day,
+		int month, int year) throws SystemException {
+		return fetchByP_C_S_P_D_M_Y(jiraProjectId, jiraComponentId,
+			jiraStatusId, priority, day, month, year, true);
+	}
+
+	/**
+	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param jiraProjectId the jira project ID
+	 * @param jiraComponentId the jira component ID
+	 * @param jiraStatusId the jira status ID
+	 * @param priority the priority
+	 * @param day the day
+	 * @param month the month
+	 * @param year the year
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching jira metric, or <code>null</code> if a matching jira metric could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public JiraMetric fetchByP_C_S_P_D_M_Y(long jiraProjectId,
+		long jiraComponentId, long jiraStatusId, int priority, int day,
+		int month, int year, boolean retrieveFromCache)
+		throws SystemException {
+		Object[] finderArgs = new Object[] {
+				jiraProjectId, jiraComponentId, jiraStatusId, priority, day,
+				month, year
+			};
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y,
+					finderArgs, this);
+		}
+
+		if (result instanceof JiraMetric) {
+			JiraMetric jiraMetric = (JiraMetric)result;
+
+			if ((jiraProjectId != jiraMetric.getJiraProjectId()) ||
+					(jiraComponentId != jiraMetric.getJiraComponentId()) ||
+					(jiraStatusId != jiraMetric.getJiraStatusId()) ||
+					(priority != jiraMetric.getPriority()) ||
+					(day != jiraMetric.getDay()) ||
+					(month != jiraMetric.getMonth()) ||
+					(year != jiraMetric.getYear())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(9);
+
+			query.append(_SQL_SELECT_JIRAMETRIC_WHERE);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRAPROJECTID_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRACOMPONENTID_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRASTATUSID_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_PRIORITY_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_DAY_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_MONTH_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_YEAR_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(jiraProjectId);
+
+				qPos.add(jiraComponentId);
+
+				qPos.add(jiraStatusId);
+
+				qPos.add(priority);
+
+				qPos.add(day);
+
+				qPos.add(month);
+
+				qPos.add(year);
+
+				List<JiraMetric> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y,
+						finderArgs, list);
+				}
+				else {
+					JiraMetric jiraMetric = list.get(0);
+
+					result = jiraMetric;
+
+					cacheResult(jiraMetric);
+
+					if ((jiraMetric.getJiraProjectId() != jiraProjectId) ||
+							(jiraMetric.getJiraComponentId() != jiraComponentId) ||
+							(jiraMetric.getJiraStatusId() != jiraStatusId) ||
+							(jiraMetric.getPriority() != priority) ||
+							(jiraMetric.getDay() != day) ||
+							(jiraMetric.getMonth() != month) ||
+							(jiraMetric.getYear() != year)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y,
+							finderArgs, jiraMetric);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (JiraMetric)result;
+		}
+	}
+
+	/**
+	 * Removes the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; from the database.
+	 *
+	 * @param jiraProjectId the jira project ID
+	 * @param jiraComponentId the jira component ID
+	 * @param jiraStatusId the jira status ID
+	 * @param priority the priority
+	 * @param day the day
+	 * @param month the month
+	 * @param year the year
+	 * @return the jira metric that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public JiraMetric removeByP_C_S_P_D_M_Y(long jiraProjectId,
+		long jiraComponentId, long jiraStatusId, int priority, int day,
+		int month, int year) throws NoSuchJiraMetricException, SystemException {
+		JiraMetric jiraMetric = findByP_C_S_P_D_M_Y(jiraProjectId,
+				jiraComponentId, jiraStatusId, priority, day, month, year);
+
+		return remove(jiraMetric);
+	}
+
+	/**
+	 * Returns the number of jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63;.
+	 *
+	 * @param jiraProjectId the jira project ID
+	 * @param jiraComponentId the jira component ID
+	 * @param jiraStatusId the jira status ID
+	 * @param priority the priority
+	 * @param day the day
+	 * @param month the month
+	 * @param year the year
+	 * @return the number of matching jira metrics
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByP_C_S_P_D_M_Y(long jiraProjectId, long jiraComponentId,
+		long jiraStatusId, int priority, int day, int month, int year)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_P_C_S_P_D_M_Y;
+
+		Object[] finderArgs = new Object[] {
+				jiraProjectId, jiraComponentId, jiraStatusId, priority, day,
+				month, year
+			};
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(8);
+
+			query.append(_SQL_COUNT_JIRAMETRIC_WHERE);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRAPROJECTID_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRACOMPONENTID_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRASTATUSID_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_PRIORITY_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_DAY_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_MONTH_2);
+
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_YEAR_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(jiraProjectId);
+
+				qPos.add(jiraComponentId);
+
+				qPos.add(jiraStatusId);
+
+				qPos.add(priority);
+
+				qPos.add(day);
+
+				qPos.add(month);
+
+				qPos.add(year);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_JIRAPROJECTID_2 = "jiraMetric.jiraProjectId = ? AND ";
+	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_JIRACOMPONENTID_2 = "jiraMetric.jiraComponentId = ? AND ";
+	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_JIRASTATUSID_2 = "jiraMetric.jiraStatusId = ? AND ";
+	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_PRIORITY_2 = "jiraMetric.priority = ? AND ";
+	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_DAY_2 = "jiraMetric.day = ? AND ";
+	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_MONTH_2 = "jiraMetric.month = ? AND ";
+	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_YEAR_2 = "jiraMetric.year = ?";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_P_C_S_D_M_Y =
 		new FinderPath(JiraMetricModelImpl.ENTITY_CACHE_ENABLED,
 			JiraMetricModelImpl.FINDER_CACHE_ENABLED, JiraMetricImpl.class,
@@ -787,6 +1142,13 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 		EntityCacheUtil.putResult(JiraMetricModelImpl.ENTITY_CACHE_ENABLED,
 			JiraMetricImpl.class, jiraMetric.getPrimaryKey(), jiraMetric);
 
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y,
+			new Object[] {
+				jiraMetric.getJiraProjectId(), jiraMetric.getJiraComponentId(),
+				jiraMetric.getJiraStatusId(), jiraMetric.getPriority(),
+				jiraMetric.getDay(), jiraMetric.getMonth(), jiraMetric.getYear()
+			}, jiraMetric);
+
 		jiraMetric.resetOriginalValues();
 	}
 
@@ -843,6 +1205,8 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(jiraMetric);
 	}
 
 	@Override
@@ -853,6 +1217,75 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 		for (JiraMetric jiraMetric : jiraMetrics) {
 			EntityCacheUtil.removeResult(JiraMetricModelImpl.ENTITY_CACHE_ENABLED,
 				JiraMetricImpl.class, jiraMetric.getPrimaryKey());
+
+			clearUniqueFindersCache(jiraMetric);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(JiraMetric jiraMetric) {
+		if (jiraMetric.isNew()) {
+			Object[] args = new Object[] {
+					jiraMetric.getJiraProjectId(),
+					jiraMetric.getJiraComponentId(),
+					jiraMetric.getJiraStatusId(), jiraMetric.getPriority(),
+					jiraMetric.getDay(), jiraMetric.getMonth(),
+					jiraMetric.getYear()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_P_C_S_P_D_M_Y, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y, args,
+				jiraMetric);
+		}
+		else {
+			JiraMetricModelImpl jiraMetricModelImpl = (JiraMetricModelImpl)jiraMetric;
+
+			if ((jiraMetricModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						jiraMetric.getJiraProjectId(),
+						jiraMetric.getJiraComponentId(),
+						jiraMetric.getJiraStatusId(), jiraMetric.getPriority(),
+						jiraMetric.getDay(), jiraMetric.getMonth(),
+						jiraMetric.getYear()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_P_C_S_P_D_M_Y,
+					args, Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y,
+					args, jiraMetric);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(JiraMetric jiraMetric) {
+		JiraMetricModelImpl jiraMetricModelImpl = (JiraMetricModelImpl)jiraMetric;
+
+		Object[] args = new Object[] {
+				jiraMetric.getJiraProjectId(), jiraMetric.getJiraComponentId(),
+				jiraMetric.getJiraStatusId(), jiraMetric.getPriority(),
+				jiraMetric.getDay(), jiraMetric.getMonth(), jiraMetric.getYear()
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_P_C_S_P_D_M_Y, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y, args);
+
+		if ((jiraMetricModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					jiraMetricModelImpl.getOriginalJiraProjectId(),
+					jiraMetricModelImpl.getOriginalJiraComponentId(),
+					jiraMetricModelImpl.getOriginalJiraStatusId(),
+					jiraMetricModelImpl.getOriginalPriority(),
+					jiraMetricModelImpl.getOriginalDay(),
+					jiraMetricModelImpl.getOriginalMonth(),
+					jiraMetricModelImpl.getOriginalYear()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_P_C_S_P_D_M_Y,
+				args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y,
+				args);
 		}
 	}
 
@@ -1032,6 +1465,9 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 
 		EntityCacheUtil.putResult(JiraMetricModelImpl.ENTITY_CACHE_ENABLED,
 			JiraMetricImpl.class, jiraMetric.getPrimaryKey(), jiraMetric);
+
+		clearUniqueFindersCache(jiraMetric);
+		cacheUniqueFindersCache(jiraMetric);
 
 		return jiraMetric;
 	}

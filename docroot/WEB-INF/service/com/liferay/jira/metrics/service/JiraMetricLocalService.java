@@ -248,4 +248,30 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, java.util.Date date)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, int day, int month, int year)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
+		int month, int year)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

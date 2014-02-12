@@ -275,6 +275,44 @@ public class JiraMetricLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, java.util.Date date)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getJiraMetric(jiraProjectId, jiraComponentId, jiraStatusId,
+			priority, date);
+	}
+
+	public static com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, int day, int month, int year)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getJiraMetric(jiraProjectId, jiraComponentId, jiraStatusId,
+			priority, day, month, year);
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getJiraMetrics(jiraProjectId, jiraComponentId,
+			jiraStatusId, date);
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
+		int month, int year)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getJiraMetrics(jiraProjectId, jiraComponentId,
+			jiraStatusId, day, month, year);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

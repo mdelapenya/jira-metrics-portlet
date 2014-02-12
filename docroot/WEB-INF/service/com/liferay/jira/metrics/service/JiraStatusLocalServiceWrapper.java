@@ -287,6 +287,29 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 			arguments);
 	}
 
+	@Override
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByJiraStatusCode(
+		long jiraStatusCode)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraStatusLocalService.getJiraStatusByJiraStatusCode(jiraStatusCode);
+	}
+
+	@Override
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraStatusLocalService.getJiraStatusByName(name);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getJiraStatusesByJiraProjectId(
+		long jiraProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraStatusLocalService.getJiraStatusesByJiraProjectId(jiraProjectId);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

@@ -113,6 +113,22 @@ public class JiraProjectLocalServiceClpInvoker {
 		_methodName53 = "setBeanIdentifier";
 
 		_methodParameterTypes53 = new String[] { "java.lang.String" };
+
+		_methodName58 = "getJiraProjectByName";
+
+		_methodParameterTypes58 = new String[] { "java.lang.String" };
+
+		_methodName59 = "getJiraProjectByProjectCode";
+
+		_methodParameterTypes59 = new String[] { "long" };
+
+		_methodName60 = "getJiraProjectByProjectLabel";
+
+		_methodParameterTypes60 = new String[] { "java.lang.String" };
+
+		_methodName61 = "getAllJiraProjects";
+
+		_methodParameterTypes61 = new String[] {  };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -216,6 +232,26 @@ public class JiraProjectLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return JiraProjectLocalServiceUtil.getJiraProjectByName((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+			return JiraProjectLocalServiceUtil.getJiraProjectByProjectCode(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+			return JiraProjectLocalServiceUtil.getAllJiraProjects();
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -255,4 +291,12 @@ public class JiraProjectLocalServiceClpInvoker {
 	private String[] _methodParameterTypes52;
 	private String _methodName53;
 	private String[] _methodParameterTypes53;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
 }

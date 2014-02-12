@@ -275,6 +275,26 @@ public class JiraComponentLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraComponentByName(name);
+	}
+
+	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentCode(
+		long code)
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraComponentCode(code);
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraComponent> getJiraComponentsByJiraProjectId(
+		long jiraProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraComponentsByJiraProjectId(jiraProjectId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

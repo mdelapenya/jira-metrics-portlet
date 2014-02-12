@@ -275,6 +275,62 @@ public class JiraProjectLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	/**
+	* Gets a Jira Project by name
+	*
+	* @param projectCode
+	* @return
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	public static com.liferay.jira.metrics.model.JiraProject getJiraProjectByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraProjectByName(name);
+	}
+
+	/**
+	* Gets a Jira Project by projectCode
+	*
+	* @param projectCode
+	* @return
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	public static com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectCode(
+		long projectCode)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraProjectByProjectCode(projectCode);
+	}
+
+	/**
+	* Gets a Jira Project by label
+	*
+	* @param label
+	* @return the Jira project
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	public static com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectLabel(
+		java.lang.String label)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraProjectByProjectLabel(label);
+	}
+
+	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAllJiraProjects();
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

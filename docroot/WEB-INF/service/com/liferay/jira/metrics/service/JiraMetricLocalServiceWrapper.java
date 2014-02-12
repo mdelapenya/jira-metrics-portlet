@@ -287,6 +287,44 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 			arguments);
 	}
 
+	@Override
+	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, java.util.Date date)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraMetricLocalService.getJiraMetric(jiraProjectId,
+			jiraComponentId, jiraStatusId, priority, date);
+	}
+
+	@Override
+	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, int day, int month, int year)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraMetricLocalService.getJiraMetric(jiraProjectId,
+			jiraComponentId, jiraStatusId, priority, day, month, year);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraMetricLocalService.getJiraMetrics(jiraProjectId,
+			jiraComponentId, jiraStatusId, date);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
+		int month, int year)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraMetricLocalService.getJiraMetrics(jiraProjectId,
+			jiraComponentId, jiraStatusId, day, month, year);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

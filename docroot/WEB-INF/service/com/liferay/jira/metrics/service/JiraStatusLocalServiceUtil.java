@@ -275,6 +275,26 @@ public class JiraStatusLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByJiraStatusCode(
+		long jiraStatusCode)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraStatusByJiraStatusCode(jiraStatusCode);
+	}
+
+	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraStatusByName(name);
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> getJiraStatusesByJiraProjectId(
+		long jiraProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraStatusesByJiraProjectId(jiraProjectId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

@@ -113,6 +113,18 @@ public class JiraComponentLocalServiceClpInvoker {
 		_methodName53 = "setBeanIdentifier";
 
 		_methodParameterTypes53 = new String[] { "java.lang.String" };
+
+		_methodName58 = "getJiraComponentByName";
+
+		_methodParameterTypes58 = new String[] { "java.lang.String" };
+
+		_methodName59 = "getJiraComponentCode";
+
+		_methodParameterTypes59 = new String[] { "long" };
+
+		_methodName60 = "getJiraComponentsByJiraProjectId";
+
+		_methodParameterTypes60 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -216,6 +228,21 @@ public class JiraComponentLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return JiraComponentLocalServiceUtil.getJiraComponentByName((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+			return JiraComponentLocalServiceUtil.getJiraComponentCode(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return JiraComponentLocalServiceUtil.getJiraComponentsByJiraProjectId(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -255,4 +282,10 @@ public class JiraComponentLocalServiceClpInvoker {
 	private String[] _methodParameterTypes52;
 	private String _methodName53;
 	private String[] _methodParameterTypes53;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
 }

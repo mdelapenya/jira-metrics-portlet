@@ -288,6 +288,29 @@ public class JiraComponentLocalServiceWrapper
 			arguments);
 	}
 
+	@Override
+	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraComponentLocalService.getJiraComponentByName(name);
+	}
+
+	@Override
+	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentCode(
+		long code)
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraComponentLocalService.getJiraComponentCode(code);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraComponent> getJiraComponentsByJiraProjectId(
+		long jiraProjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraComponentLocalService.getJiraComponentsByJiraProjectId(jiraProjectId);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

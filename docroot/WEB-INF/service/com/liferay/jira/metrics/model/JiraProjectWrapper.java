@@ -379,7 +379,7 @@ public class JiraProjectWrapper implements JiraProject,
 	}
 
 	@Override
-	public int compareTo(JiraProject jiraProject) {
+	public int compareTo(com.liferay.jira.metrics.model.JiraProject jiraProject) {
 		return _jiraProject.compareTo(jiraProject);
 	}
 
@@ -389,17 +389,17 @@ public class JiraProjectWrapper implements JiraProject,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<JiraProject> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.jira.metrics.model.JiraProject> toCacheModel() {
 		return _jiraProject.toCacheModel();
 	}
 
 	@Override
-	public JiraProject toEscapedModel() {
+	public com.liferay.jira.metrics.model.JiraProject toEscapedModel() {
 		return new JiraProjectWrapper(_jiraProject.toEscapedModel());
 	}
 
 	@Override
-	public JiraProject toUnescapedModel() {
+	public com.liferay.jira.metrics.model.JiraProject toUnescapedModel() {
 		return new JiraProjectWrapper(_jiraProject.toUnescapedModel());
 	}
 

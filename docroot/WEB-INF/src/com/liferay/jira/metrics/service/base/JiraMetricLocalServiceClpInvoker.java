@@ -113,6 +113,30 @@ public class JiraMetricLocalServiceClpInvoker {
 		_methodName53 = "setBeanIdentifier";
 
 		_methodParameterTypes53 = new String[] { "java.lang.String" };
+
+		_methodName58 = "getJiraMetric";
+
+		_methodParameterTypes58 = new String[] {
+				"long", "long", "long", "int", "java.util.Date"
+			};
+
+		_methodName59 = "getJiraMetric";
+
+		_methodParameterTypes59 = new String[] {
+				"long", "long", "long", "int", "int", "int", "int"
+			};
+
+		_methodName60 = "getJiraMetrics";
+
+		_methodParameterTypes60 = new String[] {
+				"long", "long", "long", "java.util.Date"
+			};
+
+		_methodName61 = "getJiraMetrics";
+
+		_methodParameterTypes61 = new String[] {
+				"long", "long", "long", "int", "int", "int"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -216,6 +240,42 @@ public class JiraMetricLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return JiraMetricLocalServiceUtil.getJiraMetric(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				((Integer)arguments[3]).intValue(), (java.util.Date)arguments[4]);
+		}
+
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+			return JiraMetricLocalServiceUtil.getJiraMetric(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				((Integer)arguments[3]).intValue(),
+				((Integer)arguments[4]).intValue(),
+				((Integer)arguments[5]).intValue(),
+				((Integer)arguments[6]).intValue());
+		}
+
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return JiraMetricLocalServiceUtil.getJiraMetrics(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(), (java.util.Date)arguments[3]);
+		}
+
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+			return JiraMetricLocalServiceUtil.getJiraMetrics(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				((Integer)arguments[3]).intValue(),
+				((Integer)arguments[4]).intValue(),
+				((Integer)arguments[5]).intValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -255,4 +315,12 @@ public class JiraMetricLocalServiceClpInvoker {
 	private String[] _methodParameterTypes52;
 	private String _methodName53;
 	private String[] _methodParameterTypes53;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
 }

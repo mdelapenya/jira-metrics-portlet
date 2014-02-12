@@ -288,6 +288,66 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	}
 
 	/**
+	* Gets a Jira Project by name
+	*
+	* @param projectCode
+	* @return
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	@Override
+	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraProjectLocalService.getJiraProjectByName(name);
+	}
+
+	/**
+	* Gets a Jira Project by projectCode
+	*
+	* @param projectCode
+	* @return
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	@Override
+	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectCode(
+		long projectCode)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraProjectLocalService.getJiraProjectByProjectCode(projectCode);
+	}
+
+	/**
+	* Gets a Jira Project by label
+	*
+	* @param label
+	* @return the Jira project
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	@Override
+	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectLabel(
+		java.lang.String label)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraProjectLocalService.getJiraProjectByProjectLabel(label);
+	}
+
+	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraProjectLocalService.getAllJiraProjects();
+	}
+
+	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public JiraProjectLocalService getWrappedJiraProjectLocalService() {

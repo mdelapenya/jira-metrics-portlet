@@ -378,7 +378,7 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	}
 
 	@Override
-	public int compareTo(JiraStatus jiraStatus) {
+	public int compareTo(com.liferay.jira.metrics.model.JiraStatus jiraStatus) {
 		return _jiraStatus.compareTo(jiraStatus);
 	}
 
@@ -388,17 +388,17 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<JiraStatus> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.jira.metrics.model.JiraStatus> toCacheModel() {
 		return _jiraStatus.toCacheModel();
 	}
 
 	@Override
-	public JiraStatus toEscapedModel() {
+	public com.liferay.jira.metrics.model.JiraStatus toEscapedModel() {
 		return new JiraStatusWrapper(_jiraStatus.toEscapedModel());
 	}
 
 	@Override
-	public JiraStatus toUnescapedModel() {
+	public com.liferay.jira.metrics.model.JiraStatus toUnescapedModel() {
 		return new JiraStatusWrapper(_jiraStatus.toUnescapedModel());
 	}
 

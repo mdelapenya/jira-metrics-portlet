@@ -248,4 +248,56 @@ public interface JiraProjectLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	/**
+	* Gets a Jira Project by name
+	*
+	* @param projectCode
+	* @return
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Gets a Jira Project by projectCode
+	*
+	* @param projectCode
+	* @return
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectCode(
+		long projectCode)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Gets a Jira Project by label
+	*
+	* @param label
+	* @return the Jira project
+	* @throws NoSuchJiraProjectException
+	* @throws SystemException
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraProject getJiraProjectByProjectLabel(
+		java.lang.String label)
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

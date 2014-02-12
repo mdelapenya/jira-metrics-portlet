@@ -114,6 +114,30 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 		_methodName17 = "setBeanIdentifier";
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
+
+		_methodName19 = "getJiraMetric";
+
+		_methodParameterTypes19 = new String[] {
+				"long", "long", "long", "int", "java.util.Date"
+			};
+
+		_methodName20 = "getJiraMetric";
+
+		_methodParameterTypes20 = new String[] {
+				"long", "long", "long", "int", "int", "int", "int"
+			};
+
+		_methodName21 = "getJiraMetrics";
+
+		_methodParameterTypes21 = new String[] {
+				"long", "long", "long", "java.util.Date"
+			};
+
+		_methodName22 = "getJiraMetrics";
+
+		_methodParameterTypes22 = new String[] {
+				"long", "long", "long", "int", "int", "int"
+			};
 	}
 
 	@Override
@@ -666,6 +690,184 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, java.util.Date date)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
+					new Object[] {
+						jiraProjectId,
+						
+					jiraComponentId,
+						
+					jiraStatusId,
+						
+					priority,
+						
+					ClpSerializer.translateInput(date)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.jira.metrics.NoSuchJiraMetricException) {
+				throw (com.liferay.jira.metrics.NoSuchJiraMetricException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.jira.metrics.model.JiraMetric)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		int priority, int day, int month, int year)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
+					new Object[] {
+						jiraProjectId,
+						
+					jiraComponentId,
+						
+					jiraStatusId,
+						
+					priority,
+						
+					day,
+						
+					month,
+						
+					year
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.jira.metrics.NoSuchJiraMetricException) {
+				throw (com.liferay.jira.metrics.NoSuchJiraMetricException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.jira.metrics.model.JiraMetric)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] {
+						jiraProjectId,
+						
+					jiraComponentId,
+						
+					jiraStatusId,
+						
+					ClpSerializer.translateInput(date)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.jira.metrics.model.JiraMetric>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
+		int month, int year)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
+					new Object[] {
+						jiraProjectId,
+						
+					jiraComponentId,
+						
+					jiraStatusId,
+						
+					day,
+						
+					month,
+						
+					year
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.jira.metrics.model.JiraMetric>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -703,4 +905,12 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
 	private String[] _methodParameterTypes17;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
 }

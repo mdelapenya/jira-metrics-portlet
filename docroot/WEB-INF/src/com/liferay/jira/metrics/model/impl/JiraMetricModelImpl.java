@@ -101,8 +101,9 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 	public static long JIRAPROJECTID_COLUMN_BITMASK = 4L;
 	public static long JIRASTATUSID_COLUMN_BITMASK = 8L;
 	public static long MONTH_COLUMN_BITMASK = 16L;
-	public static long YEAR_COLUMN_BITMASK = 32L;
-	public static long JIRAMETRICID_COLUMN_BITMASK = 64L;
+	public static long PRIORITY_COLUMN_BITMASK = 32L;
+	public static long YEAR_COLUMN_BITMASK = 64L;
+	public static long JIRAMETRICID_COLUMN_BITMASK = 128L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -439,7 +440,19 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 	@Override
 	public void setPriority(int priority) {
+		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
+
+		if (!_setOriginalPriority) {
+			_setOriginalPriority = true;
+
+			_originalPriority = _priority;
+		}
+
 		_priority = priority;
+	}
+
+	public int getOriginalPriority() {
+		return _originalPriority;
 	}
 
 	@JSON
@@ -630,6 +643,10 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 		jiraMetricModelImpl._setOriginalJiraStatusId = false;
 
+		jiraMetricModelImpl._originalPriority = jiraMetricModelImpl._priority;
+
+		jiraMetricModelImpl._setOriginalPriority = false;
+
 		jiraMetricModelImpl._originalDay = jiraMetricModelImpl._day;
 
 		jiraMetricModelImpl._setOriginalDay = false;
@@ -819,6 +836,8 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 	private long _originalJiraStatusId;
 	private boolean _setOriginalJiraStatusId;
 	private int _priority;
+	private int _originalPriority;
+	private boolean _setOriginalPriority;
 	private int _day;
 	private int _originalDay;
 	private boolean _setOriginalDay;
