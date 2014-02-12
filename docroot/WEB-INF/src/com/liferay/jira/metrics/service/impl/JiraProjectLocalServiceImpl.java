@@ -17,6 +17,7 @@ package com.liferay.jira.metrics.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.NoSuchJiraProjectException;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
@@ -43,9 +44,15 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 	public JiraProject addJiraProject(String key, String name)
 		throws PortalException, SystemException {
 
+		JiraProject jiraProject = jiraProjectPersistence.fetchByLabel(key);
+
+		if (jiraProject != null) {
+			throw new DuplicateJiraProjectException();
+		}
+
 		long id = counterLocalService.increment();
 
-		JiraProject jiraProject = jiraProjectPersistence.create(id);
+		jiraProject = jiraProjectPersistence.create(id);
 
 		Date now = new Date();
 
