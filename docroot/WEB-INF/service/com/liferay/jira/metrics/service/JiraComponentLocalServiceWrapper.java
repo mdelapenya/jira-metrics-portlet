@@ -289,6 +289,16 @@ public class JiraComponentLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
+		com.liferay.portal.model.User user, long jiraComponentCode,
+		long jiraProjectId, java.lang.String name, int jiraStatusId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraComponentLocalService.addJiraComponent(user,
+			jiraComponentCode, jiraProjectId, name, jiraStatusId);
+	}
+
+	@Override
 	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
 		java.lang.String name)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,

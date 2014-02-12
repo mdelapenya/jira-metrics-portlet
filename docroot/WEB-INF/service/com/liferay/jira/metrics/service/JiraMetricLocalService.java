@@ -249,6 +249,13 @@ public interface JiraMetricLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
+	public com.liferay.jira.metrics.model.JiraMetric addJiraMetric(
+		com.liferay.portal.model.User user, long jiraProjectId,
+		long jiraComponentId, long jiraStatusId, int priority,
+		java.util.Date date, int total)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,

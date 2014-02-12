@@ -249,6 +249,12 @@ public interface JiraProjectLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
+	public com.liferay.jira.metrics.model.JiraProject addJiraProject(
+		com.liferay.portal.model.User user, long jiraProjectCode,
+		java.lang.String label, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	/**
 	* Gets a Jira Project by name
 	*

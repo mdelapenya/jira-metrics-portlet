@@ -288,6 +288,16 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	}
 
 	@Override
+	public com.liferay.jira.metrics.model.JiraStatus addJiraStatus(
+		com.liferay.portal.model.User user, long jiraStatusCode,
+		long jiraProjectId, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraStatusLocalService.addJiraStatus(user, jiraStatusCode,
+			jiraProjectId, name);
+	}
+
+	@Override
 	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByJiraStatusCode(
 		long jiraStatusCode)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,

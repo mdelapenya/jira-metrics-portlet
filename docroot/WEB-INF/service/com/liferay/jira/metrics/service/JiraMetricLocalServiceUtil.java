@@ -275,6 +275,17 @@ public class JiraMetricLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.jira.metrics.model.JiraMetric addJiraMetric(
+		com.liferay.portal.model.User user, long jiraProjectId,
+		long jiraComponentId, long jiraStatusId, int priority,
+		java.util.Date date, int total)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addJiraMetric(user, jiraProjectId, jiraComponentId,
+			jiraStatusId, priority, date, total);
+	}
+
 	public static com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
 		int priority, java.util.Date date)

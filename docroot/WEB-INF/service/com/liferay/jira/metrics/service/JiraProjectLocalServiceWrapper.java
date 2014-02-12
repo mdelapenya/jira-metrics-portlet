@@ -287,6 +287,16 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 			arguments);
 	}
 
+	@Override
+	public com.liferay.jira.metrics.model.JiraProject addJiraProject(
+		com.liferay.portal.model.User user, long jiraProjectCode,
+		java.lang.String label, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraProjectLocalService.addJiraProject(user, jiraProjectCode,
+			label, name);
+	}
+
 	/**
 	* Gets a Jira Project by name
 	*

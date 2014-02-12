@@ -114,17 +114,24 @@ public class JiraStatusLocalServiceClpInvoker {
 
 		_methodParameterTypes53 = new String[] { "java.lang.String" };
 
-		_methodName58 = "getJiraStatusByJiraStatusCode";
+		_methodName58 = "addJiraStatus";
 
-		_methodParameterTypes58 = new String[] { "long" };
+		_methodParameterTypes58 = new String[] {
+				"com.liferay.portal.model.User", "long", "long",
+				"java.lang.String"
+			};
 
-		_methodName59 = "getJiraStatusByName";
+		_methodName59 = "getJiraStatusByJiraStatusCode";
 
-		_methodParameterTypes59 = new String[] { "java.lang.String" };
+		_methodParameterTypes59 = new String[] { "long" };
 
-		_methodName60 = "getJiraStatusesByJiraProjectId";
+		_methodName60 = "getJiraStatusByName";
 
-		_methodParameterTypes60 = new String[] { "long" };
+		_methodParameterTypes60 = new String[] { "java.lang.String" };
+
+		_methodName61 = "getJiraStatusesByJiraProjectId";
+
+		_methodParameterTypes61 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -230,16 +237,23 @@ public class JiraStatusLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.getJiraStatusByJiraStatusCode(((Long)arguments[0]).longValue());
+			return JiraStatusLocalServiceUtil.addJiraStatus((com.liferay.portal.model.User)arguments[0],
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(), (java.lang.String)arguments[3]);
 		}
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.getJiraStatusByName((java.lang.String)arguments[0]);
+			return JiraStatusLocalServiceUtil.getJiraStatusByJiraStatusCode(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return JiraStatusLocalServiceUtil.getJiraStatusByName((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.getJiraStatusesByJiraProjectId(((Long)arguments[0]).longValue());
 		}
 
@@ -288,4 +302,6 @@ public class JiraStatusLocalServiceClpInvoker {
 	private String[] _methodParameterTypes59;
 	private String _methodName60;
 	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
 }

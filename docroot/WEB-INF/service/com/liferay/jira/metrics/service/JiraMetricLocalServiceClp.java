@@ -115,27 +115,34 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName19 = "getJiraMetric";
+		_methodName19 = "addJiraMetric";
 
 		_methodParameterTypes19 = new String[] {
-				"long", "long", "long", "int", "java.util.Date"
+				"com.liferay.portal.model.User", "long", "long", "long", "int",
+				"java.util.Date", "int"
 			};
 
 		_methodName20 = "getJiraMetric";
 
 		_methodParameterTypes20 = new String[] {
-				"long", "long", "long", "int", "int", "int", "int"
+				"long", "long", "long", "int", "java.util.Date"
 			};
 
-		_methodName21 = "getJiraMetrics";
+		_methodName21 = "getJiraMetric";
 
 		_methodParameterTypes21 = new String[] {
-				"long", "long", "long", "java.util.Date"
+				"long", "long", "long", "int", "int", "int", "int"
 			};
 
 		_methodName22 = "getJiraMetrics";
 
 		_methodParameterTypes22 = new String[] {
+				"long", "long", "long", "java.util.Date"
+			};
+
+		_methodName23 = "getJiraMetrics";
+
+		_methodParameterTypes23 = new String[] {
 				"long", "long", "long", "int", "int", "int"
 			};
 	}
@@ -691,6 +698,57 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 	}
 
 	@Override
+	public com.liferay.jira.metrics.model.JiraMetric addJiraMetric(
+		com.liferay.portal.model.User user, long jiraProjectId,
+		long jiraComponentId, long jiraStatusId, int priority,
+		java.util.Date date, int total)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
+					new Object[] {
+						ClpSerializer.translateInput(user),
+						
+					jiraProjectId,
+						
+					jiraComponentId,
+						
+					jiraStatusId,
+						
+					priority,
+						
+					ClpSerializer.translateInput(date),
+						
+					total
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.jira.metrics.model.JiraMetric)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
 		int priority, java.util.Date date)
@@ -699,8 +757,8 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
 					new Object[] {
 						jiraProjectId,
 						
@@ -745,8 +803,8 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] {
 						jiraProjectId,
 						
@@ -794,8 +852,8 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] {
 						jiraProjectId,
 						
@@ -833,8 +891,8 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] {
 						jiraProjectId,
 						
@@ -913,4 +971,6 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 	private String[] _methodParameterTypes21;
 	private String _methodName22;
 	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
 }

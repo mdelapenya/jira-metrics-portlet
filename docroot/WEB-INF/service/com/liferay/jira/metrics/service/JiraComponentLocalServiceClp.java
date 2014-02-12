@@ -115,17 +115,24 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName19 = "getJiraComponentByName";
+		_methodName19 = "addJiraComponent";
 
-		_methodParameterTypes19 = new String[] { "java.lang.String" };
+		_methodParameterTypes19 = new String[] {
+				"com.liferay.portal.model.User", "long", "long",
+				"java.lang.String", "int"
+			};
 
-		_methodName20 = "getJiraComponentCode";
+		_methodName20 = "getJiraComponentByName";
 
-		_methodParameterTypes20 = new String[] { "long" };
+		_methodParameterTypes20 = new String[] { "java.lang.String" };
 
-		_methodName21 = "getJiraComponentsByJiraProjectId";
+		_methodName21 = "getJiraComponentCode";
 
 		_methodParameterTypes21 = new String[] { "long" };
+
+		_methodName22 = "getJiraComponentsByJiraProjectId";
+
+		_methodParameterTypes22 = new String[] { "long" };
 	}
 
 	@Override
@@ -679,6 +686,52 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 	}
 
 	@Override
+	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
+		com.liferay.portal.model.User user, long jiraComponentCode,
+		long jiraProjectId, java.lang.String name, int jiraStatusId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
+					new Object[] {
+						ClpSerializer.translateInput(user),
+						
+					jiraComponentCode,
+						
+					jiraProjectId,
+						
+					ClpSerializer.translateInput(name),
+						
+					jiraStatusId
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.jira.metrics.model.JiraComponent)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
 		java.lang.String name)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
@@ -686,8 +739,8 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
 					new Object[] { ClpSerializer.translateInput(name) });
 		}
 		catch (Throwable t) {
@@ -721,8 +774,8 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20, new Object[] { code });
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] { code });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -754,8 +807,8 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { jiraProjectId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { jiraProjectId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -819,4 +872,6 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
 }

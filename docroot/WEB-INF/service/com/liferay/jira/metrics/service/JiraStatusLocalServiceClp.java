@@ -115,17 +115,24 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName19 = "getJiraStatusByJiraStatusCode";
+		_methodName19 = "addJiraStatus";
 
-		_methodParameterTypes19 = new String[] { "long" };
+		_methodParameterTypes19 = new String[] {
+				"com.liferay.portal.model.User", "long", "long",
+				"java.lang.String"
+			};
 
-		_methodName20 = "getJiraStatusByName";
+		_methodName20 = "getJiraStatusByJiraStatusCode";
 
-		_methodParameterTypes20 = new String[] { "java.lang.String" };
+		_methodParameterTypes20 = new String[] { "long" };
 
-		_methodName21 = "getJiraStatusesByJiraProjectId";
+		_methodName21 = "getJiraStatusByName";
 
-		_methodParameterTypes21 = new String[] { "long" };
+		_methodParameterTypes21 = new String[] { "java.lang.String" };
+
+		_methodName22 = "getJiraStatusesByJiraProjectId";
+
+		_methodParameterTypes22 = new String[] { "long" };
 	}
 
 	@Override
@@ -679,6 +686,50 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 	}
 
 	@Override
+	public com.liferay.jira.metrics.model.JiraStatus addJiraStatus(
+		com.liferay.portal.model.User user, long jiraStatusCode,
+		long jiraProjectId, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
+					new Object[] {
+						ClpSerializer.translateInput(user),
+						
+					jiraStatusCode,
+						
+					jiraProjectId,
+						
+					ClpSerializer.translateInput(name)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.jira.metrics.model.JiraStatus)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByJiraStatusCode(
 		long jiraStatusCode)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
@@ -686,8 +737,8 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19, new Object[] { jiraStatusCode });
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] { jiraStatusCode });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -720,8 +771,8 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] { ClpSerializer.translateInput(name) });
 		}
 		catch (Throwable t) {
@@ -754,8 +805,8 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21, new Object[] { jiraProjectId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { jiraProjectId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -819,4 +870,6 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
 }

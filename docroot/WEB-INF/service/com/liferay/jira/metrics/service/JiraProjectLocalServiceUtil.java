@@ -275,6 +275,14 @@ public class JiraProjectLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.jira.metrics.model.JiraProject addJiraProject(
+		com.liferay.portal.model.User user, long jiraProjectCode,
+		java.lang.String label, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addJiraProject(user, jiraProjectCode, label, name);
+	}
+
 	/**
 	* Gets a Jira Project by name
 	*

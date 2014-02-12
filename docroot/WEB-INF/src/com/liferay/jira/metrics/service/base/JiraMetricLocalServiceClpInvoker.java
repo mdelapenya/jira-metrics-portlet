@@ -114,27 +114,34 @@ public class JiraMetricLocalServiceClpInvoker {
 
 		_methodParameterTypes53 = new String[] { "java.lang.String" };
 
-		_methodName58 = "getJiraMetric";
+		_methodName58 = "addJiraMetric";
 
 		_methodParameterTypes58 = new String[] {
-				"long", "long", "long", "int", "java.util.Date"
+				"com.liferay.portal.model.User", "long", "long", "long", "int",
+				"java.util.Date", "int"
 			};
 
 		_methodName59 = "getJiraMetric";
 
 		_methodParameterTypes59 = new String[] {
-				"long", "long", "long", "int", "int", "int", "int"
+				"long", "long", "long", "int", "java.util.Date"
 			};
 
-		_methodName60 = "getJiraMetrics";
+		_methodName60 = "getJiraMetric";
 
 		_methodParameterTypes60 = new String[] {
-				"long", "long", "long", "java.util.Date"
+				"long", "long", "long", "int", "int", "int", "int"
 			};
 
 		_methodName61 = "getJiraMetrics";
 
 		_methodParameterTypes61 = new String[] {
+				"long", "long", "long", "java.util.Date"
+			};
+
+		_methodName62 = "getJiraMetrics";
+
+		_methodParameterTypes62 = new String[] {
 				"long", "long", "long", "int", "int", "int"
 			};
 	}
@@ -242,14 +249,24 @@ public class JiraMetricLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return JiraMetricLocalServiceUtil.addJiraMetric((com.liferay.portal.model.User)arguments[0],
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				((Long)arguments[3]).longValue(),
+				((Integer)arguments[4]).intValue(),
+				(java.util.Date)arguments[5], ((Integer)arguments[6]).intValue());
+		}
+
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			return JiraMetricLocalServiceUtil.getJiraMetric(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
 				((Integer)arguments[3]).intValue(), (java.util.Date)arguments[4]);
 		}
 
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			return JiraMetricLocalServiceUtil.getJiraMetric(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
@@ -259,15 +276,15 @@ public class JiraMetricLocalServiceClpInvoker {
 				((Integer)arguments[6]).intValue());
 		}
 
-		if (_methodName60.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return JiraMetricLocalServiceUtil.getJiraMetrics(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(), (java.util.Date)arguments[3]);
 		}
 
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return JiraMetricLocalServiceUtil.getJiraMetrics(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
@@ -323,4 +340,6 @@ public class JiraMetricLocalServiceClpInvoker {
 	private String[] _methodParameterTypes60;
 	private String _methodName61;
 	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
 }

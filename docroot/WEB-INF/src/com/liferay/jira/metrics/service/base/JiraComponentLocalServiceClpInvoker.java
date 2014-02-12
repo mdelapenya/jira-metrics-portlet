@@ -114,17 +114,24 @@ public class JiraComponentLocalServiceClpInvoker {
 
 		_methodParameterTypes53 = new String[] { "java.lang.String" };
 
-		_methodName58 = "getJiraComponentByName";
+		_methodName58 = "addJiraComponent";
 
-		_methodParameterTypes58 = new String[] { "java.lang.String" };
+		_methodParameterTypes58 = new String[] {
+				"com.liferay.portal.model.User", "long", "long",
+				"java.lang.String", "int"
+			};
 
-		_methodName59 = "getJiraComponentCode";
+		_methodName59 = "getJiraComponentByName";
 
-		_methodParameterTypes59 = new String[] { "long" };
+		_methodParameterTypes59 = new String[] { "java.lang.String" };
 
-		_methodName60 = "getJiraComponentsByJiraProjectId";
+		_methodName60 = "getJiraComponentCode";
 
 		_methodParameterTypes60 = new String[] { "long" };
+
+		_methodName61 = "getJiraComponentsByJiraProjectId";
+
+		_methodParameterTypes61 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -230,16 +237,25 @@ public class JiraComponentLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.getJiraComponentByName((java.lang.String)arguments[0]);
+			return JiraComponentLocalServiceUtil.addJiraComponent((com.liferay.portal.model.User)arguments[0],
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				(java.lang.String)arguments[3],
+				((Integer)arguments[4]).intValue());
 		}
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.getJiraComponentCode(((Long)arguments[0]).longValue());
+			return JiraComponentLocalServiceUtil.getJiraComponentByName((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return JiraComponentLocalServiceUtil.getJiraComponentCode(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getJiraComponentsByJiraProjectId(((Long)arguments[0]).longValue());
 		}
 
@@ -288,4 +304,6 @@ public class JiraComponentLocalServiceClpInvoker {
 	private String[] _methodParameterTypes59;
 	private String _methodName60;
 	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
 }

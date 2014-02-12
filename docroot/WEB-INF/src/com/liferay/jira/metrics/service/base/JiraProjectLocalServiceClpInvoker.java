@@ -114,21 +114,28 @@ public class JiraProjectLocalServiceClpInvoker {
 
 		_methodParameterTypes53 = new String[] { "java.lang.String" };
 
-		_methodName58 = "getJiraProjectByName";
+		_methodName58 = "addJiraProject";
 
-		_methodParameterTypes58 = new String[] { "java.lang.String" };
+		_methodParameterTypes58 = new String[] {
+				"com.liferay.portal.model.User", "long", "java.lang.String",
+				"java.lang.String"
+			};
 
-		_methodName59 = "getJiraProjectByProjectCode";
+		_methodName59 = "getJiraProjectByName";
 
-		_methodParameterTypes59 = new String[] { "long" };
+		_methodParameterTypes59 = new String[] { "java.lang.String" };
 
-		_methodName60 = "getJiraProjectByProjectLabel";
+		_methodName60 = "getJiraProjectByProjectCode";
 
-		_methodParameterTypes60 = new String[] { "java.lang.String" };
+		_methodParameterTypes60 = new String[] { "long" };
 
-		_methodName61 = "getAllJiraProjects";
+		_methodName61 = "getJiraProjectByProjectLabel";
 
-		_methodParameterTypes61 = new String[] {  };
+		_methodParameterTypes61 = new String[] { "java.lang.String" };
+
+		_methodName62 = "getAllJiraProjects";
+
+		_methodParameterTypes62 = new String[] {  };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -234,21 +241,28 @@ public class JiraProjectLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return JiraProjectLocalServiceUtil.getJiraProjectByName((java.lang.String)arguments[0]);
+			return JiraProjectLocalServiceUtil.addJiraProject((com.liferay.portal.model.User)arguments[0],
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3]);
 		}
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return JiraProjectLocalServiceUtil.getJiraProjectByProjectCode(((Long)arguments[0]).longValue());
+			return JiraProjectLocalServiceUtil.getJiraProjectByName((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
-			return JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel((java.lang.String)arguments[0]);
+			return JiraProjectLocalServiceUtil.getJiraProjectByProjectCode(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName61.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+			return JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return JiraProjectLocalServiceUtil.getAllJiraProjects();
 		}
 
@@ -299,4 +313,6 @@ public class JiraProjectLocalServiceClpInvoker {
 	private String[] _methodParameterTypes60;
 	private String _methodName61;
 	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
 }
