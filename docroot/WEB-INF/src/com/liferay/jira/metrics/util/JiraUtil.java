@@ -28,29 +28,25 @@ import com.atlassian.jira.rest.client.domain.SearchResult;
 import com.atlassian.jira.rest.client.domain.Status;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
-
+import com.google.common.collect.Lists;
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.Base64;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.ws.rs.core.MediaType;
-
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
+import javax.ws.rs.core.MediaType;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Cristina González
@@ -58,7 +54,7 @@ import org.codehaus.jettison.json.JSONObject;
  */
 public class JiraUtil {
 
-	public static List<Project> getAllJiraProjects()
+	public static List<BasicProject> getAllJiraProjects()
 		throws JiraConnectionException {
 
 		ProjectRestClient projectClient = _getClient().getProjectClient();
@@ -68,13 +64,7 @@ public class JiraUtil {
 
 		Iterable<BasicProject> basicProjects = promise.claim();
 
-		List<Project> projects = new ArrayList<Project>();
-
-		for (BasicProject basicProject : basicProjects) {
-			projects.add(projectClient.getProject(basicProject.getKey()).claim());
-		}
-
-		return projects;
+		return Lists.newArrayList(basicProjects);
 	}
 
 	public static List<Status> getAllJiraStatuses()
