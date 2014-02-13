@@ -14,15 +14,13 @@
 
 package com.liferay.jira.metrics.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import com.liferay.jira.metrics.NoSuchJiraStatusException;
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
+
+import java.util.Date;
 
 /**
  * The implementation of the jira status local service.
@@ -41,7 +39,7 @@ import com.liferay.portal.model.User;
 public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 
 	public JiraStatus addJiraStatus(
-			long jiraStatusCode, long jiraProjectId, String name)
+			String uri, String name)
 		throws PortalException, SystemException {
 
 		long id = counterLocalService.increment();
@@ -53,8 +51,7 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 		jiraStatus.setCreateDate(now);
 		jiraStatus.setModifiedDate(now);
 
-		jiraStatus.setJiraStatusCode(jiraStatusCode);
-		jiraStatus.setJiraProjectId(jiraProjectId);
+		jiraStatus.setUri(uri);
 		jiraStatus.setName(name);
 
 		jiraStatusPersistence.update(jiraStatus);
@@ -63,22 +60,10 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 			jiraStatus.getPrimaryKey());
 	}
 
-	public JiraStatus getJiraStatusByJiraStatusCode(long jiraStatusCode)
+	public JiraStatus getJiraStatusByUri(String uri)
 		throws NoSuchJiraStatusException, SystemException {
 
-		return jiraStatusPersistence.findByJiraStatusCode(jiraStatusCode);
-	}
-
-	public JiraStatus getJiraStatusByName(String name)
-		throws NoSuchJiraStatusException, SystemException {
-
-		return jiraStatusPersistence.findByStatus(name);
-	}
-
-	public List<JiraStatus> getJiraStatusesByJiraProjectId(long jiraProjectId)
-		throws SystemException {
-
-		return jiraStatusPersistence.findByJiraProjectId(jiraProjectId);
+		return jiraStatusPersistence.findByUri(uri);
 	}
 
 }

@@ -51,8 +51,7 @@
 		</id>
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="jiraStatusCode" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="jiraProjectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="uri" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>

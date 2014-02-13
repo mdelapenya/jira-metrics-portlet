@@ -74,8 +74,7 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="jiraStatusCode" />
-			<basic name="jiraProjectId" />
+			<basic name="uri" />
 			<basic name="name" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />

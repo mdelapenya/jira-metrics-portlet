@@ -34,7 +34,6 @@ create table jirametrics_JiraStatus (
 	jiraStatusId LONG not null primary key,
 	createDate DATE null,
 	modifiedDate DATE null,
-	jiraStatusCode LONG,
-	jiraProjectId LONG,
+	uri VARCHAR(75) null,
 	name VARCHAR(75) null
 );

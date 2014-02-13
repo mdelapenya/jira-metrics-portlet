@@ -14,3 +14,4 @@ create unique index IX_85BD986 on jirametrics_JiraProject (name);
 create index IX_78A8CF66 on jirametrics_JiraStatus (jiraProjectId);
 create unique index IX_C6E90151 on jirametrics_JiraStatus (jiraStatusCode);
 create unique index IX_1E34278F on jirametrics_JiraStatus (name);
+create unique index IX_1A29E6CC on jirametrics_JiraStatus (uri);
