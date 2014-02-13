@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -28,24 +28,29 @@ import com.atlassian.jira.rest.client.domain.SearchResult;
 import com.atlassian.jira.rest.client.domain.Status;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
+
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.core.util.Base64;
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  * @author Cristina González
@@ -75,38 +80,7 @@ public class JiraUtil {
 	public static List<Status> getAllJiraStatuses()
 		throws JiraConnectionException {
 
-		String auth = new String(
-			Base64.encode(
-				PortletPropsValues.JIRA_USERNAME + ":" +
-					PortletPropsValues.JIRA_PASSWORD));
-
-		Client client = Client.create();
-
-		String restStatusURL = PortletPropsValues.JIRA_SERVER_URI;
-
-		if (!restStatusURL.endsWith(StringPool.SLASH)) {
-			restStatusURL += StringPool.SLASH;
-		}
-
-		restStatusURL += "rest/api/2/status";
-
-		WebResource webResource = client.resource(restStatusURL);
-
-		Builder header = webResource.header("Authorization", "Basic " + auth);
-
-		Builder type = header.type("application/json");
-
-		Builder accept = type.accept("application/json");
-
-		ClientResponse response = accept.get(ClientResponse.class);
-
-		if (response.getStatus() != 200) {
-			throw new JiraConnectionException(
-				"Failed to connect to JIRA Rest API " + restStatusURL + ": " +
-					response.getStatus());
-		}
-
-		String output = response.getEntity(String.class);
+		String output = getJiraRestResponse(getJiraURL() + _STATUS_API);
 
 		List<Status> statuses = new ArrayList<Status>();
 
@@ -114,25 +88,12 @@ public class JiraUtil {
 			JSONArray arrayResponse = new JSONArray(output);
 
 			for (int i = 0; i < arrayResponse.length() - 1; i++) {
-				JSONObject statusRestObject = arrayResponse.getJSONObject(i);
-
-				URI self = new URI(statusRestObject.getString("self"));
-
-				String name = statusRestObject.getString("name");
-
-				String description = statusRestObject.getString("description");
-
-				URI iconUrl = new URI(statusRestObject.getString("iconUrl"));
-
-				Status status = new Status(self, name, description, iconUrl);
-
-				statuses.add(status);
+				statuses.add(toStatus(arrayResponse.getJSONObject(i)));
 			}
-		}
-		catch (JSONException e) {
+
+		} catch (JSONException e) {
 			throw new RuntimeException("JSONException " + e.getMessage(), e);
-		}
-		catch (URISyntaxException e) {
+		} catch (URISyntaxException e) {
 			throw new RuntimeException(
 				"URISyntaxException " + e.getMessage(), e);
 		}
@@ -191,6 +152,20 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
+	protected static String getBase64Auth() {
+
+		StringBundler sb = new StringBundler(
+			PortletPropsValues.JIRA_USERNAME.length() +
+				StringPool.COLON.length() +
+				PortletPropsValues.JIRA_PASSWORD.length());
+
+		sb.append(PortletPropsValues.JIRA_USERNAME);
+		sb.append(StringPool.COLON);
+		sb.append(PortletPropsValues.JIRA_PASSWORD);
+
+		return new String(Base64.encode(sb.toString()));
+	}
+
 	protected static int getIssuesCountByProjectStatusComponentPriority(
 			Project project, Status status, Component component,
 			Priority priority)
@@ -227,6 +202,58 @@ public class JiraUtil {
 		return result.getTotal();
 	}
 
+	protected static String getJiraRestResponse(String restURL)
+		throws JiraConnectionException {
+
+		Client client = Client.create();
+
+		WebResource webResource = client.resource(restURL);
+
+		WebResource.Builder headerBuilder = webResource.header(
+			_AUTORIZATION, _AUTORIZATION_TYPE + getBase64Auth());
+
+		WebResource.Builder typeBuilder = headerBuilder.type(
+			MediaType.APPLICATION_JSON);
+
+		WebResource.Builder responseBuilder = typeBuilder.accept(
+			MediaType.APPLICATION_JSON);
+
+		ClientResponse response = responseBuilder.get(ClientResponse.class);
+
+		if (response.getStatus() != 200) {
+			throw new JiraConnectionException(
+				"Failed to connect to JIRA Rest API " + restURL +
+					" " + response.getStatus());
+		}
+
+		return response.getEntity(String.class);
+	}
+
+	protected static String getJiraURL() {
+
+		String jiraURL = PortletPropsValues.JIRA_SERVER_URI;
+
+		if (!jiraURL.endsWith(StringPool.SLASH)) {
+			jiraURL += StringPool.SLASH;
+		}
+
+		return jiraURL;
+	}
+
+	protected static Status toStatus(JSONObject jsonObject)
+		throws JSONException, URISyntaxException {
+
+		URI self = new URI(jsonObject.getString("self"));
+
+		String name = jsonObject.getString("name");
+
+		String description = jsonObject.getString("description");
+
+		URI iconUrl = new URI(jsonObject.getString("iconUrl"));
+
+		return new Status(self, name, description, iconUrl);
+	}
+
 	private static JiraRestClient _getClient() throws JiraConnectionException {
 		if (_client == null) {
 			JiraRestClientFactory factory =
@@ -247,6 +274,12 @@ public class JiraUtil {
 
 		return _client;
 	}
+
+	private static final String _AUTORIZATION = "Authorization";
+
+	private static final String _AUTORIZATION_TYPE = "Basic ";
+
+	private static final String _STATUS_API = "rest/api/2/status";
 
 	private static Log _log = LogFactoryUtil.getLog(JiraUtil.class);
 
