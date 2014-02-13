@@ -14,7 +14,7 @@
 
 package com.liferay.jira.metrics.util;
 
-import com.atlassian.jira.rest.client.domain.Project;
+import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.model.JiraProject;
@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.apache.commons.lang.time.StopWatch;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Manuel de la Peña
@@ -38,7 +39,7 @@ public class JiraETLUtil {
 
 			stopWatch.start();
 
-			loadLPSProject();
+			_loadProjects();
 
 			stopWatch.stop();
 
@@ -54,10 +55,18 @@ public class JiraETLUtil {
 		}
 	}
 
-	public static void loadLPSProject()
-		throws JiraConnectionException, PortalException, SystemException {
+	private static void _loadProjects()
+		throws JiraConnectionException, SystemException, PortalException {
 
-		Project project = JiraUtil.getProject("LPS");
+		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
+
+		for (BasicProject project : projects) {
+			_loadProject(project);
+		}
+	}
+
+	private static void _loadProject(BasicProject project)
+		throws JiraConnectionException, PortalException, SystemException {
 
 		JiraProject jiraProject = null;
 
