@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -90,7 +90,6 @@ public class JiraUtil {
 			for (int i = 0; i < arrayResponse.length() - 1; i++) {
 				statuses.add(toStatus(arrayResponse.getJSONObject(i)));
 			}
-
 		} catch (JSONException e) {
 			throw new RuntimeException("JSONException " + e.getMessage(), e);
 		} catch (URISyntaxException e) {
@@ -153,11 +152,7 @@ public class JiraUtil {
 	}
 
 	protected static String getBase64Auth() {
-
-		StringBundler sb = new StringBundler(
-			PortletPropsValues.JIRA_USERNAME.length() +
-				StringPool.COLON.length() +
-				PortletPropsValues.JIRA_PASSWORD.length());
+		StringBundler sb = new StringBundler(3);
 
 		sb.append(PortletPropsValues.JIRA_USERNAME);
 		sb.append(StringPool.COLON);
@@ -230,7 +225,6 @@ public class JiraUtil {
 	}
 
 	protected static String getJiraURL() {
-
 		String jiraURL = PortletPropsValues.JIRA_SERVER_URI;
 
 		if (!jiraURL.endsWith(StringPool.SLASH)) {
