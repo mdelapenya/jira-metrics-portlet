@@ -289,34 +289,18 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraStatus addJiraStatus(
-		long jiraStatusCode, long jiraProjectId, java.lang.String name)
+		java.lang.String uri, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _jiraStatusLocalService.addJiraStatus(jiraStatusCode,
-			jiraProjectId, name);
+		return _jiraStatusLocalService.addJiraStatus(uri, name);
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByJiraStatusCode(
-		long jiraStatusCode)
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _jiraStatusLocalService.getJiraStatusByJiraStatusCode(jiraStatusCode);
-	}
-
-	@Override
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
-		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _jiraStatusLocalService.getJiraStatusByName(name);
-	}
-
-	@Override
-	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getJiraStatusesByJiraProjectId(
-		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _jiraStatusLocalService.getJiraStatusesByJiraProjectId(jiraProjectId);
+		return _jiraStatusLocalService.getJiraStatusByUri(uri);
 	}
 
 	/**
