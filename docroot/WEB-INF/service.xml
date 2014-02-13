@@ -86,8 +86,7 @@
 
 		<!-- Other fields -->
 
-		<column name="jiraStatusCode" type="long" />
-		<column name="jiraProjectId" type="long" />
+		<column name="uri" type="String" />
 		<column name="name" type="String" />
 
 		<!-- Order -->
@@ -101,11 +100,8 @@
 		<finder name="Status" return-type="JiraStatus" unique="true">
 			<finder-column name="name" />
 		</finder>
-		<finder name="JiraStatusCode" return-type="JiraStatus" unique="true">
-			<finder-column name="jiraStatusCode" />
-		</finder>
-		<finder name="JiraProjectId" return-type="Collection">
-			<finder-column name="jiraProjectId" />
+		<finder name="Uri" return-type="JiraStatus" unique="true">
+			<finder-column name="uri" />
 		</finder>
 	</entity>
 
