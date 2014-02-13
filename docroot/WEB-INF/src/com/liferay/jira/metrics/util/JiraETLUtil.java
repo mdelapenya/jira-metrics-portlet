@@ -15,7 +15,6 @@
 package com.liferay.jira.metrics.util;
 
 import com.atlassian.jira.rest.client.domain.Project;
-
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.model.JiraProject;
@@ -24,10 +23,9 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import org.apache.commons.lang.time.StopWatch;
 
 import java.util.Date;
-
-import org.apache.commons.lang.time.StopWatch;
 
 /**
  * @author Manuel de la Peña
@@ -66,7 +64,7 @@ public class JiraETLUtil {
 		try {
 			jiraProject =
 				JiraProjectLocalServiceUtil.addJiraProject(
-					project.getKey(), project.getDescription());
+					project.getKey(), project.getName());
 
 			_log.info(jiraProject.getKey() + " imported sucessfully");
 		}
@@ -79,7 +77,7 @@ public class JiraETLUtil {
 				JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
 					project.getKey());
 
-			jiraProject.setName(project.getDescription());
+			jiraProject.setName(project.getName());
 			jiraProject.setModifiedDate(new Date());
 
 			JiraProjectLocalServiceUtil.updateJiraProject(jiraProject);
