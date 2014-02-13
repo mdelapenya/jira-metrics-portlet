@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -21,6 +21,9 @@ import com.liferay.util.portlet.PortletProps;
  * @author Manuel de la Peña
  */
 public class PortletPropsValues {
+
+	public static final String JIRA_BASE_QUERY = GetterUtil.getString(
+		PortletProps.get(PortletPropsKeys.JIRA_BASE_QUERY));
 
 	public static final String JIRA_PASSWORD = GetterUtil.getString(
 		PortletProps.get(PortletPropsKeys.JIRA_PASSWORD));
