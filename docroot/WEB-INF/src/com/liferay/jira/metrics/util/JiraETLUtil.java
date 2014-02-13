@@ -15,10 +15,14 @@
 package com.liferay.jira.metrics.util;
 
 import com.atlassian.jira.rest.client.domain.BasicProject;
+import com.atlassian.jira.rest.client.domain.Status;
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
+import com.liferay.jira.metrics.DuplicateJiraStatusException;
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.model.JiraProject;
+import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil;
+import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
@@ -39,6 +43,7 @@ public class JiraETLUtil {
 
 			stopWatch.start();
 
+			_loadStatuses();
 			_loadProjects();
 
 			stopWatch.stop();
@@ -92,6 +97,47 @@ public class JiraETLUtil {
 			JiraProjectLocalServiceUtil.updateJiraProject(jiraProject);
 
 			_log.info(jiraProject.getKey() + " updated sucessfully");
+		}
+	}
+
+	private static void _loadStatuses()
+		throws JiraConnectionException, SystemException, PortalException {
+
+		List<Status> statuses = JiraUtil.getAllJiraStatuses();
+
+		for (Status status : statuses) {
+			_loadStatus(status);
+		}
+	}
+
+
+	private static void _loadStatus(Status status)
+		throws JiraConnectionException, PortalException, SystemException {
+
+		JiraStatus jiraStatus = null;
+
+		try {
+			jiraStatus =
+				JiraStatusLocalServiceUtil.addJiraStatus(
+					status.getSelf().toString(), status.getName());
+
+			_log.info(jiraStatus.getUri() + " imported sucessfully");
+		}
+		catch (DuplicateJiraStatusException djse) {
+			_log.warn(
+				"Jira Status with URI '" + status.getSelf() +
+					"' already exists. Let's update it.");
+
+			jiraStatus =
+				JiraStatusLocalServiceUtil.getJiraStatusByUri(
+					status.getSelf().toString());
+
+			jiraStatus.setName(status.getName());
+			jiraStatus.setModifiedDate(new Date());
+
+			JiraStatusLocalServiceUtil.updateJiraStatus(jiraStatus);
+
+			_log.info(jiraStatus.getUri()+ " updated sucessfully");
 		}
 	}
 
