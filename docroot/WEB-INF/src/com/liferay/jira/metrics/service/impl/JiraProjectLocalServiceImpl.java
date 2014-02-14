@@ -14,16 +14,15 @@
 
 package com.liferay.jira.metrics.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.NoSuchJiraProjectException;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the jira project local service.
