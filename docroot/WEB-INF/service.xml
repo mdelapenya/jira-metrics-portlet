@@ -52,7 +52,7 @@
 		<column name="uri" type="String" />
 		<column name="jiraProjectId" type="long" />
 		<column name="name" type="String" />
-		<column name="status" type="int" />
+		<column name="disabled" type="boolean" />
 
 		<!-- Order -->
 
