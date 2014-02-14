@@ -100,7 +100,7 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
-	public static List<TotalIssues> getIssuesCountByProjectStatus(
+	public static List<IssuesMetric> getIssuesCountByProjectStatus(
 			Project project, List<Status> statuses)
 		throws JiraConnectionException {
 
@@ -112,7 +112,7 @@ public class JiraUtil {
 			throw new RuntimeException("The statuses can't be empty");
 		}
 
-		List<TotalIssues> results = new ArrayList<TotalIssues>();
+		List<IssuesMetric> results = new ArrayList<IssuesMetric>();
 
 		for (Status status : statuses) {
 			for (BasicComponent basicComponent : project.getComponents()) {
@@ -122,7 +122,7 @@ public class JiraUtil {
 					int total = getIssuesCountByProjectStatusComponentPriority(
 						project, status, component, priority);
 
-					results.add(new TotalIssues(
+					results.add(new IssuesMetric(
 						project, component, status, priority, total));
 				}
 			}
