@@ -14,13 +14,18 @@
 
 package com.liferay.jira.metrics.util;
 
+import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.BasicProject;
+import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
+import com.liferay.jira.metrics.DuplicateJiraComponentException;
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.DuplicateJiraStatusException;
 import com.liferay.jira.metrics.exception.JiraConnectionException;
+import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.model.JiraStatus;
+import com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -60,6 +65,48 @@ public class JiraETLUtil {
 		}
 	}
 
+	private static void _loadComponents(Project project, JiraProject jiraProject)
+		throws JiraConnectionException, SystemException, PortalException {
+
+		Iterable<BasicComponent> components = project.getComponents();
+
+		for (BasicComponent component : components) {
+			_loadComponent(jiraProject, component);
+		}
+	}
+
+	private static void _loadComponent(JiraProject jiraProject, BasicComponent component)
+		throws JiraConnectionException, PortalException, SystemException {
+
+		JiraComponent jiraComponent = null;
+
+		try {
+			jiraComponent =
+				JiraComponentLocalServiceUtil.addJiraComponent(
+					component.getSelf().toString(),
+					jiraProject.getJiraProjectId(), component.getName(), false);
+
+			_log.info(jiraProject.getKey() + " imported sucessfully");
+		}
+		catch (DuplicateJiraComponentException djce) {
+			_log.warn(
+				"Jira Comonent with uri '" + component.getSelf() +
+					"' already exists. Let's update it.");
+
+			jiraComponent =
+				JiraComponentLocalServiceUtil.getJiraComponentByUri(
+					component.getSelf().toString());
+
+			jiraComponent.setDisabled(false);
+			jiraComponent.setName(component.getName());
+			jiraComponent.setModifiedDate(new Date());
+
+			JiraComponentLocalServiceUtil.updateJiraComponent(jiraComponent);
+
+			_log.info(jiraComponent.getUri() + " updated sucessfully");
+		}
+	}
+
 	private static void _loadProjects()
 		throws JiraConnectionException, SystemException, PortalException {
 
@@ -70,7 +117,7 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static void _loadProject(BasicProject project)
+	private static void _loadProject(BasicProject basicProject)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		JiraProject jiraProject = null;
@@ -78,26 +125,30 @@ public class JiraETLUtil {
 		try {
 			jiraProject =
 				JiraProjectLocalServiceUtil.addJiraProject(
-					project.getKey(), project.getName());
+					basicProject.getKey(), basicProject.getName());
 
 			_log.info(jiraProject.getKey() + " imported sucessfully");
 		}
 		catch (DuplicateJiraProjectException djpe) {
 			_log.warn(
-				"Jira Project with key '" + project.getKey() +
+				"Jira Project with key '" + basicProject.getKey() +
 				"' already exists. Let's update it.");
 
 			jiraProject =
 				JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
-					project.getKey());
+					basicProject.getKey());
 
-			jiraProject.setName(project.getName());
+			jiraProject.setName(basicProject.getName());
 			jiraProject.setModifiedDate(new Date());
 
 			JiraProjectLocalServiceUtil.updateJiraProject(jiraProject);
 
 			_log.info(jiraProject.getKey() + " updated sucessfully");
 		}
+
+		Project project = JiraUtil.getProject(basicProject.getKey());
+
+		_loadComponents(project, jiraProject);
 	}
 
 	private static void _loadStatuses()
