@@ -14,6 +14,7 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import com.liferay.jira.metrics.DuplicateJiraComponentException;
 import com.liferay.jira.metrics.NoSuchJiraComponentException;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.service.base.JiraComponentLocalServiceBaseImpl;
@@ -44,9 +45,15 @@ public class JiraComponentLocalServiceImpl
 			String uri, long jiraProjectId, String name, Boolean disabled)
 		throws PortalException, SystemException {
 
+		JiraComponent jiraComponent = jiraComponentPersistence.fetchByUri(uri);
+
+		if (jiraComponent != null) {
+			throw new DuplicateJiraComponentException();
+		}
+
 		long id = counterLocalService.increment();
 
-		JiraComponent jiraComponent = jiraComponentPersistence.create(id);
+		jiraComponent = jiraComponentPersistence.create(id);
 
 		Date now = new Date();
 
