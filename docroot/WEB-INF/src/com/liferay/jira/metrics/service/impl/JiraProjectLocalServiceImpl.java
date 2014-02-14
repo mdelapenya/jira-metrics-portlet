@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -69,6 +69,16 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 	}
 
 	/**
+	 * Retrieves all Jira projects
+	 *
+	 * @return a list with all Jira projects
+	 * @throws SystemException
+	 */
+	public List<JiraProject> getAllJiraProjects() throws SystemException {
+		return jiraProjectPersistence.findAll();
+	}
+
+	/**
 	 * Gets a Jira Project by name
 	 *
 	 * @param projectCode
@@ -85,7 +95,7 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 	/**
 	 * Gets a Jira Project by label
 	 *
-	 * @param label 
+	 * @param label
 	 * @return the Jira project
 	 * @throws NoSuchJiraProjectException
 	 * @throws SystemException
@@ -94,16 +104,6 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 		throws NoSuchJiraProjectException, SystemException {
 
 		return jiraProjectPersistence.findByLabel(label);
-	}
-
-	/**
-	 * Retrieves all Jira projects
-	 * 
-	 * @return a list with all Jira projects
-	 * @throws SystemException
-	 */
-	public List<JiraProject> getAllJiraProjects() throws SystemException {
-		return jiraProjectPersistence.findAll();
 	}
 
 }
