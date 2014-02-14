@@ -291,11 +291,11 @@ public class JiraComponentLocalServiceWrapper
 	@Override
 	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
 		java.lang.String uri, long jiraProjectId, java.lang.String name,
-		int jiraStatusId)
+		java.lang.Boolean disabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _jiraComponentLocalService.addJiraComponent(uri, jiraProjectId,
-			name, jiraStatusId);
+			name, disabled);
 	}
 
 	@Override

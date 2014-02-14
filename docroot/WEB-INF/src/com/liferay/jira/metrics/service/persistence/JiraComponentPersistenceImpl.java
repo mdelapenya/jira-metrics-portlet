@@ -1426,7 +1426,7 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 		jiraComponentImpl.setUri(jiraComponent.getUri());
 		jiraComponentImpl.setJiraProjectId(jiraComponent.getJiraProjectId());
 		jiraComponentImpl.setName(jiraComponent.getName());
-		jiraComponentImpl.setStatus(jiraComponent.getStatus());
+		jiraComponentImpl.setDisabled(jiraComponent.isDisabled());
 
 		return jiraComponentImpl;
 	}

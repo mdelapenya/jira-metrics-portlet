@@ -37,7 +37,7 @@ public class JiraComponentSoap implements Serializable {
 		soapModel.setUri(model.getUri());
 		soapModel.setJiraProjectId(model.getJiraProjectId());
 		soapModel.setName(model.getName());
-		soapModel.setStatus(model.getStatus());
+		soapModel.setDisabled(model.getDisabled());
 
 		return soapModel;
 	}
@@ -138,12 +138,16 @@ public class JiraComponentSoap implements Serializable {
 		_name = name;
 	}
 
-	public int getStatus() {
-		return _status;
+	public boolean getDisabled() {
+		return _disabled;
 	}
 
-	public void setStatus(int status) {
-		_status = status;
+	public boolean isDisabled() {
+		return _disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		_disabled = disabled;
 	}
 
 	private long _jiraComponentId;
@@ -152,5 +156,5 @@ public class JiraComponentSoap implements Serializable {
 	private String _uri;
 	private long _jiraProjectId;
 	private String _name;
-	private int _status;
+	private boolean _disabled;
 }

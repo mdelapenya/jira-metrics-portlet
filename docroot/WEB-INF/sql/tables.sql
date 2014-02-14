@@ -5,7 +5,7 @@ create table jirametrics_JiraComponent (
 	uri VARCHAR(75) null,
 	jiraProjectId LONG,
 	name VARCHAR(75) null,
-	status INTEGER
+	disabled BOOLEAN
 );
 
 create table jirametrics_JiraMetric (

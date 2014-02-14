@@ -251,7 +251,7 @@ public interface JiraComponentLocalService extends BaseLocalService,
 
 	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
 		java.lang.String uri, long jiraProjectId, java.lang.String name,
-		int jiraStatusId)
+		java.lang.Boolean disabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
