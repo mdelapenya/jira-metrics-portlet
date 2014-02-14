@@ -81,7 +81,7 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 	/**
 	 * Gets a Jira Project by name
 	 *
-	 * @param projectCode
+	 * @param name
 	 * @return
 	 * @throws NoSuchJiraProjectException
 	 * @throws SystemException
