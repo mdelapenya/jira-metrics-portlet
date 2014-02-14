@@ -71,10 +71,12 @@ public class JiraComponentLocalServiceImpl
 			jiraComponent.getPrimaryKey());
 	}
 
-	public JiraComponent getJiraComponentByName(String name)
+	public JiraComponent getJiraComponentByNameAndJiraProjectId(
+			String name, long jiraProjectId)
 		throws NoSuchJiraComponentException, SystemException {
 
-		return jiraComponentPersistence.findByJiraComponent(name);
+		return jiraComponentPersistence.findByJiraComponent(
+			name, jiraProjectId);
 	}
 
 	public JiraComponent getJiraComponentByUri(String uri)

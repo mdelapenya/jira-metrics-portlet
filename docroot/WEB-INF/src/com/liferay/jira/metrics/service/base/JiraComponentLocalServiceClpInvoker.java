@@ -121,9 +121,9 @@ public class JiraComponentLocalServiceClpInvoker {
 				"java.lang.Boolean"
 			};
 
-		_methodName59 = "getJiraComponentByName";
+		_methodName59 = "getJiraComponentByNameAndJiraProjectId";
 
-		_methodParameterTypes59 = new String[] { "java.lang.String" };
+		_methodParameterTypes59 = new String[] { "java.lang.String", "long" };
 
 		_methodName60 = "getJiraComponentByUri";
 
@@ -244,7 +244,8 @@ public class JiraComponentLocalServiceClpInvoker {
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.getJiraComponentByName((java.lang.String)arguments[0]);
+			return JiraComponentLocalServiceUtil.getJiraComponentByNameAndJiraProjectId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName60.equals(name) &&
