@@ -14,6 +14,7 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import com.liferay.jira.metrics.DuplicateJiraStatusException;
 import com.liferay.jira.metrics.NoSuchJiraStatusException;
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl;
@@ -42,9 +43,15 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 			String uri, String name)
 		throws PortalException, SystemException {
 
+		JiraStatus jiraStatus = jiraStatusPersistence.fetchByUri(uri);
+
+		if (jiraStatus != null) {
+			throw new DuplicateJiraStatusException();
+		}
+
 		long id = counterLocalService.increment();
 
-		JiraStatus jiraStatus = jiraStatusPersistence.create(id);
+		jiraStatus = jiraStatusPersistence.create(id);
 
 		Date now = new Date();
 
