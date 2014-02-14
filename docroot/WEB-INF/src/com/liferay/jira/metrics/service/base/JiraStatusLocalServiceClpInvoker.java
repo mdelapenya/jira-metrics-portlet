@@ -123,6 +123,10 @@ public class JiraStatusLocalServiceClpInvoker {
 		_methodName59 = "getJiraStatusByUri";
 
 		_methodParameterTypes59 = new String[] { "java.lang.String" };
+
+		_methodName60 = "getJiraStatusByName";
+
+		_methodParameterTypes60 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -237,6 +241,11 @@ public class JiraStatusLocalServiceClpInvoker {
 			return JiraStatusLocalServiceUtil.getJiraStatusByUri((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return JiraStatusLocalServiceUtil.getJiraStatusByName((java.lang.String)arguments[0]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -280,4 +289,6 @@ public class JiraStatusLocalServiceClpInvoker {
 	private String[] _methodParameterTypes58;
 	private String _methodName59;
 	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
 }

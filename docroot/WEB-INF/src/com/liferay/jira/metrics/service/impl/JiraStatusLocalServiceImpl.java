@@ -73,4 +73,10 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 		return jiraStatusPersistence.findByUri(uri);
 	}
 
+	public JiraStatus getJiraStatusByName(String name)
+		throws NoSuchJiraStatusException, SystemException {
+
+		return jiraStatusPersistence.findByStatus(name);
+	}
+
 }

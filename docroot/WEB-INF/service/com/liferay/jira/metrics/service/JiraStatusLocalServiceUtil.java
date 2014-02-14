@@ -289,6 +289,13 @@ public class JiraStatusLocalServiceUtil {
 		return getService().getJiraStatusByUri(uri);
 	}
 
+	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraStatusByName(name);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

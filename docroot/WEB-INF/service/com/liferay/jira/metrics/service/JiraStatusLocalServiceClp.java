@@ -124,6 +124,10 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 		_methodName20 = "getJiraStatusByUri";
 
 		_methodParameterTypes20 = new String[] { "java.lang.String" };
+
+		_methodName21 = "getJiraStatusByName";
+
+		_methodParameterTypes21 = new String[] { "java.lang.String" };
 	}
 
 	@Override
@@ -750,6 +754,41 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 		return (com.liferay.jira.metrics.model.JiraStatus)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] { ClpSerializer.translateInput(name) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.jira.metrics.NoSuchJiraStatusException) {
+				throw (com.liferay.jira.metrics.NoSuchJiraStatusException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.jira.metrics.model.JiraStatus)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -791,4 +830,6 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
 }
