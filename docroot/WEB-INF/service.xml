@@ -34,6 +34,10 @@
 		<finder name="Name" return-type="JiraProject" unique="true">
 			<finder-column name="name" />
 		</finder>
+
+		<!-- References -->
+
+		<reference package-path="com.liferay.portal" entity="PortletPreferences" />
 	</entity>
 
 	<entity name="JiraComponent" local-service="true">
