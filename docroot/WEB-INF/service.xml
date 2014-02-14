@@ -62,8 +62,9 @@
 
 		<!-- Finder methods -->
 
-		<finder name="JiraComponent" return-type="JiraComponent" unique="true">
+		<finder name="JiraComponent" return-type="JiraComponent">
 			<finder-column name="name" />
+			<finder-column name="jiraProjectId" />
 		</finder>
 		<finder name="Uri" return-type="JiraComponent" unique="true">
 			<finder-column name="uri" />
