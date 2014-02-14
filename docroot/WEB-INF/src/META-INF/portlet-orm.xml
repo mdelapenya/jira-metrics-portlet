@@ -19,7 +19,7 @@
 			<basic name="uri" />
 			<basic name="jiraProjectId" />
 			<basic name="name" />
-			<basic name="status" />
+			<basic name="disabled" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
