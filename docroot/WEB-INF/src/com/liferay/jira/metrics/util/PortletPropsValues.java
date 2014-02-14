@@ -34,4 +34,7 @@ public class PortletPropsValues {
 	public static final String JIRA_USERNAME = GetterUtil.getString(
 		PortletProps.get(PortletPropsKeys.JIRA_USERNAME));
 
+	public static final String MERGE_STRATEGY = GetterUtil.getString(
+		PortletProps.get(PortletPropsKeys.MERGE_STRATEGY));
+
 }

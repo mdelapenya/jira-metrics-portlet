@@ -27,4 +27,6 @@ public class PortletPropsKeys {
 
 	public static final String JIRA_USERNAME = "jira.username";
 
+	public static final String MERGE_STRATEGY = "merge.strategy";
+
 }

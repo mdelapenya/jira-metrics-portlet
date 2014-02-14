@@ -207,12 +207,16 @@ public class JiraETLUtil {
 			}
 		}
 		catch (DuplicateJiraProjectException djpe) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-				"Jira Project with key '" + basicProject.getKey() +
-				"' already exists. Let's update it.");
+			if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
+				return;
 			}
 
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Jira Project with key '" + basicProject.getKey() +
+						"' already exists. Let's update it.");
+			}							
+												
 			jiraProject =
 				JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
 					basicProject.getKey());
