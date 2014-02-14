@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.BaseServiceImpl;
+import com.liferay.portal.service.persistence.PortletPreferencesPersistence;
 import com.liferay.portal.service.persistence.UserPersistence;
 
 import javax.sql.DataSource;
@@ -299,6 +300,63 @@ public abstract class JiraProjectServiceBaseImpl extends BaseServiceImpl
 	}
 
 	/**
+	 * Returns the portlet preferences local service.
+	 *
+	 * @return the portlet preferences local service
+	 */
+	public com.liferay.portal.service.PortletPreferencesLocalService getPortletPreferencesLocalService() {
+		return portletPreferencesLocalService;
+	}
+
+	/**
+	 * Sets the portlet preferences local service.
+	 *
+	 * @param portletPreferencesLocalService the portlet preferences local service
+	 */
+	public void setPortletPreferencesLocalService(
+		com.liferay.portal.service.PortletPreferencesLocalService portletPreferencesLocalService) {
+		this.portletPreferencesLocalService = portletPreferencesLocalService;
+	}
+
+	/**
+	 * Returns the portlet preferences remote service.
+	 *
+	 * @return the portlet preferences remote service
+	 */
+	public com.liferay.portal.service.PortletPreferencesService getPortletPreferencesService() {
+		return portletPreferencesService;
+	}
+
+	/**
+	 * Sets the portlet preferences remote service.
+	 *
+	 * @param portletPreferencesService the portlet preferences remote service
+	 */
+	public void setPortletPreferencesService(
+		com.liferay.portal.service.PortletPreferencesService portletPreferencesService) {
+		this.portletPreferencesService = portletPreferencesService;
+	}
+
+	/**
+	 * Returns the portlet preferences persistence.
+	 *
+	 * @return the portlet preferences persistence
+	 */
+	public PortletPreferencesPersistence getPortletPreferencesPersistence() {
+		return portletPreferencesPersistence;
+	}
+
+	/**
+	 * Sets the portlet preferences persistence.
+	 *
+	 * @param portletPreferencesPersistence the portlet preferences persistence
+	 */
+	public void setPortletPreferencesPersistence(
+		PortletPreferencesPersistence portletPreferencesPersistence) {
+		this.portletPreferencesPersistence = portletPreferencesPersistence;
+	}
+
+	/**
 	 * Returns the resource local service.
 	 *
 	 * @return the resource local service
@@ -476,6 +534,12 @@ public abstract class JiraProjectServiceBaseImpl extends BaseServiceImpl
 	protected JiraStatusPersistence jiraStatusPersistence;
 	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
 	protected com.liferay.counter.service.CounterLocalService counterLocalService;
+	@BeanReference(type = com.liferay.portal.service.PortletPreferencesLocalService.class)
+	protected com.liferay.portal.service.PortletPreferencesLocalService portletPreferencesLocalService;
+	@BeanReference(type = com.liferay.portal.service.PortletPreferencesService.class)
+	protected com.liferay.portal.service.PortletPreferencesService portletPreferencesService;
+	@BeanReference(type = PortletPreferencesPersistence.class)
+	protected PortletPreferencesPersistence portletPreferencesPersistence;
 	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
 	protected com.liferay.portal.service.ResourceLocalService resourceLocalService;
 	@BeanReference(type = com.liferay.portal.service.UserLocalService.class)
