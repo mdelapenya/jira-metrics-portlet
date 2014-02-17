@@ -67,11 +67,10 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 			{ "jiraStatusId", Types.BIGINT },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "jiraStatusCode", Types.BIGINT },
-			{ "jiraProjectId", Types.BIGINT },
+			{ "uri", Types.VARCHAR },
 			{ "name", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraStatus (jiraStatusId LONG not null primary key,createDate DATE null,modifiedDate DATE null,jiraStatusCode LONG,jiraProjectId LONG,name VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraStatus (jiraStatusId LONG not null primary key,createDate DATE null,modifiedDate DATE null,uri VARCHAR(75) null,name VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table jirametrics_JiraStatus";
 	public static final String ORDER_BY_JPQL = " ORDER BY jiraStatus.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY jirametrics_JiraStatus.name ASC";
@@ -87,9 +86,8 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.jira.metrics.model.JiraStatus"),
 			true);
-	public static long JIRAPROJECTID_COLUMN_BITMASK = 1L;
-	public static long JIRASTATUSCODE_COLUMN_BITMASK = 2L;
-	public static long NAME_COLUMN_BITMASK = 4L;
+	public static long NAME_COLUMN_BITMASK = 1L;
+	public static long URI_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -107,8 +105,7 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		model.setJiraStatusId(soapModel.getJiraStatusId());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setJiraStatusCode(soapModel.getJiraStatusCode());
-		model.setJiraProjectId(soapModel.getJiraProjectId());
+		model.setUri(soapModel.getUri());
 		model.setName(soapModel.getName());
 
 		return model;
@@ -177,8 +174,7 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		attributes.put("jiraStatusId", getJiraStatusId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("jiraStatusCode", getJiraStatusCode());
-		attributes.put("jiraProjectId", getJiraProjectId());
+		attributes.put("uri", getUri());
 		attributes.put("name", getName());
 
 		return attributes;
@@ -204,16 +200,10 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 			setModifiedDate(modifiedDate);
 		}
 
-		Long jiraStatusCode = (Long)attributes.get("jiraStatusCode");
+		String uri = (String)attributes.get("uri");
 
-		if (jiraStatusCode != null) {
-			setJiraStatusCode(jiraStatusCode);
-		}
-
-		Long jiraProjectId = (Long)attributes.get("jiraProjectId");
-
-		if (jiraProjectId != null) {
-			setJiraProjectId(jiraProjectId);
+		if (uri != null) {
+			setUri(uri);
 		}
 
 		String name = (String)attributes.get("name");
@@ -258,48 +248,28 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 
 	@JSON
 	@Override
-	public long getJiraStatusCode() {
-		return _jiraStatusCode;
+	public String getUri() {
+		if (_uri == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _uri;
+		}
 	}
 
 	@Override
-	public void setJiraStatusCode(long jiraStatusCode) {
-		_columnBitmask |= JIRASTATUSCODE_COLUMN_BITMASK;
+	public void setUri(String uri) {
+		_columnBitmask |= URI_COLUMN_BITMASK;
 
-		if (!_setOriginalJiraStatusCode) {
-			_setOriginalJiraStatusCode = true;
-
-			_originalJiraStatusCode = _jiraStatusCode;
+		if (_originalUri == null) {
+			_originalUri = _uri;
 		}
 
-		_jiraStatusCode = jiraStatusCode;
+		_uri = uri;
 	}
 
-	public long getOriginalJiraStatusCode() {
-		return _originalJiraStatusCode;
-	}
-
-	@JSON
-	@Override
-	public long getJiraProjectId() {
-		return _jiraProjectId;
-	}
-
-	@Override
-	public void setJiraProjectId(long jiraProjectId) {
-		_columnBitmask |= JIRAPROJECTID_COLUMN_BITMASK;
-
-		if (!_setOriginalJiraProjectId) {
-			_setOriginalJiraProjectId = true;
-
-			_originalJiraProjectId = _jiraProjectId;
-		}
-
-		_jiraProjectId = jiraProjectId;
-	}
-
-	public long getOriginalJiraProjectId() {
-		return _originalJiraProjectId;
+	public String getOriginalUri() {
+		return GetterUtil.getString(_originalUri);
 	}
 
 	@JSON
@@ -362,8 +332,7 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		jiraStatusImpl.setJiraStatusId(getJiraStatusId());
 		jiraStatusImpl.setCreateDate(getCreateDate());
 		jiraStatusImpl.setModifiedDate(getModifiedDate());
-		jiraStatusImpl.setJiraStatusCode(getJiraStatusCode());
-		jiraStatusImpl.setJiraProjectId(getJiraProjectId());
+		jiraStatusImpl.setUri(getUri());
 		jiraStatusImpl.setName(getName());
 
 		jiraStatusImpl.resetOriginalValues();
@@ -415,13 +384,7 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 	public void resetOriginalValues() {
 		JiraStatusModelImpl jiraStatusModelImpl = this;
 
-		jiraStatusModelImpl._originalJiraStatusCode = jiraStatusModelImpl._jiraStatusCode;
-
-		jiraStatusModelImpl._setOriginalJiraStatusCode = false;
-
-		jiraStatusModelImpl._originalJiraProjectId = jiraStatusModelImpl._jiraProjectId;
-
-		jiraStatusModelImpl._setOriginalJiraProjectId = false;
+		jiraStatusModelImpl._originalUri = jiraStatusModelImpl._uri;
 
 		jiraStatusModelImpl._originalName = jiraStatusModelImpl._name;
 
@@ -452,9 +415,13 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 			jiraStatusCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		jiraStatusCacheModel.jiraStatusCode = getJiraStatusCode();
+		jiraStatusCacheModel.uri = getUri();
 
-		jiraStatusCacheModel.jiraProjectId = getJiraProjectId();
+		String uri = jiraStatusCacheModel.uri;
+
+		if ((uri != null) && (uri.length() == 0)) {
+			jiraStatusCacheModel.uri = null;
+		}
 
 		jiraStatusCacheModel.name = getName();
 
@@ -469,7 +436,7 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{jiraStatusId=");
 		sb.append(getJiraStatusId());
@@ -477,10 +444,8 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", jiraStatusCode=");
-		sb.append(getJiraStatusCode());
-		sb.append(", jiraProjectId=");
-		sb.append(getJiraProjectId());
+		sb.append(", uri=");
+		sb.append(getUri());
 		sb.append(", name=");
 		sb.append(getName());
 		sb.append("}");
@@ -490,7 +455,7 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraStatus");
@@ -509,12 +474,8 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>jiraStatusCode</column-name><column-value><![CDATA[");
-		sb.append(getJiraStatusCode());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>jiraProjectId</column-name><column-value><![CDATA[");
-		sb.append(getJiraProjectId());
+			"<column><column-name>uri</column-name><column-value><![CDATA[");
+		sb.append(getUri());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>name</column-name><column-value><![CDATA[");
@@ -533,12 +494,8 @@ public class JiraStatusModelImpl extends BaseModelImpl<JiraStatus>
 	private long _jiraStatusId;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _jiraStatusCode;
-	private long _originalJiraStatusCode;
-	private boolean _setOriginalJiraStatusCode;
-	private long _jiraProjectId;
-	private long _originalJiraProjectId;
-	private boolean _setOriginalJiraProjectId;
+	private String _uri;
+	private String _originalUri;
 	private String _name;
 	private String _originalName;
 	private long _columnBitmask;

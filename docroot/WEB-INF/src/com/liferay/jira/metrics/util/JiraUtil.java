@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -28,25 +28,31 @@ import com.atlassian.jira.rest.client.domain.SearchResult;
 import com.atlassian.jira.rest.client.domain.Status;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
+
 import com.google.common.collect.Lists;
+
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.Base64;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.core.MediaType;
+
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-
-import javax.ws.rs.core.MediaType;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Cristina González
@@ -80,11 +86,9 @@ public class JiraUtil {
 			for (int i = 0; i < arrayResponse.length() - 1; i++) {
 				statuses.add(toStatus(arrayResponse.getJSONObject(i)));
 			}
-		} catch (JSONException e) {
-			throw new RuntimeException("JSONException " + e.getMessage(), e);
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(
-				"URISyntaxException " + e.getMessage(), e);
+		} catch (Exception e) {
+			_log.error("Error: " + e.getMessage(), e);
+			throw new RuntimeException("Exception " + e.getMessage(), e);
 		}
 
 		return statuses;
@@ -100,7 +104,7 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
-	public static List<TotalIssues> getIssuesCountByProjectStatus(
+	public static List<IssuesMetric> getIssuesCountByProjectStatus(
 			Project project, List<Status> statuses)
 		throws JiraConnectionException {
 
@@ -112,17 +116,18 @@ public class JiraUtil {
 			throw new RuntimeException("The statuses can't be empty");
 		}
 
-		List<TotalIssues> results = new ArrayList<TotalIssues>();
+		List<IssuesMetric> results = new ArrayList<IssuesMetric>();
+
+		List<BasicComponent> components = Lists.newArrayList(
+			project.getComponents());
 
 		for (Status status : statuses) {
-			for (BasicComponent basicComponent : project.getComponents()) {
-				Component component = getComponent(basicComponent.getSelf());
-
+			for (BasicComponent component : components) {
 				for (Priority priority : priorities) {
 					int total = getIssuesCountByProjectStatusComponentPriority(
 						project, status, component, priority);
 
-					results.add(new TotalIssues(
+					results.add(new IssuesMetric(
 						project, component, status, priority, total));
 				}
 			}
@@ -141,6 +146,14 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
+	public static Status getStatus(URI uri) throws JiraConnectionException {
+		MetadataRestClient metadataClient = _getClient().getMetadataClient();
+
+		Promise<Status> promise = metadataClient.getStatus(uri);
+
+		return promise.claim();
+	}
+
 	protected static String getBase64Auth() {
 		StringBundler sb = new StringBundler(3);
 
@@ -152,7 +165,7 @@ public class JiraUtil {
 	}
 
 	protected static int getIssuesCountByProjectStatusComponentPriority(
-			Project project, Status status, Component component,
+			Project project, Status status, BasicComponent component,
 			Priority priority)
 		throws JiraConnectionException {
 

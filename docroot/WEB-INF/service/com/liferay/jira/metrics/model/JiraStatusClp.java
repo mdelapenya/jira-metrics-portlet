@@ -77,8 +77,7 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		attributes.put("jiraStatusId", getJiraStatusId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("jiraStatusCode", getJiraStatusCode());
-		attributes.put("jiraProjectId", getJiraProjectId());
+		attributes.put("uri", getUri());
 		attributes.put("name", getName());
 
 		return attributes;
@@ -104,16 +103,10 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 			setModifiedDate(modifiedDate);
 		}
 
-		Long jiraStatusCode = (Long)attributes.get("jiraStatusCode");
+		String uri = (String)attributes.get("uri");
 
-		if (jiraStatusCode != null) {
-			setJiraStatusCode(jiraStatusCode);
-		}
-
-		Long jiraProjectId = (Long)attributes.get("jiraProjectId");
-
-		if (jiraProjectId != null) {
-			setJiraProjectId(jiraProjectId);
+		if (uri != null) {
+			setUri(uri);
 		}
 
 		String name = (String)attributes.get("name");
@@ -193,44 +186,21 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 	}
 
 	@Override
-	public long getJiraStatusCode() {
-		return _jiraStatusCode;
+	public String getUri() {
+		return _uri;
 	}
 
 	@Override
-	public void setJiraStatusCode(long jiraStatusCode) {
-		_jiraStatusCode = jiraStatusCode;
+	public void setUri(String uri) {
+		_uri = uri;
 
 		if (_jiraStatusRemoteModel != null) {
 			try {
 				Class<?> clazz = _jiraStatusRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setJiraStatusCode", long.class);
+				Method method = clazz.getMethod("setUri", String.class);
 
-				method.invoke(_jiraStatusRemoteModel, jiraStatusCode);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getJiraProjectId() {
-		return _jiraProjectId;
-	}
-
-	@Override
-	public void setJiraProjectId(long jiraProjectId) {
-		_jiraProjectId = jiraProjectId;
-
-		if (_jiraStatusRemoteModel != null) {
-			try {
-				Class<?> clazz = _jiraStatusRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setJiraProjectId", long.class);
-
-				method.invoke(_jiraStatusRemoteModel, jiraProjectId);
+				method.invoke(_jiraStatusRemoteModel, uri);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -333,8 +303,7 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		clone.setJiraStatusId(getJiraStatusId());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
-		clone.setJiraStatusCode(getJiraStatusCode());
-		clone.setJiraProjectId(getJiraProjectId());
+		clone.setUri(getUri());
 		clone.setName(getName());
 
 		return clone;
@@ -382,7 +351,7 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{jiraStatusId=");
 		sb.append(getJiraStatusId());
@@ -390,10 +359,8 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", jiraStatusCode=");
-		sb.append(getJiraStatusCode());
-		sb.append(", jiraProjectId=");
-		sb.append(getJiraProjectId());
+		sb.append(", uri=");
+		sb.append(getUri());
 		sb.append(", name=");
 		sb.append(getName());
 		sb.append("}");
@@ -403,7 +370,7 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(22);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.jira.metrics.model.JiraStatus");
@@ -422,12 +389,8 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>jiraStatusCode</column-name><column-value><![CDATA[");
-		sb.append(getJiraStatusCode());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>jiraProjectId</column-name><column-value><![CDATA[");
-		sb.append(getJiraProjectId());
+			"<column><column-name>uri</column-name><column-value><![CDATA[");
+		sb.append(getUri());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>name</column-name><column-value><![CDATA[");
@@ -442,8 +405,7 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 	private long _jiraStatusId;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _jiraStatusCode;
-	private long _jiraProjectId;
+	private String _uri;
 	private String _name;
 	private BaseModel<?> _jiraStatusRemoteModel;
 }
