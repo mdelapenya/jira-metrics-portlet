@@ -114,10 +114,10 @@ public class JiraUtil {
 
 		List<IssuesMetric> results = new ArrayList<IssuesMetric>();
 
-		for (Status status : statuses) {
-			for (BasicComponent basicComponent : project.getComponents()) {
-				Component component = getComponent(basicComponent.getSelf());
+		List<BasicComponent> components = Lists.newArrayList(project.getComponents());
 
+		for (Status status : statuses) {
+			for (BasicComponent component : components) {
 				for (Priority priority : priorities) {
 					int total = getIssuesCountByProjectStatusComponentPriority(
 						project, status, component, priority);
@@ -125,7 +125,10 @@ public class JiraUtil {
 					results.add(new IssuesMetric(
 						project, component, status, priority, total));
 				}
+
 			}
+
+
 		}
 
 		return results;
@@ -141,6 +144,16 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
+	public static Status getStatus(URI uri)
+		throws JiraConnectionException{
+
+		MetadataRestClient metadataClient = _getClient().getMetadataClient();
+
+		Promise<Status> promise = metadataClient.getStatus(uri);
+
+		return promise.claim();
+	}
+
 	protected static String getBase64Auth() {
 		StringBundler sb = new StringBundler(3);
 
@@ -152,7 +165,7 @@ public class JiraUtil {
 	}
 
 	protected static int getIssuesCountByProjectStatusComponentPriority(
-			Project project, Status status, Component component,
+			Project project, Status status, BasicComponent component,
 			Priority priority)
 		throws JiraConnectionException {
 
