@@ -153,5 +153,6 @@
 		<exception>DuplicateJiraProject</exception>
 		<exception>DuplicateJiraComponent</exception>
 		<exception>DuplicateJiraStatus</exception>
+		<exception>DuplicateJiraMetric</exception>
 	</exceptions>
 </service-builder>
