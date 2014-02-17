@@ -299,6 +299,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.jira.metrics.DuplicateJiraMetricException")) {
+			return new com.liferay.jira.metrics.DuplicateJiraMetricException();
+		}
+
+		if (className.equals(
 					"com.liferay.jira.metrics.DuplicateJiraProjectException")) {
 			return new com.liferay.jira.metrics.DuplicateJiraProjectException();
 		}
