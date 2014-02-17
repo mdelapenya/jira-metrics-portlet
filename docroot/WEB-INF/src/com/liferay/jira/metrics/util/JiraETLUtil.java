@@ -19,6 +19,7 @@ import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
+
 import com.liferay.jira.metrics.DuplicateJiraComponentException;
 import com.liferay.jira.metrics.DuplicateJiraMetricException;
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
@@ -36,11 +37,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import org.apache.commons.lang.time.StopWatch;
 
 import java.net.URI;
+
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang.time.StopWatch;
 
 /**
  * @author Manuel de la Peña
@@ -49,7 +52,6 @@ public class JiraETLUtil {
 
 	public static void load() {
 		try {
-
 			StopWatch stopWatch = new StopWatch();
 
 			stopWatch.start();
