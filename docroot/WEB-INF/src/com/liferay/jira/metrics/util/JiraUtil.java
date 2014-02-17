@@ -28,25 +28,31 @@ import com.atlassian.jira.rest.client.domain.SearchResult;
 import com.atlassian.jira.rest.client.domain.Status;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
+
 import com.google.common.collect.Lists;
+
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.Base64;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.core.MediaType;
+
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
-
-import javax.ws.rs.core.MediaType;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Cristina González
@@ -80,11 +86,9 @@ public class JiraUtil {
 			for (int i = 0; i < arrayResponse.length() - 1; i++) {
 				statuses.add(toStatus(arrayResponse.getJSONObject(i)));
 			}
-		} catch (JSONException e) {
-			throw new RuntimeException("JSONException " + e.getMessage(), e);
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(
-				"URISyntaxException " + e.getMessage(), e);
+		} catch (Exception e) {
+			_log.error("Error: " + e.getMessage(), e);
+			throw new RuntimeException("Exception " + e.getMessage(), e);
 		}
 
 		return statuses;
@@ -114,7 +118,8 @@ public class JiraUtil {
 
 		List<IssuesMetric> results = new ArrayList<IssuesMetric>();
 
-		List<BasicComponent> components = Lists.newArrayList(project.getComponents());
+		List<BasicComponent> components = Lists.newArrayList(
+			project.getComponents());
 
 		for (Status status : statuses) {
 			for (BasicComponent component : components) {
