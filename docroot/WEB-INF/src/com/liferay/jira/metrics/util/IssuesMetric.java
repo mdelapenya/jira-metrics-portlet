@@ -24,8 +24,8 @@ import com.atlassian.jira.rest.client.domain.Status;
 public class IssuesMetric {
 
 	public IssuesMetric(
-		Project project, BasicComponent component, Status status, Priority priority,
-		int total) {
+		Project project, BasicComponent component, Status status,
+		Priority priority, int total) {
 
 		_project = project;
 
