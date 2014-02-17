@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -125,10 +125,7 @@ public class JiraUtil {
 					results.add(new IssuesMetric(
 						project, component, status, priority, total));
 				}
-
 			}
-
-
 		}
 
 		return results;
@@ -144,9 +141,7 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
-	public static Status getStatus(URI uri)
-		throws JiraConnectionException{
-
+	public static Status getStatus(URI uri) throws JiraConnectionException {
 		MetadataRestClient metadataClient = _getClient().getMetadataClient();
 
 		Promise<Status> promise = metadataClient.getStatus(uri);
