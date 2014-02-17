@@ -63,6 +63,7 @@ public class JiraETLUtil {
 					"Data from Jira has been loaded sucessfully in " +
 						stopWatch.getTime() + " milliseconds.");
 			}
+
 		}
 		catch (Exception e) {
 			_log.error("Exception " + e.getMessage(), e);
@@ -280,7 +281,7 @@ public class JiraETLUtil {
 	private static void _loadStatuses()
 		throws JiraConnectionException, PortalException, SystemException {
 
-		List<Status> statuses = JiraUtil.getAllJiraStatuses();
+			List<Status> statuses = JiraUtil.getAllJiraStatuses();
 
 		for (Status status : statuses) {
 			_loadStatus(status);
@@ -288,5 +289,6 @@ public class JiraETLUtil {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(JiraETLUtil.class);
+
 
 }
