@@ -14,15 +14,15 @@
 
 package com.liferay.jira.metrics.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
+import com.liferay.jira.metrics.DuplicateJiraComponentException;
 import com.liferay.jira.metrics.NoSuchJiraComponentException;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.service.base.JiraComponentLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the jira component local service.
@@ -42,12 +42,18 @@ public class JiraComponentLocalServiceImpl
 	extends JiraComponentLocalServiceBaseImpl {
 
 	public JiraComponent addJiraComponent(
-			String uri, long jiraProjectId, String name, int jiraStatusId)
+			String uri, long jiraProjectId, String name, Boolean disabled)
 		throws PortalException, SystemException {
+
+		JiraComponent jiraComponent = jiraComponentPersistence.fetchByUri(uri);
+
+		if (jiraComponent != null) {
+			throw new DuplicateJiraComponentException();
+		}
 
 		long id = counterLocalService.increment();
 
-		JiraComponent jiraComponent = jiraComponentPersistence.create(id);
+		jiraComponent = jiraComponentPersistence.create(id);
 
 		Date now = new Date();
 
@@ -57,7 +63,7 @@ public class JiraComponentLocalServiceImpl
 		jiraComponent.setUri(uri);
 		jiraComponent.setJiraProjectId(jiraProjectId);
 		jiraComponent.setName(name);
-		jiraComponent.setStatus(jiraStatusId);
+		jiraComponent.setDisabled(disabled);
 
 		jiraComponentPersistence.update(jiraComponent);
 
@@ -65,10 +71,12 @@ public class JiraComponentLocalServiceImpl
 			jiraComponent.getPrimaryKey());
 	}
 
-	public JiraComponent getJiraComponentByName(String name)
+	public JiraComponent getJiraComponentByNameAndJiraProjectId(
+			String name, long jiraProjectId)
 		throws NoSuchJiraComponentException, SystemException {
 
-		return jiraComponentPersistence.findByJiraComponent(name);
+		return jiraComponentPersistence.findByJiraComponent(
+			name, jiraProjectId);
 	}
 
 	public JiraComponent getJiraComponentByUri(String uri)

@@ -8,7 +8,7 @@
 		<field name="uri" type="String" />
 		<field name="jiraProjectId" type="long" />
 		<field name="name" type="String" />
-		<field name="status" type="int" />
+		<field name="disabled" type="boolean" />
 	</model>
 	<model name="com.liferay.jira.metrics.model.JiraMetric">
 		<field name="jiraMetricId" type="long" />
@@ -34,8 +34,7 @@
 		<field name="jiraStatusId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="jiraStatusCode" type="long" />
-		<field name="jiraProjectId" type="long" />
+		<field name="uri" type="String" />
 		<field name="name" type="String" />
 	</model>
 </model-hints>
