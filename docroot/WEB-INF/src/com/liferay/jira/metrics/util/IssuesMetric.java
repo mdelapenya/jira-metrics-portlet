@@ -13,7 +13,7 @@
  */
 package com.liferay.jira.metrics.util;
 
-import com.atlassian.jira.rest.client.domain.Component;
+import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
@@ -24,7 +24,7 @@ import com.atlassian.jira.rest.client.domain.Status;
 public class IssuesMetric {
 
 	public IssuesMetric(
-		Project project, Component component, Status status, Priority priority,
+		Project project, BasicComponent component, Status status, Priority priority,
 		int total) {
 
 		_project = project;
@@ -38,7 +38,7 @@ public class IssuesMetric {
 		_status = status;
 	}
 
-	public Component getComponent() {
+	public BasicComponent getComponent() {
 		return _component;
 	}
 
@@ -58,7 +58,7 @@ public class IssuesMetric {
 		return _total;
 	}
 
-	private Component _component;
+	private BasicComponent _component;
 	private Priority _priority;
 	private Project _project;
 	private Status _status;

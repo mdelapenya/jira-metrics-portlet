@@ -16,6 +16,7 @@ package com.liferay.jira.metrics.util;
 
 import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.BasicProject;
+import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 import com.liferay.jira.metrics.DuplicateJiraComponentException;
@@ -26,6 +27,7 @@ import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil;
+import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -34,6 +36,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.apache.commons.lang.time.StopWatch;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +59,7 @@ public class JiraETLUtil {
 			_log.info(
 				"Data from Jira has been loaded sucessfully in " +
 					stopWatch.getTime() + " milliseconds.");
+
 		} catch (PortalException e) {
 			e.printStackTrace();
 		} catch (SystemException e) {
@@ -106,6 +110,40 @@ public class JiraETLUtil {
 			_log.info(jiraComponent.getUri() + " updated sucessfully");
 		}
 	}
+
+	private static void _loadIssuesMetric(
+			Project project, List<Status> statuses)
+		throws JiraConnectionException, SystemException, PortalException{
+
+		List<IssuesMetric> issuesMetricList =
+			JiraUtil.getIssuesCountByProjectStatus(project, statuses);
+
+		for (IssuesMetric issueMetric : issuesMetricList) {
+			BasicComponent issuesMetricComponent = issueMetric.getComponent();
+
+			URI componentUri = issuesMetricComponent.getSelf();
+
+			JiraComponent jiraComponent=
+				JiraComponentLocalServiceUtil.getJiraComponentByUri(
+					componentUri.toString());
+
+			Status issuesMetricStatus = issueMetric.getStatus();
+			URI statusUri = issuesMetricStatus.getSelf();
+
+			JiraStatus jiraStatus =
+				JiraStatusLocalServiceUtil.getJiraStatusByUri(
+					statusUri.toString());
+
+			Priority priority = issueMetric.getPriority();
+
+			JiraMetricLocalServiceUtil.addJiraMetric(
+				jiraComponent.getJiraProjectId(),
+				jiraComponent.getJiraComponentId(),
+				jiraStatus.getJiraStatusId(), priority.getId().intValue(),
+				new Date(), issueMetric.getTotal());
+		}
+	}
+
 
 	private static void _loadProjects()
 		throws JiraConnectionException, SystemException, PortalException {
