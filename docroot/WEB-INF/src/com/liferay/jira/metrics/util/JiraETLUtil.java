@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -54,8 +54,14 @@ public class JiraETLUtil {
 
 			stopWatch.start();
 
+			_loadProjectsFromJira();
 			_loadStatuses();
-			_loadProjects();
+
+			// load statuses from Jira
+
+			// load data from installed projects
+				// components
+				// metrics
 
 			stopWatch.stop();
 
@@ -71,7 +77,7 @@ public class JiraETLUtil {
 	}
 
 	private static void _loadComponent(
-			JiraProject jiraProject, BasicComponent component)
+		JiraProject jiraProject, BasicComponent component)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		try {
@@ -105,7 +111,7 @@ public class JiraETLUtil {
 	}
 
 	private static void _loadComponents(
-			Project project, JiraProject jiraProject)
+		Project project, JiraProject jiraProject)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		Iterable<BasicComponent> components = project.getComponents();
@@ -116,7 +122,7 @@ public class JiraETLUtil {
 	}
 
 	private static void _loadIssuesMetric(
-			Project project, List<Status> statuses)
+		Project project, List<Status> statuses)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		Date date = new Date();
@@ -155,8 +161,8 @@ public class JiraETLUtil {
 					_log.info(
 						"[" + jiraMetric.getJiraProjectId() + "][" +
 							jiraMetric.getJiraComponentId() + "][" +
-								jiraMetric.getJiraStatusId()+ "]"  +
-									" imported sucessfully");
+							jiraMetric.getJiraStatusId()+ "]"  +
+							" imported sucessfully");
 				}
 			}
 			catch (DuplicateJiraMetricException djme) {
@@ -164,9 +170,9 @@ public class JiraETLUtil {
 					_log.warn(
 						"Jira Metric [" + jiraComponent.getJiraProjectId() +
 							"][" + jiraComponent.getJiraComponentId() + "][" +
-								jiraStatus.getJiraStatusId() + "][" +
-									priority.getId().intValue() + "][" + date +
-										"] already exists. Let's update it.");
+							jiraStatus.getJiraStatusId() + "][" +
+							priority.getId().intValue() + "][" + date +
+							"] already exists. Let's update it.");
 				}
 
 				jiraMetric =
@@ -185,10 +191,20 @@ public class JiraETLUtil {
 					_log.info(
 						"[" + jiraMetric.getJiraProjectId() + "][" +
 							jiraMetric.getJiraComponentId() + "][" +
-								jiraMetric.getJiraStatusId()+ "]"  +
-									" updated sucessfully");
+							jiraMetric.getJiraStatusId()+ "]"  +
+							" updated sucessfully");
 				}
 			}
+		}
+	}
+
+	private static void _loadProjectsFromJira()
+		throws JiraConnectionException, SystemException, PortalException {
+
+		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
+
+		for (BasicProject project : projects) {
+			_loadProject(project);
 		}
 	}
 
@@ -215,8 +231,8 @@ public class JiraETLUtil {
 				_log.warn(
 					"Jira Project with key '" + basicProject.getKey() +
 						"' already exists. Let's update it.");
-			}							
-												
+			}
+
 			jiraProject =
 				JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
 					basicProject.getKey());
@@ -234,16 +250,6 @@ public class JiraETLUtil {
 		Project project = JiraUtil.getProject(basicProject.getKey());
 
 		_loadComponents(project, jiraProject);
-	}
-
-	private static void _loadProjects()
-		throws JiraConnectionException, PortalException, SystemException {
-
-		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
-
-		for (BasicProject project : projects) {
-			_loadProject(project);
-		}
 	}
 
 	private static void _loadStatus(Status status)
@@ -285,7 +291,7 @@ public class JiraETLUtil {
 	private static void _loadStatuses()
 		throws JiraConnectionException, PortalException, SystemException {
 
-			List<Status> statuses = JiraUtil.getAllJiraStatuses();
+		List<Status> statuses = JiraUtil.getAllJiraStatuses();
 
 		for (Status status : statuses) {
 			_loadStatus(status);
@@ -293,6 +299,5 @@ public class JiraETLUtil {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(JiraETLUtil.class);
-
 
 }
