@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -283,9 +283,26 @@ public class JiraProjectLocalServiceUtil {
 	}
 
 	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAllJiraProjects();
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getInstalledJiraProjects()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getInstalledJiraProjects();
+	}
+
+	/**
 	* Gets a Jira Project by name
 	*
-	* @param projectCode
+	* @param name
 	* @return
 	* @throws NoSuchJiraProjectException
 	* @throws SystemException
@@ -310,17 +327,6 @@ public class JiraProjectLocalServiceUtil {
 		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getJiraProjectByProjectLabel(label);
-	}
-
-	/**
-	* Retrieves all Jira projects
-	*
-	* @return a list with all Jira projects
-	* @throws SystemException
-	*/
-	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getAllJiraProjects();
 	}
 
 	public static void clearService() {
