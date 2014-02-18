@@ -277,18 +277,18 @@ public class JiraComponentLocalServiceUtil {
 
 	public static com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
 		java.lang.String uri, long jiraProjectId, java.lang.String name,
-		int jiraStatusId)
+		java.lang.Boolean disabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .addJiraComponent(uri, jiraProjectId, name, jiraStatusId);
+		return getService().addJiraComponent(uri, jiraProjectId, name, disabled);
 	}
 
-	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
-		java.lang.String name)
+	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByNameAndJiraProjectId(
+		java.lang.String name, long jiraProjectId)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getJiraComponentByName(name);
+		return getService()
+				   .getJiraComponentByNameAndJiraProjectId(name, jiraProjectId);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByUri(

@@ -102,32 +102,19 @@ public interface JiraStatusModel extends BaseModel<JiraStatus> {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the jira status code of this jira status.
+	 * Returns the uri of this jira status.
 	 *
-	 * @return the jira status code of this jira status
+	 * @return the uri of this jira status
 	 */
-	public long getJiraStatusCode();
+	@AutoEscape
+	public String getUri();
 
 	/**
-	 * Sets the jira status code of this jira status.
+	 * Sets the uri of this jira status.
 	 *
-	 * @param jiraStatusCode the jira status code of this jira status
+	 * @param uri the uri of this jira status
 	 */
-	public void setJiraStatusCode(long jiraStatusCode);
-
-	/**
-	 * Returns the jira project ID of this jira status.
-	 *
-	 * @return the jira project ID of this jira status
-	 */
-	public long getJiraProjectId();
-
-	/**
-	 * Sets the jira project ID of this jira status.
-	 *
-	 * @param jiraProjectId the jira project ID of this jira status
-	 */
-	public void setJiraProjectId(long jiraProjectId);
+	public void setUri(String uri);
 
 	/**
 	 * Returns the name of this jira status.
