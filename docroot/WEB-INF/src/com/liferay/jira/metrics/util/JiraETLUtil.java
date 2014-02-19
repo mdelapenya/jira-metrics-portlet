@@ -122,7 +122,7 @@ public class JiraETLUtil {
 		Date date = new Date();
 
 		List<IssuesMetric> issuesMetricList =
-			JiraUtil.getIssuesCountByProjectStatus(project, statuses);
+			JiraUtil.getIssuesMetricsByProjectStatus(project, statuses);
 
 		for (IssuesMetric issueMetric : issuesMetricList) {
 			BasicComponent issuesMetricComponent = issueMetric.getComponent();

@@ -104,7 +104,7 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
-	public static List<IssuesMetric> getIssuesCountByProjectStatus(
+	public static List<IssuesMetric> getIssuesMetricsByProjectStatus(
 			Project project, List<Status> statuses)
 		throws JiraConnectionException {
 
@@ -124,8 +124,9 @@ public class JiraUtil {
 		for (Status status : statuses) {
 			for (BasicComponent component : components) {
 				for (Priority priority : priorities) {
-					int total = getIssuesCountByProjectStatusComponentPriority(
-						project, status, component, priority);
+					int total =
+						getIssuesMetricsByProjectStatusComponentPriority(
+							project, status, component, priority);
 
 					results.add(new IssuesMetric(
 						project, component, status, priority, total));
@@ -164,7 +165,7 @@ public class JiraUtil {
 		return new String(Base64.encode(sb.toString()));
 	}
 
-	protected static int getIssuesCountByProjectStatusComponentPriority(
+	protected static int getIssuesMetricsByProjectStatusComponentPriority(
 			Project project, Status status, BasicComponent component,
 			Priority priority)
 		throws JiraConnectionException {
