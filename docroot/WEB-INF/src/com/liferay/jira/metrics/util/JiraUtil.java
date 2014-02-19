@@ -88,6 +88,7 @@ public class JiraUtil {
 			}
 		} catch (Exception e) {
 			_log.error("Error: " + e.getMessage(), e);
+
 			throw new RuntimeException("Exception " + e.getMessage(), e);
 		}
 
@@ -128,8 +129,9 @@ public class JiraUtil {
 						getIssuesMetricsByProjectStatusComponentPriority(
 							project, status, component, priority);
 
-					results.add(new IssuesMetric(
-						project, component, status, priority, total));
+					results.add(
+						new IssuesMetric(
+							project, component, status, priority, total));
 				}
 			}
 		}
@@ -209,7 +211,7 @@ public class JiraUtil {
 		WebResource webResource = client.resource(restURL);
 
 		WebResource.Builder headerBuilder = webResource.header(
-			_AUTORIZATION, _AUTORIZATION_TYPE + getBase64Auth());
+			_AUTHORIZATION, _AUTHORIZATION_TYPE + getBase64Auth());
 
 		WebResource.Builder typeBuilder = headerBuilder.type(
 			MediaType.APPLICATION_JSON);
@@ -273,9 +275,9 @@ public class JiraUtil {
 		return _client;
 	}
 
-	private static final String _AUTORIZATION = "Authorization";
+	private static final String _AUTHORIZATION = "Authorization";
 
-	private static final String _AUTORIZATION_TYPE = "Basic ";
+	private static final String _AUTHORIZATION_TYPE = "Basic ";
 
 	private static final String _STATUS_API = "rest/api/2/status";
 

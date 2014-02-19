@@ -64,7 +64,6 @@ public class JiraETLUtil {
 					"Data from Jira has been loaded sucessfully in " +
 						stopWatch.getTime() + " milliseconds.");
 			}
-
 		}
 		catch (Exception e) {
 			_log.error("Exception " + e.getMessage(), e);
