@@ -21,13 +21,9 @@ import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
 import com.liferay.jira.metrics.util.PortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.xml.Document;
-import com.liferay.portal.kernel.xml.DocumentException;
-import com.liferay.portal.kernel.xml.Element;
-import com.liferay.portal.kernel.xml.SAXReader;
-import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.service.persistence.PortletPreferencesFinderUtil;
+import com.liferay.portlet.PortletPreferencesFactoryUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -102,37 +98,15 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 		for (PortletPreferences preference : preferences) {
 			String xmlPreference = preference.getPreferences();
 
-			try {
-				SAXReader saxReader = SAXReaderUtil.getSAXReader();
+			javax.portlet.PortletPreferences jxPortletPreferences =
+				PortletPreferencesFactoryUtil.fromDefaultXML(xmlPreference);
 
-				Document xml = saxReader.read(xmlPreference);
+			String jiraProjectName = jxPortletPreferences.getValue(
+				"jiraProject", null);
 
-				Element rootElement = xml.getRootElement();
+			JiraProject jiraProject = getJiraProjectByName(jiraProjectName);
 
-				List<Element> portletPreferences = rootElement.elements(
-					"preference");
-
-				for (Element portletPreference : portletPreferences) {
-					Element name = portletPreference.element("name");
-
-					String nameText = name.getTextTrim();
-
-					if ("jiraProject".equals(nameText)) {
-						Element singleValue = portletPreference.element(
-							"value");
-
-						String jiraProjectName = singleValue.getTextTrim();
-
-						JiraProject jiraProject = getJiraProjectByName(
-							jiraProjectName);
-
-						jiraProjects.add(jiraProject);
-					}
-				}
-
-			} catch (DocumentException e) {
-				e.printStackTrace();
-			}
+			jiraProjects.add(jiraProject);
 		}
 
 		return jiraProjects;
