@@ -18,6 +18,7 @@ import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.NoSuchJiraProjectException;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
+import com.liferay.jira.metrics.util.PortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.xml.Document;
@@ -89,7 +90,8 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 		throws PortalException, SystemException {
 
 		List<PortletPreferences> preferences =
-			PortletPreferencesFinderUtil.findByPortletId("jirametricsportlet");
+			PortletPreferencesFinderUtil.findByPortletId(
+				PortletKeys.JIRA_METRICS_PORTLET_ID);
 
 		if (preferences == null || preferences.isEmpty()) {
 			return null;
