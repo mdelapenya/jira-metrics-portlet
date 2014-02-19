@@ -44,6 +44,7 @@ import java.util.List;
 
 /**
  * @author Manuel de la Peña
+ * @author Cristina González
  */
 public class JiraETLUtil {
 
