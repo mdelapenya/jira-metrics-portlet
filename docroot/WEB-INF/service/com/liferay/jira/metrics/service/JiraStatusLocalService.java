@@ -29,7 +29,7 @@ import com.liferay.portal.service.PersistedModelLocalService;
  * credentials because this service can only be accessed from within the same
  * VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatusLocalServiceUtil
  * @see com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraStatusLocalServiceImpl

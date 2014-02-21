@@ -26,7 +26,7 @@ import com.liferay.portal.service.InvokableService;
  * checks based on the propagated JAAS credentials because this service can be
  * accessed remotely.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraProjectService
  * @see com.liferay.jira.metrics.service.base.JiraProjectServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraProjectServiceImpl

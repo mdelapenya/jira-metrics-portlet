@@ -26,7 +26,7 @@ import java.util.Map;
  * This class is a wrapper for {@link JiraComponent}.
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraComponent
  * @generated
  */

@@ -30,7 +30,7 @@ import java.util.Date;
 /**
  * The cache model class for representing JiraStatus in entity cache.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatus
  * @generated
  */

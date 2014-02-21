@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * This class is used by SOAP remote services, specifically {@link com.liferay.jira.metrics.service.http.JiraComponentServiceSoap}.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see com.liferay.jira.metrics.service.http.JiraComponentServiceSoap
  * @generated
  */
