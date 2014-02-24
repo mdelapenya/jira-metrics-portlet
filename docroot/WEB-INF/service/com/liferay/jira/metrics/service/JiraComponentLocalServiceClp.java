@@ -17,7 +17,7 @@ package com.liferay.jira.metrics.service;
 import com.liferay.portal.service.InvokableLocalService;
 
 /**
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @generated
  */
 public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
@@ -118,12 +118,13 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 		_methodName19 = "addJiraComponent";
 
 		_methodParameterTypes19 = new String[] {
-				"java.lang.String", "long", "java.lang.String", "int"
+				"java.lang.String", "long", "java.lang.String",
+				"java.lang.Boolean"
 			};
 
-		_methodName20 = "getJiraComponentByName";
+		_methodName20 = "getJiraComponentByNameAndJiraProjectId";
 
-		_methodParameterTypes20 = new String[] { "java.lang.String" };
+		_methodParameterTypes20 = new String[] { "java.lang.String", "long" };
 
 		_methodName21 = "getJiraComponentByUri";
 
@@ -687,7 +688,7 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 	@Override
 	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
 		java.lang.String uri, long jiraProjectId, java.lang.String name,
-		int jiraStatusId)
+		java.lang.Boolean disabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -702,7 +703,7 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 						
 					ClpSerializer.translateInput(name),
 						
-					jiraStatusId
+					ClpSerializer.translateInput(disabled)
 					});
 		}
 		catch (Throwable t) {
@@ -729,8 +730,8 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
-		java.lang.String name)
+	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByNameAndJiraProjectId(
+		java.lang.String name, long jiraProjectId)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -738,7 +739,11 @@ public class JiraComponentLocalServiceClp implements JiraComponentLocalService {
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
 					_methodParameterTypes20,
-					new Object[] { ClpSerializer.translateInput(name) });
+					new Object[] {
+						ClpSerializer.translateInput(name),
+						
+					jiraProjectId
+					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

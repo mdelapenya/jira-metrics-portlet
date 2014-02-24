@@ -57,7 +57,7 @@ import java.util.List;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatusPersistence
  * @see JiraStatusUtil
  * @generated
@@ -324,36 +324,36 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 	private static final String _FINDER_COLUMN_STATUS_NAME_1 = "jiraStatus.name IS NULL";
 	private static final String _FINDER_COLUMN_STATUS_NAME_2 = "jiraStatus.name = ?";
 	private static final String _FINDER_COLUMN_STATUS_NAME_3 = "(jiraStatus.name IS NULL OR jiraStatus.name = '')";
-	public static final FinderPath FINDER_PATH_FETCH_BY_JIRASTATUSCODE = new FinderPath(JiraStatusModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_URI = new FinderPath(JiraStatusModelImpl.ENTITY_CACHE_ENABLED,
 			JiraStatusModelImpl.FINDER_CACHE_ENABLED, JiraStatusImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByJiraStatusCode",
-			new String[] { Long.class.getName() },
-			JiraStatusModelImpl.JIRASTATUSCODE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_JIRASTATUSCODE = new FinderPath(JiraStatusModelImpl.ENTITY_CACHE_ENABLED,
+			FINDER_CLASS_NAME_ENTITY, "fetchByUri",
+			new String[] { String.class.getName() },
+			JiraStatusModelImpl.URI_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_URI = new FinderPath(JiraStatusModelImpl.ENTITY_CACHE_ENABLED,
 			JiraStatusModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByJiraStatusCode",
-			new String[] { Long.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUri",
+			new String[] { String.class.getName() });
 
 	/**
-	 * Returns the jira status where jiraStatusCode = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraStatusException} if it could not be found.
+	 * Returns the jira status where uri = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraStatusException} if it could not be found.
 	 *
-	 * @param jiraStatusCode the jira status code
+	 * @param uri the uri
 	 * @return the matching jira status
 	 * @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a matching jira status could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraStatus findByJiraStatusCode(long jiraStatusCode)
+	public JiraStatus findByUri(String uri)
 		throws NoSuchJiraStatusException, SystemException {
-		JiraStatus jiraStatus = fetchByJiraStatusCode(jiraStatusCode);
+		JiraStatus jiraStatus = fetchByUri(uri);
 
 		if (jiraStatus == null) {
 			StringBundler msg = new StringBundler(4);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("jiraStatusCode=");
-			msg.append(jiraStatusCode);
+			msg.append("uri=");
+			msg.append(uri);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -368,42 +368,41 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 	}
 
 	/**
-	 * Returns the jira status where jiraStatusCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the jira status where uri = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @param jiraStatusCode the jira status code
+	 * @param uri the uri
 	 * @return the matching jira status, or <code>null</code> if a matching jira status could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraStatus fetchByJiraStatusCode(long jiraStatusCode)
-		throws SystemException {
-		return fetchByJiraStatusCode(jiraStatusCode, true);
+	public JiraStatus fetchByUri(String uri) throws SystemException {
+		return fetchByUri(uri, true);
 	}
 
 	/**
-	 * Returns the jira status where jiraStatusCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the jira status where uri = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
-	 * @param jiraStatusCode the jira status code
+	 * @param uri the uri
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching jira status, or <code>null</code> if a matching jira status could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraStatus fetchByJiraStatusCode(long jiraStatusCode,
-		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { jiraStatusCode };
+	public JiraStatus fetchByUri(String uri, boolean retrieveFromCache)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { uri };
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE,
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_URI,
 					finderArgs, this);
 		}
 
 		if (result instanceof JiraStatus) {
 			JiraStatus jiraStatus = (JiraStatus)result;
 
-			if ((jiraStatusCode != jiraStatus.getJiraStatusCode())) {
+			if (!Validator.equals(uri, jiraStatus.getUri())) {
 				result = null;
 			}
 		}
@@ -413,7 +412,19 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 
 			query.append(_SQL_SELECT_JIRASTATUS_WHERE);
 
-			query.append(_FINDER_COLUMN_JIRASTATUSCODE_JIRASTATUSCODE_2);
+			boolean bindUri = false;
+
+			if (uri == null) {
+				query.append(_FINDER_COLUMN_URI_URI_1);
+			}
+			else if (uri.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_URI_URI_3);
+			}
+			else {
+				bindUri = true;
+
+				query.append(_FINDER_COLUMN_URI_URI_2);
+			}
 
 			String sql = query.toString();
 
@@ -426,12 +437,14 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(jiraStatusCode);
+				if (bindUri) {
+					qPos.add(uri);
+				}
 
 				List<JiraStatus> list = q.list();
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE,
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI,
 						finderArgs, list);
 				}
 				else {
@@ -441,14 +454,15 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 
 					cacheResult(jiraStatus);
 
-					if ((jiraStatus.getJiraStatusCode() != jiraStatusCode)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE,
+					if ((jiraStatus.getUri() == null) ||
+							!jiraStatus.getUri().equals(uri)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI,
 							finderArgs, jiraStatus);
 					}
 				}
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE,
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_URI,
 					finderArgs);
 
 				throw processException(e);
@@ -467,33 +481,32 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 	}
 
 	/**
-	 * Removes the jira status where jiraStatusCode = &#63; from the database.
+	 * Removes the jira status where uri = &#63; from the database.
 	 *
-	 * @param jiraStatusCode the jira status code
+	 * @param uri the uri
 	 * @return the jira status that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraStatus removeByJiraStatusCode(long jiraStatusCode)
+	public JiraStatus removeByUri(String uri)
 		throws NoSuchJiraStatusException, SystemException {
-		JiraStatus jiraStatus = findByJiraStatusCode(jiraStatusCode);
+		JiraStatus jiraStatus = findByUri(uri);
 
 		return remove(jiraStatus);
 	}
 
 	/**
-	 * Returns the number of jira statuses where jiraStatusCode = &#63;.
+	 * Returns the number of jira statuses where uri = &#63;.
 	 *
-	 * @param jiraStatusCode the jira status code
+	 * @param uri the uri
 	 * @return the number of matching jira statuses
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByJiraStatusCode(long jiraStatusCode)
-		throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_JIRASTATUSCODE;
+	public int countByUri(String uri) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_URI;
 
-		Object[] finderArgs = new Object[] { jiraStatusCode };
+		Object[] finderArgs = new Object[] { uri };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
@@ -503,165 +516,18 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 
 			query.append(_SQL_COUNT_JIRASTATUS_WHERE);
 
-			query.append(_FINDER_COLUMN_JIRASTATUSCODE_JIRASTATUSCODE_2);
+			boolean bindUri = false;
 
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(jiraStatusCode);
-
-				count = (Long)q.uniqueResult();
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			if (uri == null) {
+				query.append(_FINDER_COLUMN_URI_URI_1);
 			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_JIRASTATUSCODE_JIRASTATUSCODE_2 = "jiraStatus.jiraStatusCode = ?";
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_JIRAPROJECTID =
-		new FinderPath(JiraStatusModelImpl.ENTITY_CACHE_ENABLED,
-			JiraStatusModelImpl.FINDER_CACHE_ENABLED, JiraStatusImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByJiraProjectId",
-			new String[] {
-				Long.class.getName(),
-				
-			Integer.class.getName(), Integer.class.getName(),
-				OrderByComparator.class.getName()
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JIRAPROJECTID =
-		new FinderPath(JiraStatusModelImpl.ENTITY_CACHE_ENABLED,
-			JiraStatusModelImpl.FINDER_CACHE_ENABLED, JiraStatusImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByJiraProjectId",
-			new String[] { Long.class.getName() },
-			JiraStatusModelImpl.JIRAPROJECTID_COLUMN_BITMASK |
-			JiraStatusModelImpl.NAME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_JIRAPROJECTID = new FinderPath(JiraStatusModelImpl.ENTITY_CACHE_ENABLED,
-			JiraStatusModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByJiraProjectId",
-			new String[] { Long.class.getName() });
-
-	/**
-	 * Returns all the jira statuses where jiraProjectId = &#63;.
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @return the matching jira statuses
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JiraStatus> findByJiraProjectId(long jiraProjectId)
-		throws SystemException {
-		return findByJiraProjectId(jiraProjectId, QueryUtil.ALL_POS,
-			QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the jira statuses where jiraProjectId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.jira.metrics.model.impl.JiraStatusModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @param start the lower bound of the range of jira statuses
-	 * @param end the upper bound of the range of jira statuses (not inclusive)
-	 * @return the range of matching jira statuses
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JiraStatus> findByJiraProjectId(long jiraProjectId, int start,
-		int end) throws SystemException {
-		return findByJiraProjectId(jiraProjectId, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the jira statuses where jiraProjectId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.jira.metrics.model.impl.JiraStatusModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	 * </p>
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @param start the lower bound of the range of jira statuses
-	 * @param end the upper bound of the range of jira statuses (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching jira statuses
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public List<JiraStatus> findByJiraProjectId(long jiraProjectId, int start,
-		int end, OrderByComparator orderByComparator) throws SystemException {
-		boolean pagination = true;
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			pagination = false;
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JIRAPROJECTID;
-			finderArgs = new Object[] { jiraProjectId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_JIRAPROJECTID;
-			finderArgs = new Object[] {
-					jiraProjectId,
-					
-					start, end, orderByComparator
-				};
-		}
-
-		List<JiraStatus> list = (List<JiraStatus>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if ((list != null) && !list.isEmpty()) {
-			for (JiraStatus jiraStatus : list) {
-				if ((jiraProjectId != jiraStatus.getJiraProjectId())) {
-					list = null;
-
-					break;
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
+			else if (uri.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_URI_URI_3);
 			}
 			else {
-				query = new StringBundler(3);
-			}
+				bindUri = true;
 
-			query.append(_SQL_SELECT_JIRASTATUS_WHERE);
-
-			query.append(_FINDER_COLUMN_JIRAPROJECTID_JIRAPROJECTID_2);
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-			else
-			 if (pagination) {
-				query.append(JiraStatusModelImpl.ORDER_BY_JPQL);
+				query.append(_FINDER_COLUMN_URI_URI_2);
 			}
 
 			String sql = query.toString();
@@ -675,347 +541,9 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				qPos.add(jiraProjectId);
-
-				if (!pagination) {
-					list = (List<JiraStatus>)QueryUtil.list(q, getDialect(),
-							start, end, false);
-
-					Collections.sort(list);
-
-					list = new UnmodifiableList<JiraStatus>(list);
+				if (bindUri) {
+					qPos.add(uri);
 				}
-				else {
-					list = (List<JiraStatus>)QueryUtil.list(q, getDialect(),
-							start, end);
-				}
-
-				cacheResult(list);
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, list);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first jira status in the ordered set where jiraProjectId = &#63;.
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching jira status
-	 * @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a matching jira status could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraStatus findByJiraProjectId_First(long jiraProjectId,
-		OrderByComparator orderByComparator)
-		throws NoSuchJiraStatusException, SystemException {
-		JiraStatus jiraStatus = fetchByJiraProjectId_First(jiraProjectId,
-				orderByComparator);
-
-		if (jiraStatus != null) {
-			return jiraStatus;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("jiraProjectId=");
-		msg.append(jiraProjectId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchJiraStatusException(msg.toString());
-	}
-
-	/**
-	 * Returns the first jira status in the ordered set where jiraProjectId = &#63;.
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching jira status, or <code>null</code> if a matching jira status could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraStatus fetchByJiraProjectId_First(long jiraProjectId,
-		OrderByComparator orderByComparator) throws SystemException {
-		List<JiraStatus> list = findByJiraProjectId(jiraProjectId, 0, 1,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last jira status in the ordered set where jiraProjectId = &#63;.
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching jira status
-	 * @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a matching jira status could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraStatus findByJiraProjectId_Last(long jiraProjectId,
-		OrderByComparator orderByComparator)
-		throws NoSuchJiraStatusException, SystemException {
-		JiraStatus jiraStatus = fetchByJiraProjectId_Last(jiraProjectId,
-				orderByComparator);
-
-		if (jiraStatus != null) {
-			return jiraStatus;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("jiraProjectId=");
-		msg.append(jiraProjectId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchJiraStatusException(msg.toString());
-	}
-
-	/**
-	 * Returns the last jira status in the ordered set where jiraProjectId = &#63;.
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching jira status, or <code>null</code> if a matching jira status could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraStatus fetchByJiraProjectId_Last(long jiraProjectId,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByJiraProjectId(jiraProjectId);
-
-		if (count == 0) {
-			return null;
-		}
-
-		List<JiraStatus> list = findByJiraProjectId(jiraProjectId, count - 1,
-				count, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the jira statuses before and after the current jira status in the ordered set where jiraProjectId = &#63;.
-	 *
-	 * @param jiraStatusId the primary key of the current jira status
-	 * @param jiraProjectId the jira project ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next jira status
-	 * @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a jira status with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public JiraStatus[] findByJiraProjectId_PrevAndNext(long jiraStatusId,
-		long jiraProjectId, OrderByComparator orderByComparator)
-		throws NoSuchJiraStatusException, SystemException {
-		JiraStatus jiraStatus = findByPrimaryKey(jiraStatusId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			JiraStatus[] array = new JiraStatusImpl[3];
-
-			array[0] = getByJiraProjectId_PrevAndNext(session, jiraStatus,
-					jiraProjectId, orderByComparator, true);
-
-			array[1] = jiraStatus;
-
-			array[2] = getByJiraProjectId_PrevAndNext(session, jiraStatus,
-					jiraProjectId, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected JiraStatus getByJiraProjectId_PrevAndNext(Session session,
-		JiraStatus jiraStatus, long jiraProjectId,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_JIRASTATUS_WHERE);
-
-		query.append(_FINDER_COLUMN_JIRAPROJECTID_JIRAPROJECTID_2);
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-		else {
-			query.append(JiraStatusModelImpl.ORDER_BY_JPQL);
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(jiraProjectId);
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(jiraStatus);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<JiraStatus> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Removes all the jira statuses where jiraProjectId = &#63; from the database.
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public void removeByJiraProjectId(long jiraProjectId)
-		throws SystemException {
-		for (JiraStatus jiraStatus : findByJiraProjectId(jiraProjectId,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
-			remove(jiraStatus);
-		}
-	}
-
-	/**
-	 * Returns the number of jira statuses where jiraProjectId = &#63;.
-	 *
-	 * @param jiraProjectId the jira project ID
-	 * @return the number of matching jira statuses
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public int countByJiraProjectId(long jiraProjectId)
-		throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_JIRAPROJECTID;
-
-		Object[] finderArgs = new Object[] { jiraProjectId };
-
-		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
-				this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_JIRASTATUS_WHERE);
-
-			query.append(_FINDER_COLUMN_JIRAPROJECTID_JIRAPROJECTID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(jiraProjectId);
 
 				count = (Long)q.uniqueResult();
 
@@ -1034,7 +562,9 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_JIRAPROJECTID_JIRAPROJECTID_2 = "jiraStatus.jiraProjectId = ?";
+	private static final String _FINDER_COLUMN_URI_URI_1 = "jiraStatus.uri IS NULL";
+	private static final String _FINDER_COLUMN_URI_URI_2 = "jiraStatus.uri = ?";
+	private static final String _FINDER_COLUMN_URI_URI_3 = "(jiraStatus.uri IS NULL OR jiraStatus.uri = '')";
 
 	public JiraStatusPersistenceImpl() {
 		setModelClass(JiraStatus.class);
@@ -1053,8 +583,8 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_STATUS,
 			new Object[] { jiraStatus.getName() }, jiraStatus);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE,
-			new Object[] { jiraStatus.getJiraStatusCode() }, jiraStatus);
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI,
+			new Object[] { jiraStatus.getUri() }, jiraStatus);
 
 		jiraStatus.resetOriginalValues();
 	}
@@ -1138,12 +668,11 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_STATUS, args,
 				jiraStatus);
 
-			args = new Object[] { jiraStatus.getJiraStatusCode() };
+			args = new Object[] { jiraStatus.getUri() };
 
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JIRASTATUSCODE,
-				args, Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE,
-				args, jiraStatus);
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_URI, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI, args, jiraStatus);
 		}
 		else {
 			JiraStatusModelImpl jiraStatusModelImpl = (JiraStatusModelImpl)jiraStatus;
@@ -1159,13 +688,13 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 			}
 
 			if ((jiraStatusModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_JIRASTATUSCODE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { jiraStatus.getJiraStatusCode() };
+					FINDER_PATH_FETCH_BY_URI.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { jiraStatus.getUri() };
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JIRASTATUSCODE,
-					args, Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE,
-					args, jiraStatus);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_URI, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI, args,
+					jiraStatus);
 			}
 		}
 	}
@@ -1186,19 +715,17 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_STATUS, args);
 		}
 
-		args = new Object[] { jiraStatus.getJiraStatusCode() };
+		args = new Object[] { jiraStatus.getUri() };
 
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRASTATUSCODE, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_URI, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_URI, args);
 
 		if ((jiraStatusModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_JIRASTATUSCODE.getColumnBitmask()) != 0) {
-			args = new Object[] { jiraStatusModelImpl.getOriginalJiraStatusCode() };
+				FINDER_PATH_FETCH_BY_URI.getColumnBitmask()) != 0) {
+			args = new Object[] { jiraStatusModelImpl.getOriginalUri() };
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRASTATUSCODE,
-				args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRASTATUSCODE,
-				args);
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_URI, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_URI, args);
 		}
 	}
 
@@ -1314,8 +841,6 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 
 		boolean isNew = jiraStatus.isNew();
 
-		JiraStatusModelImpl jiraStatusModelImpl = (JiraStatusModelImpl)jiraStatus;
-
 		Session session = null;
 
 		try {
@@ -1343,27 +868,6 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 		}
 
-		else {
-			if ((jiraStatusModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JIRAPROJECTID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						jiraStatusModelImpl.getOriginalJiraProjectId()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRAPROJECTID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JIRAPROJECTID,
-					args);
-
-				args = new Object[] { jiraStatusModelImpl.getJiraProjectId() };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRAPROJECTID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_JIRAPROJECTID,
-					args);
-			}
-		}
-
 		EntityCacheUtil.putResult(JiraStatusModelImpl.ENTITY_CACHE_ENABLED,
 			JiraStatusImpl.class, jiraStatus.getPrimaryKey(), jiraStatus);
 
@@ -1386,8 +890,7 @@ public class JiraStatusPersistenceImpl extends BasePersistenceImpl<JiraStatus>
 		jiraStatusImpl.setJiraStatusId(jiraStatus.getJiraStatusId());
 		jiraStatusImpl.setCreateDate(jiraStatus.getCreateDate());
 		jiraStatusImpl.setModifiedDate(jiraStatus.getModifiedDate());
-		jiraStatusImpl.setJiraStatusCode(jiraStatus.getJiraStatusCode());
-		jiraStatusImpl.setJiraProjectId(jiraStatus.getJiraProjectId());
+		jiraStatusImpl.setUri(jiraStatus.getUri());
 		jiraStatusImpl.setName(jiraStatus.getName());
 
 		return jiraStatusImpl;

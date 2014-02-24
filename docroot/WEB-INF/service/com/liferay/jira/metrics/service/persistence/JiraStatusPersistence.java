@@ -25,7 +25,7 @@ import com.liferay.portal.service.persistence.BasePersistence;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatusPersistenceImpl
  * @see JiraStatusUtil
  * @generated
@@ -96,199 +96,61 @@ public interface JiraStatusPersistence extends BasePersistence<JiraStatus> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the jira status where jiraStatusCode = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraStatusException} if it could not be found.
+	* Returns the jira status where uri = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraStatusException} if it could not be found.
 	*
-	* @param jiraStatusCode the jira status code
+	* @param uri the uri
 	* @return the matching jira status
 	* @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a matching jira status could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.jira.metrics.model.JiraStatus findByJiraStatusCode(
-		long jiraStatusCode)
+	public com.liferay.jira.metrics.model.JiraStatus findByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the jira status where jiraStatusCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the jira status where uri = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param jiraStatusCode the jira status code
+	* @param uri the uri
 	* @return the matching jira status, or <code>null</code> if a matching jira status could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.jira.metrics.model.JiraStatus fetchByJiraStatusCode(
-		long jiraStatusCode)
+	public com.liferay.jira.metrics.model.JiraStatus fetchByUri(
+		java.lang.String uri)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the jira status where jiraStatusCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the jira status where uri = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param jiraStatusCode the jira status code
+	* @param uri the uri
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira status, or <code>null</code> if a matching jira status could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.jira.metrics.model.JiraStatus fetchByJiraStatusCode(
-		long jiraStatusCode, boolean retrieveFromCache)
+	public com.liferay.jira.metrics.model.JiraStatus fetchByUri(
+		java.lang.String uri, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes the jira status where jiraStatusCode = &#63; from the database.
+	* Removes the jira status where uri = &#63; from the database.
 	*
-	* @param jiraStatusCode the jira status code
+	* @param uri the uri
 	* @return the jira status that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public com.liferay.jira.metrics.model.JiraStatus removeByJiraStatusCode(
-		long jiraStatusCode)
+	public com.liferay.jira.metrics.model.JiraStatus removeByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the number of jira statuses where jiraStatusCode = &#63;.
+	* Returns the number of jira statuses where uri = &#63;.
 	*
-	* @param jiraStatusCode the jira status code
+	* @param uri the uri
 	* @return the number of matching jira statuses
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByJiraStatusCode(long jiraStatusCode)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns all the jira statuses where jiraProjectId = &#63;.
-	*
-	* @param jiraProjectId the jira project ID
-	* @return the matching jira statuses
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> findByJiraProjectId(
-		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns a range of all the jira statuses where jiraProjectId = &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.jira.metrics.model.impl.JiraStatusModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param jiraProjectId the jira project ID
-	* @param start the lower bound of the range of jira statuses
-	* @param end the upper bound of the range of jira statuses (not inclusive)
-	* @return the range of matching jira statuses
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> findByJiraProjectId(
-		long jiraProjectId, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns an ordered range of all the jira statuses where jiraProjectId = &#63;.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.jira.metrics.model.impl.JiraStatusModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
-	* </p>
-	*
-	* @param jiraProjectId the jira project ID
-	* @param start the lower bound of the range of jira statuses
-	* @param end the upper bound of the range of jira statuses (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of matching jira statuses
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> findByJiraProjectId(
-		long jiraProjectId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the first jira status in the ordered set where jiraProjectId = &#63;.
-	*
-	* @param jiraProjectId the jira project ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching jira status
-	* @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.jira.metrics.model.JiraStatus findByJiraProjectId_First(
-		long jiraProjectId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the first jira status in the ordered set where jiraProjectId = &#63;.
-	*
-	* @param jiraProjectId the jira project ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the first matching jira status, or <code>null</code> if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.jira.metrics.model.JiraStatus fetchByJiraProjectId_First(
-		long jiraProjectId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the last jira status in the ordered set where jiraProjectId = &#63;.
-	*
-	* @param jiraProjectId the jira project ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching jira status
-	* @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.jira.metrics.model.JiraStatus findByJiraProjectId_Last(
-		long jiraProjectId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the last jira status in the ordered set where jiraProjectId = &#63;.
-	*
-	* @param jiraProjectId the jira project ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the last matching jira status, or <code>null</code> if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.jira.metrics.model.JiraStatus fetchByJiraProjectId_Last(
-		long jiraProjectId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the jira statuses before and after the current jira status in the ordered set where jiraProjectId = &#63;.
-	*
-	* @param jiraStatusId the primary key of the current jira status
-	* @param jiraProjectId the jira project ID
-	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	* @return the previous, current, and next jira status
-	* @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a jira status with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.jira.metrics.model.JiraStatus[] findByJiraProjectId_PrevAndNext(
-		long jiraStatusId, long jiraProjectId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes all the jira statuses where jiraProjectId = &#63; from the database.
-	*
-	* @param jiraProjectId the jira project ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByJiraProjectId(long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of jira statuses where jiraProjectId = &#63;.
-	*
-	* @param jiraProjectId the jira project ID
-	* @return the number of matching jira statuses
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByJiraProjectId(long jiraProjectId)
+	public int countByUri(java.lang.String uri)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

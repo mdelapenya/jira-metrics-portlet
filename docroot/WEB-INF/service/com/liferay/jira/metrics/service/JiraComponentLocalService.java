@@ -29,7 +29,7 @@ import com.liferay.portal.service.PersistedModelLocalService;
  * credentials because this service can only be accessed from within the same
  * VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraComponentLocalServiceUtil
  * @see com.liferay.jira.metrics.service.base.JiraComponentLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraComponentLocalServiceImpl
@@ -251,13 +251,13 @@ public interface JiraComponentLocalService extends BaseLocalService,
 
 	public com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
 		java.lang.String uri, long jiraProjectId, java.lang.String name,
-		int jiraStatusId)
+		java.lang.Boolean disabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
-		java.lang.String name)
+	public com.liferay.jira.metrics.model.JiraComponent getJiraComponentByNameAndJiraProjectId(
+		java.lang.String name, long jiraProjectId)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException;
 

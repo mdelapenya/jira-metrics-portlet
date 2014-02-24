@@ -26,7 +26,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * based on the propagated JAAS credentials because this service can only be
  * accessed from within the same VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraProjectLocalService
  * @see com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraProjectLocalServiceImpl
@@ -283,9 +283,26 @@ public class JiraProjectLocalServiceUtil {
 	}
 
 	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAllJiraProjects();
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getInstalledJiraProjects()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getInstalledJiraProjects();
+	}
+
+	/**
 	* Gets a Jira Project by name
 	*
-	* @param projectCode
+	* @param name
 	* @return
 	* @throws NoSuchJiraProjectException
 	* @throws SystemException
@@ -310,17 +327,6 @@ public class JiraProjectLocalServiceUtil {
 		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getJiraProjectByProjectLabel(label);
-	}
-
-	/**
-	* Retrieves all Jira projects
-	*
-	* @return a list with all Jira projects
-	* @throws SystemException
-	*/
-	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getAllJiraProjects();
 	}
 
 	public static void clearService() {

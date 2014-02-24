@@ -25,7 +25,7 @@ import com.liferay.portal.service.persistence.BasePersistence;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraMetricPersistenceImpl
  * @see JiraMetricUtil
  * @generated

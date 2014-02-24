@@ -26,7 +26,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * based on the propagated JAAS credentials because this service can only be
  * accessed from within the same VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraComponentLocalService
  * @see com.liferay.jira.metrics.service.base.JiraComponentLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraComponentLocalServiceImpl
@@ -277,18 +277,18 @@ public class JiraComponentLocalServiceUtil {
 
 	public static com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
 		java.lang.String uri, long jiraProjectId, java.lang.String name,
-		int jiraStatusId)
+		java.lang.Boolean disabled)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .addJiraComponent(uri, jiraProjectId, name, jiraStatusId);
+		return getService().addJiraComponent(uri, jiraProjectId, name, disabled);
 	}
 
-	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByName(
-		java.lang.String name)
+	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByNameAndJiraProjectId(
+		java.lang.String name, long jiraProjectId)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getJiraComponentByName(name);
+		return getService()
+				   .getJiraComponentByNameAndJiraProjectId(name, jiraProjectId);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponentByUri(

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -26,5 +26,7 @@ public class PortletPropsKeys {
 	public static final String JIRA_SERVER_URI = "jira.server.uri";
 
 	public static final String JIRA_USERNAME = "jira.username";
+
+	public static final String MERGE_STRATEGY = "merge.strategy";
 
 }

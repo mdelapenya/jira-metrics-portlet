@@ -57,7 +57,7 @@ import java.util.List;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraComponentPersistence
  * @see JiraComponentUtil
  * @generated
@@ -88,33 +88,39 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 	public static final FinderPath FINDER_PATH_FETCH_BY_JIRACOMPONENT = new FinderPath(JiraComponentModelImpl.ENTITY_CACHE_ENABLED,
 			JiraComponentModelImpl.FINDER_CACHE_ENABLED,
 			JiraComponentImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByJiraComponent", new String[] { String.class.getName() },
-			JiraComponentModelImpl.NAME_COLUMN_BITMASK);
+			"fetchByJiraComponent",
+			new String[] { String.class.getName(), Long.class.getName() },
+			JiraComponentModelImpl.NAME_COLUMN_BITMASK |
+			JiraComponentModelImpl.JIRAPROJECTID_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_JIRACOMPONENT = new FinderPath(JiraComponentModelImpl.ENTITY_CACHE_ENABLED,
 			JiraComponentModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByJiraComponent",
-			new String[] { String.class.getName() });
+			new String[] { String.class.getName(), Long.class.getName() });
 
 	/**
-	 * Returns the jira component where name = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
+	 * Returns the jira component where name = &#63; and jiraProjectId = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
 	 *
 	 * @param name the name
+	 * @param jiraProjectId the jira project ID
 	 * @return the matching jira component
 	 * @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a matching jira component could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraComponent findByJiraComponent(String name)
+	public JiraComponent findByJiraComponent(String name, long jiraProjectId)
 		throws NoSuchJiraComponentException, SystemException {
-		JiraComponent jiraComponent = fetchByJiraComponent(name);
+		JiraComponent jiraComponent = fetchByJiraComponent(name, jiraProjectId);
 
 		if (jiraComponent == null) {
-			StringBundler msg = new StringBundler(4);
+			StringBundler msg = new StringBundler(6);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
 			msg.append("name=");
 			msg.append(name);
+
+			msg.append(", jiraProjectId=");
+			msg.append(jiraProjectId);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -129,30 +135,32 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 	}
 
 	/**
-	 * Returns the jira component where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the jira component where name = &#63; and jiraProjectId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param name the name
+	 * @param jiraProjectId the jira project ID
 	 * @return the matching jira component, or <code>null</code> if a matching jira component could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraComponent fetchByJiraComponent(String name)
+	public JiraComponent fetchByJiraComponent(String name, long jiraProjectId)
 		throws SystemException {
-		return fetchByJiraComponent(name, true);
+		return fetchByJiraComponent(name, jiraProjectId, true);
 	}
 
 	/**
-	 * Returns the jira component where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the jira component where name = &#63; and jiraProjectId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param name the name
+	 * @param jiraProjectId the jira project ID
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching jira component, or <code>null</code> if a matching jira component could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraComponent fetchByJiraComponent(String name,
+	public JiraComponent fetchByJiraComponent(String name, long jiraProjectId,
 		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { name };
+		Object[] finderArgs = new Object[] { name, jiraProjectId };
 
 		Object result = null;
 
@@ -164,13 +172,14 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 		if (result instanceof JiraComponent) {
 			JiraComponent jiraComponent = (JiraComponent)result;
 
-			if (!Validator.equals(name, jiraComponent.getName())) {
+			if (!Validator.equals(name, jiraComponent.getName()) ||
+					(jiraProjectId != jiraComponent.getJiraProjectId())) {
 				result = null;
 			}
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler query = new StringBundler(4);
 
 			query.append(_SQL_SELECT_JIRACOMPONENT_WHERE);
 
@@ -188,6 +197,8 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 				query.append(_FINDER_COLUMN_JIRACOMPONENT_NAME_2);
 			}
 
+			query.append(_FINDER_COLUMN_JIRACOMPONENT_JIRAPROJECTID_2);
+
 			String sql = query.toString();
 
 			Session session = null;
@@ -203,6 +214,8 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 					qPos.add(name);
 				}
 
+				qPos.add(jiraProjectId);
+
 				List<JiraComponent> list = q.list();
 
 				if (list.isEmpty()) {
@@ -210,6 +223,13 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 						finderArgs, list);
 				}
 				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"JiraComponentPersistenceImpl.fetchByJiraComponent(String, long, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
 					JiraComponent jiraComponent = list.get(0);
 
 					result = jiraComponent;
@@ -217,7 +237,8 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 					cacheResult(jiraComponent);
 
 					if ((jiraComponent.getName() == null) ||
-							!jiraComponent.getName().equals(name)) {
+							!jiraComponent.getName().equals(name) ||
+							(jiraComponent.getJiraProjectId() != jiraProjectId)) {
 						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENT,
 							finderArgs, jiraComponent);
 					}
@@ -243,38 +264,41 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 	}
 
 	/**
-	 * Removes the jira component where name = &#63; from the database.
+	 * Removes the jira component where name = &#63; and jiraProjectId = &#63; from the database.
 	 *
 	 * @param name the name
+	 * @param jiraProjectId the jira project ID
 	 * @return the jira component that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public JiraComponent removeByJiraComponent(String name)
+	public JiraComponent removeByJiraComponent(String name, long jiraProjectId)
 		throws NoSuchJiraComponentException, SystemException {
-		JiraComponent jiraComponent = findByJiraComponent(name);
+		JiraComponent jiraComponent = findByJiraComponent(name, jiraProjectId);
 
 		return remove(jiraComponent);
 	}
 
 	/**
-	 * Returns the number of jira components where name = &#63;.
+	 * Returns the number of jira components where name = &#63; and jiraProjectId = &#63;.
 	 *
 	 * @param name the name
+	 * @param jiraProjectId the jira project ID
 	 * @return the number of matching jira components
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByJiraComponent(String name) throws SystemException {
+	public int countByJiraComponent(String name, long jiraProjectId)
+		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_JIRACOMPONENT;
 
-		Object[] finderArgs = new Object[] { name };
+		Object[] finderArgs = new Object[] { name, jiraProjectId };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler query = new StringBundler(3);
 
 			query.append(_SQL_COUNT_JIRACOMPONENT_WHERE);
 
@@ -292,6 +316,8 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 				query.append(_FINDER_COLUMN_JIRACOMPONENT_NAME_2);
 			}
 
+			query.append(_FINDER_COLUMN_JIRACOMPONENT_JIRAPROJECTID_2);
+
 			String sql = query.toString();
 
 			Session session = null;
@@ -306,6 +332,8 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 				if (bindName) {
 					qPos.add(name);
 				}
+
+				qPos.add(jiraProjectId);
 
 				count = (Long)q.uniqueResult();
 
@@ -324,9 +352,10 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_1 = "jiraComponent.name IS NULL";
-	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_2 = "jiraComponent.name = ?";
-	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_3 = "(jiraComponent.name IS NULL OR jiraComponent.name = '')";
+	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_1 = "jiraComponent.name IS NULL AND ";
+	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_2 = "jiraComponent.name = ? AND ";
+	private static final String _FINDER_COLUMN_JIRACOMPONENT_NAME_3 = "(jiraComponent.name IS NULL OR jiraComponent.name = '') AND ";
+	private static final String _FINDER_COLUMN_JIRACOMPONENT_JIRAPROJECTID_2 = "jiraComponent.jiraProjectId = ?";
 	public static final FinderPath FINDER_PATH_FETCH_BY_URI = new FinderPath(JiraComponentModelImpl.ENTITY_CACHE_ENABLED,
 			JiraComponentModelImpl.FINDER_CACHE_ENABLED,
 			JiraComponentImpl.class, FINDER_CLASS_NAME_ENTITY, "fetchByUri",
@@ -1087,7 +1116,9 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 			jiraComponent);
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JIRACOMPONENT,
-			new Object[] { jiraComponent.getName() }, jiraComponent);
+			new Object[] {
+				jiraComponent.getName(), jiraComponent.getJiraProjectId()
+			}, jiraComponent);
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_URI,
 			new Object[] { jiraComponent.getUri() }, jiraComponent);
@@ -1167,7 +1198,9 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 
 	protected void cacheUniqueFindersCache(JiraComponent jiraComponent) {
 		if (jiraComponent.isNew()) {
-			Object[] args = new Object[] { jiraComponent.getName() };
+			Object[] args = new Object[] {
+					jiraComponent.getName(), jiraComponent.getJiraProjectId()
+				};
 
 			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JIRACOMPONENT, args,
 				Long.valueOf(1));
@@ -1186,7 +1219,10 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 
 			if ((jiraComponentModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_JIRACOMPONENT.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { jiraComponent.getName() };
+				Object[] args = new Object[] {
+						jiraComponent.getName(),
+						jiraComponent.getJiraProjectId()
+					};
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JIRACOMPONENT,
 					args, Long.valueOf(1));
@@ -1209,14 +1245,19 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 	protected void clearUniqueFindersCache(JiraComponent jiraComponent) {
 		JiraComponentModelImpl jiraComponentModelImpl = (JiraComponentModelImpl)jiraComponent;
 
-		Object[] args = new Object[] { jiraComponent.getName() };
+		Object[] args = new Object[] {
+				jiraComponent.getName(), jiraComponent.getJiraProjectId()
+			};
 
 		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRACOMPONENT, args);
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JIRACOMPONENT, args);
 
 		if ((jiraComponentModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_JIRACOMPONENT.getColumnBitmask()) != 0) {
-			args = new Object[] { jiraComponentModelImpl.getOriginalName() };
+			args = new Object[] {
+					jiraComponentModelImpl.getOriginalName(),
+					jiraComponentModelImpl.getOriginalJiraProjectId()
+				};
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JIRACOMPONENT,
 				args);
@@ -1426,7 +1467,7 @@ public class JiraComponentPersistenceImpl extends BasePersistenceImpl<JiraCompon
 		jiraComponentImpl.setUri(jiraComponent.getUri());
 		jiraComponentImpl.setJiraProjectId(jiraComponent.getJiraProjectId());
 		jiraComponentImpl.setName(jiraComponent.getName());
-		jiraComponentImpl.setStatus(jiraComponent.getStatus());
+		jiraComponentImpl.setDisabled(jiraComponent.isDisabled());
 
 		return jiraComponentImpl;
 	}

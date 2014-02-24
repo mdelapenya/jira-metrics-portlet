@@ -19,7 +19,7 @@ import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @generated
  */
 public class JiraStatusLocalServiceClpInvoker {
@@ -117,20 +117,16 @@ public class JiraStatusLocalServiceClpInvoker {
 		_methodName58 = "addJiraStatus";
 
 		_methodParameterTypes58 = new String[] {
-				"long", "long", "java.lang.String"
+				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName59 = "getJiraStatusByJiraStatusCode";
+		_methodName59 = "getJiraStatusByUri";
 
-		_methodParameterTypes59 = new String[] { "long" };
+		_methodParameterTypes59 = new String[] { "java.lang.String" };
 
 		_methodName60 = "getJiraStatusByName";
 
 		_methodParameterTypes60 = new String[] { "java.lang.String" };
-
-		_methodName61 = "getJiraStatusesByJiraProjectId";
-
-		_methodParameterTypes61 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -236,23 +232,18 @@ public class JiraStatusLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.addJiraStatus(((Long)arguments[0]).longValue(),
-				((Long)arguments[1]).longValue(), (java.lang.String)arguments[2]);
+			return JiraStatusLocalServiceUtil.addJiraStatus((java.lang.String)arguments[0],
+				(java.lang.String)arguments[1]);
 		}
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.getJiraStatusByJiraStatusCode(((Long)arguments[0]).longValue());
+			return JiraStatusLocalServiceUtil.getJiraStatusByUri((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.getJiraStatusByName((java.lang.String)arguments[0]);
-		}
-
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.getJiraStatusesByJiraProjectId(((Long)arguments[0]).longValue());
 		}
 
 		throw new UnsupportedOperationException();
@@ -300,6 +291,4 @@ public class JiraStatusLocalServiceClpInvoker {
 	private String[] _methodParameterTypes59;
 	private String _methodName60;
 	private String[] _methodParameterTypes60;
-	private String _methodName61;
-	private String[] _methodParameterTypes61;
 }

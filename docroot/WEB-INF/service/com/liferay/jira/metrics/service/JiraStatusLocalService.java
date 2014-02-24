@@ -29,7 +29,7 @@ import com.liferay.portal.service.PersistedModelLocalService;
  * credentials because this service can only be accessed from within the same
  * VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatusLocalServiceUtil
  * @see com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraStatusLocalServiceImpl
@@ -250,13 +250,13 @@ public interface JiraStatusLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public com.liferay.jira.metrics.model.JiraStatus addJiraStatus(
-		long jiraStatusCode, long jiraProjectId, java.lang.String name)
+		java.lang.String uri, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByJiraStatusCode(
-		long jiraStatusCode)
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -265,9 +265,4 @@ public interface JiraStatusLocalService extends BaseLocalService,
 		java.lang.String name)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getJiraStatusesByJiraProjectId(
-		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
 }

@@ -30,7 +30,7 @@ import java.util.Date;
 /**
  * The cache model class for representing JiraComponent in entity cache.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraComponent
  * @generated
  */
@@ -52,8 +52,8 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 		sb.append(jiraProjectId);
 		sb.append(", name=");
 		sb.append(name);
-		sb.append(", status=");
-		sb.append(status);
+		sb.append(", disabled=");
+		sb.append(disabled);
 		sb.append("}");
 
 		return sb.toString();
@@ -95,7 +95,7 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 			jiraComponentImpl.setName(name);
 		}
 
-		jiraComponentImpl.setStatus(status);
+		jiraComponentImpl.setDisabled(disabled);
 
 		jiraComponentImpl.resetOriginalValues();
 
@@ -110,7 +110,7 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 		uri = objectInput.readUTF();
 		jiraProjectId = objectInput.readLong();
 		name = objectInput.readUTF();
-		status = objectInput.readInt();
+		disabled = objectInput.readBoolean();
 	}
 
 	@Override
@@ -136,7 +136,7 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 			objectOutput.writeUTF(name);
 		}
 
-		objectOutput.writeInt(status);
+		objectOutput.writeBoolean(disabled);
 	}
 
 	public long jiraComponentId;
@@ -145,5 +145,5 @@ public class JiraComponentCacheModel implements CacheModel<JiraComponent>,
 	public String uri;
 	public long jiraProjectId;
 	public String name;
-	public int status;
+	public boolean disabled;
 }
