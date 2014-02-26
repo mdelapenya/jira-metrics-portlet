@@ -4,3 +4,4 @@ docroot/WEB-INF/classes
 docroot/WEB-INF/lib
 docroot/css/.sass-cache
 ivy.xml.MD5
+test-classes
