@@ -30,7 +30,7 @@ import java.util.Date;
 /**
  * The cache model class for representing JiraProject in entity cache.
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see JiraProject
  * @generated
  */

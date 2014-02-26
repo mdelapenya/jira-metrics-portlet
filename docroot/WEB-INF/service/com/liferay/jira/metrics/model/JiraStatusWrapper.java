@@ -26,7 +26,7 @@ import java.util.Map;
  * This class is a wrapper for {@link JiraStatus}.
  * </p>
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see JiraStatus
  * @generated
  */
@@ -275,7 +275,7 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	}
 
 	@Override
-	public int compareTo(com.liferay.jira.metrics.model.JiraStatus jiraStatus) {
+	public int compareTo(JiraStatus jiraStatus) {
 		return _jiraStatus.compareTo(jiraStatus);
 	}
 
@@ -285,17 +285,17 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.jira.metrics.model.JiraStatus> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<JiraStatus> toCacheModel() {
 		return _jiraStatus.toCacheModel();
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraStatus toEscapedModel() {
+	public JiraStatus toEscapedModel() {
 		return new JiraStatusWrapper(_jiraStatus.toEscapedModel());
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraStatus toUnescapedModel() {
+	public JiraStatus toUnescapedModel() {
 		return new JiraStatusWrapper(_jiraStatus.toUnescapedModel());
 	}
 

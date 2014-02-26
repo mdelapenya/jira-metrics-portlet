@@ -29,7 +29,7 @@ import java.util.Date;
 /**
  * The cache model class for representing JiraMetric in entity cache.
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see JiraMetric
  * @generated
  */

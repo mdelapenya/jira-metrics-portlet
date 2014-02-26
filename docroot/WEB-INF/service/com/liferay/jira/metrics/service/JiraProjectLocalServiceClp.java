@@ -17,7 +17,7 @@ package com.liferay.jira.metrics.service;
 import com.liferay.portal.service.InvokableLocalService;
 
 /**
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @generated
  */
 public class JiraProjectLocalServiceClp implements JiraProjectLocalService {

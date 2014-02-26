@@ -19,7 +19,7 @@ import com.liferay.jira.metrics.service.JiraMetricServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @generated
  */
 public class JiraMetricServiceClpInvoker {

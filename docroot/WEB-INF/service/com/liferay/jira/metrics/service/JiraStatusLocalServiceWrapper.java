@@ -19,7 +19,7 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link JiraStatusLocalService}.
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see JiraStatusLocalService
  * @generated
  */

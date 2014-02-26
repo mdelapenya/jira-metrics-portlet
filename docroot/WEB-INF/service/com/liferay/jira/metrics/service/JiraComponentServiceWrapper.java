@@ -19,7 +19,7 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link JiraComponentService}.
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see JiraComponentService
  * @generated
  */
