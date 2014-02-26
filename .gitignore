@@ -1,4 +1,6 @@
 bin
 docroot/WEB-INF/src/portlet-ext.properties
 docroot/WEB-INF/classes
+docroot/WEB-INF/lib
 docroot/css/.sass-cache
+ivy.xml.MD5

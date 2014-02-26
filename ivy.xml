@@ -15,9 +15,9 @@
 		<dependency name="slf4j-api" org="org.slf4j" rev="1.6.4" />
 
 		<dependency name="jira-rest-java-client" org="com.atlassian.jira" rev="2.0.0-m2" >
-			<exclude org="commons-logging"/>
-			<exclude org="log4j"/>
-			<exclude org="slf4j-api.jar"/>
+			<exclude org="commons-logging" />
+			<exclude org="log4j" />
+			<exclude org="slf4j-api.jar" />
 		</dependency>
 	</dependencies>
 </ivy-module>
