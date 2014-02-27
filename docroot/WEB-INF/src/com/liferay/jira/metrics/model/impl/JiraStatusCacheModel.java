@@ -38,7 +38,7 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append("{jiraStatusId=");
 		sb.append(jiraStatusId);
@@ -46,10 +46,8 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", jiraStatusCode=");
-		sb.append(jiraStatusCode);
-		sb.append(", jiraProjectId=");
-		sb.append(jiraProjectId);
+		sb.append(", uri=");
+		sb.append(uri);
 		sb.append(", name=");
 		sb.append(name);
 		sb.append("}");
@@ -77,8 +75,12 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 			jiraStatusImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		jiraStatusImpl.setJiraStatusCode(jiraStatusCode);
-		jiraStatusImpl.setJiraProjectId(jiraProjectId);
+		if (uri == null) {
+			jiraStatusImpl.setUri(StringPool.BLANK);
+		}
+		else {
+			jiraStatusImpl.setUri(uri);
+		}
 
 		if (name == null) {
 			jiraStatusImpl.setName(StringPool.BLANK);
@@ -97,8 +99,7 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 		jiraStatusId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		jiraStatusCode = objectInput.readLong();
-		jiraProjectId = objectInput.readLong();
+		uri = objectInput.readUTF();
 		name = objectInput.readUTF();
 	}
 
@@ -108,8 +109,13 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 		objectOutput.writeLong(jiraStatusId);
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
-		objectOutput.writeLong(jiraStatusCode);
-		objectOutput.writeLong(jiraProjectId);
+
+		if (uri == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(uri);
+		}
 
 		if (name == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -122,7 +128,6 @@ public class JiraStatusCacheModel implements CacheModel<JiraStatus>,
 	public long jiraStatusId;
 	public long createDate;
 	public long modifiedDate;
-	public long jiraStatusCode;
-	public long jiraProjectId;
+	public String uri;
 	public String name;
 }

@@ -34,8 +34,7 @@ public class JiraStatusSoap implements Serializable {
 		soapModel.setJiraStatusId(model.getJiraStatusId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setJiraStatusCode(model.getJiraStatusCode());
-		soapModel.setJiraProjectId(model.getJiraProjectId());
+		soapModel.setUri(model.getUri());
 		soapModel.setName(model.getName());
 
 		return soapModel;
@@ -113,20 +112,12 @@ public class JiraStatusSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public long getJiraStatusCode() {
-		return _jiraStatusCode;
+	public String getUri() {
+		return _uri;
 	}
 
-	public void setJiraStatusCode(long jiraStatusCode) {
-		_jiraStatusCode = jiraStatusCode;
-	}
-
-	public long getJiraProjectId() {
-		return _jiraProjectId;
-	}
-
-	public void setJiraProjectId(long jiraProjectId) {
-		_jiraProjectId = jiraProjectId;
+	public void setUri(String uri) {
+		_uri = uri;
 	}
 
 	public String getName() {
@@ -140,7 +131,6 @@ public class JiraStatusSoap implements Serializable {
 	private long _jiraStatusId;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private long _jiraStatusCode;
-	private long _jiraProjectId;
+	private String _uri;
 	private String _name;
 }

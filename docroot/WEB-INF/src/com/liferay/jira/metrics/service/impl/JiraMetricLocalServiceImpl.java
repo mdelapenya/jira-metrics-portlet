@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,16 +14,16 @@
 
 package com.liferay.jira.metrics.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
+import com.liferay.jira.metrics.DuplicateJiraMetricException;
 import com.liferay.jira.metrics.NoSuchJiraMetricException;
 import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.service.base.JiraMetricLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the jira metric local service.
@@ -46,13 +46,21 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 			int priority, Date date, int total)
 		throws PortalException, SystemException {
 
+		int[] dateElements = parseDate(date);
+
+		JiraMetric jiraMetric = jiraMetricPersistence.fetchByP_C_S_P_D_M_Y(
+			jiraProjectId, jiraComponentId, jiraStatusId, priority,
+			dateElements[0], dateElements[1], dateElements[2]);
+
+		if (jiraMetric != null) {
+			throw new DuplicateJiraMetricException();
+		}
+
 		long id = counterLocalService.increment();
 
-		JiraMetric jiraMetric = jiraMetricPersistence.create(id);
+		jiraMetric = jiraMetricPersistence.create(id);
 
 		Date now = new Date();
-
-		int[] dateElements = parseDate(date);
 
 		jiraMetric.setCreateDate(now);
 		jiraMetric.setModifiedDate(now);

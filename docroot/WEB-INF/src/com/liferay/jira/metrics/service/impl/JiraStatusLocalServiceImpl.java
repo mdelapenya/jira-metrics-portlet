@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,15 +14,14 @@
 
 package com.liferay.jira.metrics.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
+import com.liferay.jira.metrics.DuplicateJiraStatusException;
 import com.liferay.jira.metrics.NoSuchJiraStatusException;
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
+
+import java.util.Date;
 
 /**
  * The implementation of the jira status local service.
@@ -41,20 +40,25 @@ import com.liferay.portal.model.User;
 public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 
 	public JiraStatus addJiraStatus(
-			long jiraStatusCode, long jiraProjectId, String name)
+			String uri, String name)
 		throws PortalException, SystemException {
+
+		JiraStatus jiraStatus = jiraStatusPersistence.fetchByUri(uri);
+
+		if (jiraStatus != null) {
+			throw new DuplicateJiraStatusException();
+		}
 
 		long id = counterLocalService.increment();
 
-		JiraStatus jiraStatus = jiraStatusPersistence.create(id);
+		jiraStatus = jiraStatusPersistence.create(id);
 
 		Date now = new Date();
 
 		jiraStatus.setCreateDate(now);
 		jiraStatus.setModifiedDate(now);
 
-		jiraStatus.setJiraStatusCode(jiraStatusCode);
-		jiraStatus.setJiraProjectId(jiraProjectId);
+		jiraStatus.setUri(uri);
 		jiraStatus.setName(name);
 
 		jiraStatusPersistence.update(jiraStatus);
@@ -63,22 +67,16 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 			jiraStatus.getPrimaryKey());
 	}
 
-	public JiraStatus getJiraStatusByJiraStatusCode(long jiraStatusCode)
+	public JiraStatus getJiraStatusByUri(String uri)
 		throws NoSuchJiraStatusException, SystemException {
 
-		return jiraStatusPersistence.findByJiraStatusCode(jiraStatusCode);
+		return jiraStatusPersistence.findByUri(uri);
 	}
 
 	public JiraStatus getJiraStatusByName(String name)
 		throws NoSuchJiraStatusException, SystemException {
 
 		return jiraStatusPersistence.findByStatus(name);
-	}
-
-	public List<JiraStatus> getJiraStatusesByJiraProjectId(long jiraProjectId)
-		throws SystemException {
-
-		return jiraStatusPersistence.findByJiraProjectId(jiraProjectId);
 	}
 
 }

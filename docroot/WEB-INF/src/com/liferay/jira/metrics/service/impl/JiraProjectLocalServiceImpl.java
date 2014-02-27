@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,16 +14,20 @@
 
 package com.liferay.jira.metrics.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.NoSuchJiraProjectException;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
+import com.liferay.jira.metrics.util.PortletKeys;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.model.User;
+import com.liferay.portal.model.PortletPreferences;
+import com.liferay.portal.service.persistence.PortletPreferencesFinderUtil;
+import com.liferay.portlet.PortletPreferencesFactoryUtil;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the jira project local service.
@@ -69,9 +73,49 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 	}
 
 	/**
+	 * Retrieves all Jira projects
+	 *
+	 * @return a list with all Jira projects
+	 * @throws SystemException
+	 */
+	public List<JiraProject> getAllJiraProjects() throws SystemException {
+		return jiraProjectPersistence.findAll();
+	}
+
+	public List<JiraProject> getInstalledJiraProjects()
+		throws PortalException, SystemException {
+
+		List<PortletPreferences> preferences =
+			PortletPreferencesFinderUtil.findByPortletId(
+				PortletKeys.JIRA_METRICS_PORTLET_ID);
+
+		if (preferences == null || preferences.isEmpty()) {
+			return null;
+		}
+
+		List<JiraProject> jiraProjects = new ArrayList<JiraProject>();
+
+		for (PortletPreferences preference : preferences) {
+			String xmlPreference = preference.getPreferences();
+
+			javax.portlet.PortletPreferences jxPortletPreferences =
+				PortletPreferencesFactoryUtil.fromDefaultXML(xmlPreference);
+
+			String jiraProjectName = jxPortletPreferences.getValue(
+				"jiraProject", null);
+
+			JiraProject jiraProject = getJiraProjectByName(jiraProjectName);
+
+			jiraProjects.add(jiraProject);
+		}
+
+		return jiraProjects;
+	}
+
+	/**
 	 * Gets a Jira Project by name
 	 *
-	 * @param projectCode
+	 * @param name
 	 * @return
 	 * @throws NoSuchJiraProjectException
 	 * @throws SystemException
@@ -85,7 +129,7 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 	/**
 	 * Gets a Jira Project by label
 	 *
-	 * @param label 
+	 * @param label
 	 * @return the Jira project
 	 * @throws NoSuchJiraProjectException
 	 * @throws SystemException
@@ -94,16 +138,6 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 		throws NoSuchJiraProjectException, SystemException {
 
 		return jiraProjectPersistence.findByLabel(label);
-	}
-
-	/**
-	 * Retrieves all Jira projects
-	 * 
-	 * @return a list with all Jira projects
-	 * @throws SystemException
-	 */
-	public List<JiraProject> getAllJiraProjects() throws SystemException {
-		return jiraProjectPersistence.findAll();
 	}
 
 }

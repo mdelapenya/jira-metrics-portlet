@@ -80,7 +80,7 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		attributes.put("uri", getUri());
 		attributes.put("jiraProjectId", getJiraProjectId());
 		attributes.put("name", getName());
-		attributes.put("status", getStatus());
+		attributes.put("disabled", getDisabled());
 
 		return attributes;
 	}
@@ -123,10 +123,10 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 			setName(name);
 		}
 
-		Integer status = (Integer)attributes.get("status");
+		Boolean disabled = (Boolean)attributes.get("disabled");
 
-		if (status != null) {
-			setStatus(status);
+		if (disabled != null) {
+			setDisabled(disabled);
 		}
 	}
 
@@ -269,21 +269,26 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 	}
 
 	@Override
-	public int getStatus() {
-		return _status;
+	public boolean getDisabled() {
+		return _disabled;
 	}
 
 	@Override
-	public void setStatus(int status) {
-		_status = status;
+	public boolean isDisabled() {
+		return _disabled;
+	}
+
+	@Override
+	public void setDisabled(boolean disabled) {
+		_disabled = disabled;
 
 		if (_jiraComponentRemoteModel != null) {
 			try {
 				Class<?> clazz = _jiraComponentRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setStatus", int.class);
+				Method method = clazz.getMethod("setDisabled", boolean.class);
 
-				method.invoke(_jiraComponentRemoteModel, status);
+				method.invoke(_jiraComponentRemoteModel, disabled);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -367,7 +372,7 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		clone.setUri(getUri());
 		clone.setJiraProjectId(getJiraProjectId());
 		clone.setName(getName());
-		clone.setStatus(getStatus());
+		clone.setDisabled(getDisabled());
 
 		return clone;
 	}
@@ -428,8 +433,8 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		sb.append(getJiraProjectId());
 		sb.append(", name=");
 		sb.append(getName());
-		sb.append(", status=");
-		sb.append(getStatus());
+		sb.append(", disabled=");
+		sb.append(getDisabled());
 		sb.append("}");
 
 		return sb.toString();
@@ -468,8 +473,8 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>status</column-name><column-value><![CDATA[");
-		sb.append(getStatus());
+			"<column><column-name>disabled</column-name><column-value><![CDATA[");
+		sb.append(getDisabled());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -483,6 +488,6 @@ public class JiraComponentClp extends BaseModelImpl<JiraComponent>
 	private String _uri;
 	private long _jiraProjectId;
 	private String _name;
-	private int _status;
+	private boolean _disabled;
 	private BaseModel<?> _jiraComponentRemoteModel;
 }

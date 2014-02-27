@@ -34,6 +34,10 @@
 		<finder name="Name" return-type="JiraProject" unique="true">
 			<finder-column name="name" />
 		</finder>
+
+		<!-- References -->
+
+		<reference package-path="com.liferay.portal" entity="PortletPreferences" />
 	</entity>
 
 	<entity name="JiraComponent" local-service="true">
@@ -52,7 +56,7 @@
 		<column name="uri" type="String" />
 		<column name="jiraProjectId" type="long" />
 		<column name="name" type="String" />
-		<column name="status" type="int" />
+		<column name="disabled" type="boolean" />
 
 		<!-- Order -->
 
@@ -62,8 +66,9 @@
 
 		<!-- Finder methods -->
 
-		<finder name="JiraComponent" return-type="JiraComponent" unique="true">
+		<finder name="JiraComponent" return-type="JiraComponent">
 			<finder-column name="name" />
+			<finder-column name="jiraProjectId" />
 		</finder>
 		<finder name="Uri" return-type="JiraComponent" unique="true">
 			<finder-column name="uri" />
@@ -86,8 +91,7 @@
 
 		<!-- Other fields -->
 
-		<column name="jiraStatusCode" type="long" />
-		<column name="jiraProjectId" type="long" />
+		<column name="uri" type="String" />
 		<column name="name" type="String" />
 
 		<!-- Order -->
@@ -101,11 +105,8 @@
 		<finder name="Status" return-type="JiraStatus" unique="true">
 			<finder-column name="name" />
 		</finder>
-		<finder name="JiraStatusCode" return-type="JiraStatus" unique="true">
-			<finder-column name="jiraStatusCode" />
-		</finder>
-		<finder name="JiraProjectId" return-type="Collection">
-			<finder-column name="jiraProjectId" />
+		<finder name="Uri" return-type="JiraStatus" unique="true">
+			<finder-column name="uri" />
 		</finder>
 	</entity>
 
@@ -156,5 +157,6 @@
 		<exception>DuplicateJiraProject</exception>
 		<exception>DuplicateJiraComponent</exception>
 		<exception>DuplicateJiraStatus</exception>
+		<exception>DuplicateJiraMetric</exception>
 	</exceptions>
 </service-builder>
