@@ -21,18 +21,18 @@ package com.liferay.jira.metrics.util;
 public class PortletPropsValues {
 
 	public static final String JIRA_BASE_QUERY =
-		PortletPropsUtil.getJiraBaseQuery();
+		PortletPropsUtil.get(PortletPropsKeys.JIRA_BASE_QUERY);
 
 	public static final String JIRA_PASSWORD =
-		PortletPropsUtil.getJiraPassword();
+		PortletPropsUtil.get(PortletPropsKeys.JIRA_PASSWORD);
 
 	public static final String JIRA_SERVER_URI =
-		PortletPropsUtil.getJiraServerUri();
+		PortletPropsUtil.get(PortletPropsKeys.JIRA_SERVER_URI);
 
 	public static final String JIRA_USERNAME =
-		PortletPropsUtil.getJiraUsername();
+		PortletPropsUtil.get(PortletPropsKeys.JIRA_USERNAME);
 
 	public static final String MERGE_STRATEGY =
-		PortletPropsUtil.getMergeStrategy();
+		PortletPropsUtil.get(PortletPropsKeys.MERGE_STRATEGY);
 
 }

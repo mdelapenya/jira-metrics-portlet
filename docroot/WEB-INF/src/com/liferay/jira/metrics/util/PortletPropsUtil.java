@@ -14,36 +14,17 @@
 package com.liferay.jira.metrics.util;
 
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.util.portlet.PortletProps;
 
 /**
  * @author Cristina González
+ * @author Manuel de la Peña
  */
 public class PortletPropsUtil {
 
-	public static String getJiraBaseQuery() {
-		return GetterUtil.getString(
-			PortletProps.get(PortletPropsKeys.JIRA_BASE_QUERY));
-	}
-
-	public static String getJiraPassword() {
-		return GetterUtil.getString(
-			PortletProps.get(PortletPropsKeys.JIRA_PASSWORD));
-	}
-
-	public static String getJiraServerUri() {
-		return GetterUtil.getString(
-			PortletProps.get(PortletPropsKeys.JIRA_PASSWORD));
-	}
-
-	public static String getJiraUsername() {
-		return GetterUtil.getString(
-			PortletProps.get(PortletPropsKeys.JIRA_USERNAME));
-	}
-
-	public static String getMergeStrategy() {
-		return GetterUtil.getString(
-			PortletProps.get(PortletPropsKeys.MERGE_STRATEGY));
+	public static String get(String key) {
+		return GetterUtil.getString(PortletProps.get(key), StringPool.BLANK);
 	}
 
 }

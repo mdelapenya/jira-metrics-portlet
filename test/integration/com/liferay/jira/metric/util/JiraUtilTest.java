@@ -52,16 +52,16 @@ public class JiraUtilTest  extends PowerMockito {
 		mockStatic(PortletPropsUtil.class);
 
 		PowerMockito.when(
-			PortletPropsUtil.getJiraUsername()).thenReturn(
+			PortletPropsUtil.get(PortletPropsKeys.JIRA_USERNAME)).thenReturn(
 			TestPropsUtil.getValue(PortletPropsKeys.JIRA_USERNAME));
 		PowerMockito.when(
-			PortletPropsUtil.getJiraPassword()).thenReturn(
+			PortletPropsUtil.get(PortletPropsKeys.JIRA_PASSWORD)).thenReturn(
 			TestPropsUtil.getValue(PortletPropsKeys.JIRA_PASSWORD));
 		PowerMockito.when
-			(PortletPropsUtil.getJiraBaseQuery()).thenReturn(
+			(PortletPropsUtil.get(PortletPropsKeys.JIRA_BASE_QUERY)).thenReturn(
 			TestPropsUtil.getValue(PortletPropsKeys.JIRA_BASE_QUERY));
 		PowerMockito.when
-			(PortletPropsUtil.getJiraServerUri()).thenReturn(
+			(PortletPropsUtil.get(PortletPropsKeys.JIRA_SERVER_URI)).thenReturn(
 			TestPropsUtil.getValue(PortletPropsKeys.JIRA_SERVER_URI));
 	}
 
