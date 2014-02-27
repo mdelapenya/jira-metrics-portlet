@@ -34,17 +34,15 @@ public class TestPropsUtil {
 
 	private static void _loadProperties() {
 		_properties = new Properties();
+
 		try {
 			ClassLoader classLoader = JiraUtil.class.getClassLoader();
 
-			if (classLoader.getResource(_NAME_EXT_PROPERTIES_FILE) != null) {
-				_properties.load(
-					classLoader.getResourceAsStream(_NAME_EXT_PROPERTIES_FILE));
-			}
-			else {
-				_properties.load(
-					classLoader.getResourceAsStream(_NAME_PROPERTIES_FILE));
-			}
+			_properties.load(
+				classLoader.getResourceAsStream(_NAME_PROPERTIES_FILE));
+
+			_properties.load(
+				classLoader.getResourceAsStream(_NAME_EXT_PROPERTIES_FILE));
 		}
 		catch (IOException ex) {
 			throw new RuntimeException("Can't load properties");
