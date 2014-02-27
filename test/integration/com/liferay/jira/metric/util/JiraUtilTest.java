@@ -20,10 +20,14 @@ import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
+import com.google.common.collect.Lists;
+import com.liferay.jira.metrics.util.IssuesMetric;
 import com.liferay.jira.metrics.util.JiraUtil;
 import com.liferay.jira.metrics.util.PortletPropsKeys;
 import com.liferay.jira.metrics.util.PortletPropsUtil;
 
+import java.net.URI;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,6 +45,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
  * @author Cristina González
+ * @author Manuel de la Peña
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({PortletPropsUtil.class})
@@ -89,29 +94,35 @@ public class JiraUtilTest  extends PowerMockito {
 
 		Component component = JiraUtil.getComponent(basicComponent.getSelf());
 
-		Assert.assertNotNull(
-			"No component could be found with URI '" +
-				basicComponent.getSelf() , component);
-
-		Assert.assertNotNull(
-			"The URI of the component '" + basicComponent.getSelf() +
-				"' is empty", component.getSelf());
-
+		Assert.assertNotNull(component);
+		Assert.assertNotNull(component.getSelf());
+		Assert.assertEquals(basicComponent.getSelf(), component.getSelf());
+		Assert.assertEquals(basicComponent.getName(), component.getName());
 		Assert.assertEquals(
-			"The URI of the component '" + basicComponent.getSelf() +
-				"' is different of the URI of the component returned",
-			basicComponent.getSelf(),
-			component.getSelf());
-
-		Assert.assertEquals(
-			"The name of the component '" + basicComponent.getSelf() +
-				"' is different of the name of the component returned",
-			basicComponent.getName(), component.getName());
-
-		Assert.assertEquals(
-			"The description of the component '" + basicComponent.getSelf() +
-				"' is different of the description of the component returned",
 			basicComponent.getDescription(), component.getDescription());
+	}
+
+	@Test
+	public void getJiraIssuesMetricsByProjectStatus() throws Exception {
+		Project project = JiraUtil.getProject(_PROJECT_KEY);
+
+		Iterable<BasicComponent> basicComponentsIterable =
+			project.getComponents();
+
+		List<BasicComponent> basicComponentsList = Lists.newArrayList(
+			basicComponentsIterable);
+
+		Status status = JiraUtil.getStatus(new URI(_STATUS_URI+_STATUS_NAME));
+
+		List<Status> statuses = new ArrayList<Status>();
+
+		statuses.add(status);
+
+		List<IssuesMetric> jiraMetrics =
+			JiraUtil.getIssuesMetricsByProjectStatus(project, statuses);
+
+		Assert.assertEquals(
+			basicComponentsList.size() * _PRIORITY_SIZE, jiraMetrics.size());
 	}
 
 	@Test
@@ -142,19 +153,23 @@ public class JiraUtilTest  extends PowerMockito {
 
 		Status currentStatus = JiraUtil.getStatus(status.getSelf());
 
-		Assert.assertNotNull(
-			"No status could be found with URI '" +
-				status.getSelf() , currentStatus);
+		Assert.assertNotNull(currentStatus);
+		Assert.assertEquals(status.getName(), currentStatus.getName());
+		Assert.assertEquals(status.getDescription(), currentStatus.getDescription());
+	}
 
-		Assert.assertEquals(
-			"The name of the status '" + status.getSelf() +
-				"' is different of the name of the status returned",
-			status.getName(), currentStatus.getName());
+	@Test
+	public void getJiraStatusNotFound() throws Exception {
+		String statusId = _STATUS_NAME + "NotFound";
 
-		Assert.assertEquals(
-			"The description of the status '" + status.getSelf() +
-				"' is different of the description of the status returned",
-			status.getDescription(), currentStatus.getDescription());
+		try {
+			JiraUtil.getStatus(new URI(_STATUS_URI + statusId));
+		}
+		catch (RestClientException rce) {
+			Assert.assertEquals(
+				"The status with id '" + statusId + "' does not exist",
+				rce.getMessage());
+		}
 	}
 
 	protected void mockPortletKey(String key) {
@@ -166,5 +181,12 @@ public class JiraUtilTest  extends PowerMockito {
 	}
 
 	private static final String _PROJECT_KEY = "LPS";
+
+	private static final int _PRIORITY_SIZE = 4;
+
+	private static final String _STATUS_URI =
+		"https://issues.liferay.com/rest/api/2/status/";
+
+	private static final String _STATUS_NAME = "3";
 
 }
