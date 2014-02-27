@@ -77,10 +77,10 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getJiraProject() throws Exception {
-		Project project = JiraUtil.getProject("LPS");
+		Project project = JiraUtil.getProject(_PROJECT_KEY);
 
 		Assert.assertNotNull(project);
-		Assert.assertEquals("LPS", project.getKey());
+		Assert.assertEquals(_PROJECT_KEY, project.getKey());
 	}
 
 	@Test
@@ -102,5 +102,7 @@ public class JiraUtilTest  extends PowerMockito {
 			TestPropsUtil.getValue(key)
 		);
 	}
+
+	private static final String _PROJECT_KEY = "LPS";
 
 }
