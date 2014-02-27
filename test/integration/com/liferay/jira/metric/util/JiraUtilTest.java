@@ -18,17 +18,20 @@ import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.liferay.jira.metrics.util.JiraUtil;
 import com.liferay.jira.metrics.util.PortletPropsKeys;
 import com.liferay.jira.metrics.util.PortletPropsUtil;
+
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.util.List;
 
 /**
  * @author Cristina González
@@ -37,15 +40,6 @@ import java.util.List;
 @PrepareForTest({PortletPropsUtil.class})
 @PowerMockIgnore({"javax.net.ssl.*", "javax.security.auth.*"})
 public class JiraUtilTest  extends PowerMockito {
-
-	@Test
-	public void getAllJiraPriorities() throws Exception {
-
-		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
-
-		Assert.assertNotNull(projects);
-		Assert.assertTrue(projects.size() > 0);
-	}
 
 	@Before
 	public void setUp() {
@@ -60,6 +54,14 @@ public class JiraUtilTest  extends PowerMockito {
 	@After
 	public void tearDown() {
 		verifyStatic();
+	}
+
+	@Test
+	public void getAllJiraPriorities() throws Exception {
+		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
+
+		Assert.assertNotNull(projects);
+		Assert.assertTrue(projects.size() > 0);
 	}
 
 	protected void mockPortletKey(String key) {
