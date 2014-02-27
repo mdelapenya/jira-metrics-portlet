@@ -14,7 +14,10 @@
 
 package com.liferay.jira.metric.util;
 
+import com.atlassian.jira.rest.client.RestClientException;
 import com.atlassian.jira.rest.client.domain.BasicProject;
+import com.atlassian.jira.rest.client.domain.Project;
+import com.atlassian.jira.rest.client.domain.Status;
 import com.liferay.jira.metrics.util.JiraUtil;
 import com.liferay.jira.metrics.util.PortletPropsKeys;
 import com.liferay.jira.metrics.util.PortletPropsUtil;
@@ -62,6 +65,34 @@ public class JiraUtilTest  extends PowerMockito {
 
 		Assert.assertNotNull(projects);
 		Assert.assertTrue(projects.size() > 0);
+	}
+
+	@Test
+	public void getAllJiraStatuses() throws Exception {
+		List<Status> jiraStatuses = JiraUtil.getAllJiraStatuses();
+
+		Assert.assertNotNull(jiraStatuses);
+		Assert.assertTrue(jiraStatuses.size() > 0);
+	}
+
+	@Test
+	public void getJiraProject() throws Exception {
+		Project project = JiraUtil.getProject("LPS");
+
+		Assert.assertNotNull(project);
+		Assert.assertEquals("LPS", project.getKey());
+	}
+
+	@Test
+	public void getJiraProjectNotFound() throws Exception {
+		try {
+			JiraUtil.getProject("asdfghj");
+		}
+		catch (RestClientException rce) {
+			Assert.assertEquals(
+				"No project could be found with key 'asdfghj'.",
+				rce.getMessage());
+		}
 	}
 
 	protected void mockPortletKey(String key) {
