@@ -111,71 +111,78 @@ public class JiraComponentUtil {
 	}
 
 	/**
-	* Returns the jira component where name = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
+	* Returns the jira component where name = &#63; and jiraProjectId = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
 	*
 	* @param name the name
+	* @param jiraProjectId the jira project ID
 	* @return the matching jira component
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a matching jira component could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent findByJiraComponent(
-		java.lang.String name)
+		java.lang.String name, long jiraProjectId)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByJiraComponent(name);
+		return getPersistence().findByJiraComponent(name, jiraProjectId);
 	}
 
 	/**
-	* Returns the jira component where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the jira component where name = &#63; and jiraProjectId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param name the name
+	* @param jiraProjectId the jira project ID
 	* @return the matching jira component, or <code>null</code> if a matching jira component could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent fetchByJiraComponent(
-		java.lang.String name)
+		java.lang.String name, long jiraProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByJiraComponent(name);
+		return getPersistence().fetchByJiraComponent(name, jiraProjectId);
 	}
 
 	/**
-	* Returns the jira component where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the jira component where name = &#63; and jiraProjectId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param name the name
+	* @param jiraProjectId the jira project ID
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira component, or <code>null</code> if a matching jira component could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent fetchByJiraComponent(
-		java.lang.String name, boolean retrieveFromCache)
+		java.lang.String name, long jiraProjectId, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByJiraComponent(name, retrieveFromCache);
+		return getPersistence()
+				   .fetchByJiraComponent(name, jiraProjectId, retrieveFromCache);
 	}
 
 	/**
-	* Removes the jira component where name = &#63; from the database.
+	* Removes the jira component where name = &#63; and jiraProjectId = &#63; from the database.
 	*
 	* @param name the name
+	* @param jiraProjectId the jira project ID
 	* @return the jira component that was removed
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent removeByJiraComponent(
-		java.lang.String name)
+		java.lang.String name, long jiraProjectId)
 		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().removeByJiraComponent(name);
+		return getPersistence().removeByJiraComponent(name, jiraProjectId);
 	}
 
 	/**
-	* Returns the number of jira components where name = &#63;.
+	* Returns the number of jira components where name = &#63; and jiraProjectId = &#63;.
 	*
 	* @param name the name
+	* @param jiraProjectId the jira project ID
 	* @return the number of matching jira components
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByJiraComponent(java.lang.String name)
+	public static int countByJiraComponent(java.lang.String name,
+		long jiraProjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByJiraComponent(name);
+		return getPersistence().countByJiraComponent(name, jiraProjectId);
 	}
 
 	/**

@@ -146,18 +146,25 @@ public interface JiraComponentModel extends BaseModel<JiraComponent> {
 	public void setName(String name);
 
 	/**
-	 * Returns the status of this jira component.
+	 * Returns the disabled of this jira component.
 	 *
-	 * @return the status of this jira component
+	 * @return the disabled of this jira component
 	 */
-	public int getStatus();
+	public boolean getDisabled();
 
 	/**
-	 * Sets the status of this jira component.
+	 * Returns <code>true</code> if this jira component is disabled.
 	 *
-	 * @param status the status of this jira component
+	 * @return <code>true</code> if this jira component is disabled; <code>false</code> otherwise
 	 */
-	public void setStatus(int status);
+	public boolean isDisabled();
+
+	/**
+	 * Sets whether this jira component is disabled.
+	 *
+	 * @param disabled the disabled of this jira component
+	 */
+	public void setDisabled(boolean disabled);
 
 	@Override
 	public boolean isNew();

@@ -255,9 +255,24 @@ public interface JiraProjectLocalService extends BaseLocalService,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getInstalledJiraProjects()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Gets a Jira Project by name
 	*
-	* @param projectCode
+	* @param name
 	* @return
 	* @throws NoSuchJiraProjectException
 	* @throws SystemException
@@ -281,14 +296,4 @@ public interface JiraProjectLocalService extends BaseLocalService,
 		java.lang.String label)
 		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
 			com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Retrieves all Jira projects
-	*
-	* @return a list with all Jira projects
-	* @throws SystemException
-	*/
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
-		throws com.liferay.portal.kernel.exception.SystemException;
 }

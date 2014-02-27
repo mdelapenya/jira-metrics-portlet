@@ -56,7 +56,7 @@ public class JiraComponentWrapper implements JiraComponent,
 		attributes.put("uri", getUri());
 		attributes.put("jiraProjectId", getJiraProjectId());
 		attributes.put("name", getName());
-		attributes.put("status", getStatus());
+		attributes.put("disabled", getDisabled());
 
 		return attributes;
 	}
@@ -99,10 +99,10 @@ public class JiraComponentWrapper implements JiraComponent,
 			setName(name);
 		}
 
-		Integer status = (Integer)attributes.get("status");
+		Boolean disabled = (Boolean)attributes.get("disabled");
 
-		if (status != null) {
-			setStatus(status);
+		if (disabled != null) {
+			setDisabled(disabled);
 		}
 	}
 
@@ -247,23 +247,33 @@ public class JiraComponentWrapper implements JiraComponent,
 	}
 
 	/**
-	* Returns the status of this jira component.
+	* Returns the disabled of this jira component.
 	*
-	* @return the status of this jira component
+	* @return the disabled of this jira component
 	*/
 	@Override
-	public int getStatus() {
-		return _jiraComponent.getStatus();
+	public boolean getDisabled() {
+		return _jiraComponent.getDisabled();
 	}
 
 	/**
-	* Sets the status of this jira component.
+	* Returns <code>true</code> if this jira component is disabled.
 	*
-	* @param status the status of this jira component
+	* @return <code>true</code> if this jira component is disabled; <code>false</code> otherwise
 	*/
 	@Override
-	public void setStatus(int status) {
-		_jiraComponent.setStatus(status);
+	public boolean isDisabled() {
+		return _jiraComponent.isDisabled();
+	}
+
+	/**
+	* Sets whether this jira component is disabled.
+	*
+	* @param disabled the disabled of this jira component
+	*/
+	@Override
+	public void setDisabled(boolean disabled) {
+		_jiraComponent.setDisabled(disabled);
 	}
 
 	@Override
@@ -330,8 +340,7 @@ public class JiraComponentWrapper implements JiraComponent,
 	}
 
 	@Override
-	public int compareTo(
-		com.liferay.jira.metrics.model.JiraComponent jiraComponent) {
+	public int compareTo(JiraComponent jiraComponent) {
 		return _jiraComponent.compareTo(jiraComponent);
 	}
 
@@ -341,17 +350,17 @@ public class JiraComponentWrapper implements JiraComponent,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.jira.metrics.model.JiraComponent> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<JiraComponent> toCacheModel() {
 		return _jiraComponent.toCacheModel();
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraComponent toEscapedModel() {
+	public JiraComponent toEscapedModel() {
 		return new JiraComponentWrapper(_jiraComponent.toEscapedModel());
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraComponent toUnescapedModel() {
+	public JiraComponent toUnescapedModel() {
 		return new JiraComponentWrapper(_jiraComponent.toUnescapedModel());
 	}
 

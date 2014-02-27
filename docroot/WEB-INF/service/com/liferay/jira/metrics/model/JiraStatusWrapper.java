@@ -52,8 +52,7 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 		attributes.put("jiraStatusId", getJiraStatusId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("jiraStatusCode", getJiraStatusCode());
-		attributes.put("jiraProjectId", getJiraProjectId());
+		attributes.put("uri", getUri());
 		attributes.put("name", getName());
 
 		return attributes;
@@ -79,16 +78,10 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 			setModifiedDate(modifiedDate);
 		}
 
-		Long jiraStatusCode = (Long)attributes.get("jiraStatusCode");
+		String uri = (String)attributes.get("uri");
 
-		if (jiraStatusCode != null) {
-			setJiraStatusCode(jiraStatusCode);
-		}
-
-		Long jiraProjectId = (Long)attributes.get("jiraProjectId");
-
-		if (jiraProjectId != null) {
-			setJiraProjectId(jiraProjectId);
+		if (uri != null) {
+			setUri(uri);
 		}
 
 		String name = (String)attributes.get("name");
@@ -179,43 +172,23 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	}
 
 	/**
-	* Returns the jira status code of this jira status.
+	* Returns the uri of this jira status.
 	*
-	* @return the jira status code of this jira status
+	* @return the uri of this jira status
 	*/
 	@Override
-	public long getJiraStatusCode() {
-		return _jiraStatus.getJiraStatusCode();
+	public java.lang.String getUri() {
+		return _jiraStatus.getUri();
 	}
 
 	/**
-	* Sets the jira status code of this jira status.
+	* Sets the uri of this jira status.
 	*
-	* @param jiraStatusCode the jira status code of this jira status
+	* @param uri the uri of this jira status
 	*/
 	@Override
-	public void setJiraStatusCode(long jiraStatusCode) {
-		_jiraStatus.setJiraStatusCode(jiraStatusCode);
-	}
-
-	/**
-	* Returns the jira project ID of this jira status.
-	*
-	* @return the jira project ID of this jira status
-	*/
-	@Override
-	public long getJiraProjectId() {
-		return _jiraStatus.getJiraProjectId();
-	}
-
-	/**
-	* Sets the jira project ID of this jira status.
-	*
-	* @param jiraProjectId the jira project ID of this jira status
-	*/
-	@Override
-	public void setJiraProjectId(long jiraProjectId) {
-		_jiraStatus.setJiraProjectId(jiraProjectId);
+	public void setUri(java.lang.String uri) {
+		_jiraStatus.setUri(uri);
 	}
 
 	/**
@@ -302,7 +275,7 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	}
 
 	@Override
-	public int compareTo(com.liferay.jira.metrics.model.JiraStatus jiraStatus) {
+	public int compareTo(JiraStatus jiraStatus) {
 		return _jiraStatus.compareTo(jiraStatus);
 	}
 
@@ -312,17 +285,17 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<com.liferay.jira.metrics.model.JiraStatus> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<JiraStatus> toCacheModel() {
 		return _jiraStatus.toCacheModel();
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraStatus toEscapedModel() {
+	public JiraStatus toEscapedModel() {
 		return new JiraStatusWrapper(_jiraStatus.toEscapedModel());
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraStatus toUnescapedModel() {
+	public JiraStatus toUnescapedModel() {
 		return new JiraStatusWrapper(_jiraStatus.toUnescapedModel());
 	}
 

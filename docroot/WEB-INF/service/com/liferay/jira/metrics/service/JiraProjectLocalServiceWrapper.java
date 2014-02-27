@@ -296,9 +296,28 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	}
 
 	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraProjectLocalService.getAllJiraProjects();
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getInstalledJiraProjects()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraProjectLocalService.getInstalledJiraProjects();
+	}
+
+	/**
 	* Gets a Jira Project by name
 	*
-	* @param projectCode
+	* @param name
 	* @return
 	* @throws NoSuchJiraProjectException
 	* @throws SystemException
@@ -325,18 +344,6 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _jiraProjectLocalService.getJiraProjectByProjectLabel(label);
-	}
-
-	/**
-	* Retrieves all Jira projects
-	*
-	* @return a list with all Jira projects
-	* @throws SystemException
-	*/
-	@Override
-	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _jiraProjectLocalService.getAllJiraProjects();
 	}
 
 	/**
