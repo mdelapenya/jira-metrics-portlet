@@ -15,13 +15,16 @@
 package com.liferay.jira.metric.util;
 
 import com.atlassian.jira.rest.client.RestClientException;
+import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.BasicProject;
+import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 import com.liferay.jira.metrics.util.JiraUtil;
 import com.liferay.jira.metrics.util.PortletPropsKeys;
 import com.liferay.jira.metrics.util.PortletPropsUtil;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.After;
@@ -76,6 +79,42 @@ public class JiraUtilTest  extends PowerMockito {
 	}
 
 	@Test
+	public void getJiraComponent() throws Exception {
+		Project project = JiraUtil.getProject(_PROJECT_KEY);
+
+		Iterable<BasicComponent> components = project.getComponents();
+		Iterator<BasicComponent> componentsIterator = components.iterator();
+
+		BasicComponent basicComponent = componentsIterator.next();
+
+		Component component = JiraUtil.getComponent(basicComponent.getSelf());
+
+		Assert.assertNotNull(
+			"No component could be found with URI '" +
+				basicComponent.getSelf() , component);
+
+		Assert.assertNotNull(
+			"The URI of the component '" + basicComponent.getSelf() +
+				"' is empty", component.getSelf());
+
+		Assert.assertEquals(
+			"The URI of the component '" + basicComponent.getSelf() +
+				"' is different of the URI of the component returned",
+			basicComponent.getSelf(),
+			component.getSelf());
+
+		Assert.assertEquals(
+			"The name of the component '" + basicComponent.getSelf() +
+				"' is different of the name of the component returned",
+			basicComponent.getName(), component.getName());
+
+		Assert.assertEquals(
+			"The description of the component '" + basicComponent.getSelf() +
+				"' is different of the description of the component returned",
+			basicComponent.getDescription(), component.getDescription());
+	}
+
+	@Test
 	public void getJiraProject() throws Exception {
 		Project project = JiraUtil.getProject(_PROJECT_KEY);
 
@@ -93,6 +132,29 @@ public class JiraUtilTest  extends PowerMockito {
 				"No project could be found with key 'asdfghj'.",
 				rce.getMessage());
 		}
+	}
+
+	@Test
+	public void getJiraStatus() throws Exception {
+		List<Status> statuses = JiraUtil.getAllJiraStatuses();
+
+		Status status = statuses.get(0);
+
+		Status currentStatus = JiraUtil.getStatus(status.getSelf());
+
+		Assert.assertNotNull(
+			"No status could be found with URI '" +
+				status.getSelf() , currentStatus);
+
+		Assert.assertEquals(
+			"The name of the status '" + status.getSelf() +
+				"' is different of the name of the status returned",
+			status.getName(), currentStatus.getName());
+
+		Assert.assertEquals(
+			"The description of the status '" + status.getSelf() +
+				"' is different of the description of the status returned",
+			status.getDescription(), currentStatus.getDescription());
 	}
 
 	protected void mockPortletKey(String key) {
