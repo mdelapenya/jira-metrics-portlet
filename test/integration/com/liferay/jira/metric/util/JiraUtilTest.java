@@ -57,7 +57,7 @@ public class JiraUtilTest  extends PowerMockito {
 	}
 
 	@Test
-	public void getAllJiraPriorities() throws Exception {
+	public void getAllJiraProjects() throws Exception {
 		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
 
 		Assert.assertNotNull(projects);
