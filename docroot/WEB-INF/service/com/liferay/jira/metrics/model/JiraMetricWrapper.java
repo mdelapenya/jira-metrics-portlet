@@ -26,7 +26,7 @@ import java.util.Map;
  * This class is a wrapper for {@link JiraMetric}.
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraMetric
  * @generated
  */
@@ -437,7 +437,7 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 	}
 
 	@Override
-	public int compareTo(JiraMetric jiraMetric) {
+	public int compareTo(com.liferay.jira.metrics.model.JiraMetric jiraMetric) {
 		return _jiraMetric.compareTo(jiraMetric);
 	}
 
@@ -447,17 +447,17 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<JiraMetric> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.jira.metrics.model.JiraMetric> toCacheModel() {
 		return _jiraMetric.toCacheModel();
 	}
 
 	@Override
-	public JiraMetric toEscapedModel() {
+	public com.liferay.jira.metrics.model.JiraMetric toEscapedModel() {
 		return new JiraMetricWrapper(_jiraMetric.toEscapedModel());
 	}
 
 	@Override
-	public JiraMetric toUnescapedModel() {
+	public com.liferay.jira.metrics.model.JiraMetric toUnescapedModel() {
 		return new JiraMetricWrapper(_jiraMetric.toUnescapedModel());
 	}
 

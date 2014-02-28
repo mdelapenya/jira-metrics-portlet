@@ -17,7 +17,7 @@ package com.liferay.jira.metrics.service;
 import com.liferay.portal.service.InvokableLocalService;
 
 /**
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @generated
  */
 public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
@@ -121,13 +121,23 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName20 = "getJiraStatusByUri";
+		_methodName20 = "getAllJiraStatuses";
 
-		_methodParameterTypes20 = new String[] { "java.lang.String" };
+		_methodParameterTypes20 = new String[] {  };
 
-		_methodName21 = "getJiraStatusByName";
+		_methodName21 = "getInstalledJiraStatuses";
 
-		_methodParameterTypes21 = new String[] { "java.lang.String" };
+		_methodParameterTypes21 = new String[] {
+				"com.liferay.jira.metrics.model.JiraProject"
+			};
+
+		_methodName22 = "getJiraStatusByName";
+
+		_methodParameterTypes22 = new String[] { "java.lang.String" };
+
+		_methodName23 = "getJiraStatusByUri";
+
+		_methodParameterTypes23 = new String[] { "java.lang.String" };
 	}
 
 	@Override
@@ -720,16 +730,84 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
-		java.lang.String uri)
+	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses()
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
-					new Object[] { ClpSerializer.translateInput(uri) });
+					_methodParameterTypes20, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.jira.metrics.NoSuchJiraStatusException) {
+				throw (com.liferay.jira.metrics.NoSuchJiraStatusException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.jira.metrics.model.JiraStatus>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getInstalledJiraStatuses(
+		com.liferay.jira.metrics.model.JiraProject jiraProject)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] { ClpSerializer.translateInput(jiraProject) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.jira.metrics.model.JiraStatus>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
+					new Object[] { ClpSerializer.translateInput(name) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -755,16 +833,16 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
-		java.lang.String name)
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
-					new Object[] { ClpSerializer.translateInput(name) });
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
+					new Object[] { ClpSerializer.translateInput(uri) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -832,4 +910,8 @@ public class JiraStatusLocalServiceClp implements JiraStatusLocalService {
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
 }

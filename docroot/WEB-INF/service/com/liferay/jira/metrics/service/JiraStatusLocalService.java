@@ -29,7 +29,7 @@ import com.liferay.portal.service.PersistedModelLocalService;
  * credentials because this service can only be accessed from within the same
  * VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatusLocalServiceUtil
  * @see com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraStatusLocalServiceImpl
@@ -255,14 +255,25 @@ public interface JiraStatusLocalService extends BaseLocalService,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
-		java.lang.String uri)
+	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses()
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getInstalledJiraStatuses(
+		com.liferay.jira.metrics.model.JiraProject jiraProject)
+		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
 		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException;
 }
