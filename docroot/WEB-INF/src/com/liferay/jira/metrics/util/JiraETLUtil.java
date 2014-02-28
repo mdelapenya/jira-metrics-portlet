@@ -38,10 +38,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.apache.commons.lang.time.StopWatch;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 
-import javax.annotation.Resource;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +56,7 @@ public class JiraETLUtil {
 			stopWatch.start();
 
 			_loadProjectsFromJira();
-			_loadStatuses();
+			_loadStatusesFromJira();
 
 			// load statuses from Jira
 
@@ -87,8 +84,8 @@ public class JiraETLUtil {
 
 		this.jiraClient = jiraClient;
 	}
-
-	private static void _loadComponent(
+	
+	private static void _loadComponentFromJira(
 		JiraProject jiraProject, BasicComponent component)
 		throws JiraConnectionException, PortalException, SystemException {
 
@@ -122,18 +119,18 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static void _loadComponents(
-			Project project, JiraProject jiraProject)
+	private static void _loadComponentsFromJira(
+		Project project, JiraProject jiraProject)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		Iterable<BasicComponent> components = project.getComponents();
 
 		for (BasicComponent component : components) {
-			_loadComponent(jiraProject, component);
+			_loadComponentFromJira(jiraProject, component);
 		}
 	}
 
-	private static void _loadIssuesMetric(
+	private static void _loadIssuesMetricFromJira(
 		Project project, List<Status> statuses)
 		throws JiraConnectionException, PortalException, SystemException {
 
@@ -216,12 +213,13 @@ public class JiraETLUtil {
 		List<BasicProject> projects = jiraClient.getAllJiraProjects();
 
 		for (BasicProject project : projects) {
-			_loadProject(project);
+			_loadProjectFromJira(project);
 		}
 	}
 
-	private static void _loadProject(BasicProject basicProject)
+	private static void _loadProjectFromJira(BasicProject basicProject)
 		throws JiraConnectionException, PortalException, SystemException {
+
 		JiraProject jiraProject = null;
 
 		try {
@@ -260,10 +258,10 @@ public class JiraETLUtil {
 
 		Project project = jiraClient.getProject(basicProject.getKey());
 
-		_loadComponents(project, jiraProject);
+		_loadComponentsFromJira(project, jiraProject);
 	}
 
-	private static void _loadStatus(Status status)
+	private static void _loadStatusFromJira(Status status)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		JiraStatus jiraStatus = null;
@@ -299,13 +297,13 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static void _loadStatuses()
+	private static void _loadStatusesFromJira()
 		throws JiraConnectionException, PortalException, SystemException {
 
 		List<Status> statuses = jiraClient.getAllJiraStatuses();
 
 		for (Status status : statuses) {
-			_loadStatus(status);
+			_loadStatusFromJira(status);
 		}
 	}
 
