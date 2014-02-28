@@ -19,8 +19,10 @@ import com.liferay.jira.metrics.NoSuchJiraProjectException;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
 import com.liferay.jira.metrics.util.PortletKeys;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.service.persistence.PortletPreferencesFinderUtil;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
@@ -78,9 +80,14 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 	 * @return a list with all Jira projects
 	 * @throws SystemException
 	 */
-	public List<JiraProject> getAllJiraProjects() throws SystemException {
-		return jiraProjectPersistence.findAll();
+	public List<JiraProject> getAllJiraProjects(
+			OrderByComparator orderByComparator)
+		throws SystemException {
+
+		return jiraProjectPersistence.findAll(
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 	}
+
 
 	public List<JiraProject> getInstalledJiraProjects()
 		throws PortalException, SystemException {
@@ -138,6 +145,16 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 		throws NoSuchJiraProjectException, SystemException {
 
 		return jiraProjectPersistence.findByLabel(label);
+	}
+
+	class JiraProjectComparator extends OrderByComparator {
+
+		@Override
+		public int compare(Object o1, Object o2) {
+			JiraProject jiraProject1 = (JiraProject) o1;
+			JiraProject jiraProject2 = (JiraProject) o2;
+			return jiraProject1.getKey().compareTo(jiraProject2.getKey());
+		}
 	}
 
 }
