@@ -18,10 +18,13 @@ import com.liferay.jira.metrics.DuplicateJiraStatusException;
 import com.liferay.jira.metrics.NoSuchJiraStatusException;
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the jira status local service.
@@ -67,6 +70,13 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 			jiraStatus.getPrimaryKey());
 	}
 
+	public List<JiraStatus> getAllJiraStatuses()
+		throws NoSuchJiraStatusException, SystemException {
+
+		return jiraStatusPersistence.findAll(
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS,new JiraStatusComparator());
+	}
+
 	public JiraStatus getJiraStatusByUri(String uri)
 		throws NoSuchJiraStatusException, SystemException {
 
@@ -77,6 +87,16 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 		throws NoSuchJiraStatusException, SystemException {
 
 		return jiraStatusPersistence.findByStatus(name);
+	}
+
+	class JiraStatusComparator extends OrderByComparator {
+
+		@Override
+		public int compare(Object o1, Object o2) {
+			JiraStatus jiraStatus1 = (JiraStatus) o1;
+			JiraStatus jiraStatus2 = (JiraStatus) o2;
+			return jiraStatus1.getName().compareTo(jiraStatus2.getName());
+		}
 	}
 
 }
