@@ -282,6 +282,19 @@ public class JiraStatusLocalServiceUtil {
 		return getService().addJiraStatus(uri, name);
 	}
 
+	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses()
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAllJiraStatuses();
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> getInstalledJiraStatuses(
+		com.liferay.jira.metrics.model.JiraProject jiraProject)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getInstalledJiraStatuses(jiraProject);
+	}
+
 	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
 		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,

@@ -120,13 +120,23 @@ public class JiraStatusLocalServiceClpInvoker {
 				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName59 = "getJiraStatusByUri";
+		_methodName59 = "getAllJiraStatuses";
 
-		_methodParameterTypes59 = new String[] { "java.lang.String" };
+		_methodParameterTypes59 = new String[] {  };
 
-		_methodName60 = "getJiraStatusByName";
+		_methodName60 = "getInstalledJiraStatuses";
 
-		_methodParameterTypes60 = new String[] { "java.lang.String" };
+		_methodParameterTypes60 = new String[] {
+				"com.liferay.jira.metrics.model.JiraProject"
+			};
+
+		_methodName61 = "getJiraStatusByUri";
+
+		_methodParameterTypes61 = new String[] { "java.lang.String" };
+
+		_methodName62 = "getJiraStatusByName";
+
+		_methodParameterTypes62 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -238,11 +248,21 @@ public class JiraStatusLocalServiceClpInvoker {
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.getJiraStatusByUri((java.lang.String)arguments[0]);
+			return JiraStatusLocalServiceUtil.getAllJiraStatuses();
 		}
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return JiraStatusLocalServiceUtil.getInstalledJiraStatuses((com.liferay.jira.metrics.model.JiraProject)arguments[0]);
+		}
+
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+			return JiraStatusLocalServiceUtil.getJiraStatusByUri((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.getJiraStatusByName((java.lang.String)arguments[0]);
 		}
 
@@ -291,4 +311,8 @@ public class JiraStatusLocalServiceClpInvoker {
 	private String[] _methodParameterTypes59;
 	private String _methodName60;
 	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
 }
