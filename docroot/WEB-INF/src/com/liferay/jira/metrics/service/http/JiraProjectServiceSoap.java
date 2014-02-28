@@ -48,7 +48,7 @@ package com.liferay.jira.metrics.service.http;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraProjectServiceHttp
  * @see com.liferay.jira.metrics.model.JiraProjectSoap
  * @see com.liferay.jira.metrics.service.JiraProjectServiceUtil

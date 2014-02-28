@@ -19,7 +19,7 @@ import com.liferay.portal.model.PersistedModel;
 /**
  * The extended model interface for the JiraComponent service. Represents a row in the &quot;jirametrics_JiraComponent&quot; database table, with each column mapped to a property of this class.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraComponentModel
  * @see com.liferay.jira.metrics.model.impl.JiraComponentImpl
  * @see com.liferay.jira.metrics.model.impl.JiraComponentModelImpl

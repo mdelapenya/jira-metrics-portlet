@@ -26,7 +26,7 @@ import java.util.Map;
  * This class is a wrapper for {@link JiraComponent}.
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraComponent
  * @generated
  */
@@ -340,7 +340,8 @@ public class JiraComponentWrapper implements JiraComponent,
 	}
 
 	@Override
-	public int compareTo(JiraComponent jiraComponent) {
+	public int compareTo(
+		com.liferay.jira.metrics.model.JiraComponent jiraComponent) {
 		return _jiraComponent.compareTo(jiraComponent);
 	}
 
@@ -350,17 +351,17 @@ public class JiraComponentWrapper implements JiraComponent,
 	}
 
 	@Override
-	public com.liferay.portal.model.CacheModel<JiraComponent> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.jira.metrics.model.JiraComponent> toCacheModel() {
 		return _jiraComponent.toCacheModel();
 	}
 
 	@Override
-	public JiraComponent toEscapedModel() {
+	public com.liferay.jira.metrics.model.JiraComponent toEscapedModel() {
 		return new JiraComponentWrapper(_jiraComponent.toEscapedModel());
 	}
 
 	@Override
-	public JiraComponent toUnescapedModel() {
+	public com.liferay.jira.metrics.model.JiraComponent toUnescapedModel() {
 		return new JiraComponentWrapper(_jiraComponent.toUnescapedModel());
 	}
 
