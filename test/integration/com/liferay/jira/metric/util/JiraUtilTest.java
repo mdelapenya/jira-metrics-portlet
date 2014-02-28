@@ -39,7 +39,6 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-
 /**
  * @author Cristina González
  * @author Manuel de la Peña
@@ -143,7 +142,8 @@ public class JiraUtilTest  extends PowerMockito {
 
 		Assert.assertNotNull(currentStatus);
 		Assert.assertEquals(status.getName(), currentStatus.getName());
-		Assert.assertEquals(status.getDescription(), currentStatus.getDescription());
+		Assert.assertEquals(
+			status.getDescription(), currentStatus.getDescription());
 	}
 
 	@Test
