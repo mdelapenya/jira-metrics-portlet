@@ -55,7 +55,7 @@ public class JiraETLUtil {
 			stopWatch.start();
 
 			_loadProjectsFromJira();
-			_loadStatuses();
+			_loadStatusesFromJira();
 
 			// load statuses from Jira
 
@@ -76,7 +76,7 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static void _loadComponent(
+	private static void _loadComponentFromJira(
 		JiraProject jiraProject, BasicComponent component)
 		throws JiraConnectionException, PortalException, SystemException {
 
@@ -110,18 +110,18 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static void _loadComponents(
+	private static void _loadComponentsFromJira(
 		Project project, JiraProject jiraProject)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		Iterable<BasicComponent> components = project.getComponents();
 
 		for (BasicComponent component : components) {
-			_loadComponent(jiraProject, component);
+			_loadComponentFromJira(jiraProject, component);
 		}
 	}
 
-	private static void _loadIssuesMetric(
+	private static void _loadIssuesMetricFromJira(
 		Project project, List<Status> statuses)
 		throws JiraConnectionException, PortalException, SystemException {
 
@@ -204,11 +204,11 @@ public class JiraETLUtil {
 		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
 
 		for (BasicProject project : projects) {
-			_loadProject(project);
+			_loadProjectFromJira(project);
 		}
 	}
 
-	private static void _loadProject(BasicProject basicProject)
+	private static void _loadProjectFromJira(BasicProject basicProject)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		JiraProject jiraProject = null;
@@ -249,10 +249,10 @@ public class JiraETLUtil {
 
 		Project project = JiraUtil.getProject(basicProject.getKey());
 
-		_loadComponents(project, jiraProject);
+		_loadComponentsFromJira(project, jiraProject);
 	}
 
-	private static void _loadStatus(Status status)
+	private static void _loadStatusFromJira(Status status)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		JiraStatus jiraStatus = null;
@@ -288,13 +288,13 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static void _loadStatuses()
+	private static void _loadStatusesFromJira()
 		throws JiraConnectionException, PortalException, SystemException {
 
 		List<Status> statuses = JiraUtil.getAllJiraStatuses();
 
 		for (Status status : statuses) {
-			_loadStatus(status);
+			_loadStatusFromJira(status);
 		}
 	}
 
