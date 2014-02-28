@@ -23,6 +23,8 @@ public class PortletPropsKeys {
 
 	public static final String JIRA_PASSWORD = "jira.password";
 
+	public static final String JIRA_REST_API_SUFFIX = "jira.rest.api.suffix";
+
 	public static final String JIRA_SERVER_URI = "jira.server.uri";
 
 	public static final String JIRA_USERNAME = "jira.username";

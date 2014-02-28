@@ -26,6 +26,9 @@ public class PortletPropsValues {
 	public static final String JIRA_PASSWORD =
 		PortletPropsUtil.get(PortletPropsKeys.JIRA_PASSWORD);
 
+	public static final String JIRA_REST_API_SUFFIX =
+		PortletPropsUtil.get(PortletPropsKeys.JIRA_REST_API_SUFFIX);
+
 	public static final String JIRA_SERVER_URI =
 		PortletPropsUtil.get(PortletPropsKeys.JIRA_SERVER_URI);
 

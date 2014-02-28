@@ -185,7 +185,8 @@ public class JiraUtilTest  extends PowerMockito {
 	private static final int _PRIORITY_SIZE = 4;
 
 	private static final String _STATUS_URI =
-		"https://issues.liferay.com/rest/api/2/status/";
+		TestPropsUtil.getValue(PortletPropsKeys.JIRA_SERVER_URI) +
+			TestPropsUtil.getValue(PortletPropsKeys.JIRA_REST_API_SUFFIX);
 
 	private static final String _STATUS_NAME = "3";
 
