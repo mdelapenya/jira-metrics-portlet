@@ -100,6 +100,20 @@ public class JiraUtilTest  extends PowerMockito {
 	}
 
 	@Test
+	public void getJiraComponentNotFound() throws Exception {
+		try {
+			JiraUtil.getComponent(
+				new URI(
+					"https://issues.liferay.com/rest/api/latest/component/-9"));
+		}
+		catch (RestClientException rce) {
+			Assert.assertEquals(
+				"The component with id -9 does not exist.",
+				rce.getMessage());
+		}
+	}
+
+	@Test
 	public void getJiraProject() throws Exception {
 		Project project = JiraUtil.getProject(_PROJECT_KEY);
 
