@@ -39,7 +39,7 @@ public interface JiraClient {
 		throws JiraConnectionException;
 
 	public List<IssuesMetric> getIssuesMetricsByProjectStatus(
-		Project project, List<Status> statuses)
+			String projectKey, List<String> statusNames)
 		throws JiraConnectionException;
 
 	public Project getProject(String projectKey)

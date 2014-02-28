@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.jira.metrics.client;
+package com.liferay.jira.metrics.util;
 
 import com.atlassian.jira.rest.client.ComponentRestClient;
 import com.atlassian.jira.rest.client.JiraRestClient;
@@ -112,32 +112,34 @@ public class JiraClientImpl implements JiraClient{
 
 	@Override
 	public List<IssuesMetric> getIssuesMetricsByProjectStatus(
-			Project project, List<Status> statuses)
+			String projectKey, List<String> statusNames)
 		throws JiraConnectionException {
 
 		MetadataRestClient metaClient = _getClient().getMetadataClient();
 
 		Iterable<Priority> priorities = metaClient.getPriorities().claim();
 
-		if (statuses == null || statuses.isEmpty()) {
+		if (statusNames == null || statusNames.isEmpty()) {
 			throw new RuntimeException("The statuses can't be empty");
 		}
 
 		List<IssuesMetric> results = new ArrayList<IssuesMetric>();
 
+		Project project = getProject(projectKey);
+
 		List<BasicComponent> components = Lists.newArrayList(
 			project.getComponents());
 
-		for (Status status : statuses) {
+		for (String statusName : statusNames) {
 			for (BasicComponent component : components) {
 				for (Priority priority : priorities) {
 					int total =
 						getIssuesMetricsByProjectStatusComponentPriority(
-							project, status, component, priority);
+							project, statusName, component, priority);
 
 					results.add(
 						new IssuesMetric(
-							project, component, status, priority, total));
+							project, component, statusName, priority, total));
 				}
 			}
 		}
@@ -176,7 +178,7 @@ public class JiraClientImpl implements JiraClient{
 	}
 
 	protected static int getIssuesMetricsByProjectStatusComponentPriority(
-			Project project, Status status, BasicComponent component,
+			Project project, String statusName, BasicComponent component,
 			Priority priority)
 		throws JiraConnectionException {
 
@@ -187,7 +189,7 @@ public class JiraClientImpl implements JiraClient{
 		sb.append(project.getKey());
 		sb.append(" AND status = ");
 		sb.append(StringPool.QUOTE);
-		sb.append(status.getName());
+		sb.append(statusName);
 		sb.append(StringPool.QUOTE);
 		sb.append(" AND component = ");
 		sb.append(StringPool.QUOTE);

@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.apache.commons.lang.time.StopWatch;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,11 +59,17 @@ public class JiraETLUtil {
 			_loadProjectsFromJira();
 			_loadStatusesFromJira();
 
-			// load statuses from Jira
+			List<JiraProject> installedJiraProjects =
+				JiraProjectLocalServiceUtil.getInstalledJiraProjects();
 
-			// load data from installed projects
-				// components
-				// metrics
+			for (JiraProject installedJiraProject : installedJiraProjects) {
+				List<JiraStatus> installedJiraStatuses =
+					JiraStatusLocalServiceUtil.getInstalledJiraStatuses(
+						installedJiraProject);
+
+				_loadIssuesMetricFromJira(
+					installedJiraProject, installedJiraStatuses);
+			}
 
 			stopWatch.stop();
 
@@ -131,13 +138,20 @@ public class JiraETLUtil {
 	}
 
 	private static void _loadIssuesMetricFromJira(
-		Project project, List<Status> statuses)
+			JiraProject jiraProject, List<JiraStatus> jiraStatuses)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		Date date = new Date();
 
+		List<String> statusNames = new ArrayList<String>();
+
+		for(JiraStatus jiraStatus : jiraStatuses) {
+			statusNames.add(jiraStatus.getName());
+		}
+
 		List<IssuesMetric> issuesMetricList =
-			jiraClient.getIssuesMetricsByProjectStatus(project, statuses);
+			jiraClient.getIssuesMetricsByProjectStatus(
+				jiraProject.getKey(), statusNames);
 
 		for (IssuesMetric issueMetric : issuesMetricList) {
 			BasicComponent issuesMetricComponent = issueMetric.getComponent();
@@ -148,12 +162,9 @@ public class JiraETLUtil {
 				JiraComponentLocalServiceUtil.getJiraComponentByUri(
 					componentUri.toString());
 
-			Status issuesMetricStatus = issueMetric.getStatus();
-			URI statusUri = issuesMetricStatus.getSelf();
-
 			JiraStatus jiraStatus =
-				JiraStatusLocalServiceUtil.getJiraStatusByUri(
-					statusUri.toString());
+				JiraStatusLocalServiceUtil.getJiraStatusByName(
+					issueMetric.getStatusName());
 
 			Priority priority = issueMetric.getPriority();
 

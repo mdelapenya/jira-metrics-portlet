@@ -24,7 +24,7 @@ import com.atlassian.jira.rest.client.domain.Status;
 public class IssuesMetric {
 
 	public IssuesMetric(
-		Project project, BasicComponent component, Status status,
+		Project project, BasicComponent component, String status,
 		Priority priority, int total) {
 
 		_project = project;
@@ -35,7 +35,7 @@ public class IssuesMetric {
 
 		_total = total;
 
-		_status = status;
+		_statusName = status;
 	}
 
 	public BasicComponent getComponent() {
@@ -50,8 +50,8 @@ public class IssuesMetric {
 		return _project;
 	}
 
-	public Status getStatus() {
-		return _status;
+	public String getStatusName() {
+		return _statusName;
 	}
 
 	public int getTotal() {
@@ -61,7 +61,7 @@ public class IssuesMetric {
 	private BasicComponent _component;
 	private Priority _priority;
 	private Project _project;
-	private Status _status;
+	private String _statusName;
 	private int _total;
 
 }
