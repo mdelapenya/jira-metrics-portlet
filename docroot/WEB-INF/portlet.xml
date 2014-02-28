@@ -23,6 +23,34 @@
 			<short-title>JiraMetricsPortlet</short-title>
 			<keywords></keywords>
 		</portlet-info>
+		<portlet-preferences>
+			<preference>
+				<name>name</name>
+				<value>UI</value>
+			</preference>
+			<preference>
+				<name>jiraProject</name>
+				<value>LPS</value>
+			</preference>
+			<preference>
+				<name>jiraStatuses</name>
+				<value>In Progress</value>
+				<value>Reopened</value>
+				<value>In Review</value>
+				<value>Verified</value>
+			</preference>
+			<preference>
+				<name>jiraComponents</name>
+				<value>API > JavaScript</value>
+				<value>UI</value>
+			</preference>
+			<preference>
+				<name>jiraPriorities</name>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
+			</preference>
+		</portlet-preferences>
 		<security-role-ref>
 			<role-name>administrator</role-name>
 		</security-role-ref>
