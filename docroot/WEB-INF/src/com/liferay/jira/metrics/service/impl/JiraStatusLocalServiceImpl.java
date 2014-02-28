@@ -16,13 +16,20 @@ package com.liferay.jira.metrics.service.impl;
 
 import com.liferay.jira.metrics.DuplicateJiraStatusException;
 import com.liferay.jira.metrics.NoSuchJiraStatusException;
+import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.model.JiraStatus;
+import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
 import com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl;
+import com.liferay.jira.metrics.util.PortletKeys;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.model.PortletPreferences;
+import com.liferay.portal.service.persistence.PortletPreferencesFinderUtil;
+import com.liferay.portlet.PortletPreferencesFactoryUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -75,6 +82,45 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 
 		return jiraStatusPersistence.findAll(
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, new JiraStatusComparator());
+	}
+
+	public List<JiraStatus> getInstalledJiraStatuses(JiraProject jiraProject)
+		throws PortalException, SystemException {
+
+		List<PortletPreferences> preferences =
+			PortletPreferencesFinderUtil.findByPortletId(
+				PortletKeys.JIRA_METRICS_PORTLET_ID + "%");
+
+		if ((preferences == null) || preferences.isEmpty()) {
+			return null;
+		}
+
+		List<JiraStatus> jiraStatuses = new ArrayList<JiraStatus>();
+
+		for (PortletPreferences preference : preferences) {
+			String xmlPreference = preference.getPreferences();
+
+			javax.portlet.PortletPreferences jxPortletPreferences =
+				PortletPreferencesFactoryUtil.fromDefaultXML(xmlPreference);
+
+			String jiraProjectKey = jxPortletPreferences.getValue(
+				PortletKeys.JIRA_PROJECT_PREFERENCE, null);
+
+			if (jiraProject.getKey().equals(jiraProjectKey)) {
+				String[] jiraStatusNames = jxPortletPreferences.getValues(
+					PortletKeys.JIRA_STATUSES_PREFERENCE, null);
+
+				for (String jiraStatusName : jiraStatusNames) {
+					JiraStatus jiraStatus =
+						JiraStatusLocalServiceUtil.getJiraStatusByName(
+							jiraStatusName);
+
+					jiraStatuses.add(jiraStatus);
+				}
+			}
+		}
+
+		return jiraStatuses;
 	}
 
 	public JiraStatus getJiraStatusByUri(String uri)
