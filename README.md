@@ -12,6 +12,17 @@ As JIRA provides many metrics by itself, we've decided to start a [Liferay](http
 
 Placeholder for configuration
 
+## Testing
+
+For testing purpose, we are using [Arquillian](http://arquillian.org), which builds the plugin and deploys it to the server. retrieving test results to the test client that executed the tests (console or IDE). If you want to configure this, you must:
+
+- Change build.xml from plugins SDK, enabling IVY to download transitive dependencies.
+- Change build-common-plugin.xml from plugins SDK, more concretely the 'test-cmd' target, removing the 'dir' attribute.
+- Compile the project, so that IVY downloads all the dependencies.
+- Make your test classes extend BaseArquillianTestCase, base test class that performs all the 'magic' to build the plugin and deploys to a remote server
+- Enable JMX on the Tomcat app server you use with your SDK (If you use another app server, please see arquillian dependencies on ivy.xml file, and update it)
+- Add the 'manager' application for Tomcat, adding, in example, a 'tomcat' user with password 'tomcat' (Please see arquillian.xml file under test folder)
+
 ## v.1.0.0
 
 Placeholder for related work
