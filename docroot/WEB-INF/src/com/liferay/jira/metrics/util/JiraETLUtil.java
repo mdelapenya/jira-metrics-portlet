@@ -93,7 +93,7 @@ public class JiraETLUtil {
 	}
 	
 	private static void _loadComponentFromJira(
-		JiraProject jiraProject, BasicComponent component)
+			JiraProject jiraProject, BasicComponent component)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		try {
@@ -131,7 +131,7 @@ public class JiraETLUtil {
 	}
 
 	private static void _loadComponentsFromJira(
-		Project project, JiraProject jiraProject)
+			Project project, JiraProject jiraProject)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		Iterable<BasicComponent> components = project.getComponents();
