@@ -23,6 +23,8 @@ import com.atlassian.jira.rest.client.domain.Status;
  */
 public class IssuesMetric {
 
+	public static final int EMPTY_PRIORITY = -1;
+
 	public IssuesMetric(
 		Project project, BasicComponent component, String status,
 		Priority priority, int total) {
