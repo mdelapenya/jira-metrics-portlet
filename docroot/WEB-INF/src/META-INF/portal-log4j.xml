@@ -2,7 +2,7 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-	<logger name="com.liferay.jira.metrics.util.JiraETLUtil">
-		<level value="INFO" />
+	<logger name="com.liferay.jira.metrics.util">
+		<level value="DEBUG" />
 	</logger>
 </log4j:configuration>
