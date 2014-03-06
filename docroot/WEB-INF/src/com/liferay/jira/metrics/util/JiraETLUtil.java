@@ -207,7 +207,7 @@ public class JiraETLUtil {
 						"Jira Metric [" + jiraComponent.getJiraProjectId() +
 							"][" + jiraComponent.getJiraComponentId() + "][" +
 							jiraStatus.getJiraStatusId() + "][" +
-							priority.getId().intValue() + "][" + date +
+							priorityValue + "][" + date +
 							"] already exists. Let's update it.");
 				}
 
