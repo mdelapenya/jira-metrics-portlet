@@ -252,7 +252,7 @@ public class JiraETLUtil {
 		_loadComponentsFromJira(project, jiraProject);
 	}
 
-	private static void _loadStatus(Status status)
+	private static void _loadStatusFromJira(Status status)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		JiraStatus jiraStatus = null;
@@ -294,7 +294,7 @@ public class JiraETLUtil {
 		List<Status> statuses = JiraUtil.getAllJiraStatuses();
 
 		for (Status status : statuses) {
-			_loadStatus(status);
+			_loadStatusFromJira(status);
 		}
 	}
 
