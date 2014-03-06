@@ -93,14 +93,18 @@ public class JiraETLUtil {
 				component.getName(), false);
 
 			if (_log.isInfoEnabled()) {
-				_log.info(jiraProject.getKey() + " imported sucessfully");
+				_log.info(component.getName() + ": " + component.getSelf() + " imported sucessfully");
 			}
 		}
 		catch (DuplicateJiraComponentException djce) {
+			if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
+				return;
+			}
+
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Jira Comonent with uri '" + component.getSelf() +
-						"' already exists. Let's update it.");
+					"Jira Comonent with name '" + component.getName() +
+						"' and URI '"+component.getSelf()+"'already exists. Let's update it.");
 			}
 
 			JiraComponent jiraComponent =
@@ -169,7 +173,6 @@ public class JiraETLUtil {
 
 			try {
 
-
 				jiraMetric = JiraMetricLocalServiceUtil.addJiraMetric(
 					jiraComponent.getJiraProjectId(),
 					jiraComponent.getJiraComponentId(),
@@ -185,6 +188,10 @@ public class JiraETLUtil {
 				}
 			}
 			catch (DuplicateJiraMetricException djme) {
+				if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
+					return;
+				}
+
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Jira Metric [" + jiraComponent.getJiraProjectId() +
@@ -286,6 +293,10 @@ public class JiraETLUtil {
 			}
 		}
 		catch (DuplicateJiraStatusException djse) {
+			if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
+				return;
+			}
+
 			if (_log.isWarnEnabled()) {
 				_log.warn(
 					"Jira Status with URI '" + status.getSelf() +
