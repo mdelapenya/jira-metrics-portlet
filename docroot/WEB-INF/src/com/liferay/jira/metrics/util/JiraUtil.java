@@ -126,9 +126,25 @@ public class JiraUtil {
 
 		for (String statusName : statusNames) {
 			for (BasicComponent component : components) {
+
+				int total =
+					getIssuesMetricsByProjectStatusComponentPriority(
+						project, statusName, component, null);
+
+				if(_log.isDebugEnabled()) {
+					_log.debug(
+						"[" + project.getKey() + "]" + "[" +
+							component.getName() + "]" + "[" + statusName +
+							"]" + "[EMPTY] = " + total);
+				}
+
+				results.add(
+					new IssuesMetric(
+						project, component, statusName, null, total));
+
 				for (Priority priority : priorities) {
 
-					int total =
+					total =
 						getIssuesMetricsByProjectStatusComponentPriority(
 							project, statusName, component, priority);
 
@@ -199,10 +215,16 @@ public class JiraUtil {
 		sb.append(StringPool.QUOTE);
 		sb.append("Fix Priority");
 		sb.append(StringPool.QUOTE);
-		sb.append(" = ");
-		sb.append(StringPool.QUOTE);
-		sb.append(priority.getId());
-		sb.append(StringPool.QUOTE);
+
+		if(priority == null) {
+			sb.append(" IS EMPTY");
+		}
+		else {
+			sb.append(" = ");
+			sb.append(StringPool.QUOTE);
+			sb.append(priority.getId());
+			sb.append(StringPool.QUOTE);
+		}
 
 		SearchRestClient searchClient = _getClient().getSearchClient();
 
