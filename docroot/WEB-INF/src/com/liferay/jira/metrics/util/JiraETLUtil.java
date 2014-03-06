@@ -158,13 +158,22 @@ public class JiraETLUtil {
 
 			Priority priority = issueMetric.getPriority();
 
+
 			JiraMetric jiraMetric = null;
 
+			int priorityValue = IssuesMetric.EMPTY_PRIORITY;
+
+			if (priority != null) {
+				priorityValue = priority.getId().intValue();
+			}
+
 			try {
+
+
 				jiraMetric = JiraMetricLocalServiceUtil.addJiraMetric(
 					jiraComponent.getJiraProjectId(),
 					jiraComponent.getJiraComponentId(),
-					jiraStatus.getJiraStatusId(), priority.getId().intValue(),
+					jiraStatus.getJiraStatusId(), priorityValue,
 					date, issueMetric.getTotal());
 
 				if (_log.isInfoEnabled()) {
@@ -190,7 +199,7 @@ public class JiraETLUtil {
 						jiraComponent.getJiraProjectId(),
 						jiraComponent.getJiraComponentId(),
 						jiraStatus.getJiraStatusId(),
-						priority.getId().intValue(), date);
+						priorityValue, date);
 
 				jiraMetric.setTotal(issueMetric.getTotal());
 				jiraMetric.setModifiedDate(new Date());
