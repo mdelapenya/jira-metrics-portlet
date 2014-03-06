@@ -93,7 +93,7 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 
 		List<PortletPreferences> preferences =
 			PortletPreferencesFinderUtil.findByPortletId(
-				PortletKeys.JIRA_METRICS_PORTLET_ID);
+				PortletKeys.JIRA_METRICS_PORTLET_ID+"%");
 
 		if (preferences == null || preferences.isEmpty()) {
 			return new ArrayList<JiraProject>();
@@ -110,7 +110,8 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 			String jiraProjectName = jxPortletPreferences.getValue(
 				"jiraProject", null);
 
-			JiraProject jiraProject = getJiraProjectByName(jiraProjectName);
+			JiraProject jiraProject = getJiraProjectByProjectLabel(
+				jiraProjectName);
 
 			jiraProjects.add(jiraProject);
 		}
