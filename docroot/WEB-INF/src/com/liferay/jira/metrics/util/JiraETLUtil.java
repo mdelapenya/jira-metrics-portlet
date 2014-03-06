@@ -129,7 +129,7 @@ public class JiraETLUtil {
 	}
 
 	private static void _loadIssuesMetricFromJira(
-		JiraProject jiraProject, List<JiraStatus> jiraStatuses)
+			JiraProject jiraProject, List<JiraStatus> jiraStatuses)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		Date date = new Date();
