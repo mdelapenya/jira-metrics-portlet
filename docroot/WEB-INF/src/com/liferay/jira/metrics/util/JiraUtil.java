@@ -127,9 +127,17 @@ public class JiraUtil {
 		for (String statusName : statusNames) {
 			for (BasicComponent component : components) {
 				for (Priority priority : priorities) {
+
 					int total =
 						getIssuesMetricsByProjectStatusComponentPriority(
 							project, statusName, component, priority);
+
+					if(_log.isDebugEnabled()) {
+						_log.debug(
+							"[" + project.getKey() + "]" + "[" +
+								component.getName() + "]" + "[" + statusName +
+								"]" + "["+priority.getId() + "] = " + total);
+					}
 
 					results.add(
 						new IssuesMetric(
