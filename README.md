@@ -20,7 +20,7 @@ For testing purpose, we are using [Arquillian](http://arquillian.org), which bui
 - Change build-common-plugin.xml from plugins SDK, more concretely the 'test-cmd' target, removing the 'dir' attribute.
 - Compile the project, so that IVY downloads all the dependencies.
 - Make your test classes extend BaseArquillianTestCase, base test class that performs all the 'magic' to build the plugin and deploys to a remote server
-- Enable JMX on the Tomcat app server you use with your SDK (If you use another app server, please see arquillian dependencies on ivy.xml file, and update it)
+- Enable JMX on the Tomcat app server you use with your SDK (If you use another app server, please see arquillian dependencies on ivy.xml file, and update it): **-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=8099 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false** (Please see arquillian.xml file under test folder to verify that JMX Port is correctly set)
 - Add the 'manager' application for Tomcat, adding, in example, a 'tomcat' user with password 'tomcat' (Please see arquillian.xml file under test folder)
 
 ## v.1.0.0
