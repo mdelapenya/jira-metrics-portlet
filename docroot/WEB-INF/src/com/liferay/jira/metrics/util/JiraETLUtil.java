@@ -23,6 +23,7 @@ import com.liferay.jira.metrics.DuplicateJiraComponentException;
 import com.liferay.jira.metrics.DuplicateJiraMetricException;
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.DuplicateJiraStatusException;
+import com.liferay.jira.metrics.client.JiraClient;
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraMetric;
@@ -37,7 +38,10 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import org.apache.commons.lang.time.StopWatch;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 
+import javax.annotation.Resource;
 import java.net.URI;
 import java.util.Date;
 import java.util.List;
@@ -74,6 +78,10 @@ public class JiraETLUtil {
 		catch (Exception e) {
 			_log.error("Exception " + e.getMessage(), e);
 		}
+	}
+
+	public void setJiraClient(JiraClient jiraClient) {
+		this.jiraClient = jiraClient;
 	}
 
 	private static void _loadComponent(
@@ -128,7 +136,7 @@ public class JiraETLUtil {
 		Date date = new Date();
 
 		List<IssuesMetric> issuesMetricList =
-			JiraUtil.getIssuesMetricsByProjectStatus(project, statuses);
+			jiraClient.getIssuesMetricsByProjectStatus(project, statuses);
 
 		for (IssuesMetric issueMetric : issuesMetricList) {
 			BasicComponent issuesMetricComponent = issueMetric.getComponent();
@@ -201,7 +209,7 @@ public class JiraETLUtil {
 	private static void _loadProjectsFromJira()
 		throws JiraConnectionException, SystemException, PortalException {
 
-		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
+		List<BasicProject> projects = jiraClient.getAllJiraProjects();
 
 		for (BasicProject project : projects) {
 			_loadProject(project);
@@ -247,7 +255,7 @@ public class JiraETLUtil {
 			}
 		}
 
-		Project project = JiraUtil.getProject(basicProject.getKey());
+		Project project = jiraClient.getProject(basicProject.getKey());
 
 		_loadComponents(project, jiraProject);
 	}
@@ -291,7 +299,7 @@ public class JiraETLUtil {
 	private static void _loadStatuses()
 		throws JiraConnectionException, PortalException, SystemException {
 
-		List<Status> statuses = JiraUtil.getAllJiraStatuses();
+		List<Status> statuses = jiraClient.getAllJiraStatuses();
 
 		for (Status status : statuses) {
 			_loadStatus(status);
@@ -299,5 +307,7 @@ public class JiraETLUtil {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(JiraETLUtil.class);
+
+	private static JiraClient jiraClient;
 
 }

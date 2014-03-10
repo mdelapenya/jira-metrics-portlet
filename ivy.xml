@@ -78,6 +78,9 @@
 		<dependency org="org.jboss.arquillian.junit" name="arquillian-junit-container" rev="1.1.3.Final" force="true" conf="test->runtime(*),master(*)"/>
 		<dependency org="org.jboss.arquillian.container" name="arquillian-tomcat-remote-7" rev="1.0.0.CR6" force="true" conf="test->runtime(*),master(*)"/>
 		<dependency org="org.apache.ant" name="ant" rev="1.9.3" force="true" conf="test->*" />
+		<dependency org="org.powermock" name="powermock-module-junit4" rev="1.5.1" force="true" conf="test->*" />
+		<dependency org="org.powermock" name="powermock-api-mockito" rev="1.5.1" force="true" conf="test->*" />
+
 		<override org="org.jboss.shrinkwrap.resolver" module="shrinkwrap-resolver-maven-plugin" matcher="exact" rev="2.0.2"/>
 		<override org="org.jboss.shrinkwrap.resolver" module="shrinkwrap-resolver-impl-maven-archive" matcher="exact" rev="2.0.2"/>
 		<override org="org.jboss.shrinkwrap.descriptors" module="shrinkwrap-descriptors-spi" matcher="exact" rev="2.0.0-alpha-5"/>
