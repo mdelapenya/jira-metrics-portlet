@@ -33,6 +33,8 @@ import com.atlassian.util.concurrent.Promise;
 import com.google.common.collect.Lists;
 
 import com.liferay.jira.metrics.exception.JiraConnectionException;
+import com.liferay.jira.metrics.util.IssuesMetric;
+import com.liferay.jira.metrics.util.PortletPropsValues;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
