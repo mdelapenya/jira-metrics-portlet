@@ -81,6 +81,10 @@ public class JiraETLUtil {
 	}
 
 	public void setJiraClient(JiraClient jiraClient) {
+		if(_log.isDebugEnabled()) {
+			_log.debug("Setting jiraClient: " + jiraClient);
+		}
+
 		this.jiraClient = jiraClient;
 	}
 
@@ -119,7 +123,7 @@ public class JiraETLUtil {
 	}
 
 	private static void _loadComponents(
-		Project project, JiraProject jiraProject)
+			Project project, JiraProject jiraProject)
 		throws JiraConnectionException, PortalException, SystemException {
 
 		Iterable<BasicComponent> components = project.getComponents();
@@ -218,7 +222,6 @@ public class JiraETLUtil {
 
 	private static void _loadProject(BasicProject basicProject)
 		throws JiraConnectionException, PortalException, SystemException {
-
 		JiraProject jiraProject = null;
 
 		try {
@@ -231,27 +234,27 @@ public class JiraETLUtil {
 			}
 		}
 		catch (DuplicateJiraProjectException djpe) {
-			if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
-				return;
-			}
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					"Jira Project with key '" + basicProject.getKey() +
-						"' already exists. Let's update it.");
-			}
 
 			jiraProject =
 				JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
 					basicProject.getKey());
 
-			jiraProject.setName(basicProject.getName());
-			jiraProject.setModifiedDate(new Date());
+			if (PortletPropsValues.MERGE_STRATEGY.equals("update")) {
 
-			JiraProjectLocalServiceUtil.updateJiraProject(jiraProject);
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Jira Project with key '" + basicProject.getKey() +
+							"' already exists. Let's update it.");
+				}
 
-			if (_log.isInfoEnabled()) {
-				_log.info(jiraProject.getKey() + " updated sucessfully");
+				jiraProject.setName(basicProject.getName());
+				jiraProject.setModifiedDate(new Date());
+
+				JiraProjectLocalServiceUtil.updateJiraProject(jiraProject);
+
+				if (_log.isInfoEnabled()) {
+					_log.info(jiraProject.getKey() + " updated sucessfully");
+				}
 			}
 		}
 
