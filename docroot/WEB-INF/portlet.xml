@@ -1,13 +1,10 @@
 <?xml version="1.0"?>
 
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
-	
 	<portlet>
 		<portlet-name>jirametricsportlet</portlet-name>
 		<display-name>JIRA Metrics Portlet</display-name>
-		<portlet-class>
-			com.liferay.jira.metrics.portlet.JiraMetricsPortlet
-		</portlet-class>
+		<portlet-class>com.liferay.jira.metrics.portlet.JiraMetricsPortlet</portlet-class>
 		<init-param>
 			<name>view-template</name>
 			<value>/html/jirametrics/view.jsp</value>
@@ -21,12 +18,19 @@
 		<portlet-info>
 			<title>JIRA Metrics Portlet</title>
 			<short-title>JiraMetricsPortlet</short-title>
-			<keywords></keywords>
+			<keywords/>
 		</portlet-info>
 		<portlet-preferences>
 			<preference>
-				<name>name</name>
+				<name>jiraComponents</name>
+				<value>API &gt; JavaScript</value>
 				<value>UI</value>
+			</preference>
+			<preference>
+				<name>jiraPriorities</name>
+				<value>3</value>
+				<value>4</value>
+				<value>5</value>
 			</preference>
 			<preference>
 				<name>jiraProject</name>
@@ -40,15 +44,8 @@
 				<value>Verified</value>
 			</preference>
 			<preference>
-				<name>jiraComponents</name>
-				<value>API > JavaScript</value>
+				<name>name</name>
 				<value>UI</value>
-			</preference>
-			<preference>
-				<name>jiraPriorities</name>
-				<value>3</value>
-				<value>4</value>
-				<value>5</value>
 			</preference>
 		</portlet-preferences>
 		<security-role-ref>

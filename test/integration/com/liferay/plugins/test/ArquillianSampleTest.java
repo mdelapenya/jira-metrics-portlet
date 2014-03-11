@@ -24,10 +24,10 @@ import org.junit.runner.RunWith;
  * @author Manuel de la Peña
  */
 @RunWith(Arquillian.class)
-public class ArquillianSampleTest extends BaseArquillianTestCase{
+public class ArquillianSampleTest extends BaseArquillianTestCase {
 
-	@Test
 	@Ignore
+	@Test
 	public void test1() {
 		System.out.println("First test with Arquillian!");
 	}

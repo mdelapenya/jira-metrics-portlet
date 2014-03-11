@@ -123,10 +123,11 @@ public abstract class BaseArquillianTestCase {
 
 		webArchive.addAsWebResource(
 			f, "/WEB-INF/classes/META-INF/jira-spring.xml");
-		
+
 		//webArchive.writeTo(System.out, org.jboss.shrinkwrap.api.formatter.Formatters.VERBOSE);
 	}
 
 	private static TemporaryFolder _temporaryFolder;
-	private static File _temporaryFolderRoot;
+private static File _temporaryFolderRoot;
+
 }

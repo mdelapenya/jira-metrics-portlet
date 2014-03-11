@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -31,9 +31,11 @@ import com.liferay.jira.metrics.service.base.JiraComponentServiceBaseImpl;
  * @see com.liferay.jira.metrics.service.JiraComponentServiceUtil
  */
 public class JiraComponentServiceImpl extends JiraComponentServiceBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraComponentServiceUtil} to access the jira component remote service.
 	 */
+
 }

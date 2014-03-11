@@ -11,6 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.domain.BasicComponent;
@@ -72,11 +73,12 @@ public class JiraClientMock implements JiraClient {
 		if (
 				(componentURI != null) &&
 			componentURI.equals(_component1.getSelf())) {
-			return _component1;
-		} else if (
-			(componentURI != null) &&
-				componentURI.equals(_component2.getSelf())) {
-			return _component2;
+				return _component1;
+		}
+		else if (
+					(componentURI != null) &&
+				 componentURI.equals(_component2.getSelf())) {
+					return _component2;
 		}
 
 		return null;
@@ -84,7 +86,7 @@ public class JiraClientMock implements JiraClient {
 
 	@Override
 	public List<IssuesMetric> getIssuesMetricsByProjectStatus(
-			Project project, List<Status> statuses)
+			String projectKey, List<String> statuses)
 		throws JiraConnectionException {
 
 		return null;
@@ -105,7 +107,8 @@ public class JiraClientMock implements JiraClient {
 	public Status getStatus(URI uri) throws JiraConnectionException {
 		if ((uri != null) && uri.equals(_status1.getSelf())) {
 			return _status1;
-		} else if ((uri != null) && uri.equals(_status2.getSelf())) {
+		}
+		else if ((uri != null) && uri.equals(_status2.getSelf())) {
 			return _status2;
 		}
 
@@ -121,13 +124,13 @@ public class JiraClientMock implements JiraClient {
 	private static Status _status1;
 	private static Status _status2;
 
-
 	static {
 
 		try {
 			URI projectURI = new URI(JIRA_TEST_URI + "Project/1");
 
-			_basicProject = new BasicProject(projectURI, "Project1", "Project 1");
+			_basicProject = new BasicProject(
+				projectURI, "Project1", "Project 1");
 
 			URI componenteURI1 = new URI(JIRA_TEST_URI + "Component/1");
 			URI componenteURI2 = new URI(JIRA_TEST_URI + "Component/2");
@@ -152,8 +155,8 @@ public class JiraClientMock implements JiraClient {
 
 			_status1 = new Status(statusURI1, "Status1", "Status 1", null);
 			_status2 = new Status(statusURI2, "Status2", "Status 2", null);
-
-		} catch (URISyntaxException e) {
+		}
+		catch (URISyntaxException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
 	}

@@ -11,16 +11,19 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
+
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.util.IssuesMetric;
 
 import java.net.URI;
+
 import java.util.List;
 
 /**
@@ -28,8 +31,7 @@ import java.util.List;
  */
 public interface JiraClient {
 
-
-	public  List<BasicProject> getAllJiraProjects()
+	public List<BasicProject> getAllJiraProjects()
 		throws JiraConnectionException;
 
 	public List<Status> getAllJiraStatuses()
@@ -46,4 +48,5 @@ public interface JiraClient {
 		throws JiraConnectionException;
 
 	public Status getStatus(URI uri) throws JiraConnectionException;
+
 }

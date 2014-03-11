@@ -33,8 +33,6 @@ import com.atlassian.util.concurrent.Promise;
 import com.google.common.collect.Lists;
 
 import com.liferay.jira.metrics.exception.JiraConnectionException;
-import com.liferay.jira.metrics.util.IssuesMetric;
-import com.liferay.jira.metrics.util.PortletPropsValues;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -61,7 +59,7 @@ import org.codehaus.jettison.json.JSONObject;
  * @author Cristina González
  * @author Manuel de la Peña
  */
-public class JiraClientImpl implements JiraClient{
+public class JiraClientImpl implements JiraClient {
 
 	@Override
 	public List<BasicProject> getAllJiraProjects()
@@ -78,9 +76,7 @@ public class JiraClientImpl implements JiraClient{
 	}
 
 	@Override
-	public List<Status> getAllJiraStatuses()
-		throws JiraConnectionException {
-
+	public List<Status> getAllJiraStatuses() throws JiraConnectionException {
 		String output = getJiraRestResponse(getJiraURL() + _STATUS_API);
 
 		List<Status> statuses = new ArrayList<Status>();

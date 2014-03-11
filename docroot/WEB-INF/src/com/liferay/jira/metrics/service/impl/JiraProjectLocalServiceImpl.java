@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -45,7 +45,8 @@ import java.util.List;
  * @see com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil
  */
-public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl {
+public class JiraProjectLocalServiceImpl
+	extends JiraProjectLocalServiceBaseImpl {
 
 	public JiraProject addJiraProject(String key, String name)
 		throws PortalException, SystemException {
@@ -88,7 +89,6 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 	}
 
-
 	public List<JiraProject> getInstalledJiraProjects()
 		throws PortalException, SystemException {
 
@@ -96,7 +96,7 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 			PortletPreferencesFinderUtil.findByPortletId(
 				PortletKeys.JIRA_METRICS_PORTLET_ID+"%");
 
-		if (preferences == null || preferences.isEmpty()) {
+		if ((preferences == null) || preferences.isEmpty()) {
 			return null;
 		}
 
@@ -152,8 +152,8 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 
 		@Override
 		public int compare(Object o1, Object o2) {
-			JiraProject jiraProject1 = (JiraProject) o1;
-			JiraProject jiraProject2 = (JiraProject) o2;
+			JiraProject jiraProject1 = (JiraProject)o1;
+			JiraProject jiraProject2 = (JiraProject)o2;
 			return jiraProject1.getKey().compareTo(jiraProject2.getKey());
 		}
 	}
