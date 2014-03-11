@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,14 +14,19 @@
 
 package com.liferay.plugins.test;
 
+import com.liferay.jira.metrics.client.JiraClientImpl;
+import com.liferay.jira.metrics.client.JiraClientMock;
+
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.Node;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
@@ -57,10 +62,10 @@ public abstract class BaseArquillianTestCase {
 			File warFile = new File(
 				_temporaryFolderRoot.getAbsolutePath(), pluginName);
 
-			WebArchive webArchive =
-				ShrinkWrap.createFromZipFile(WebArchive.class, warFile);
+			WebArchive webArchive = ShrinkWrap.createFromZipFile(
+				WebArchive.class, warFile);
 
-			webArchive.addClass(BaseArquillianTestCase.class);
+			mockJiraSpringConfig(webArchive);
 
 			return webArchive;
 		}
@@ -100,7 +105,28 @@ public abstract class BaseArquillianTestCase {
 		return project;
 	}
 
+
+	protected static void mockJiraSpringConfig(WebArchive webArchive) {
+		Node get = webArchive.get("/WEB-INF/classes/META-INF/jira-spring.xml");
+
+		webArchive.addClass(BaseArquillianTestCase.class);
+
+		webArchive.delete(get.getPath());
+
+		webArchive.deleteClass(JiraClientImpl.class);
+
+		webArchive.addClass(JiraClientMock.class);
+
+		File f = new File(
+			"./test/integration/" +
+				"META-INF/jira-spring.xml");
+
+		webArchive.addAsWebResource(
+			f, "/WEB-INF/classes/META-INF/jira-spring.xml");
+		
+		//webArchive.writeTo(System.out, org.jboss.shrinkwrap.api.formatter.Formatters.VERBOSE);
+	}
+
 	private static TemporaryFolder _temporaryFolder;
 	private static File _temporaryFolderRoot;
-
 }

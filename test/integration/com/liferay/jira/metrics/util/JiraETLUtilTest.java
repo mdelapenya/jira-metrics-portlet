@@ -12,11 +12,11 @@
  * details.
  */
 
-package com.liferay.plugins.test;
+package com.liferay.jira.metrics.util;
 
+import com.liferay.jira.metrics.util.JiraETLUtil;
+import com.liferay.plugins.test.BaseArquillianTestCase;
 import org.jboss.arquillian.junit.Arquillian;
-
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,12 +24,12 @@ import org.junit.runner.RunWith;
  * @author Manuel de la Peña
  */
 @RunWith(Arquillian.class)
-public class ArquillianSampleTest extends BaseArquillianTestCase{
+public class JiraETLUtilTest extends BaseArquillianTestCase{
 
 	@Test
-	@Ignore
 	public void test1() {
-		System.out.println("First test with Arquillian!");
+		JiraETLUtil.load();
+		System.out.println("Test Load");
 	}
 
 }
