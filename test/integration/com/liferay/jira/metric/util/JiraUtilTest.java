@@ -20,11 +20,14 @@ import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
-import com.liferay.jira.metrics.util.JiraUtil;
+
+import com.liferay.jira.metrics.client.JiraClient;
+import com.liferay.jira.metrics.client.JiraClientImpl;
 import com.liferay.jira.metrics.util.PortletPropsKeys;
 import com.liferay.jira.metrics.util.PortletPropsUtil;
 
 import java.net.URI;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,8 +51,109 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PowerMockIgnore({"javax.net.ssl.*", "javax.security.auth.*"})
 public class JiraUtilTest  extends PowerMockito {
 
+	@Test
+	public void getAllJiraProjects() throws Exception {
+		List<BasicProject> projects = _jiraClient.getAllJiraProjects();
+
+		Assert.assertNotNull(projects);
+		Assert.assertTrue(projects.size() > 0);
+	}
+
+	@Test
+	public void getAllJiraStatuses() throws Exception {
+		List<Status> jiraStatuses = _jiraClient.getAllJiraStatuses();
+
+		Assert.assertNotNull(jiraStatuses);
+		Assert.assertTrue(jiraStatuses.size() > 0);
+	}
+
+	@Test
+	public void getJiraComponent() throws Exception {
+		Project project = _jiraClient.getProject(_PROJECT_KEY);
+
+		Iterable<BasicComponent> components = project.getComponents();
+		Iterator<BasicComponent> componentsIterator = components.iterator();
+
+		BasicComponent basicComponent = componentsIterator.next();
+
+		Component component = _jiraClient.getComponent(
+			basicComponent.getSelf());
+
+		Assert.assertNotNull(component);
+		Assert.assertNotNull(component.getSelf());
+		Assert.assertEquals(basicComponent.getSelf(), component.getSelf());
+		Assert.assertEquals(basicComponent.getName(), component.getName());
+		Assert.assertEquals(
+			basicComponent.getDescription(), component.getDescription());
+	}
+
+	@Test
+	public void getJiraComponentNotFound() throws Exception {
+		try {
+			_jiraClient.getComponent(
+				new URI(
+					"https://issues.liferay.com/rest/api/latest/component/-9"));
+		}
+		catch (RestClientException rce) {
+			Assert.assertEquals(
+				"The component with id -9 does not exist.", rce.getMessage());
+		}
+	}
+
+	@Test
+	public void getJiraProject() throws Exception {
+		Project project = _jiraClient.getProject(_PROJECT_KEY);
+
+		Assert.assertNotNull(project);
+		Assert.assertEquals(_PROJECT_KEY, project.getKey());
+	}
+
+	@Test
+	public void getJiraProjectNotFound() throws Exception {
+		try {
+			_jiraClient.getProject("asdfghj");
+		}
+		catch (RestClientException rce) {
+			Assert.assertEquals(
+				"No project could be found with key 'asdfghj'.",
+				rce.getMessage());
+		}
+	}
+
+	@Test
+	public void getJiraStatus() throws Exception {
+		List<Status> statuses = _jiraClient.getAllJiraStatuses();
+
+		Status status = statuses.get(0);
+
+		Status currentStatus = _jiraClient.getStatus(status.getSelf());
+
+		Assert.assertNotNull(currentStatus);
+		Assert.assertEquals(status.getName(), currentStatus.getName());
+		Assert.assertEquals(
+			status.getDescription(), currentStatus.getDescription());
+	}
+
+	@Test
+	public void getJiraStatusNotFound() throws Exception {
+		String statusId = _STATUS_NAME + "NotFound";
+
+		try {
+			_jiraClient.getStatus(new URI(_STATUS_URI + statusId));
+		}
+		catch (RestClientException rce) {
+			Assert.assertEquals(
+				"The status with id '" + statusId + "' does not exist",
+				rce.getMessage());
+		}
+	}
+
 	@Before
 	public void setUp() {
+		if (_jiraClient == null) {
+			_jiraClient = new JiraClientImpl();
+		}
+
 		mockStatic(PortletPropsUtil.class);
 
 		mockPortletKey(PortletPropsKeys.JIRA_USERNAME);
@@ -63,103 +167,6 @@ public class JiraUtilTest  extends PowerMockito {
 		verifyStatic();
 	}
 
-	@Test
-	public void getAllJiraProjects() throws Exception {
-		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
-
-		Assert.assertNotNull(projects);
-		Assert.assertTrue(projects.size() > 0);
-	}
-
-	@Test
-	public void getAllJiraStatuses() throws Exception {
-		List<Status> jiraStatuses = JiraUtil.getAllJiraStatuses();
-
-		Assert.assertNotNull(jiraStatuses);
-		Assert.assertTrue(jiraStatuses.size() > 0);
-	}
-
-	@Test
-	public void getJiraComponent() throws Exception {
-		Project project = JiraUtil.getProject(_PROJECT_KEY);
-
-		Iterable<BasicComponent> components = project.getComponents();
-		Iterator<BasicComponent> componentsIterator = components.iterator();
-
-		BasicComponent basicComponent = componentsIterator.next();
-
-		Component component = JiraUtil.getComponent(basicComponent.getSelf());
-
-		Assert.assertNotNull(component);
-		Assert.assertNotNull(component.getSelf());
-		Assert.assertEquals(basicComponent.getSelf(), component.getSelf());
-		Assert.assertEquals(basicComponent.getName(), component.getName());
-		Assert.assertEquals(
-			basicComponent.getDescription(), component.getDescription());
-	}
-
-	@Test
-	public void getJiraComponentNotFound() throws Exception {
-		try {
-			JiraUtil.getComponent(
-				new URI(
-					"https://issues.liferay.com/rest/api/latest/component/-9"));
-		}
-		catch (RestClientException rce) {
-			Assert.assertEquals(
-				"The component with id -9 does not exist.",
-				rce.getMessage());
-		}
-	}
-
-	@Test
-	public void getJiraProject() throws Exception {
-		Project project = JiraUtil.getProject(_PROJECT_KEY);
-
-		Assert.assertNotNull(project);
-		Assert.assertEquals(_PROJECT_KEY, project.getKey());
-	}
-
-	@Test
-	public void getJiraProjectNotFound() throws Exception {
-		try {
-			JiraUtil.getProject("asdfghj");
-		}
-		catch (RestClientException rce) {
-			Assert.assertEquals(
-				"No project could be found with key 'asdfghj'.",
-				rce.getMessage());
-		}
-	}
-
-	@Test
-	public void getJiraStatus() throws Exception {
-		List<Status> statuses = JiraUtil.getAllJiraStatuses();
-
-		Status status = statuses.get(0);
-
-		Status currentStatus = JiraUtil.getStatus(status.getSelf());
-
-		Assert.assertNotNull(currentStatus);
-		Assert.assertEquals(status.getName(), currentStatus.getName());
-		Assert.assertEquals(
-			status.getDescription(), currentStatus.getDescription());
-	}
-
-	@Test
-	public void getJiraStatusNotFound() throws Exception {
-		String statusId = _STATUS_NAME + "NotFound";
-
-		try {
-			JiraUtil.getStatus(new URI(_STATUS_URI + statusId));
-		}
-		catch (RestClientException rce) {
-			Assert.assertEquals(
-				"The status with id '" + statusId + "' does not exist",
-				rce.getMessage());
-		}
-	}
-
 	protected void mockPortletKey(String key) {
 		PowerMockito.when(
 			PortletPropsUtil.get(key)
@@ -170,10 +177,12 @@ public class JiraUtilTest  extends PowerMockito {
 
 	private static final String _PROJECT_KEY = "LPS";
 
+	private static final String _STATUS_NAME = "3";
+
 	private static final String _STATUS_URI =
 		TestPropsUtil.getValue(PortletPropsKeys.JIRA_SERVER_URI) +
 			TestPropsUtil.getValue(PortletPropsKeys.JIRA_REST_API_SUFFIX);
 
-	private static final String _STATUS_NAME = "3";
+	private static JiraClient _jiraClient;
 
 }

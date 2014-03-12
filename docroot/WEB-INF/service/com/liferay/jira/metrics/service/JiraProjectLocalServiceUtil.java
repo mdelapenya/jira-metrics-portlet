@@ -26,7 +26,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * based on the propagated JAAS credentials because this service can only be
  * accessed from within the same VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraProjectLocalService
  * @see com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraProjectLocalServiceImpl
@@ -288,9 +288,10 @@ public class JiraProjectLocalServiceUtil {
 	* @return a list with all Jira projects
 	* @throws SystemException
 	*/
-	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getAllJiraProjects();
+		return getService().getAllJiraProjects(orderByComparator);
 	}
 
 	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getInstalledJiraProjects()

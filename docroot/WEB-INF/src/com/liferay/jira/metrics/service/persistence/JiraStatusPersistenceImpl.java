@@ -57,7 +57,7 @@ import java.util.List;
  * Caching information and settings can be found in <code>portal.properties</code>
  * </p>
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatusPersistence
  * @see JiraStatusUtil
  * @generated

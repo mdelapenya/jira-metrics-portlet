@@ -26,7 +26,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * based on the propagated JAAS credentials because this service can only be
  * accessed from within the same VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraMetricLocalService
  * @see com.liferay.jira.metrics.service.base.JiraMetricLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraMetricLocalServiceImpl

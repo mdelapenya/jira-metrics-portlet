@@ -19,7 +19,7 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link JiraStatusLocalService}.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatusLocalService
  * @generated
  */
@@ -296,11 +296,18 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	}
 
 	@Override
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
-		java.lang.String uri)
+	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses()
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _jiraStatusLocalService.getJiraStatusByUri(uri);
+		return _jiraStatusLocalService.getAllJiraStatuses();
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getInstalledJiraStatuses(
+		com.liferay.jira.metrics.model.JiraProject jiraProject)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraStatusLocalService.getInstalledJiraStatuses(jiraProject);
 	}
 
 	@Override
@@ -309,6 +316,14 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _jiraStatusLocalService.getJiraStatusByName(name);
+	}
+
+	@Override
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
+		java.lang.String uri)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraStatusLocalService.getJiraStatusByUri(uri);
 	}
 
 	/**
