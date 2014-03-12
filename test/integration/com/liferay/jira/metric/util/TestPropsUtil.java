@@ -11,9 +11,10 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metric.util;
 
-import com.liferay.jira.metrics.util.JiraUtil;
+import com.liferay.jira.metrics.util.JiraETLUtil;
 
 import java.io.IOException;
 
@@ -36,7 +37,7 @@ public class TestPropsUtil {
 		_properties = new Properties();
 
 		try {
-			ClassLoader classLoader = JiraUtil.class.getClassLoader();
+			ClassLoader classLoader = JiraETLUtil.class.getClassLoader();
 
 			_properties.load(
 				classLoader.getResourceAsStream(_NAME_PROPERTIES_FILE));

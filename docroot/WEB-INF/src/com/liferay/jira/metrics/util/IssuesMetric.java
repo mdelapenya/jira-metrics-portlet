@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -11,20 +11,22 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.util;
 
 import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
-import com.atlassian.jira.rest.client.domain.Status;
 
 /**
  * @author Cristina González
  */
 public class IssuesMetric {
 
+	public static final int EMPTY_PRIORITY = -1;
+
 	public IssuesMetric(
-		Project project, BasicComponent component, Status status,
+		Project project, BasicComponent component, String status,
 		Priority priority, int total) {
 
 		_project = project;
@@ -35,7 +37,7 @@ public class IssuesMetric {
 
 		_total = total;
 
-		_status = status;
+		_statusName = status;
 	}
 
 	public BasicComponent getComponent() {
@@ -50,8 +52,8 @@ public class IssuesMetric {
 		return _project;
 	}
 
-	public Status getStatus() {
-		return _status;
+	public String getStatusName() {
+		return _statusName;
 	}
 
 	public int getTotal() {
@@ -61,7 +63,7 @@ public class IssuesMetric {
 	private BasicComponent _component;
 	private Priority _priority;
 	private Project _project;
-	private Status _status;
+	private String _statusName;
 	private int _total;
 
 }

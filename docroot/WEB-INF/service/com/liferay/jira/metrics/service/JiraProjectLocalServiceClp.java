@@ -17,7 +17,7 @@ package com.liferay.jira.metrics.service;
 import com.liferay.portal.service.InvokableLocalService;
 
 /**
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @generated
  */
 public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
@@ -123,7 +123,9 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 
 		_methodName20 = "getAllJiraProjects";
 
-		_methodParameterTypes20 = new String[] {  };
+		_methodParameterTypes20 = new String[] {
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
 
 		_methodName21 = "getInstalledJiraProjects";
 
@@ -728,13 +730,16 @@ public class JiraProjectLocalServiceClp implements JiraProjectLocalService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20, new Object[] {  });
+					_methodParameterTypes20,
+					new Object[] { ClpSerializer.translateInput(
+							orderByComparator) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);

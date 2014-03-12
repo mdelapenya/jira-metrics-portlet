@@ -26,7 +26,7 @@ import com.liferay.portal.service.InvokableLocalService;
  * based on the propagated JAAS credentials because this service can only be
  * accessed from within the same VM.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraStatusLocalService
  * @see com.liferay.jira.metrics.service.base.JiraStatusLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.impl.JiraStatusLocalServiceImpl
@@ -282,11 +282,17 @@ public class JiraStatusLocalServiceUtil {
 		return getService().addJiraStatus(uri, name);
 	}
 
-	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
-		java.lang.String uri)
+	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses()
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getJiraStatusByUri(uri);
+		return getService().getAllJiraStatuses();
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> getInstalledJiraStatuses(
+		com.liferay.jira.metrics.model.JiraProject jiraProject)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getInstalledJiraStatuses(jiraProject);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
@@ -294,6 +300,13 @@ public class JiraStatusLocalServiceUtil {
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getJiraStatusByName(name);
+	}
+
+	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
+		java.lang.String uri)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraStatusByUri(uri);
 	}
 
 	public static void clearService() {

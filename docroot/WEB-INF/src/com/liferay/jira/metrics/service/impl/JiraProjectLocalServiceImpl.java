@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -19,8 +19,10 @@ import com.liferay.jira.metrics.NoSuchJiraProjectException;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl;
 import com.liferay.jira.metrics.util.PortletKeys;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.service.persistence.PortletPreferencesFinderUtil;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
@@ -43,7 +45,8 @@ import java.util.List;
  * @see com.liferay.jira.metrics.service.base.JiraProjectLocalServiceBaseImpl
  * @see com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil
  */
-public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl {
+public class JiraProjectLocalServiceImpl
+	extends JiraProjectLocalServiceBaseImpl {
 
 	public JiraProject addJiraProject(String key, String name)
 		throws PortalException, SystemException {
@@ -78,8 +81,12 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 	 * @return a list with all Jira projects
 	 * @throws SystemException
 	 */
-	public List<JiraProject> getAllJiraProjects() throws SystemException {
-		return jiraProjectPersistence.findAll();
+	public List<JiraProject> getAllJiraProjects(
+			OrderByComparator orderByComparator)
+		throws SystemException {
+
+		return jiraProjectPersistence.findAll(
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 	}
 
 	public List<JiraProject> getInstalledJiraProjects()
@@ -87,9 +94,9 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 
 		List<PortletPreferences> preferences =
 			PortletPreferencesFinderUtil.findByPortletId(
-				PortletKeys.JIRA_METRICS_PORTLET_ID);
+				PortletKeys.JIRA_METRICS_PORTLET_ID+"%");
 
-		if (preferences == null || preferences.isEmpty()) {
+		if ((preferences == null) || preferences.isEmpty()) {
 			return null;
 		}
 
@@ -104,7 +111,8 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 			String jiraProjectName = jxPortletPreferences.getValue(
 				"jiraProject", null);
 
-			JiraProject jiraProject = getJiraProjectByName(jiraProjectName);
+			JiraProject jiraProject = getJiraProjectByProjectLabel(
+				jiraProjectName);
 
 			jiraProjects.add(jiraProject);
 		}
@@ -138,6 +146,16 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 		throws NoSuchJiraProjectException, SystemException {
 
 		return jiraProjectPersistence.findByLabel(label);
+	}
+
+	class JiraProjectComparator extends OrderByComparator {
+
+		@Override
+		public int compare(Object o1, Object o2) {
+			JiraProject jiraProject1 = (JiraProject)o1;
+			JiraProject jiraProject2 = (JiraProject)o2;
+			return jiraProject1.getKey().compareTo(jiraProject2.getKey());
+		}
 	}
 
 }
