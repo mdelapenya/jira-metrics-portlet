@@ -74,7 +74,7 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 		throws NoSuchJiraStatusException, SystemException {
 
 		return jiraStatusPersistence.findAll(
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS,new JiraStatusComparator());
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, new JiraStatusComparator());
 	}
 
 	public JiraStatus getJiraStatusByUri(String uri)
@@ -89,12 +89,13 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 		return jiraStatusPersistence.findByStatus(name);
 	}
 
-	class JiraStatusComparator extends OrderByComparator {
+	private class JiraStatusComparator extends OrderByComparator {
 
 		@Override
 		public int compare(Object o1, Object o2) {
 			JiraStatus jiraStatus1 = (JiraStatus) o1;
 			JiraStatus jiraStatus2 = (JiraStatus) o2;
+
 			return jiraStatus1.getName().compareTo(jiraStatus2.getName());
 		}
 	}
