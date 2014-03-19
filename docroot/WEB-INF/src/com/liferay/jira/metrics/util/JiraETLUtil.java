@@ -156,71 +156,72 @@ public class JiraETLUtil {
 		List<IssuesMetric> issuesMetricList =
 			jiraClient.getIssuesMetricsByProjectStatus(jiraProject.getKey(), statusNames);
 
-		for (IssuesMetric issueMetric : issuesMetricList) {
-			BasicComponent issuesMetricComponent = issueMetric.getComponent();
+		if (issuesMetricList != null) {
+			for (IssuesMetric issueMetric : issuesMetricList) {
+				BasicComponent issuesMetricComponent = issueMetric.getComponent();
 
-			URI componentUri = issuesMetricComponent.getSelf();
+				URI componentUri = issuesMetricComponent.getSelf();
 
-			JiraComponent jiraComponent =
-				JiraComponentLocalServiceUtil.getJiraComponentByUri(
-					componentUri.toString());
+				JiraComponent jiraComponent =
+					JiraComponentLocalServiceUtil.getJiraComponentByUri(
+						componentUri.toString());
 
-			JiraStatus jiraStatus =
-				JiraStatusLocalServiceUtil.getJiraStatusByName(
-					issueMetric.getStatusName());
+				JiraStatus jiraStatus =
+					JiraStatusLocalServiceUtil.getJiraStatusByName(
+						issueMetric.getStatusName());
 
-			Priority priority = issueMetric.getPriority();
+				Priority priority = issueMetric.getPriority();
 
 
-			JiraMetric jiraMetric = null;
+				JiraMetric jiraMetric = null;
 
-			int priorityValue = IssuesMetric.EMPTY_PRIORITY;
+				int priorityValue = IssuesMetric.EMPTY_PRIORITY;
 
-			if (priority != null) {
-				priorityValue = priority.getId().intValue();
-			}
-
-			try {
-
-				jiraMetric = JiraMetricLocalServiceUtil.addJiraMetric(
-					jiraComponent.getJiraProjectId(),
-					jiraComponent.getJiraComponentId(),
-					jiraStatus.getJiraStatusId(), priorityValue,
-					date, issueMetric.getTotal());
-
-				if (_log.isInfoEnabled()) {
-					_log.info(
-						"[" + jiraMetric.getJiraProjectId() + "][" +
-							jiraMetric.getJiraComponentId() + "][" +
-							jiraMetric.getJiraStatusId()+ "]"  +
-							" imported sucessfully");
-				}
-			}
-			catch (DuplicateJiraMetricException djme) {
-				if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
-					return;
+				if (priority != null) {
+					priorityValue = priority.getId().intValue();
 				}
 
-				if (_log.isWarnEnabled()) {
-					_log.warn(
-						"Jira Metric [" + jiraComponent.getJiraProjectId() +
-							"][" + jiraComponent.getJiraComponentId() + "][" +
-							jiraStatus.getJiraStatusId() + "][" +
-							priorityValue + "][" + date +
-							"] already exists. Let's update it.");
-				}
+				try {
 
-				jiraMetric =
-					JiraMetricLocalServiceUtil.getJiraMetric(
+					jiraMetric = JiraMetricLocalServiceUtil.addJiraMetric(
 						jiraComponent.getJiraProjectId(),
 						jiraComponent.getJiraComponentId(),
-						jiraStatus.getJiraStatusId(),
-						priorityValue, date);
+						jiraStatus.getJiraStatusId(), priorityValue,
+						date, issueMetric.getTotal());
 
-				jiraMetric.setTotal(issueMetric.getTotal());
-				jiraMetric.setModifiedDate(new Date());
+					if (_log.isInfoEnabled()) {
+						_log.info(
+							"[" + jiraMetric.getJiraProjectId() + "][" +
+								jiraMetric.getJiraComponentId() + "][" +
+								jiraMetric.getJiraStatusId()+ "]"  +
+								" imported sucessfully");
+					}
+				}
+				catch (DuplicateJiraMetricException djme) {
+					if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
+						return;
+					}
 
-				JiraMetricLocalServiceUtil.updateJiraMetric(jiraMetric);
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							"Jira Metric [" + jiraComponent.getJiraProjectId() +
+								"][" + jiraComponent.getJiraComponentId() + "][" +
+								jiraStatus.getJiraStatusId() + "][" +
+								priorityValue + "][" + date +
+								"] already exists. Let's update it.");
+					}
+
+					jiraMetric =
+						JiraMetricLocalServiceUtil.getJiraMetric(
+							jiraComponent.getJiraProjectId(),
+							jiraComponent.getJiraComponentId(),
+							jiraStatus.getJiraStatusId(),
+							priorityValue, date);
+
+					jiraMetric.setTotal(issueMetric.getTotal());
+					jiraMetric.setModifiedDate(new Date());
+
+					JiraMetricLocalServiceUtil.updateJiraMetric(jiraMetric);
 
 				if (_log.isInfoEnabled()) {
 					_log.info(
@@ -228,6 +229,7 @@ public class JiraETLUtil {
 							jiraMetric.getJiraComponentId() + "][" +
 							jiraMetric.getJiraStatusId()+ "]"  +
 							" updated sucessfully");
+					}
 				}
 			}
 		}
