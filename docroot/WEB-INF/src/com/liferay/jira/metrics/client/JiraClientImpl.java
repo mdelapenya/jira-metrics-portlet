@@ -11,6 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.ComponentRestClient;
@@ -60,7 +61,7 @@ import org.codehaus.jettison.json.JSONObject;
  * @author Cristina González
  * @author Manuel de la Peña
  */
-public class JiraClientImpl implements JiraClient{
+public class JiraClientImpl implements JiraClient {
 
 	@Override
 	public List<BasicProject> getAllJiraProjects()
@@ -77,9 +78,7 @@ public class JiraClientImpl implements JiraClient{
 	}
 
 	@Override
-	public List<Status> getAllJiraStatuses()
-		throws JiraConnectionException {
-
+	public List<Status> getAllJiraStatuses() throws JiraConnectionException {
 		String output = getJiraRestResponse(getJiraURL() + _STATUS_API);
 
 		List<Status> statuses = new ArrayList<Status>();
@@ -90,7 +89,8 @@ public class JiraClientImpl implements JiraClient{
 			for (int i = 0; i < arrayResponse.length() - 1; i++) {
 				statuses.add(toStatus(arrayResponse.getJSONObject(i)));
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			_log.error("Error: " + e.getMessage(), e);
 
 			throw new RuntimeException("Exception " + e.getMessage(), e);
@@ -119,7 +119,7 @@ public class JiraClientImpl implements JiraClient{
 
 		Iterable<Priority> priorities = metaClient.getPriorities().claim();
 
-		if (statusNames == null || statusNames.isEmpty()) {
+		if ((statusNames == null) || statusNames.isEmpty()) {
 			throw new RuntimeException("The statuses can't be empty");
 		}
 
@@ -132,12 +132,11 @@ public class JiraClientImpl implements JiraClient{
 
 		for (String statusName : statusNames) {
 			for (BasicComponent component : components) {
-
 				int total =
 					getIssuesMetricsByProjectStatusComponentPriority(
 						project, statusName, component, null);
 
-				if(_log.isDebugEnabled()) {
+				if (_log.isDebugEnabled()) {
 					_log.debug(
 						"[" + project.getKey() + "]" + "[" +
 							component.getName() + "]" + "[" + statusName +
@@ -149,12 +148,11 @@ public class JiraClientImpl implements JiraClient{
 						project, component, statusName, null, total));
 
 				for (Priority priority : priorities) {
-
 					total =
 						getIssuesMetricsByProjectStatusComponentPriority(
 							project, statusName, component, priority);
 
-					if(_log.isDebugEnabled()) {
+					if (_log.isDebugEnabled()) {
 						_log.debug(
 							"[" + project.getKey() + "]" + "[" +
 								component.getName() + "]" + "[" + statusName +
@@ -224,7 +222,7 @@ public class JiraClientImpl implements JiraClient{
 		sb.append("Fix Priority");
 		sb.append(StringPool.QUOTE);
 
-		if(priority == null) {
+		if (priority == null) {
 			sb.append(" IS EMPTY");
 		}
 		else {
@@ -321,7 +319,7 @@ public class JiraClientImpl implements JiraClient{
 
 	private static final String _STATUS_API = "rest/api/2/status";
 
-	private static Log _log = LogFactoryUtil.getLog(JiraClient.class);
+	private static Log _log = LogFactoryUtil.getLog(JiraClientImpl.class);
 
 	private static JiraRestClient _client;
 

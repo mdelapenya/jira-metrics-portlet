@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -49,8 +49,7 @@ import java.util.List;
  */
 public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 
-	public JiraStatus addJiraStatus(
-			String uri, String name)
+	public JiraStatus addJiraStatus(String uri, String name)
 		throws PortalException, SystemException {
 
 		JiraStatus jiraStatus = jiraStatusPersistence.fetchByUri(uri);
@@ -81,7 +80,7 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 		throws NoSuchJiraStatusException, SystemException {
 
 		return jiraStatusPersistence.findAll(
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS,new JiraStatusComparator());
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, new JiraStatusComparator());
 	}
 
 	public List<JiraStatus> getInstalledJiraStatuses(JiraProject jiraProject)
@@ -123,12 +122,6 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 		return jiraStatuses;
 	}
 
-	public JiraStatus getJiraStatusByUri(String uri)
-		throws NoSuchJiraStatusException, SystemException {
-
-		return jiraStatusPersistence.findByUri(uri);
-	}
-
 	public JiraStatus getJiraStatusByName(String name)
 		throws NoSuchJiraStatusException, SystemException {
 
@@ -139,10 +132,16 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 
 		@Override
 		public int compare(Object o1, Object o2) {
-			JiraStatus jiraStatus1 = (JiraStatus) o1;
-			JiraStatus jiraStatus2 = (JiraStatus) o2;
+			JiraStatus jiraStatus1 = (JiraStatus)o1;
+			JiraStatus jiraStatus2 = (JiraStatus)o2;
 			return jiraStatus1.getName().compareTo(jiraStatus2.getName());
 		}
+	}
+
+	public JiraStatus getJiraStatusByUri(String uri)
+		throws NoSuchJiraStatusException, SystemException {
+
+		return jiraStatusPersistence.findByUri(uri);
 	}
 
 }
