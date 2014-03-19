@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.service.persistence.PortletPreferencesFinderUtil;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
@@ -93,7 +94,7 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 
 		List<PortletPreferences> preferences =
 			PortletPreferencesFinderUtil.findByPortletId(
-				PortletKeys.JIRA_METRICS_PORTLET_ID+"%");
+				PortletKeys.JIRA_METRICS_PORTLET_ID + StringPool.PERCENT);
 
 		if (preferences == null || preferences.isEmpty()) {
 			return new ArrayList<JiraProject>();
