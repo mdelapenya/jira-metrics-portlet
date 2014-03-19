@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.jira.metric.util;
+package com.liferay.jira.metrics.util;
 
 import com.atlassian.jira.rest.client.RestClientException;
 import com.atlassian.jira.rest.client.domain.BasicComponent;
@@ -23,8 +23,6 @@ import com.atlassian.jira.rest.client.domain.Status;
 
 import com.liferay.jira.metrics.client.JiraClient;
 import com.liferay.jira.metrics.client.JiraClientImpl;
-import com.liferay.jira.metrics.util.PortletPropsKeys;
-import com.liferay.jira.metrics.util.PortletPropsUtil;
 
 import java.net.URI;
 

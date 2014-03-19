@@ -12,9 +12,7 @@
  * details.
  */
 
-package com.liferay.jira.metric.util;
-
-import com.liferay.jira.metrics.util.JiraETLUtil;
+package com.liferay.jira.metrics.util;
 
 import java.io.IOException;
 
