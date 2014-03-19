@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -24,11 +24,13 @@ package com.liferay.jira.metrics.model.impl;
  * @author Manuel de la Peña
  */
 public class JiraProjectImpl extends JiraProjectBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a jira project model instance should use the {@link com.liferay.jira.metrics.model.JiraProject} interface instead.
 	 */
 	public JiraProjectImpl() {
 	}
+
 }

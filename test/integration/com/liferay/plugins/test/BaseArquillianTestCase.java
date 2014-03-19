@@ -106,7 +106,6 @@ public abstract class BaseArquillianTestCase {
 		return project;
 	}
 
-
 	protected static void mockJiraSpringConfig(WebArchive webArchive) {
 		Node get = webArchive.get("/WEB-INF/classes/META-INF/jira-spring.xml");
 
@@ -124,10 +123,9 @@ public abstract class BaseArquillianTestCase {
 
 		webArchive.addAsWebResource(
 			jiraSpringFile, "/WEB-INF/classes/META-INF/jira-spring.xml");
-		
-		//webArchive.writeTo(System.out, org.jboss.shrinkwrap.api.formatter.Formatters.VERBOSE);
 	}
 
 	private static TemporaryFolder _temporaryFolder;
 	private static File _temporaryFolderRoot;
+
 }

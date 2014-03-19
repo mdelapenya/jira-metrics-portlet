@@ -20,12 +20,14 @@ import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
+
 import com.liferay.jira.metrics.client.JiraClient;
 import com.liferay.jira.metrics.client.JiraClientImpl;
 import com.liferay.jira.metrics.util.PortletPropsKeys;
 import com.liferay.jira.metrics.util.PortletPropsUtil;
 
 import java.net.URI;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -48,25 +50,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @PrepareForTest({PortletPropsUtil.class})
 @PowerMockIgnore({"javax.net.ssl.*", "javax.security.auth.*"})
 public class JiraUtilTest  extends PowerMockito {
-
-	@Before
-	public void setUp() {
-		if(_jiraClient == null) {
-			_jiraClient = new JiraClientImpl();
-		}
-
-		mockStatic(PortletPropsUtil.class);
-
-		mockPortletKey(PortletPropsKeys.JIRA_USERNAME);
-		mockPortletKey(PortletPropsKeys.JIRA_PASSWORD);
-		mockPortletKey(PortletPropsKeys.JIRA_BASE_QUERY);
-		mockPortletKey(PortletPropsKeys.JIRA_SERVER_URI);
-	}
-
-	@After
-	public void tearDown() {
-		verifyStatic();
-	}
 
 	@Test
 	public void getAllJiraProjects() throws Exception {
@@ -93,7 +76,8 @@ public class JiraUtilTest  extends PowerMockito {
 
 		BasicComponent basicComponent = componentsIterator.next();
 
-		Component component = _jiraClient.getComponent(basicComponent.getSelf());
+		Component component = _jiraClient.getComponent(
+			basicComponent.getSelf());
 
 		Assert.assertNotNull(component);
 		Assert.assertNotNull(component.getSelf());
@@ -112,8 +96,7 @@ public class JiraUtilTest  extends PowerMockito {
 		}
 		catch (RestClientException rce) {
 			Assert.assertEquals(
-				"The component with id -9 does not exist.",
-				rce.getMessage());
+				"The component with id -9 does not exist.", rce.getMessage());
 		}
 	}
 
@@ -165,6 +148,25 @@ public class JiraUtilTest  extends PowerMockito {
 		}
 	}
 
+	@Before
+	public void setUp() {
+		if (_jiraClient == null) {
+			_jiraClient = new JiraClientImpl();
+		}
+
+		mockStatic(PortletPropsUtil.class);
+
+		mockPortletKey(PortletPropsKeys.JIRA_USERNAME);
+		mockPortletKey(PortletPropsKeys.JIRA_PASSWORD);
+		mockPortletKey(PortletPropsKeys.JIRA_BASE_QUERY);
+		mockPortletKey(PortletPropsKeys.JIRA_SERVER_URI);
+	}
+
+	@After
+	public void tearDown() {
+		verifyStatic();
+	}
+
 	protected void mockPortletKey(String key) {
 		PowerMockito.when(
 			PortletPropsUtil.get(key)
@@ -175,11 +177,11 @@ public class JiraUtilTest  extends PowerMockito {
 
 	private static final String _PROJECT_KEY = "LPS";
 
+	private static final String _STATUS_NAME = "3";
+
 	private static final String _STATUS_URI =
 		TestPropsUtil.getValue(PortletPropsKeys.JIRA_SERVER_URI) +
 			TestPropsUtil.getValue(PortletPropsKeys.JIRA_REST_API_SUFFIX);
-
-	private static final String _STATUS_NAME = "3";
 
 	private static JiraClient _jiraClient;
 
