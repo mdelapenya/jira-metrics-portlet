@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.service.persistence.PortletPreferencesFinderUtil;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
@@ -89,11 +90,13 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 
 		List<PortletPreferences> preferences =
 			PortletPreferencesFinderUtil.findByPortletId(
-				PortletKeys.JIRA_METRICS_PORTLET_ID + "%");
+				PortletKeys.JIRA_METRICS_PORTLET_ID + StringPool.PERCENT);
 
 		if ((preferences == null) || preferences.isEmpty()) {
 			return null;
 		}
+
+		String projectKey = jiraProject.getKey();
 
 		List<JiraStatus> jiraStatuses = new ArrayList<JiraStatus>();
 
@@ -103,12 +106,12 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 			javax.portlet.PortletPreferences jxPortletPreferences =
 				PortletPreferencesFactoryUtil.fromDefaultXML(xmlPreference);
 
-			String jiraProjectKey = jxPortletPreferences.getValue(
-				PortletKeys.JIRA_PROJECT_PREFERENCE, null);
+			String jiraProjectKeyPreference = jxPortletPreferences.getValue(
+				PortletKeys.PREFERENCE_JIRA_PROJECT_KEY, null);
 
-			if (jiraProject.getKey().equals(jiraProjectKey)) {
+			if (projectKey.equals(jiraProjectKeyPreference)) {
 				String[] jiraStatusNames = jxPortletPreferences.getValues(
-					PortletKeys.JIRA_STATUSES_PREFERENCE, null);
+					PortletKeys.PREFERENCE_JIRA_STATUSES, null);
 
 				for (String jiraStatusName : jiraStatusNames) {
 					JiraStatus jiraStatus =
