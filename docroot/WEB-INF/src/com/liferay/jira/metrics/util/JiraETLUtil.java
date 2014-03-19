@@ -85,6 +85,10 @@ public class JiraETLUtil {
 	}
 
 	public void setJiraClient(JiraClient jiraClient) {
+		if(_log.isDebugEnabled()) {
+			_log.debug("Setting jiraClient: " + jiraClient);
+		}
+
 		this.jiraClient = jiraClient;
 	}
 	
