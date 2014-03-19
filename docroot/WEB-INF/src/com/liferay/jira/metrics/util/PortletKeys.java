@@ -28,6 +28,6 @@ public class PortletKeys extends com.liferay.portal.util.PortletKeys {
 
 	public static final String PREFERENCE_JIRA_STATUSES = "jiraStatuses";
 
-	public static final String PREFERENCE_NAME = "name";
+	public static final String PREFERENCE_TEAM_NAME = "teamName";
 
 }

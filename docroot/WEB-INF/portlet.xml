@@ -25,7 +25,7 @@
 		</portlet-info>
 		<portlet-preferences>
 			<preference>
-				<name>name</name>
+				<name>teamName</name>
 				<value>UI</value>
 			</preference>
 			<preference>
