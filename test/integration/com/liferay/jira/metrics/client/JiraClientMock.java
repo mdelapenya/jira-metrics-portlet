@@ -11,11 +11,13 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
+import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 
@@ -32,6 +34,14 @@ import java.util.List;
  * @author Cristina González
  */
 public class JiraClientMock implements JiraClient {
+
+	public static List<Priority> getMockPriorities() {
+		List<Priority> priorities = new ArrayList<Priority>();
+		priorities.add(_priority1);
+		priorities.add(_priority2);
+		priorities.add(null);
+		return priorities;
+	}
 
 	public static Project getMockProject() {
 		return _project;
@@ -87,7 +97,28 @@ public class JiraClientMock implements JiraClient {
 			String projectKey, List<String> statuses)
 		throws JiraConnectionException {
 
-		return null;
+		if (_project.getKey().equals(projectKey)) {
+			return null;
+		}
+
+		List<IssuesMetric> issuesMetrics = new ArrayList<IssuesMetric>();
+
+		int count = 1;
+
+		for (BasicComponent component : _project.getComponents()) {
+			for (Status status : getMockStatuses()) {
+				for (Priority priority : getMockPriorities()) {
+					issuesMetrics.add(
+						new IssuesMetric(
+							_project, component, status.getName(), priority,
+							count));
+
+					count++;
+				}
+			}
+		}
+
+		return issuesMetrics;
 	}
 
 	@Override
@@ -117,6 +148,8 @@ public class JiraClientMock implements JiraClient {
 	private static BasicProject _basicProject;
 	private static Component _component1;
 	private static Component _component2;
+	private static Priority _priority1;
+	private static Priority _priority2;
 	private static Project _project;
 	private static Status _status1;
 	private static Status _status2;
@@ -153,7 +186,14 @@ public class JiraClientMock implements JiraClient {
 			_status1 = new Status(statusURI1, "Status1", "Status 1", null);
 			_status2 = new Status(statusURI2, "Status2", "Status 2", null);
 
-		} catch (URISyntaxException e) {
+			URI priorityURI1 = new URI(JIRA_TEST_URI + "Priority/1");
+			URI priorityURI2 = new URI(JIRA_TEST_URI + "Priority/2");
+
+			_priority1 = new Priority(priorityURI1, 1L, "1", null, null, null);
+			_priority2 = new Priority(priorityURI2, 2L, "2", null, null, null);
+
+		}
+		catch (URISyntaxException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
 	}
