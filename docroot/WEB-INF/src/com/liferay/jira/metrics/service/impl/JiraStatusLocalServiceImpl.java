@@ -93,7 +93,7 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 				PortletKeys.JIRA_METRICS_PORTLET_ID + StringPool.PERCENT);
 
 		if ((preferences == null) || preferences.isEmpty()) {
-			return null;
+			return new ArrayList<JiraStatus>();
 		}
 
 		String projectKey = jiraProject.getKey();

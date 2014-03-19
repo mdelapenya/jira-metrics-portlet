@@ -96,7 +96,7 @@ public class JiraProjectLocalServiceImpl extends JiraProjectLocalServiceBaseImpl
 				PortletKeys.JIRA_METRICS_PORTLET_ID);
 
 		if (preferences == null || preferences.isEmpty()) {
-			return null;
+			return new ArrayList<JiraProject>();
 		}
 
 		List<JiraProject> jiraProjects = new ArrayList<JiraProject>();
