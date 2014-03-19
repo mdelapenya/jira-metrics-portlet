@@ -61,18 +61,7 @@ public class JiraETLUtil {
 
 			_loadProjectsFromJira();
 			_loadStatusesFromJira();
-
-			List<JiraProject> installedJiraProjects =
-				JiraProjectLocalServiceUtil.getInstalledJiraProjects();
-
-			for (JiraProject installedJiraProject : installedJiraProjects) {
-				List<JiraStatus> installedJiraStatuses =
-					JiraStatusLocalServiceUtil.getInstalledJiraStatuses(
-						installedJiraProject);
-
-				_loadIssuesMetricFromJira(
-					installedJiraProject, installedJiraStatuses);
-			}
+			_loadIssueMetricsFromJira();
 
 			stopWatch.stop();
 
@@ -143,7 +132,23 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static void _loadIssuesMetricFromJira(
+	private static void _loadIssueMetricsFromJira()
+		throws PortalException, SystemException, JiraConnectionException {
+
+		List<JiraProject> installedJiraProjects =
+			JiraProjectLocalServiceUtil.getInstalledJiraProjects();
+
+		for (JiraProject installedJiraProject : installedJiraProjects) {
+			List<JiraStatus> installedJiraStatuses =
+				JiraStatusLocalServiceUtil.getInstalledJiraStatuses(
+					installedJiraProject);
+
+			_loadIssueMetricsFromJiraByProjectAndStatuses(
+				installedJiraProject, installedJiraStatuses);
+		}
+	}
+
+	private static void _loadIssueMetricsFromJiraByProjectAndStatuses(
 			JiraProject jiraProject, List<JiraStatus> jiraStatuses)
 		throws JiraConnectionException, PortalException, SystemException {
 
