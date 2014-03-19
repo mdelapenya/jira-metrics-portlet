@@ -98,7 +98,7 @@ public class JiraClientMock implements JiraClient {
 		throws JiraConnectionException {
 
 		if (_project.getKey().equals(projectKey)) {
-			return null;
+			return new ArrayList<IssuesMetric>();
 		}
 
 		List<IssuesMetric> issuesMetrics = new ArrayList<IssuesMetric>();
