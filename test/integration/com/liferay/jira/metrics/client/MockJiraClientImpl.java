@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * @author Cristina González
  */
-public class JiraClientMock implements JiraClient {
+public class MockJiraClientImpl implements JiraClient {
 
 	public static List<Priority> getMockPriorities() {
 		List<Priority> priorities = new ArrayList<Priority>();

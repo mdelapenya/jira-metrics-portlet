@@ -15,7 +15,7 @@
 package com.liferay.plugins.test;
 
 import com.liferay.jira.metrics.client.JiraClientImpl;
-import com.liferay.jira.metrics.client.JiraClientMock;
+import com.liferay.jira.metrics.client.MockJiraClientImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -115,7 +115,7 @@ public abstract class BaseArquillianTestCase {
 
 		webArchive.deleteClass(JiraClientImpl.class);
 
-		webArchive.addClass(JiraClientMock.class);
+		webArchive.addClass(MockJiraClientImpl.class);
 
 		File jiraSpringFile = new File(
 			"./test/integration/" +

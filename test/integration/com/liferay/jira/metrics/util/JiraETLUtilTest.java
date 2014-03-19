@@ -19,7 +19,7 @@ import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 
-import com.liferay.jira.metrics.client.JiraClientMock;
+import com.liferay.jira.metrics.client.MockJiraClientImpl;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.model.JiraProject;
@@ -89,7 +89,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 	@After
 	public void tearDown() throws Exception {
 
-		Project project = JiraClientMock.getMockProject();
+		Project project = MockJiraClientImpl.getMockProject();
 
 		for (BasicComponent component : project.getComponents()) {
 			URI uriComponent = component.getSelf();
@@ -107,7 +107,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 
 		JiraProjectLocalServiceUtil.deleteJiraProject(jiraProject);
 
-		List<Status> statuses = JiraClientMock.getMockStatuses();
+		List<Status> statuses = MockJiraClientImpl.getMockStatuses();
 
 		for (Status status : statuses) {
 			URI uriStatus = status.getSelf();
@@ -127,7 +127,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 	public void testLoad() throws Exception {
 		JiraETLUtil.load();
 
-		Project project = JiraClientMock.getMockProject();
+		Project project = MockJiraClientImpl.getMockProject();
 
 		JiraProject jiraProject =
 			JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
@@ -151,7 +151,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 				jiraComponent.getUri(), uriComponent.toString());
 		}
 
-		List<Status> statuses = JiraClientMock.getMockStatuses();
+		List<Status> statuses = MockJiraClientImpl.getMockStatuses();
 
 		for (Status status : statuses) {
 			URI uriStatus = status.getSelf();
@@ -167,7 +167,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 			Assert.assertEquals(jiraStatus.getUri(), uriStatus.toString());
 		}
 
-		List<Priority> priorities = JiraClientMock.getMockPriorities();
+		List<Priority> priorities = MockJiraClientImpl.getMockPriorities();
 
 		int count = 0;
 
