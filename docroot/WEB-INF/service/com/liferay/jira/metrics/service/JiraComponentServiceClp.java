@@ -17,7 +17,7 @@ package com.liferay.jira.metrics.service;
 import com.liferay.portal.service.InvokableService;
 
 /**
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @generated
  */
 public class JiraComponentServiceClp implements JiraComponentService {

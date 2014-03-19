@@ -11,6 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.util;
 
 /**
@@ -18,6 +19,16 @@ package com.liferay.jira.metrics.util;
  */
 public class PortletKeys extends com.liferay.portal.util.PortletKeys {
 
+	public static final String JIRA_COMPONENTS_PREFERENCE = "jiraComponents";
+
 	public static final String JIRA_METRICS_PORTLET_ID = "jirametricsportlet";
+
+	public static final String JIRA_PRIORITIES_PREFERENCE = "jiraPriorities";
+
+	public static final String JIRA_PROJECT_PREFERENCE = "jiraProject";
+
+	public static final String JIRA_STATUSES_PREFERENCE = "jiraStatuses";
+
+	public static final String NAME_PREFERENCE = "name";
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,21 +16,21 @@ package com.liferay.jira.metrics.exception;
 
 public class JiraConnectionException extends Exception {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6422058480635681022L;
-
 	public JiraConnectionException(String message) {
 		super(message);
+	}
+
+	public JiraConnectionException(String message, Throwable t) {
+		super(message, t);
 	}
 
 	public JiraConnectionException(Throwable t) {
 		super(t);
 	}
 
-	public JiraConnectionException(String message, Throwable t) {
-		super(message, t);
-	}
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -6422058480635681022L;
 
 }

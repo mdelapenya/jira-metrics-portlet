@@ -11,7 +11,8 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.jira.metrics.util;
+
+package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.ComponentRestClient;
 import com.atlassian.jira.rest.client.JiraRestClient;
@@ -32,6 +33,8 @@ import com.atlassian.util.concurrent.Promise;
 import com.google.common.collect.Lists;
 
 import com.liferay.jira.metrics.exception.JiraConnectionException;
+import com.liferay.jira.metrics.util.IssuesMetric;
+import com.liferay.jira.metrics.util.PortletPropsValues;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -58,9 +61,10 @@ import org.codehaus.jettison.json.JSONObject;
  * @author Cristina González
  * @author Manuel de la Peña
  */
-public class JiraUtil {
+public class JiraClientImpl implements JiraClient {
 
-	public static List<BasicProject> getAllJiraProjects()
+	@Override
+	public List<BasicProject> getAllJiraProjects()
 		throws JiraConnectionException {
 
 		ProjectRestClient projectClient = _getClient().getProjectClient();
@@ -73,9 +77,8 @@ public class JiraUtil {
 		return Lists.newArrayList(basicProjects);
 	}
 
-	public static List<Status> getAllJiraStatuses()
-		throws JiraConnectionException {
-
+	@Override
+	public List<Status> getAllJiraStatuses() throws JiraConnectionException {
 		String output = getJiraRestResponse(getJiraURL() + _STATUS_API);
 
 		List<Status> statuses = new ArrayList<Status>();
@@ -86,7 +89,8 @@ public class JiraUtil {
 			for (int i = 0; i < arrayResponse.length() - 1; i++) {
 				statuses.add(toStatus(arrayResponse.getJSONObject(i)));
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			_log.error("Error: " + e.getMessage(), e);
 
 			throw new RuntimeException("Exception " + e.getMessage(), e);
@@ -95,7 +99,8 @@ public class JiraUtil {
 		return statuses;
 	}
 
-	public static Component getComponent(URI componentURI)
+	@Override
+	public Component getComponent(URI componentURI)
 		throws JiraConnectionException {
 
 		ComponentRestClient componentClient = _getClient().getComponentClient();
@@ -105,33 +110,58 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
-	public static List<IssuesMetric> getIssuesMetricsByProjectStatus(
-			Project project, List<Status> statuses)
+	@Override
+	public List<IssuesMetric> getIssuesMetricsByProjectStatus(
+			String projectKey, List<String> statusNames)
 		throws JiraConnectionException {
 
 		MetadataRestClient metaClient = _getClient().getMetadataClient();
 
 		Iterable<Priority> priorities = metaClient.getPriorities().claim();
 
-		if (statuses == null || statuses.isEmpty()) {
+		if ((statusNames == null) || statusNames.isEmpty()) {
 			throw new RuntimeException("The statuses can't be empty");
 		}
 
 		List<IssuesMetric> results = new ArrayList<IssuesMetric>();
 
+		Project project = getProject(projectKey);
+
 		List<BasicComponent> components = Lists.newArrayList(
 			project.getComponents());
 
-		for (Status status : statuses) {
+		for (String statusName : statusNames) {
 			for (BasicComponent component : components) {
+				int total =
+					getIssuesMetricsByProjectStatusComponentPriority(
+						project, statusName, component, null);
+
+				if (_log.isDebugEnabled()) {
+					_log.debug(
+						"[" + project.getKey() + "]" + "[" +
+							component.getName() + "]" + "[" + statusName +
+							"]" + "[EMPTY] = " + total);
+				}
+
+				results.add(
+					new IssuesMetric(
+						project, component, statusName, null, total));
+
 				for (Priority priority : priorities) {
-					int total =
+					total =
 						getIssuesMetricsByProjectStatusComponentPriority(
-							project, status, component, priority);
+							project, statusName, component, priority);
+
+					if (_log.isDebugEnabled()) {
+						_log.debug(
+							"[" + project.getKey() + "]" + "[" +
+								component.getName() + "]" + "[" + statusName +
+									"]" + "["+priority.getId()+"] = " + total);
+					}
 
 					results.add(
 						new IssuesMetric(
-							project, component, status, priority, total));
+							project, component, statusName, priority, total));
 				}
 			}
 		}
@@ -139,7 +169,8 @@ public class JiraUtil {
 		return results;
 	}
 
-	public static Project getProject(String projectKey)
+	@Override
+	public Project getProject(String projectKey)
 		throws JiraConnectionException {
 
 		ProjectRestClient projectClient = _getClient().getProjectClient();
@@ -149,7 +180,8 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
-	public static Status getStatus(URI uri) throws JiraConnectionException {
+	@Override
+	public Status getStatus(URI uri) throws JiraConnectionException {
 		MetadataRestClient metadataClient = _getClient().getMetadataClient();
 
 		Promise<Status> promise = metadataClient.getStatus(uri);
@@ -168,7 +200,7 @@ public class JiraUtil {
 	}
 
 	protected static int getIssuesMetricsByProjectStatusComponentPriority(
-			Project project, Status status, BasicComponent component,
+			Project project, String statusName, BasicComponent component,
 			Priority priority)
 		throws JiraConnectionException {
 
@@ -179,7 +211,7 @@ public class JiraUtil {
 		sb.append(project.getKey());
 		sb.append(" AND status = ");
 		sb.append(StringPool.QUOTE);
-		sb.append(status.getName());
+		sb.append(statusName);
 		sb.append(StringPool.QUOTE);
 		sb.append(" AND component = ");
 		sb.append(StringPool.QUOTE);
@@ -189,10 +221,16 @@ public class JiraUtil {
 		sb.append(StringPool.QUOTE);
 		sb.append("Fix Priority");
 		sb.append(StringPool.QUOTE);
-		sb.append(" = ");
-		sb.append(StringPool.QUOTE);
-		sb.append(priority.getId());
-		sb.append(StringPool.QUOTE);
+
+		if (priority == null) {
+			sb.append(" IS EMPTY");
+		}
+		else {
+			sb.append(" = ");
+			sb.append(StringPool.QUOTE);
+			sb.append(priority.getId());
+			sb.append(StringPool.QUOTE);
+		}
 
 		SearchRestClient searchClient = _getClient().getSearchClient();
 
@@ -281,7 +319,7 @@ public class JiraUtil {
 
 	private static final String _STATUS_API = "rest/api/2/status";
 
-	private static Log _log = LogFactoryUtil.getLog(JiraUtil.class);
+	private static Log _log = LogFactoryUtil.getLog(JiraClientImpl.class);
 
 	private static JiraRestClient _client;
 

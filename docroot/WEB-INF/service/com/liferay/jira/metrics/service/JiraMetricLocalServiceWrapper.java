@@ -19,7 +19,7 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link JiraMetricLocalService}.
  *
- * @author Manuel de la Peña
+ * @author Manuel de la Pe√±a
  * @see JiraMetricLocalService
  * @generated
  */
