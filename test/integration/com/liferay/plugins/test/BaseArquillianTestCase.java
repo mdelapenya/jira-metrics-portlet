@@ -107,22 +107,23 @@ public abstract class BaseArquillianTestCase {
 	}
 
 	protected static void mockJiraSpringConfig(WebArchive webArchive) {
-		Node get = webArchive.get("/WEB-INF/classes/META-INF/jira-spring.xml");
+		Node jiraSpringFile = webArchive.get(
+			"/WEB-INF/classes/META-INF/jira-spring.xml");
 
 		webArchive.addClass(BaseArquillianTestCase.class);
 
-		webArchive.delete(get.getPath());
+		webArchive.delete(jiraSpringFile.getPath());
 
 		webArchive.deleteClass(JiraClientImpl.class);
 
 		webArchive.addClass(MockJiraClientImpl.class);
 
-		File jiraSpringFile = new File(
+		File jiraSpringMockFile = new File(
 			"./test/integration/" +
 				"META-INF/jira-spring.xml");
 
 		webArchive.addAsWebResource(
-			jiraSpringFile, "/WEB-INF/classes/META-INF/jira-spring.xml");
+			jiraSpringMockFile, "/WEB-INF/classes/META-INF/jira-spring.xml");
 	}
 
 	private static TemporaryFolder _temporaryFolder;
