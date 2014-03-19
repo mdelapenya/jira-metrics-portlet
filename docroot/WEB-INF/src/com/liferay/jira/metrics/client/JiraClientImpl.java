@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-package com.liferay.jira.metrics.util;
+package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.ComponentRestClient;
 import com.atlassian.jira.rest.client.JiraRestClient;
@@ -32,6 +32,8 @@ import com.atlassian.util.concurrent.Promise;
 import com.google.common.collect.Lists;
 
 import com.liferay.jira.metrics.exception.JiraConnectionException;
+import com.liferay.jira.metrics.util.IssuesMetric;
+import com.liferay.jira.metrics.util.PortletPropsValues;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -58,9 +60,10 @@ import org.codehaus.jettison.json.JSONObject;
  * @author Cristina González
  * @author Manuel de la Peña
  */
-public class JiraUtil {
+public class JiraClientImpl implements JiraClient{
 
-	public static List<BasicProject> getAllJiraProjects()
+	@Override
+	public List<BasicProject> getAllJiraProjects()
 		throws JiraConnectionException {
 
 		ProjectRestClient projectClient = _getClient().getProjectClient();
@@ -73,7 +76,8 @@ public class JiraUtil {
 		return Lists.newArrayList(basicProjects);
 	}
 
-	public static List<Status> getAllJiraStatuses()
+	@Override
+	public List<Status> getAllJiraStatuses()
 		throws JiraConnectionException {
 
 		String output = getJiraRestResponse(getJiraURL() + _STATUS_API);
@@ -95,7 +99,8 @@ public class JiraUtil {
 		return statuses;
 	}
 
-	public static Component getComponent(URI componentURI)
+	@Override
+	public Component getComponent(URI componentURI)
 		throws JiraConnectionException {
 
 		ComponentRestClient componentClient = _getClient().getComponentClient();
@@ -105,7 +110,8 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
-	public static List<IssuesMetric> getIssuesMetricsByProjectStatus(
+	@Override
+	public List<IssuesMetric> getIssuesMetricsByProjectStatus(
 			String projectKey, List<String> statusNames)
 		throws JiraConnectionException {
 
@@ -165,7 +171,8 @@ public class JiraUtil {
 		return results;
 	}
 
-	public static Project getProject(String projectKey)
+	@Override
+	public Project getProject(String projectKey)
 		throws JiraConnectionException {
 
 		ProjectRestClient projectClient = _getClient().getProjectClient();
@@ -175,7 +182,8 @@ public class JiraUtil {
 		return promise.claim();
 	}
 
-	public static Status getStatus(URI uri) throws JiraConnectionException {
+	@Override
+	public Status getStatus(URI uri) throws JiraConnectionException {
 		MetadataRestClient metadataClient = _getClient().getMetadataClient();
 
 		Promise<Status> promise = metadataClient.getStatus(uri);
@@ -313,7 +321,7 @@ public class JiraUtil {
 
 	private static final String _STATUS_API = "rest/api/2/status";
 
-	private static Log _log = LogFactoryUtil.getLog(JiraUtil.class);
+	private static Log _log = LogFactoryUtil.getLog(JiraClient.class);
 
 	private static JiraRestClient _client;
 

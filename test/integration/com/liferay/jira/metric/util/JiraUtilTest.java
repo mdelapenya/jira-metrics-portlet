@@ -20,7 +20,8 @@ import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
-import com.liferay.jira.metrics.util.JiraUtil;
+import com.liferay.jira.metrics.client.JiraClient;
+import com.liferay.jira.metrics.client.JiraClientImpl;
 import com.liferay.jira.metrics.util.PortletPropsKeys;
 import com.liferay.jira.metrics.util.PortletPropsUtil;
 
@@ -50,6 +51,10 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Before
 	public void setUp() {
+		if(_jiraClient == null) {
+			_jiraClient = new JiraClientImpl();
+		}
+
 		mockStatic(PortletPropsUtil.class);
 
 		mockPortletKey(PortletPropsKeys.JIRA_USERNAME);
@@ -65,7 +70,7 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getAllJiraProjects() throws Exception {
-		List<BasicProject> projects = JiraUtil.getAllJiraProjects();
+		List<BasicProject> projects = _jiraClient.getAllJiraProjects();
 
 		Assert.assertNotNull(projects);
 		Assert.assertTrue(projects.size() > 0);
@@ -73,7 +78,7 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getAllJiraStatuses() throws Exception {
-		List<Status> jiraStatuses = JiraUtil.getAllJiraStatuses();
+		List<Status> jiraStatuses = _jiraClient.getAllJiraStatuses();
 
 		Assert.assertNotNull(jiraStatuses);
 		Assert.assertTrue(jiraStatuses.size() > 0);
@@ -81,14 +86,14 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getJiraComponent() throws Exception {
-		Project project = JiraUtil.getProject(_PROJECT_KEY);
+		Project project = _jiraClient.getProject(_PROJECT_KEY);
 
 		Iterable<BasicComponent> components = project.getComponents();
 		Iterator<BasicComponent> componentsIterator = components.iterator();
 
 		BasicComponent basicComponent = componentsIterator.next();
 
-		Component component = JiraUtil.getComponent(basicComponent.getSelf());
+		Component component = _jiraClient.getComponent(basicComponent.getSelf());
 
 		Assert.assertNotNull(component);
 		Assert.assertNotNull(component.getSelf());
@@ -101,7 +106,7 @@ public class JiraUtilTest  extends PowerMockito {
 	@Test
 	public void getJiraComponentNotFound() throws Exception {
 		try {
-			JiraUtil.getComponent(
+			_jiraClient.getComponent(
 				new URI(
 					"https://issues.liferay.com/rest/api/latest/component/-9"));
 		}
@@ -114,7 +119,7 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getJiraProject() throws Exception {
-		Project project = JiraUtil.getProject(_PROJECT_KEY);
+		Project project = _jiraClient.getProject(_PROJECT_KEY);
 
 		Assert.assertNotNull(project);
 		Assert.assertEquals(_PROJECT_KEY, project.getKey());
@@ -123,7 +128,7 @@ public class JiraUtilTest  extends PowerMockito {
 	@Test
 	public void getJiraProjectNotFound() throws Exception {
 		try {
-			JiraUtil.getProject("asdfghj");
+			_jiraClient.getProject("asdfghj");
 		}
 		catch (RestClientException rce) {
 			Assert.assertEquals(
@@ -134,11 +139,11 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getJiraStatus() throws Exception {
-		List<Status> statuses = JiraUtil.getAllJiraStatuses();
+		List<Status> statuses = _jiraClient.getAllJiraStatuses();
 
 		Status status = statuses.get(0);
 
-		Status currentStatus = JiraUtil.getStatus(status.getSelf());
+		Status currentStatus = _jiraClient.getStatus(status.getSelf());
 
 		Assert.assertNotNull(currentStatus);
 		Assert.assertEquals(status.getName(), currentStatus.getName());
@@ -151,7 +156,7 @@ public class JiraUtilTest  extends PowerMockito {
 		String statusId = _STATUS_NAME + "NotFound";
 
 		try {
-			JiraUtil.getStatus(new URI(_STATUS_URI + statusId));
+			_jiraClient.getStatus(new URI(_STATUS_URI + statusId));
 		}
 		catch (RestClientException rce) {
 			Assert.assertEquals(
@@ -175,5 +180,7 @@ public class JiraUtilTest  extends PowerMockito {
 			TestPropsUtil.getValue(PortletPropsKeys.JIRA_REST_API_SUFFIX);
 
 	private static final String _STATUS_NAME = "3";
+
+	private static JiraClient _jiraClient;
 
 }
