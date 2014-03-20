@@ -31,6 +31,7 @@ import java.util.List;
 
 /**
  * @author Cristina González
+ * @author Manuel de la Peña
  */
 public class MockJiraClientImpl implements JiraClient {
 
