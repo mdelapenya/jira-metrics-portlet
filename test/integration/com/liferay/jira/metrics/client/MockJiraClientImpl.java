@@ -14,6 +14,7 @@
 
 package com.liferay.jira.metrics.client;
 
+import com.atlassian.jira.rest.client.RestClientException;
 import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
@@ -28,6 +29,8 @@ import java.net.URI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Cristina González
@@ -56,7 +59,7 @@ public class MockJiraClientImpl implements JiraClient {
 		throws JiraConnectionException {
 
 		if (componentURI == null) {
-			throw new JiraConnectionException("Component URI cannot be null.");
+			throw new NullPointerException();
 		}
 
 		for (BasicComponent mockComponent : _mockProject.getComponents()) {
@@ -67,7 +70,14 @@ public class MockJiraClientImpl implements JiraClient {
 			}
 		}
 
-		throw new JiraConnectionException("Component URI has not been found.");
+		Matcher matcher = _LAST_URL_FIELD.matcher(componentURI.toString());
+
+		matcher.find();
+
+		String componentId = matcher.group(1);
+
+		throw new RestClientException("The component with id " + componentId +
+			" does not exist.", new Throwable());
 	}
 
 	@Override
@@ -106,15 +116,16 @@ public class MockJiraClientImpl implements JiraClient {
 		throws JiraConnectionException {
 
 		if (projectKey == null) {
-			throw new JiraConnectionException("Project key cannot be null.");
+			throw new NullPointerException();
 		}
 
 		if (projectKey.equals(_mockProject.getKey())) {
 			return _mockProject;
 		}
 
-		throw new JiraConnectionException(
-			"Project with key " + projectKey + " has not been found.");
+		throw new RestClientException(
+				"No project could be found with key '" + projectKey +
+					"'.", new Throwable());
 	}
 
 	@Override
@@ -131,11 +142,21 @@ public class MockJiraClientImpl implements JiraClient {
 			}
 		}
 
-		throw new JiraConnectionException("Status URI has not been found.");
+		Matcher matcher = _LAST_URL_FIELD.matcher(statusUri.toString());
+
+		matcher.find();
+
+		String componentId = matcher.group(1);
+
+		throw new RestClientException("The status with id '" + componentId +
+			"' does not exist", new Throwable());
 	}
 
 	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
 
 	private static Project _mockProject = _mockJiraStorage.getMockProject();
+
+	private static final Pattern _LAST_URL_FIELD = Pattern.compile(".*/(.*)");
+
 
 }
