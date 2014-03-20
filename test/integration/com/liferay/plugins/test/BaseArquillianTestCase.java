@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.liferay.jira.metrics.client.MockJiraStorage;
+import com.liferay.jira.metrics.util.PortletPreferencesTestUtil;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 
@@ -120,6 +121,8 @@ public abstract class BaseArquillianTestCase {
 		webArchive.addClass(MockJiraClientImpl.class);
 
 		webArchive.addClass(MockJiraStorage.class);
+
+		webArchive.addClass(PortletPreferencesTestUtil.class);
 
 		File jiraSpringMockFile = new File(
 			"./test/integration/" +
