@@ -20,6 +20,7 @@ import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 
 import com.liferay.jira.metrics.client.MockJiraClientImpl;
+import com.liferay.jira.metrics.client.MockJiraStorage;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.model.JiraProject;
@@ -89,7 +90,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 	@After
 	public void tearDown() throws Exception {
 
-		Project project = MockJiraClientImpl.getMockProject();
+		Project project = _mockJiraStorage.getMockProject();
 
 		for (BasicComponent component : project.getComponents()) {
 			URI uriComponent = component.getSelf();
@@ -107,7 +108,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 
 		JiraProjectLocalServiceUtil.deleteJiraProject(jiraProject);
 
-		List<Status> statuses = MockJiraClientImpl.getMockStatuses();
+		List<Status> statuses = _mockJiraStorage.getMockStatuses();
 
 		for (Status status : statuses) {
 			URI uriStatus = status.getSelf();
@@ -127,7 +128,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 	public void testLoad() throws Exception {
 		JiraETLUtil.load();
 
-		Project project = MockJiraClientImpl.getMockProject();
+		Project project = _mockJiraStorage.getMockProject();
 
 		JiraProject jiraProject =
 			JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
@@ -151,7 +152,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 				jiraComponent.getUri(), uriComponent.toString());
 		}
 
-		List<Status> statuses = MockJiraClientImpl.getMockStatuses();
+		List<Status> statuses = _mockJiraStorage.getMockStatuses();
 
 		for (Status status : statuses) {
 			URI uriStatus = status.getSelf();
@@ -167,7 +168,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 			Assert.assertEquals(jiraStatus.getUri(), uriStatus.toString());
 		}
 
-		List<Priority> priorities = MockJiraClientImpl.getMockPriorities();
+		List<Priority> priorities = _mockJiraStorage.getMockPriorities();
 
 		int count = 0;
 
@@ -207,5 +208,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 			}
 		}
 	}
+
+	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
 
 }
