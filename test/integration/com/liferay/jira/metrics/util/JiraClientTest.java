@@ -148,10 +148,6 @@ public class JiraClientTest  extends PowerMockito {
 
 	@Before
 	public void setUp() {
-		if (_jiraClient == null) {
-			_jiraClient = new JiraClientImpl();
-		}
-
 		mockStatic(PortletPropsUtil.class);
 
 		mockPortletKey(PortletPropsKeys.JIRA_USERNAME);
@@ -181,6 +177,6 @@ public class JiraClientTest  extends PowerMockito {
 		TestPropsUtil.getValue(PortletPropsKeys.JIRA_SERVER_URI) +
 			TestPropsUtil.getValue(PortletPropsKeys.JIRA_REST_API_SUFFIX);
 
-	private static JiraClient _jiraClient;
+	private static JiraClient _jiraClient = new JiraClientImpl();;
 
 }
