@@ -48,7 +48,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({PortletPropsUtil.class})
 @PowerMockIgnore({"javax.net.ssl.*", "javax.security.auth.*"})
-public class JiraClientTest  extends PowerMockito {
+public class JiraClientImplTest  extends PowerMockito {
 
 	@Test
 	public void getAllJiraProjects() throws Exception {
