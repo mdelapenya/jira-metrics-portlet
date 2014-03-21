@@ -49,4 +49,8 @@ public interface JiraClient {
 
 	public Status getStatus(URI uri) throws JiraConnectionException;
 
+	public java.lang.String getBeanIdentifier();
+
+	public void setBeanIdentifier(java.lang.String beanIdentifier);
+
 }
