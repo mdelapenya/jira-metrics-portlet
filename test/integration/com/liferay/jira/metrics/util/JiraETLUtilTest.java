@@ -19,7 +19,8 @@ import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 
-import com.liferay.jira.metrics.client.MockJiraClientImpl;
+import com.google.common.collect.Lists;
+import com.liferay.jira.metrics.client.MockJiraStorage;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.model.JiraProject;
@@ -29,7 +30,7 @@ import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
 import com.liferay.plugins.test.BaseArquillianTestCase;
-import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.net.URI;
 
@@ -52,44 +53,72 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 
 	@Before
 	public void setUp() throws Exception {
+		try {
+			PortletPreferencesTestUtil.deletePortletPreferences(_PORTLET_ID);
+		}
+		catch (Exception e) {
+		}
 
-		String prefs =
-			"\t\t<portlet-preferences>\n" +
-			"\t\t\t<preference>\n" +
-			"\t\t\t\t<name>jiraComponents</name>\n" +
-			"\t\t\t\t<value>Component 1</value>\n" +
-			"\t\t\t\t<value>Component 2</value>\n" +
-			"\t\t\t</preference>\n" +
-			"\t\t\t<preference>\n" +
-			"\t\t\t\t<name>jiraPriorities</name>\n" +
-			"\t\t\t\t<value>1</value>\n" +
-			"\t\t\t\t<value>2</value>\n" +
-			"\t\t\t</preference>\n" +
-			"\t\t\t<preference>\n" +
-			"\t\t\t\t<name>jiraProject</name>\n" +
-			"\t\t\t\t<value>Project1</value>\n" +
-			"\t\t\t</preference>\n" +
-			"\t\t\t<preference>\n" +
-			"\t\t\t\t<name>jiraStatuses</name>\n" +
-			"\t\t\t\t<value>Status 1</value>\n" +
-			"\t\t\t\t<value>Status 2</value>\n" +
-			"\t\t\t</preference>\n" +
-			"\t\t\t<preference>\n" +
-			"\t\t\t\t<name>name</name>\n" +
-			"\t\t\t\t<value>Test</value>\n" +
-			"\t\t\t</preference>\n" +
-			"\t\t</portlet-preferences>";
+		Class JiraETLUtilTestClass = JiraETLUtilTest.class;
 
-		PortletPreferencesLocalServiceUtil.addPortletPreferences(
-			0, 0, 3, 0,
-			"jirametricsportlet_WAR_jirametricsportlet_INSTANCE_abcde", null,
-			prefs);
+		String JiraETLUtilTestName = JiraETLUtilTestClass.getName();
+
+		Project project = _mockJiraStorage.getMockProject();
+
+		String projectKey = project.getKey();
+
+		List<Status> statuses = _mockJiraStorage.getMockStatuses();
+
+		String[] statusNames = new String[statuses.size()];
+
+		int i = 0;
+
+		for (Status status : statuses) {
+			statusNames[i] = status.getName();
+			i++;
+		}
+
+		List<BasicComponent> components = Lists.newArrayList(
+			project.getComponents());
+
+		String[] componentNames = new String[components.size()];
+
+		i = 0;
+
+		for (BasicComponent component : components) {
+			componentNames[i] = component.getName();
+			i++;
+		}
+
+		List<Priority> priorities = _mockJiraStorage.getMockPriorities();
+
+		String[] priorityNames = new String[priorities.size()];
+
+		i = 0;
+
+		for (Priority priority : priorities) {
+			if(priority == null) {
+				priorityNames[i] = "";
+			}
+			else {
+				priorityNames[i] = priority.getId().toString();
+			}
+			i++;
+		}
+
+		String portletPreferencesXML =
+			PortletPreferencesTestUtil.getPortletPreferencesXML(
+				JiraETLUtilTestName, projectKey, statusNames, componentNames,
+				priorityNames);
+
+		PortletPreferencesTestUtil.addPortletPreferences(
+			_PORTLET_ID, portletPreferencesXML);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 
-		Project project = MockJiraClientImpl.getMockProject();
+		Project project = _mockJiraStorage.getMockProject();
 
 		for (BasicComponent component : project.getComponents()) {
 			URI uriComponent = component.getSelf();
@@ -107,7 +136,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 
 		JiraProjectLocalServiceUtil.deleteJiraProject(jiraProject);
 
-		List<Status> statuses = MockJiraClientImpl.getMockStatuses();
+		List<Status> statuses = _mockJiraStorage.getMockStatuses();
 
 		for (Status status : statuses) {
 			URI uriStatus = status.getSelf();
@@ -119,15 +148,14 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 			JiraStatusLocalServiceUtil.deleteJiraStatus(jiraStatus);
 		}
 
-		PortletPreferencesLocalServiceUtil.deletePortletPreferences(
-			0,3,0,"jirametricsportlet_WAR_jirametricsportlet_INSTANCE_abcde");
+		PortletPreferencesTestUtil.deletePortletPreferences(_PORTLET_ID);
 	}
 
 	@Test
 	public void testLoad() throws Exception {
 		JiraETLUtil.load();
 
-		Project project = MockJiraClientImpl.getMockProject();
+		Project project = _mockJiraStorage.getMockProject();
 
 		JiraProject jiraProject =
 			JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
@@ -151,7 +179,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 				jiraComponent.getUri(), uriComponent.toString());
 		}
 
-		List<Status> statuses = MockJiraClientImpl.getMockStatuses();
+		List<Status> statuses = _mockJiraStorage.getMockStatuses();
 
 		for (Status status : statuses) {
 			URI uriStatus = status.getSelf();
@@ -167,7 +195,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 			Assert.assertEquals(jiraStatus.getUri(), uriStatus.toString());
 		}
 
-		List<Priority> priorities = MockJiraClientImpl.getMockPriorities();
+		List<Priority> priorities = _mockJiraStorage.getMockPriorities();
 
 		int count = 0;
 
@@ -207,5 +235,10 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 			}
 		}
 	}
+
+	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
+	private static final String _PORTLET_ID =
+		PortletKeys.JIRA_METRICS_PORTLET_ID + StringPool.UNDERLINE +
+			JiraETLUtilTest.class.getCanonicalName();
 
 }
