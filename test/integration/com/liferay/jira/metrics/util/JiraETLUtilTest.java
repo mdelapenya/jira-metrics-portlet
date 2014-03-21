@@ -53,6 +53,11 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 
 	@Before
 	public void setUp() throws Exception {
+		try {
+			PortletPreferencesTestUtil.deletePortletPreferences(_PORTLET_ID);
+		}
+		catch (Exception e) {
+		}
 
 		Class JiraETLUtilTestClass = JiraETLUtilTest.class;
 
