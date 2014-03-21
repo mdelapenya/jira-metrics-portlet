@@ -24,6 +24,7 @@ import com.atlassian.jira.rest.client.domain.Status;
 
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.util.IssuesMetric;
+import com.liferay.portal.kernel.bean.IdentifiableBean;
 
 import java.net.URI;
 
@@ -36,7 +37,7 @@ import java.util.regex.Pattern;
  * @author Cristina González
  * @author Manuel de la Peña
  */
-public class MockJiraClientImpl implements JiraClient {
+public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 
 	@Override
 	public List<BasicProject> getAllJiraProjects()
@@ -151,6 +152,18 @@ public class MockJiraClientImpl implements JiraClient {
 		throw new RestClientException("The status with id '" + componentId +
 			"' does not exist", new Throwable());
 	}
+
+	@Override
+	public String getBeanIdentifier() {
+		return _beanIdentifier;
+	}
+
+	@Override
+	public void setBeanIdentifier(String beanIdentifier) {
+		_beanIdentifier = beanIdentifier;
+	}
+
+	private String _beanIdentifier;
 
 	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
 
