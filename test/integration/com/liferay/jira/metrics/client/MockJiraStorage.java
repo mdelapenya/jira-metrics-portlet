@@ -20,6 +20,8 @@ import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
+import com.liferay.portal.kernel.security.RandomUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,71 +37,148 @@ public class MockJiraStorage {
 	protected static String JIRA_TEST_URI = "http://www.liferay.com/test/";
 
 	public MockJiraStorage() {
-		try {
-			URI projectURI = new URI(JIRA_TEST_URI + "Project/1");
+	}
 
-			URI componentURI1 = new URI(JIRA_TEST_URI + "Component/1");
-			URI componentURI2 = new URI(JIRA_TEST_URI + "Component/2");
+	public List<BasicComponent> getMockComponents() {
+		return getMockComponents(2);
+	}
 
-			_component1 = new Component(
-				componentURI1, 1L, "Component1", "Component 1", null);
-			_component2 = new Component(
-				componentURI2, 2L, "Component2", "Component 2", null);
-
-			List<BasicComponent> components = new ArrayList<BasicComponent>();
-			components.add(_component1);
-			components.add(_component2);
-
-			_project = new Project(
-				projectURI, "Project1", "Project 1", "Description Project1",
-				null, projectURI, null, components, null, null);
-
-			URI statusURI1 = new URI(JIRA_TEST_URI + "Status/1");
-			URI statusURI2 = new URI(JIRA_TEST_URI + "Status/2");
-
-			_status1 = new Status(statusURI1, "Status1", "Status 1", null);
-			_status2 = new Status(statusURI2, "Status2", "Status 2", null);
-
-			URI priorityURI1 = new URI(JIRA_TEST_URI + "Priority/1");
-			URI priorityURI2 = new URI(JIRA_TEST_URI + "Priority/2");
-
-			_priority1 = new Priority(priorityURI1, 1L, "1", null, null, null);
-			_priority2 = new Priority(priorityURI2, 2L, "2", null, null, null);
+	public List<BasicComponent> getMockComponents(int count) {
+		if (_components != null) {
+			return _components;
 		}
-		catch (URISyntaxException e) {
-			throw new RuntimeException(e.getMessage(), e);
+
+		_components = new ArrayList<BasicComponent>();
+
+		for (int i = 0; i < count; i++) {
+			_components.add(_newComponent(i + 1));
 		}
+
+		return _components;
 	}
 
 	public List<Priority> getMockPriorities() {
-		List<Priority> priorities = new ArrayList<Priority>();
+		return getMockPriorities(2);
+	}
 
-		priorities.add(_priority1);
-		priorities.add(_priority2);
-		priorities.add(null);
+	public List<Priority> getMockPriorities(int count) {
+		if (_priorities != null) {
+			return _priorities;
+		}
 
-		return priorities;
+		_priorities = new ArrayList<Priority>();
+
+		for (int i = 0; i < count; i++) {
+			_priorities.add(_newPriority(i + 1));
+		}
+
+		return _priorities;
 	}
 
 	public Project getMockProject() {
+		if (_project != null) {
+			return _project;
+		}
+
+		_project = _newProject(1, 2);
+
 		return _project;
 	}
 
 	public List<Status> getMockStatuses() {
-		List<Status> statuses = new ArrayList<Status>();
-
-		statuses.add(_status1);
-		statuses.add(_status2);
-
-		return statuses;
+		return getMockStatuses(2);
 	}
 
-	private Component _component1;
-	private Component _component2;
-	private Priority _priority1;
-	private Priority _priority2;
+	public List<Status> getMockStatuses(int count) {
+		if (_statuses != null) {
+			return _statuses;
+		}
+
+		_statuses = new ArrayList<Status>();
+
+		for (int i = 0; i < count; i++) {
+			_statuses.add(_newStatus(i + 1));
+		}
+
+		return _statuses;
+	}
+
+	private Component _newComponent(int id) {
+		String componentKeyword = "component";
+		String name = componentKeyword + id;
+
+		try {
+			URI componentURI = new URI(
+				JIRA_TEST_URI + componentKeyword + "/" + id);
+
+			return new Component(
+				componentURI, Long.valueOf(id), name, name, null);
+		}
+		catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private Priority _newPriority(int id) {
+		String priorityKeyword = "priority";
+		String idString = String.valueOf(id);
+
+		try {
+			URI priorityURI = new URI(
+				JIRA_TEST_URI + priorityKeyword + "/" + id);
+
+			return new Priority(
+				priorityURI, Long.valueOf(id), idString, null, null, null);
+		}
+		catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private Project _newProject(int id, int componentsCount) {
+		String projectKeyword = "project";
+		String name = projectKeyword + id;
+
+		try {
+			URI projectURI = new URI(JIRA_TEST_URI + projectKeyword + "/" + id);
+
+			List<BasicComponent> components = getMockComponents(
+				componentsCount);
+
+			return new Project(
+				projectURI, name, name, "Description " + name, null, projectURI,
+				null, components, null, null);
+		}
+		catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private Status _newStatus(int id) {
+		String statusKeyword = "status";
+		String name = statusKeyword + id;
+
+		try {
+			URI statusURI = new URI(JIRA_TEST_URI + statusKeyword + "/" + id);
+
+			return new Status(statusURI, name, name, null);
+		}
+		catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	private List<BasicComponent> _components;
+	private List<Priority> _priorities;
 	private Project _project;
-	private Status _status1;
-	private Status _status2;
+	private List<Status> _statuses;
 
 }
