@@ -14,6 +14,7 @@
 
 package com.liferay.jira.metrics.client;
 
+import com.atlassian.jira.rest.client.RestClientException;
 import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
@@ -23,36 +24,20 @@ import com.atlassian.jira.rest.client.domain.Status;
 
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.util.IssuesMetric;
+import com.liferay.portal.kernel.bean.IdentifiableBean;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Cristina González
+ * @author Manuel de la Peña
  */
-public class MockJiraClientImpl implements JiraClient {
-
-	public static List<Priority> getMockPriorities() {
-		List<Priority> priorities = new ArrayList<Priority>();
-		priorities.add(_priority1);
-		priorities.add(_priority2);
-		priorities.add(null);
-		return priorities;
-	}
-
-	public static Project getMockProject() {
-		return _project;
-	}
-
-	public static List<Status> getMockStatuses() {
-		List<Status> statuses = new ArrayList<Status>();
-		statuses.add(_status1);
-		statuses.add(_status2);
-		return statuses;
-	}
+public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 
 	@Override
 	public List<BasicProject> getAllJiraProjects()
@@ -60,37 +45,40 @@ public class MockJiraClientImpl implements JiraClient {
 
 		List<BasicProject> projects = new ArrayList<BasicProject>();
 
-		projects.add(_basicProject);
+		projects.add(_mockProject);
 
 		return projects;
 	}
 
 	@Override
 	public List<Status> getAllJiraStatuses() throws JiraConnectionException {
-		List<Status> statuses = new ArrayList<Status>();
-
-		statuses.add(_status1);
-		statuses.add(_status2);
-
-		return statuses;
+		return _mockJiraStorage.getMockStatuses();
 	}
 
 	@Override
 	public Component getComponent(URI componentURI)
 		throws JiraConnectionException {
 
-		if (
-				(componentURI != null) &&
-			componentURI.equals(_component1.getSelf())) {
-				return _component1;
-		}
-		else if (
-					(componentURI != null) &&
-				 componentURI.equals(_component2.getSelf())) {
-					return _component2;
+		if (componentURI == null) {
+			throw new NullPointerException();
 		}
 
-		return null;
+		for (BasicComponent mockComponent : _mockProject.getComponents()) {
+			URI mockComponentSelf = mockComponent.getSelf();
+
+			if (mockComponentSelf.equals(componentURI)) {
+				return (Component)mockComponent;
+			}
+		}
+
+		Matcher matcher = _LAST_URL_FIELD.matcher(componentURI.toString());
+
+		matcher.find();
+
+		String componentId = matcher.group(1);
+
+		throw new RestClientException("The component with id " + componentId +
+			" does not exist.", new Throwable());
 	}
 
 	@Override
@@ -98,7 +86,9 @@ public class MockJiraClientImpl implements JiraClient {
 			String projectKey, List<String> statuses)
 		throws JiraConnectionException {
 
-		if (_project.getKey().equals(projectKey)) {
+		String mockProjectKey = _mockProject.getKey();
+
+		if (mockProjectKey.equals(projectKey)) {
 			return new ArrayList<IssuesMetric>();
 		}
 
@@ -106,12 +96,12 @@ public class MockJiraClientImpl implements JiraClient {
 
 		int count = 1;
 
-		for (BasicComponent component : _project.getComponents()) {
-			for (Status status : getMockStatuses()) {
-				for (Priority priority : getMockPriorities()) {
+		for (BasicComponent component : _mockProject.getComponents()) {
+			for (Status status : _mockJiraStorage.getMockStatuses()) {
+				for (Priority priority : _mockJiraStorage.getMockPriorities()) {
 					issuesMetrics.add(
 						new IssuesMetric(
-							_project, component, status.getName(), priority,
+							_mockProject, component, status.getName(), priority,
 							count));
 
 					count++;
@@ -126,77 +116,60 @@ public class MockJiraClientImpl implements JiraClient {
 	public Project getProject(String projectKey)
 		throws JiraConnectionException {
 
-		if ((projectKey != null) && projectKey.equals(_project.getKey())) {
-			return _project;
+		if (projectKey == null) {
+			throw new NullPointerException();
 		}
 
-		return null;
+		if (projectKey.equals(_mockProject.getKey())) {
+			return _mockProject;
+		}
+
+		throw new RestClientException(
+				"No project could be found with key '" + projectKey +
+					"'.", new Throwable());
 	}
 
 	@Override
-	public Status getStatus(URI uri) throws JiraConnectionException {
-		if ((uri != null) && uri.equals(_status1.getSelf())) {
-			return _status1;
-		}
-		else if ((uri != null) && uri.equals(_status2.getSelf())) {
-			return _status2;
+	public Status getStatus(URI statusUri) throws JiraConnectionException {
+		if (statusUri == null) {
+			throw new JiraConnectionException("Status URI cannot be null.");
 		}
 
-		return null;
+		for (Status mockStatus : _mockJiraStorage.getMockStatuses()) {
+			URI mockStatusSelf = mockStatus.getSelf();
+
+			if (mockStatusSelf.equals(statusUri)) {
+				return mockStatus;
+			}
+		}
+
+		Matcher matcher = _LAST_URL_FIELD.matcher(statusUri.toString());
+
+		matcher.find();
+
+		String componentId = matcher.group(1);
+
+		throw new RestClientException("The status with id '" + componentId +
+			"' does not exist", new Throwable());
 	}
 
-	protected static String JIRA_TEST_URI = "http://www.liferay.com/test/";
-
-	private static BasicProject _basicProject;
-	private static Component _component1;
-	private static Component _component2;
-	private static Priority _priority1;
-	private static Priority _priority2;
-	private static Project _project;
-	private static Status _status1;
-	private static Status _status2;
-
-	static {
-
-		try {
-			URI projectURI = new URI(JIRA_TEST_URI + "Project/1");
-
-			_basicProject = new BasicProject(
-				projectURI, "Project1", "Project 1");
-
-			URI componenteURI1 = new URI(JIRA_TEST_URI + "Component/1");
-			URI componenteURI2 = new URI(JIRA_TEST_URI + "Component/2");
-
-			_component1 = new Component(
-				componenteURI1, 1L, "Component1", "Component 1", null);
-			_component2 = new Component(
-				componenteURI2, 2L, "Component2", "Component 2", null);
-
-			List<BasicComponent> components = new ArrayList<BasicComponent>();
-			components.add(_component1);
-			components.add(_component2);
-
-			_project = new Project(
-				_basicProject.getSelf(), _basicProject.getKey(),
-				_basicProject.getName(),
-				"Description " + _basicProject.getName(), null, projectURI,
-				null, components, null, null);
-
-			URI statusURI1 = new URI(JIRA_TEST_URI + "Status/1");
-			URI statusURI2 = new URI(JIRA_TEST_URI + "Status/2");
-
-			_status1 = new Status(statusURI1, "Status1", "Status 1", null);
-			_status2 = new Status(statusURI2, "Status2", "Status 2", null);
-
-			URI priorityURI1 = new URI(JIRA_TEST_URI + "Priority/1");
-			URI priorityURI2 = new URI(JIRA_TEST_URI + "Priority/2");
-
-			_priority1 = new Priority(priorityURI1, 1L, "1", null, null, null);
-			_priority2 = new Priority(priorityURI2, 2L, "2", null, null, null);
-		}
-		catch (URISyntaxException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
+	@Override
+	public String getBeanIdentifier() {
+		return _beanIdentifier;
 	}
+
+	@Override
+	public void setBeanIdentifier(String beanIdentifier) {
+		_beanIdentifier = beanIdentifier;
+	}
+
+	private String _beanIdentifier;
+
+	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
+
+	private static Project _mockProject = _mockJiraStorage.getMockProject();
+
+	private static final Pattern _LAST_URL_FIELD = Pattern.compile(".*/(.*)");
+
 
 }

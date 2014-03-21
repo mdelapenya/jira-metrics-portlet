@@ -29,6 +29,7 @@ import com.atlassian.jira.rest.client.domain.SearchResult;
 import com.atlassian.jira.rest.client.domain.Status;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
+import com.liferay.portal.kernel.bean.IdentifiableBean;
 
 import com.google.common.collect.Lists;
 
@@ -61,7 +62,7 @@ import org.codehaus.jettison.json.JSONObject;
  * @author Cristina González
  * @author Manuel de la Peña
  */
-public class JiraClientImpl implements JiraClient {
+public class JiraClientImpl implements JiraClient , IdentifiableBean{
 
 	@Override
 	public List<BasicProject> getAllJiraProjects()
@@ -313,6 +314,20 @@ public class JiraClientImpl implements JiraClient {
 		return _client;
 	}
 
+
+	@Override
+	public String getBeanIdentifier() {
+		return _beanIdentifier;
+	}
+
+	@Override
+	public void setBeanIdentifier(String beanIdentifier) {
+		System.out.println("HEYYY");
+		 _beanIdentifier = beanIdentifier;
+	}
+
+
+
 	private static final String _AUTHORIZATION = "Authorization";
 
 	private static final String _AUTHORIZATION_TYPE = "Basic ";
@@ -322,5 +337,7 @@ public class JiraClientImpl implements JiraClient {
 	private static Log _log = LogFactoryUtil.getLog(JiraClientImpl.class);
 
 	private static JiraRestClient _client;
+
+	 private String _beanIdentifier;
 
 }

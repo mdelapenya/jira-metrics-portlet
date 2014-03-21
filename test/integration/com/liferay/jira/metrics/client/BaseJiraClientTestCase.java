@@ -11,8 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
-
-package com.liferay.jira.metrics.util;
+package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.RestClientException;
 import com.atlassian.jira.rest.client.domain.BasicComponent;
@@ -21,37 +20,22 @@ import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 
-import com.liferay.jira.metrics.client.JiraClient;
-import com.liferay.jira.metrics.client.JiraClientImpl;
-
 import java.net.URI;
 
 import java.util.Iterator;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PowerMockIgnore;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
  * @author Cristina González
- * @author Manuel de la Peña
  */
-@RunWith(PowerMockRunner.class)
-@PrepareForTest({PortletPropsUtil.class})
-@PowerMockIgnore({"javax.net.ssl.*", "javax.security.auth.*"})
-public class JiraUtilTest  extends PowerMockito {
+public abstract class BaseJiraClientTestCase {
 
 	@Test
 	public void getAllJiraProjects() throws Exception {
-		List<BasicProject> projects = _jiraClient.getAllJiraProjects();
+		List<BasicProject> projects = getJiraClient().getAllJiraProjects();
 
 		Assert.assertNotNull(projects);
 		Assert.assertTrue(projects.size() > 0);
@@ -59,7 +43,7 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getAllJiraStatuses() throws Exception {
-		List<Status> jiraStatuses = _jiraClient.getAllJiraStatuses();
+		List<Status> jiraStatuses = getJiraClient().getAllJiraStatuses();
 
 		Assert.assertNotNull(jiraStatuses);
 		Assert.assertTrue(jiraStatuses.size() > 0);
@@ -67,14 +51,14 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getJiraComponent() throws Exception {
-		Project project = _jiraClient.getProject(_PROJECT_KEY);
+		Project project = getJiraClient().getProject(getProjectKey());
 
 		Iterable<BasicComponent> components = project.getComponents();
 		Iterator<BasicComponent> componentsIterator = components.iterator();
 
 		BasicComponent basicComponent = componentsIterator.next();
 
-		Component component = _jiraClient.getComponent(
+		Component component = getJiraClient().getComponent(
 			basicComponent.getSelf());
 
 		Assert.assertNotNull(component);
@@ -88,9 +72,7 @@ public class JiraUtilTest  extends PowerMockito {
 	@Test
 	public void getJiraComponentNotFound() throws Exception {
 		try {
-			_jiraClient.getComponent(
-				new URI(
-					"https://issues.liferay.com/rest/api/latest/component/-9"));
+			getJiraClient().getComponent(new URI(getUriComponent() + "-9"));
 		}
 		catch (RestClientException rce) {
 			Assert.assertEquals(
@@ -100,16 +82,16 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getJiraProject() throws Exception {
-		Project project = _jiraClient.getProject(_PROJECT_KEY);
+		Project project = getJiraClient().getProject(getProjectKey());
 
 		Assert.assertNotNull(project);
-		Assert.assertEquals(_PROJECT_KEY, project.getKey());
+		Assert.assertEquals(getProjectKey(), project.getKey());
 	}
 
 	@Test
 	public void getJiraProjectNotFound() throws Exception {
 		try {
-			_jiraClient.getProject("asdfghj");
+			getJiraClient().getProject("asdfghj");
 		}
 		catch (RestClientException rce) {
 			Assert.assertEquals(
@@ -120,11 +102,11 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getJiraStatus() throws Exception {
-		List<Status> statuses = _jiraClient.getAllJiraStatuses();
+		List<Status> statuses = getJiraClient().getAllJiraStatuses();
 
 		Status status = statuses.get(0);
 
-		Status currentStatus = _jiraClient.getStatus(status.getSelf());
+		Status currentStatus = getJiraClient().getStatus(status.getSelf());
 
 		Assert.assertNotNull(currentStatus);
 		Assert.assertEquals(status.getName(), currentStatus.getName());
@@ -134,10 +116,10 @@ public class JiraUtilTest  extends PowerMockito {
 
 	@Test
 	public void getJiraStatusNotFound() throws Exception {
-		String statusId = _STATUS_NAME + "NotFound";
+		String statusId = getStatusName() + "NotFound";
 
 		try {
-			_jiraClient.getStatus(new URI(_STATUS_URI + statusId));
+			getJiraClient().getStatus(new URI(getUriStatus() + statusId));
 		}
 		catch (RestClientException rce) {
 			Assert.assertEquals(
@@ -146,41 +128,14 @@ public class JiraUtilTest  extends PowerMockito {
 		}
 	}
 
-	@Before
-	public void setUp() {
-		if (_jiraClient == null) {
-			_jiraClient = new JiraClientImpl();
-		}
+	protected abstract JiraClient getJiraClient();
 
-		mockStatic(PortletPropsUtil.class);
+	protected abstract String getProjectKey();
 
-		mockPortletKey(PortletPropsKeys.JIRA_USERNAME);
-		mockPortletKey(PortletPropsKeys.JIRA_PASSWORD);
-		mockPortletKey(PortletPropsKeys.JIRA_BASE_QUERY);
-		mockPortletKey(PortletPropsKeys.JIRA_SERVER_URI);
-	}
+	protected abstract String getStatusName();
 
-	@After
-	public void tearDown() {
-		verifyStatic();
-	}
+	protected abstract String getUriComponent();
 
-	protected void mockPortletKey(String key) {
-		PowerMockito.when(
-			PortletPropsUtil.get(key)
-		).thenReturn(
-			TestPropsUtil.getValue(key)
-		);
-	}
-
-	private static final String _PROJECT_KEY = "LPS";
-
-	private static final String _STATUS_NAME = "3";
-
-	private static final String _STATUS_URI =
-		TestPropsUtil.getValue(PortletPropsKeys.JIRA_SERVER_URI) +
-			TestPropsUtil.getValue(PortletPropsKeys.JIRA_REST_API_SUFFIX);
-
-	private static JiraClient _jiraClient;
+	protected abstract String getUriStatus();
 
 }
