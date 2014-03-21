@@ -126,10 +126,10 @@ public abstract class BaseArquillianTestCase {
 
 		File jiraSpringMockFile = new File(
 			"./test/integration/" +
-				"META-INF/jira-spring.xml");
+				"META-INF/ext-spring.xml");
 
 		webArchive.addAsWebResource(
-			jiraSpringMockFile, "/WEB-INF/classes/META-INF/jira-spring.xml");
+			jiraSpringMockFile, "/WEB-INF/classes/META-INF/ext-spring.xml");
 	}
 
 	private static TemporaryFolder _temporaryFolder;
