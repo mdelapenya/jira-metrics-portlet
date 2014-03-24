@@ -338,9 +338,9 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(JiraETLUtil.class);
-
 	@BeanReference(type = JiraClient.class)
 	private static JiraClient _jiraClient;
+
+	private static Log _log = LogFactoryUtil.getLog(JiraETLUtil.class);
 
 }

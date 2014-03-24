@@ -29,13 +29,13 @@ import com.atlassian.jira.rest.client.domain.SearchResult;
 import com.atlassian.jira.rest.client.domain.Status;
 import com.atlassian.jira.rest.client.internal.async.AsynchronousJiraRestClientFactory;
 import com.atlassian.util.concurrent.Promise;
-import com.liferay.portal.kernel.bean.IdentifiableBean;
 
 import com.google.common.collect.Lists;
 
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.util.IssuesMetric;
 import com.liferay.jira.metrics.util.PortletPropsValues;
+import com.liferay.portal.kernel.bean.IdentifiableBean;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -62,7 +62,7 @@ import org.codehaus.jettison.json.JSONObject;
  * @author Cristina González
  * @author Manuel de la Peña
  */
-public class JiraClientImpl implements JiraClient , IdentifiableBean{
+public class JiraClientImpl implements IdentifiableBean, JiraClient {
 
 	@Override
 	public List<BasicProject> getAllJiraProjects()
@@ -322,11 +322,8 @@ public class JiraClientImpl implements JiraClient , IdentifiableBean{
 
 	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
-		System.out.println("HEYYY");
 		 _beanIdentifier = beanIdentifier;
 	}
-
-
 
 	private static final String _AUTHORIZATION = "Authorization";
 
@@ -334,10 +331,10 @@ public class JiraClientImpl implements JiraClient , IdentifiableBean{
 
 	private static final String _STATUS_API = "rest/api/2/status";
 
-	private static Log _log = LogFactoryUtil.getLog(JiraClientImpl.class);
-
 	private static JiraRestClient _client;
 
-	 private String _beanIdentifier;
+	private static Log _log = LogFactoryUtil.getLog(JiraClientImpl.class);
+
+	private String _beanIdentifier;
 
 }

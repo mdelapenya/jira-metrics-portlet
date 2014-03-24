@@ -27,56 +27,58 @@ public class PortletPreferencesTestUtil {
 			String portletId, String portletPreferences)
 		throws SystemException {
 
-			PortletPreferencesLocalServiceUtil.addPortletPreferences(
-				0, 0, 3, 0, portletId, null, portletPreferences);
+		PortletPreferencesLocalServiceUtil.addPortletPreferences(
+			0, 0, 3, 0, portletId, null, portletPreferences);
 	}
 
 	public static void deletePortletPreferences(String portletId)
 		throws PortalException, SystemException {
 
-			PortletPreferencesLocalServiceUtil.deletePortletPreferences(
-					0, 3, 0, portletId);
+		PortletPreferencesLocalServiceUtil.deletePortletPreferences(
+			0, 3, 0, portletId);
 	}
 
 	public static String getPortletPreferencesXML(
 		String teamName, String projectKeys, String[] statusNames,
 		String[] componentNames, String[] priorities) {
 
-			StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(7);
 
-			sb.append("<portlet-preferences>");
+		sb.append("<portlet-preferences>");
 
-			if (teamName != null) {
-				sb.append(
-					_addProperty(PortletKeys.PREFERENCE_TEAM_NAME, teamName));
-			}
+		if (teamName != null) {
+			sb.append(
+				_addProperty(PortletKeys.PREFERENCE_TEAM_NAME, teamName));
+		}
 
-			if (projectKeys != null) {
-				sb.append(
-						_addProperty(PortletKeys.PREFERENCE_JIRA_PROJECT_KEY, projectKeys));
-			}
+		if (projectKeys != null) {
+			sb.append(
+				_addProperty(
+					PortletKeys.PREFERENCE_JIRA_PROJECT_KEY, projectKeys));
+		}
 
-			if (statusNames != null) {
-				sb.append(
-						_addProperty(
-								PortletKeys.PREFERENCE_JIRA_STATUSES, statusNames));
-			}
+		if (statusNames != null) {
+			sb.append(
+				_addProperty(
+					PortletKeys.PREFERENCE_JIRA_STATUSES, statusNames));
+		}
 
-			if (componentNames != null) {
-				sb.append(
-						_addProperty(
-								PortletKeys.PREFERENCE_JIRA_COMPONENTS, componentNames));
-			}
+		if (componentNames != null) {
+			sb.append(
+				_addProperty(
+					PortletKeys.PREFERENCE_JIRA_COMPONENTS,
+					componentNames));
+		}
 
-			if (priorities != null) {
-				sb.append(
-						_addProperty(
-								PortletKeys.PREFERENCE_JIRA_PRIORITIES, priorities));
-			}
+		if (priorities != null) {
+			sb.append(
+				_addProperty(
+					PortletKeys.PREFERENCE_JIRA_PRIORITIES, priorities));
+		}
 
-			sb.append("</portlet-preferences>");
+		sb.append("</portlet-preferences>");
 
-			return sb.toString();
+		return sb.toString();
 	}
 
 	private static String _addProperty(String name, String ... values) {
@@ -86,15 +88,15 @@ public class PortletPreferencesTestUtil {
 		sb.append(name);
 		sb.append("</name>");
 
-			for (String value : values) {
-				sb.append("<value>");
-				sb.append(value);
-				sb.append("</value>");
-			}
+		for (String value : values) {
+			sb.append("<value>");
+			sb.append(value);
+			sb.append("</value>");
+		}
 
-			sb.append("</preference>");
+		sb.append("</preference>");
 
-			return sb.toString();
+		return sb.toString();
 	}
 
 }

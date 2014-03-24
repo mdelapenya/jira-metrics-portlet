@@ -16,12 +16,12 @@ package com.liferay.plugins.test;
 
 import com.liferay.jira.metrics.client.JiraClientImpl;
 import com.liferay.jira.metrics.client.MockJiraClientImpl;
+import com.liferay.jira.metrics.client.MockJiraStorage;
+import com.liferay.jira.metrics.util.PortletPreferencesTestUtil;
 
 import java.io.File;
 import java.io.IOException;
 
-import com.liferay.jira.metrics.client.MockJiraStorage;
-import com.liferay.jira.metrics.util.PortletPreferencesTestUtil;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 
