@@ -122,7 +122,9 @@ public class JiraStatusLocalServiceClpInvoker {
 
 		_methodName59 = "getAllJiraStatuses";
 
-		_methodParameterTypes59 = new String[] {  };
+		_methodParameterTypes59 = new String[] {
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
 
 		_methodName60 = "getInstalledJiraStatuses";
 
@@ -130,11 +132,11 @@ public class JiraStatusLocalServiceClpInvoker {
 				"com.liferay.jira.metrics.model.JiraProject"
 			};
 
-		_methodName61 = "getJiraStatusByUri";
+		_methodName61 = "getJiraStatusByName";
 
 		_methodParameterTypes61 = new String[] { "java.lang.String" };
 
-		_methodName62 = "getJiraStatusByName";
+		_methodName62 = "getJiraStatusByUri";
 
 		_methodParameterTypes62 = new String[] { "java.lang.String" };
 	}
@@ -248,7 +250,7 @@ public class JiraStatusLocalServiceClpInvoker {
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.getAllJiraStatuses();
+			return JiraStatusLocalServiceUtil.getAllJiraStatuses((com.liferay.portal.kernel.util.OrderByComparator)arguments[0]);
 		}
 
 		if (_methodName60.equals(name) &&
@@ -258,12 +260,12 @@ public class JiraStatusLocalServiceClpInvoker {
 
 		if (_methodName61.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.getJiraStatusByUri((java.lang.String)arguments[0]);
+			return JiraStatusLocalServiceUtil.getJiraStatusByName((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName62.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-			return JiraStatusLocalServiceUtil.getJiraStatusByName((java.lang.String)arguments[0]);
+			return JiraStatusLocalServiceUtil.getJiraStatusByUri((java.lang.String)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();

@@ -261,7 +261,8 @@ public interface JiraProjectLocalService extends BaseLocalService,
 	* @throws SystemException
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

@@ -122,7 +122,9 @@ public class JiraProjectLocalServiceClpInvoker {
 
 		_methodName65 = "getAllJiraProjects";
 
-		_methodParameterTypes65 = new String[] {  };
+		_methodParameterTypes65 = new String[] {
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
 
 		_methodName66 = "getInstalledJiraProjects";
 
@@ -246,7 +248,7 @@ public class JiraProjectLocalServiceClpInvoker {
 
 		if (_methodName65.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
-			return JiraProjectLocalServiceUtil.getAllJiraProjects();
+			return JiraProjectLocalServiceUtil.getAllJiraProjects((com.liferay.portal.kernel.util.OrderByComparator)arguments[0]);
 		}
 
 		if (_methodName66.equals(name) &&
