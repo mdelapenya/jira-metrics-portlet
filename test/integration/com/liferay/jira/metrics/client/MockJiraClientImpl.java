@@ -88,7 +88,7 @@ public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 
 		String mockProjectKey = _mockProject.getKey();
 
-		if (mockProjectKey.equals(projectKey)) {
+		if (!mockProjectKey.equals(projectKey)) {
 			return new ArrayList<IssuesMetric>();
 		}
 
