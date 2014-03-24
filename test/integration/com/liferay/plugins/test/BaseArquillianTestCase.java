@@ -28,7 +28,6 @@ import org.apache.tools.ant.ProjectHelper;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.Node;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 
@@ -109,12 +108,7 @@ public abstract class BaseArquillianTestCase {
 	}
 
 	protected static void mockJiraSpringConfig(WebArchive webArchive) {
-		Node jiraSpringFile = webArchive.get(
-			"/WEB-INF/classes/META-INF/jira-spring.xml");
-
 		webArchive.addClass(BaseArquillianTestCase.class);
-
-		webArchive.delete(jiraSpringFile.getPath());
 
 		webArchive.deleteClass(JiraClientImpl.class);
 
