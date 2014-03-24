@@ -6,6 +6,7 @@
 	<portlet>
 		<portlet-name>jirametricsportlet</portlet-name>
 		<icon>/icon.png</icon>
+		<configuration-action-class>com.liferay.jira.metrics.action.ConfigurationActionImpl</configuration-action-class>
 		<scheduler-entry>
 			<scheduler-description>Triggers JIRA load at 00:01, every day</scheduler-description>
 			<scheduler-event-listener-class>com.liferay.jira.metrics.messaging.JiraLoadMessageListener</scheduler-event-listener-class>

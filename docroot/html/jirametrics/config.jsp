@@ -1,3 +1,4 @@
+<%@ page import="com.liferay.portal.kernel.util.Constants" %>
 <%--
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
@@ -16,4 +17,16 @@
 
 <%@ include file="/html/jirametrics/init.jsp" %>
 
-This is the <b>JIRA Metrics Portlet</b> portlet in View mode.
+<liferay-portlet:actionURL portletConfiguration="true" var="actionURL" />
+
+<aui:form action="<%= actionURL %>" method="post" name="fm">
+
+	This is the <b>JIRA Metrics Portlet</b> portlet in Config mode.
+
+	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
+
+
+	<aui:button-row>
+		<aui:button type="submit" />
+	</aui:button-row>
+</aui:form>
