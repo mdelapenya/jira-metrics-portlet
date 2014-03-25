@@ -191,6 +191,7 @@
 
 	<exceptions>
 		<exception>DuplicateJiraProject</exception>
+		<exception>DuplicateJiraPriority</exception>
 		<exception>DuplicateJiraComponent</exception>
 		<exception>DuplicateJiraStatus</exception>
 		<exception>DuplicateJiraMetric</exception>
