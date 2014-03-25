@@ -51,6 +51,13 @@ public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 	}
 
 	@Override
+	public List<Priority> getAllJiraPriorities()
+		throws JiraConnectionException {
+
+		return _mockJiraStorage.getMockPriorities();
+	}
+
+	@Override
 	public List<Status> getAllJiraStatuses() throws JiraConnectionException {
 		return _mockJiraStorage.getMockStatuses();
 	}
