@@ -43,13 +43,13 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 
 	public JiraMetric addJiraMetric(
 			long jiraProjectId, long jiraComponentId, long jiraStatusId,
-			int priority, Date date, int total)
+			long jiraPriorityId, Date date, int total)
 		throws PortalException, SystemException {
 
 		int[] dateElements = parseDate(date);
 
 		JiraMetric jiraMetric = jiraMetricPersistence.fetchByP_C_S_P_D_M_Y(
-			jiraProjectId, jiraComponentId, jiraStatusId, priority,
+			jiraProjectId, jiraComponentId, jiraStatusId, jiraPriorityId,
 			dateElements[0], dateElements[1], dateElements[2]);
 
 		if (jiraMetric != null) {
@@ -68,7 +68,7 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 		jiraMetric.setJiraProjectId(jiraProjectId);
 		jiraMetric.setJiraComponentId(jiraComponentId);
 		jiraMetric.setJiraStatusId(jiraStatusId);
-		jiraMetric.setPriority(priority);
+		jiraMetric.setJiraPriorityId(jiraPriorityId);
 		jiraMetric.setDay(dateElements[0]);
 		jiraMetric.setMonth(dateElements[1]);
 		jiraMetric.setYear(dateElements[2]);
@@ -82,7 +82,7 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 
 	public JiraMetric getJiraMetric(
 			long jiraProjectId, long jiraComponentId, long jiraStatusId,
-			int priority, Date date)
+			long priority, Date date)
 		throws NoSuchJiraMetricException, SystemException {
 
 		int[] dateElements = parseDate(date);
