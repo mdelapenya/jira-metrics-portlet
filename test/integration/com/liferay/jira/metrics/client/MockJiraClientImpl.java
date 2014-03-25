@@ -105,6 +105,12 @@ public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 
 		for (BasicComponent component : _mockProject.getComponents()) {
 			for (Status status : _mockJiraStorage.getMockStatuses()) {
+				issuesMetrics.add(
+					new IssuesMetric(
+						_mockProject, component, status.getName(), null,
+						count));
+
+				count++;
 				for (Priority priority : _mockJiraStorage.getMockPriorities()) {
 					issuesMetrics.add(
 						new IssuesMetric(

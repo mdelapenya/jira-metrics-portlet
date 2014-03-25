@@ -182,12 +182,14 @@ public class JiraETLUtil {
 
 			JiraMetric jiraMetric = null;
 
-			JiraPriority jiraPriority = null;
+			long jiraPriorityId = IssuesMetric.EMPTY_PRIORITY;
 
 			if (priority != null) {
-				jiraPriority =
+				JiraPriority jiraPriority =
 					JiraPriorityLocalServiceUtil.getJiraPriorityByValue(
 						priority.getId().toString());
+
+				jiraPriorityId = jiraPriority.getJiraPriorityId();
 			}
 
 			try {
@@ -195,7 +197,7 @@ public class JiraETLUtil {
 					jiraComponent.getJiraProjectId(),
 					jiraComponent.getJiraComponentId(),
 					jiraStatus.getJiraStatusId(),
-					jiraPriority.getJiraPriorityId(),
+					jiraPriorityId,
 					date, issueMetric.getTotal());
 
 				if (_log.isInfoEnabled()) {
@@ -216,7 +218,7 @@ public class JiraETLUtil {
 						"Jira Metric [" + jiraComponent.getJiraProjectId() +
 							"][" + jiraComponent.getJiraComponentId() + "][" +
 							jiraStatus.getJiraStatusId() + "][" +
-							jiraPriority + "][" + date +
+							jiraPriorityId + "][" + date +
 							"] already exists. Let's update it.");
 				}
 
@@ -225,7 +227,7 @@ public class JiraETLUtil {
 						jiraComponent.getJiraProjectId(),
 						jiraComponent.getJiraComponentId(),
 						jiraStatus.getJiraStatusId(),
-						jiraPriority.getJiraPriorityId(), date);
+						jiraPriorityId, date);
 
 				jiraMetric.setTotal(issueMetric.getTotal());
 				jiraMetric.setModifiedDate(new Date());
