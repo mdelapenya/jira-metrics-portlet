@@ -16,6 +16,7 @@ package com.liferay.jira.metrics.service.impl;
 
 import com.liferay.jira.metrics.DuplicateJiraPriorityException;
 import com.liferay.jira.metrics.DuplicateJiraProjectException;
+import com.liferay.jira.metrics.NoSuchJiraPriorityException;
 import com.liferay.jira.metrics.model.JiraPriority;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraPriorityLocalServiceBaseImpl;
@@ -72,4 +73,18 @@ public class JiraPriorityLocalServiceImpl
 		return jiraPriorityPersistence.findByPrimaryKey(
 			jiraPriority.getPrimaryKey());
 	}
+
+
+	public JiraPriority getJiraPriorityByName(String name)
+		throws NoSuchJiraPriorityException, SystemException {
+
+		return jiraPriorityPersistence.findByName(name);
+	}
+
+	public JiraPriority getJiraPriorityByValue(String value)
+		throws NoSuchJiraPriorityException, SystemException {
+
+		return jiraPriorityPersistence.findByValue(value);
+	}
+
 }

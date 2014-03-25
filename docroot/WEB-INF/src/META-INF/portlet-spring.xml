@@ -7,6 +7,9 @@
 	<bean id="com.liferay.jira.metrics.service.JiraMetricLocalService" class="com.liferay.jira.metrics.service.impl.JiraMetricLocalServiceImpl" />
 	<bean id="com.liferay.jira.metrics.service.JiraMetricService" class="com.liferay.jira.metrics.service.impl.JiraMetricServiceImpl" />
 	<bean id="com.liferay.jira.metrics.service.persistence.JiraMetricPersistence" class="com.liferay.jira.metrics.service.persistence.JiraMetricPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.jira.metrics.service.JiraPriorityLocalService" class="com.liferay.jira.metrics.service.impl.JiraPriorityLocalServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.JiraPriorityService" class="com.liferay.jira.metrics.service.impl.JiraPriorityServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.persistence.JiraPriorityPersistence" class="com.liferay.jira.metrics.service.persistence.JiraPriorityPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.jira.metrics.service.JiraProjectLocalService" class="com.liferay.jira.metrics.service.impl.JiraProjectLocalServiceImpl" />
 	<bean id="com.liferay.jira.metrics.service.JiraProjectService" class="com.liferay.jira.metrics.service.impl.JiraProjectServiceImpl" />
 	<bean id="com.liferay.jira.metrics.service.persistence.JiraProjectPersistence" class="com.liferay.jira.metrics.service.persistence.JiraProjectPersistenceImpl" parent="basePersistence" />

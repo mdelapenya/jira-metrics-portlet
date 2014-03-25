@@ -79,6 +79,19 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 	}
 
 	@Override
+	public List<Priority> getAllJiraPriorities()
+		throws JiraConnectionException {
+
+		MetadataRestClient metaClient = _getClient().getMetadataClient();
+
+		Promise<Iterable<Priority>> promise = metaClient.getPriorities();
+
+		Iterable<Priority> priorities = promise.claim();
+
+		return Lists.newArrayList(priorities);
+	}
+
+	@Override
 	public List<Status> getAllJiraStatuses() throws JiraConnectionException {
 		String output = getJiraRestResponse(getJiraURL() + _STATUS_API);
 

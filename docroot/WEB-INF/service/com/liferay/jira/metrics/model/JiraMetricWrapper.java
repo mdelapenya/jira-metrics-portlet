@@ -55,7 +55,7 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 		attributes.put("jiraProjectId", getJiraProjectId());
 		attributes.put("jiraComponentId", getJiraComponentId());
 		attributes.put("jiraStatusId", getJiraStatusId());
-		attributes.put("priority", getPriority());
+		attributes.put("jiraPriorityId", getJiraPriorityId());
 		attributes.put("day", getDay());
 		attributes.put("month", getMonth());
 		attributes.put("year", getYear());
@@ -102,10 +102,10 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 			setJiraStatusId(jiraStatusId);
 		}
 
-		Integer priority = (Integer)attributes.get("priority");
+		Long jiraPriorityId = (Long)attributes.get("jiraPriorityId");
 
-		if (priority != null) {
-			setPriority(priority);
+		if (jiraPriorityId != null) {
+			setJiraPriorityId(jiraPriorityId);
 		}
 
 		Integer day = (Integer)attributes.get("day");
@@ -274,23 +274,23 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 	}
 
 	/**
-	* Returns the priority of this jira metric.
+	* Returns the jira priority ID of this jira metric.
 	*
-	* @return the priority of this jira metric
+	* @return the jira priority ID of this jira metric
 	*/
 	@Override
-	public int getPriority() {
-		return _jiraMetric.getPriority();
+	public long getJiraPriorityId() {
+		return _jiraMetric.getJiraPriorityId();
 	}
 
 	/**
-	* Sets the priority of this jira metric.
+	* Sets the jira priority ID of this jira metric.
 	*
-	* @param priority the priority of this jira metric
+	* @param jiraPriorityId the jira priority ID of this jira metric
 	*/
 	@Override
-	public void setPriority(int priority) {
-		_jiraMetric.setPriority(priority);
+	public void setJiraPriorityId(long jiraPriorityId) {
+		_jiraMetric.setJiraPriorityId(jiraPriorityId);
 	}
 
 	/**

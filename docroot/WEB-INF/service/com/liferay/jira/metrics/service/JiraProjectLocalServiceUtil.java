@@ -291,10 +291,6 @@ public class JiraProjectLocalServiceUtil {
 	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects(
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
-
-		System.out.println("--->>> " + orderByComparator);
-
-
 		return getService().getAllJiraProjects(orderByComparator);
 	}
 

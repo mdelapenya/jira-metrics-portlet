@@ -4,6 +4,7 @@
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="com.liferay.jira.metrics.model.JiraComponent" />
 	<import class="com.liferay.jira.metrics.model.JiraMetric" />
+	<import class="com.liferay.jira.metrics.model.JiraPriority" />
 	<import class="com.liferay.jira.metrics.model.JiraProject" />
 	<import class="com.liferay.jira.metrics.model.JiraStatus" />
 	<class name="com.liferay.jira.metrics.model.impl.JiraComponentImpl" table="jirametrics_JiraComponent">
@@ -28,11 +29,21 @@
 		<property name="jiraProjectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="jiraComponentId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="jiraStatusId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="priority" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="jiraPriorityId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="day" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="month" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="year" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="total" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+	</class>
+	<class name="com.liferay.jira.metrics.model.impl.JiraPriorityImpl" table="jirametrics_JiraPriority">
+		<cache usage="read-write" />
+		<id name="jiraPriorityId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="value" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.liferay.jira.metrics.model.impl.JiraProjectImpl" table="jirametrics_JiraProject">
 		<cache usage="read-write" />

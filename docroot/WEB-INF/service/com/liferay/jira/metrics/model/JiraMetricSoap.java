@@ -37,7 +37,7 @@ public class JiraMetricSoap implements Serializable {
 		soapModel.setJiraProjectId(model.getJiraProjectId());
 		soapModel.setJiraComponentId(model.getJiraComponentId());
 		soapModel.setJiraStatusId(model.getJiraStatusId());
-		soapModel.setPriority(model.getPriority());
+		soapModel.setJiraPriorityId(model.getJiraPriorityId());
 		soapModel.setDay(model.getDay());
 		soapModel.setMonth(model.getMonth());
 		soapModel.setYear(model.getYear());
@@ -142,12 +142,12 @@ public class JiraMetricSoap implements Serializable {
 		_jiraStatusId = jiraStatusId;
 	}
 
-	public int getPriority() {
-		return _priority;
+	public long getJiraPriorityId() {
+		return _jiraPriorityId;
 	}
 
-	public void setPriority(int priority) {
-		_priority = priority;
+	public void setJiraPriorityId(long jiraPriorityId) {
+		_jiraPriorityId = jiraPriorityId;
 	}
 
 	public int getDay() {
@@ -188,7 +188,7 @@ public class JiraMetricSoap implements Serializable {
 	private long _jiraProjectId;
 	private long _jiraComponentId;
 	private long _jiraStatusId;
-	private int _priority;
+	private long _jiraPriorityId;
 	private int _day;
 	private int _month;
 	private int _year;

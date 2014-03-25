@@ -15,11 +15,19 @@ create table jirametrics_JiraMetric (
 	jiraProjectId LONG,
 	jiraComponentId LONG,
 	jiraStatusId LONG,
-	priority INTEGER,
+	jiraPriorityId LONG,
 	day INTEGER,
 	month INTEGER,
 	year INTEGER,
 	total INTEGER
+);
+
+create table jirametrics_JiraPriority (
+	jiraPriorityId LONG not null primary key,
+	createDate DATE null,
+	modifiedDate DATE null,
+	value VARCHAR(75) null,
+	name VARCHAR(75) null
 );
 
 create table jirametrics_JiraProject (

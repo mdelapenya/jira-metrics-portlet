@@ -51,8 +51,8 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 		sb.append(jiraComponentId);
 		sb.append(", jiraStatusId=");
 		sb.append(jiraStatusId);
-		sb.append(", priority=");
-		sb.append(priority);
+		sb.append(", jiraPriorityId=");
+		sb.append(jiraPriorityId);
 		sb.append(", day=");
 		sb.append(day);
 		sb.append(", month=");
@@ -89,7 +89,7 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 		jiraMetricImpl.setJiraProjectId(jiraProjectId);
 		jiraMetricImpl.setJiraComponentId(jiraComponentId);
 		jiraMetricImpl.setJiraStatusId(jiraStatusId);
-		jiraMetricImpl.setPriority(priority);
+		jiraMetricImpl.setJiraPriorityId(jiraPriorityId);
 		jiraMetricImpl.setDay(day);
 		jiraMetricImpl.setMonth(month);
 		jiraMetricImpl.setYear(year);
@@ -108,7 +108,7 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 		jiraProjectId = objectInput.readLong();
 		jiraComponentId = objectInput.readLong();
 		jiraStatusId = objectInput.readLong();
-		priority = objectInput.readInt();
+		jiraPriorityId = objectInput.readLong();
 		day = objectInput.readInt();
 		month = objectInput.readInt();
 		year = objectInput.readInt();
@@ -124,7 +124,7 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 		objectOutput.writeLong(jiraProjectId);
 		objectOutput.writeLong(jiraComponentId);
 		objectOutput.writeLong(jiraStatusId);
-		objectOutput.writeInt(priority);
+		objectOutput.writeLong(jiraPriorityId);
 		objectOutput.writeInt(day);
 		objectOutput.writeInt(month);
 		objectOutput.writeInt(year);
@@ -137,7 +137,7 @@ public class JiraMetricCacheModel implements CacheModel<JiraMetric>,
 	public long jiraProjectId;
 	public long jiraComponentId;
 	public long jiraStatusId;
-	public int priority;
+	public long jiraPriorityId;
 	public int day;
 	public int month;
 	public int year;

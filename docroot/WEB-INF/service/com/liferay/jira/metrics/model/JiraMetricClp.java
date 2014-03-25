@@ -80,7 +80,7 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		attributes.put("jiraProjectId", getJiraProjectId());
 		attributes.put("jiraComponentId", getJiraComponentId());
 		attributes.put("jiraStatusId", getJiraStatusId());
-		attributes.put("priority", getPriority());
+		attributes.put("jiraPriorityId", getJiraPriorityId());
 		attributes.put("day", getDay());
 		attributes.put("month", getMonth());
 		attributes.put("year", getYear());
@@ -127,10 +127,10 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 			setJiraStatusId(jiraStatusId);
 		}
 
-		Integer priority = (Integer)attributes.get("priority");
+		Long jiraPriorityId = (Long)attributes.get("jiraPriorityId");
 
-		if (priority != null) {
-			setPriority(priority);
+		if (jiraPriorityId != null) {
+			setJiraPriorityId(jiraPriorityId);
 		}
 
 		Integer day = (Integer)attributes.get("day");
@@ -297,21 +297,21 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 	}
 
 	@Override
-	public int getPriority() {
-		return _priority;
+	public long getJiraPriorityId() {
+		return _jiraPriorityId;
 	}
 
 	@Override
-	public void setPriority(int priority) {
-		_priority = priority;
+	public void setJiraPriorityId(long jiraPriorityId) {
+		_jiraPriorityId = jiraPriorityId;
 
 		if (_jiraMetricRemoteModel != null) {
 			try {
 				Class<?> clazz = _jiraMetricRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setPriority", int.class);
+				Method method = clazz.getMethod("setJiraPriorityId", long.class);
 
-				method.invoke(_jiraMetricRemoteModel, priority);
+				method.invoke(_jiraMetricRemoteModel, jiraPriorityId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -486,7 +486,7 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		clone.setJiraProjectId(getJiraProjectId());
 		clone.setJiraComponentId(getJiraComponentId());
 		clone.setJiraStatusId(getJiraStatusId());
-		clone.setPriority(getPriority());
+		clone.setJiraPriorityId(getJiraPriorityId());
 		clone.setDay(getDay());
 		clone.setMonth(getMonth());
 		clone.setYear(getYear());
@@ -553,8 +553,8 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		sb.append(getJiraComponentId());
 		sb.append(", jiraStatusId=");
 		sb.append(getJiraStatusId());
-		sb.append(", priority=");
-		sb.append(getPriority());
+		sb.append(", jiraPriorityId=");
+		sb.append(getJiraPriorityId());
 		sb.append(", day=");
 		sb.append(getDay());
 		sb.append(", month=");
@@ -601,8 +601,8 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		sb.append(getJiraStatusId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>priority</column-name><column-value><![CDATA[");
-		sb.append(getPriority());
+			"<column><column-name>jiraPriorityId</column-name><column-value><![CDATA[");
+		sb.append(getJiraPriorityId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>day</column-name><column-value><![CDATA[");
@@ -632,7 +632,7 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 	private long _jiraProjectId;
 	private long _jiraComponentId;
 	private long _jiraStatusId;
-	private int _priority;
+	private long _jiraPriorityId;
 	private int _day;
 	private int _month;
 	private int _year;
