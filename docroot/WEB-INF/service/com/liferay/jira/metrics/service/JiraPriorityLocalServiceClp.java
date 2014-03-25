@@ -128,6 +128,12 @@ public class JiraPriorityLocalServiceClp implements JiraPriorityLocalService {
 		_methodName21 = "getJiraPriorityByValue";
 
 		_methodParameterTypes21 = new String[] { "java.lang.String" };
+
+		_methodName22 = "getAllJiraPriorities";
+
+		_methodParameterTypes22 = new String[] {
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
 	}
 
 	@Override
@@ -789,6 +795,37 @@ public class JiraPriorityLocalServiceClp implements JiraPriorityLocalService {
 		return (com.liferay.jira.metrics.model.JiraPriority)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> getAllJiraPriorities(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
+					new Object[] { ClpSerializer.translateInput(
+							orderByComparator) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.jira.metrics.model.JiraPriority>)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -832,4 +869,6 @@ public class JiraPriorityLocalServiceClp implements JiraPriorityLocalService {
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
 }

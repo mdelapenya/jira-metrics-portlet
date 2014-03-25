@@ -296,6 +296,18 @@ public class JiraPriorityLocalServiceUtil {
 		return getService().getJiraPriorityByValue(value);
 	}
 
+	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	public static java.util.List<com.liferay.jira.metrics.model.JiraPriority> getAllJiraPriorities(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAllJiraPriorities(orderByComparator);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

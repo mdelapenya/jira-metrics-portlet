@@ -312,6 +312,19 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	}
 
 	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> getAllJiraPriorities(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraPriorityLocalService.getAllJiraPriorities(orderByComparator);
+	}
+
+	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public JiraPriorityLocalService getWrappedJiraPriorityLocalService() {

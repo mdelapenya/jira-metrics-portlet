@@ -127,6 +127,12 @@ public class JiraPriorityLocalServiceClpInvoker {
 		_methodName72 = "getJiraPriorityByValue";
 
 		_methodParameterTypes72 = new String[] { "java.lang.String" };
+
+		_methodName73 = "getAllJiraPriorities";
+
+		_methodParameterTypes73 = new String[] {
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -246,6 +252,11 @@ public class JiraPriorityLocalServiceClpInvoker {
 			return JiraPriorityLocalServiceUtil.getJiraPriorityByValue((java.lang.String)arguments[0]);
 		}
 
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+			return JiraPriorityLocalServiceUtil.getAllJiraPriorities((com.liferay.portal.kernel.util.OrderByComparator)arguments[0]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -291,4 +302,6 @@ public class JiraPriorityLocalServiceClpInvoker {
 	private String[] _methodParameterTypes71;
 	private String _methodName72;
 	private String[] _methodParameterTypes72;
+	private String _methodName73;
+	private String[] _methodParameterTypes73;
 }

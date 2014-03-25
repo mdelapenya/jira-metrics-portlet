@@ -265,4 +265,15 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 		java.lang.String value)
 		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
 			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> getAllJiraPriorities(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }
