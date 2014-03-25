@@ -20,10 +20,13 @@ import com.liferay.jira.metrics.NoSuchJiraPriorityException;
 import com.liferay.jira.metrics.model.JiraPriority;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraPriorityLocalServiceBaseImpl;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the jira priority local service.
@@ -85,6 +88,20 @@ public class JiraPriorityLocalServiceImpl
 		throws NoSuchJiraPriorityException, SystemException {
 
 		return jiraPriorityPersistence.findByValue(value);
+	}
+
+	/**
+	 * Retrieves all Jira projects
+	 *
+	 * @return a list with all Jira projects
+	 * @throws SystemException
+	 */
+	public List<JiraPriority> getAllJiraPriorities(
+		OrderByComparator orderByComparator)
+		throws SystemException {
+
+		return jiraPriorityPersistence.findAll(
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 	}
 
 }
