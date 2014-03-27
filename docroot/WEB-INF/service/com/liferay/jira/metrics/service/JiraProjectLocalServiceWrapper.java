@@ -302,9 +302,10 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	* @throws SystemException
 	*/
 	@Override
-	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects()
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getAllJiraProjects(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _jiraProjectLocalService.getAllJiraProjects();
+		return _jiraProjectLocalService.getAllJiraProjects(orderByComparator);
 	}
 
 	@Override

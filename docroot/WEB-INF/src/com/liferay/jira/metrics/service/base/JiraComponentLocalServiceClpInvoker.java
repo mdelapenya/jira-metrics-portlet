@@ -106,32 +106,32 @@ public class JiraComponentLocalServiceClpInvoker {
 				"com.liferay.jira.metrics.model.JiraComponent"
 			};
 
-		_methodName52 = "getBeanIdentifier";
+		_methodName58 = "getBeanIdentifier";
 
-		_methodParameterTypes52 = new String[] {  };
+		_methodParameterTypes58 = new String[] {  };
 
-		_methodName53 = "setBeanIdentifier";
+		_methodName59 = "setBeanIdentifier";
 
-		_methodParameterTypes53 = new String[] { "java.lang.String" };
+		_methodParameterTypes59 = new String[] { "java.lang.String" };
 
-		_methodName58 = "addJiraComponent";
+		_methodName64 = "addJiraComponent";
 
-		_methodParameterTypes58 = new String[] {
+		_methodParameterTypes64 = new String[] {
 				"java.lang.String", "long", "java.lang.String",
 				"java.lang.Boolean"
 			};
 
-		_methodName59 = "getJiraComponentByNameAndJiraProjectId";
+		_methodName65 = "getJiraComponentByNameAndJiraProjectId";
 
-		_methodParameterTypes59 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes65 = new String[] { "java.lang.String", "long" };
 
-		_methodName60 = "getJiraComponentByUri";
+		_methodName66 = "getJiraComponentByUri";
 
-		_methodParameterTypes60 = new String[] { "java.lang.String" };
+		_methodParameterTypes66 = new String[] { "java.lang.String" };
 
-		_methodName61 = "getJiraComponentsByJiraProjectId";
+		_methodName67 = "getJiraComponentsByJiraProjectId";
 
-		_methodParameterTypes61 = new String[] { "long" };
+		_methodParameterTypes67 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -223,38 +223,38 @@ public class JiraComponentLocalServiceClpInvoker {
 			return JiraComponentLocalServiceUtil.updateJiraComponent((com.liferay.jira.metrics.model.JiraComponent)arguments[0]);
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			JiraComponentLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.addJiraComponent((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.Boolean)arguments[3]);
 		}
 
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getJiraComponentByNameAndJiraProjectId((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName60.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getJiraComponentByUri((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getJiraComponentsByJiraProjectId(((Long)arguments[0]).longValue());
 		}
 
@@ -293,16 +293,16 @@ public class JiraComponentLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName52;
-	private String[] _methodParameterTypes52;
-	private String _methodName53;
-	private String[] _methodParameterTypes53;
 	private String _methodName58;
 	private String[] _methodParameterTypes58;
 	private String _methodName59;
 	private String[] _methodParameterTypes59;
-	private String _methodName60;
-	private String[] _methodParameterTypes60;
-	private String _methodName61;
-	private String[] _methodParameterTypes61;
+	private String _methodName64;
+	private String[] _methodParameterTypes64;
+	private String _methodName65;
+	private String[] _methodParameterTypes65;
+	private String _methodName66;
+	private String[] _methodParameterTypes66;
+	private String _methodName67;
+	private String[] _methodParameterTypes67;
 }

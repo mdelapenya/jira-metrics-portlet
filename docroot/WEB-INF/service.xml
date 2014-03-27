@@ -126,7 +126,7 @@
 		<column name="jiraProjectId" type="long" />
 		<column name="jiraComponentId" type="long" />
 		<column name="jiraStatusId" type="long" />
-		<column name="priority" type="int" />
+		<column name="jiraPriorityId" type="long" />
 		<column name="day" type="int" />
 		<column name="month" type="int" />
 		<column name="year" type="int" />
@@ -138,7 +138,7 @@
 			<finder-column name="jiraProjectId" />
 			<finder-column name="jiraComponentId" />
 			<finder-column name="jiraStatusId" />
-			<finder-column name="priority" />
+			<finder-column name="jiraPriorityId" />
 			<finder-column name="day" />
 			<finder-column name="month" />
 			<finder-column name="year" />
@@ -153,8 +153,45 @@
 		</finder>
 	</entity>
 
+	<entity name="JiraPriority" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="jiraPriorityId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="value" type="String" />
+		<column name="name" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="value" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="Value" return-type="JiraPriority" unique="true">
+			<finder-column name="value" />
+		</finder>
+		<finder name="Name" return-type="JiraPriority" unique="true">
+			<finder-column name="name" />
+		</finder>
+
+		<!-- References -->
+
+		<reference package-path="com.liferay.portal" entity="PortletPreferences" />
+	</entity>
+
 	<exceptions>
 		<exception>DuplicateJiraProject</exception>
+		<exception>DuplicateJiraPriority</exception>
 		<exception>DuplicateJiraComponent</exception>
 		<exception>DuplicateJiraStatus</exception>
 		<exception>DuplicateJiraMetric</exception>

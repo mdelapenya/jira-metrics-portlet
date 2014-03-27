@@ -18,6 +18,7 @@ import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.service.JiraMetricLocalService;
 import com.liferay.jira.metrics.service.persistence.JiraComponentPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraMetricPersistence;
+import com.liferay.jira.metrics.service.persistence.JiraPriorityPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraProjectPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraStatusPersistence;
 
@@ -398,6 +399,63 @@ public abstract class JiraMetricLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the jira priority local service.
+	 *
+	 * @return the jira priority local service
+	 */
+	public com.liferay.jira.metrics.service.JiraPriorityLocalService getJiraPriorityLocalService() {
+		return jiraPriorityLocalService;
+	}
+
+	/**
+	 * Sets the jira priority local service.
+	 *
+	 * @param jiraPriorityLocalService the jira priority local service
+	 */
+	public void setJiraPriorityLocalService(
+		com.liferay.jira.metrics.service.JiraPriorityLocalService jiraPriorityLocalService) {
+		this.jiraPriorityLocalService = jiraPriorityLocalService;
+	}
+
+	/**
+	 * Returns the jira priority remote service.
+	 *
+	 * @return the jira priority remote service
+	 */
+	public com.liferay.jira.metrics.service.JiraPriorityService getJiraPriorityService() {
+		return jiraPriorityService;
+	}
+
+	/**
+	 * Sets the jira priority remote service.
+	 *
+	 * @param jiraPriorityService the jira priority remote service
+	 */
+	public void setJiraPriorityService(
+		com.liferay.jira.metrics.service.JiraPriorityService jiraPriorityService) {
+		this.jiraPriorityService = jiraPriorityService;
+	}
+
+	/**
+	 * Returns the jira priority persistence.
+	 *
+	 * @return the jira priority persistence
+	 */
+	public JiraPriorityPersistence getJiraPriorityPersistence() {
+		return jiraPriorityPersistence;
+	}
+
+	/**
+	 * Sets the jira priority persistence.
+	 *
+	 * @param jiraPriorityPersistence the jira priority persistence
+	 */
+	public void setJiraPriorityPersistence(
+		JiraPriorityPersistence jiraPriorityPersistence) {
+		this.jiraPriorityPersistence = jiraPriorityPersistence;
+	}
+
+	/**
 	 * Returns the jira project local service.
 	 *
 	 * @return the jira project local service
@@ -699,6 +757,12 @@ public abstract class JiraMetricLocalServiceBaseImpl
 	protected com.liferay.jira.metrics.service.JiraMetricService jiraMetricService;
 	@BeanReference(type = JiraMetricPersistence.class)
 	protected JiraMetricPersistence jiraMetricPersistence;
+	@BeanReference(type = com.liferay.jira.metrics.service.JiraPriorityLocalService.class)
+	protected com.liferay.jira.metrics.service.JiraPriorityLocalService jiraPriorityLocalService;
+	@BeanReference(type = com.liferay.jira.metrics.service.JiraPriorityService.class)
+	protected com.liferay.jira.metrics.service.JiraPriorityService jiraPriorityService;
+	@BeanReference(type = JiraPriorityPersistence.class)
+	protected JiraPriorityPersistence jiraPriorityPersistence;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraProjectLocalService.class)
 	protected com.liferay.jira.metrics.service.JiraProjectLocalService jiraProjectLocalService;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraProjectService.class)

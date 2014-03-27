@@ -118,13 +118,13 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 		_methodName19 = "addJiraMetric";
 
 		_methodParameterTypes19 = new String[] {
-				"long", "long", "long", "int", "java.util.Date", "int"
+				"long", "long", "long", "long", "java.util.Date", "int"
 			};
 
 		_methodName20 = "getJiraMetric";
 
 		_methodParameterTypes20 = new String[] {
-				"long", "long", "long", "int", "java.util.Date"
+				"long", "long", "long", "long", "java.util.Date"
 			};
 
 		_methodName21 = "getJiraMetric";
@@ -699,7 +699,7 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric addJiraMetric(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		int priority, java.util.Date date, int total)
+		long jiraPriorityId, java.util.Date date, int total)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -714,7 +714,7 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 						
 					jiraStatusId,
 						
-					priority,
+					jiraPriorityId,
 						
 					ClpSerializer.translateInput(date),
 						
@@ -747,7 +747,7 @@ public class JiraMetricLocalServiceClp implements JiraMetricLocalService {
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		int priority, java.util.Date date)
+		long priority, java.util.Date date)
 		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;

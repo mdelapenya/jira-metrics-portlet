@@ -14,8 +14,6 @@
  */
 --%>
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
-
-<portlet:defineObjects />
+<%@ include file="/html/jirametrics/init.jsp" %>
 
 This is the <b>JIRA Metrics Portlet</b> portlet in View mode.

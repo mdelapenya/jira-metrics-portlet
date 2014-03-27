@@ -17,11 +17,18 @@
 		<field name="jiraProjectId" type="long" />
 		<field name="jiraComponentId" type="long" />
 		<field name="jiraStatusId" type="long" />
-		<field name="priority" type="int" />
+		<field name="jiraPriorityId" type="long" />
 		<field name="day" type="int" />
 		<field name="month" type="int" />
 		<field name="year" type="int" />
 		<field name="total" type="int" />
+	</model>
+	<model name="com.liferay.jira.metrics.model.JiraPriority">
+		<field name="jiraPriorityId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="value" type="String" />
+		<field name="name" type="String" />
 	</model>
 	<model name="com.liferay.jira.metrics.model.JiraProject">
 		<field name="jiraProjectId" type="long" />

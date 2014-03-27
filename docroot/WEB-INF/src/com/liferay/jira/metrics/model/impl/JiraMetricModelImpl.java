@@ -69,13 +69,13 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 			{ "jiraProjectId", Types.BIGINT },
 			{ "jiraComponentId", Types.BIGINT },
 			{ "jiraStatusId", Types.BIGINT },
-			{ "priority", Types.INTEGER },
+			{ "jiraPriorityId", Types.BIGINT },
 			{ "day", Types.INTEGER },
 			{ "month", Types.INTEGER },
 			{ "year", Types.INTEGER },
 			{ "total", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraMetric (jiraMetricId LONG not null primary key,createDate DATE null,modifiedDate DATE null,jiraProjectId LONG,jiraComponentId LONG,jiraStatusId LONG,priority INTEGER,day INTEGER,month INTEGER,year INTEGER,total INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table jirametrics_JiraMetric (jiraMetricId LONG not null primary key,createDate DATE null,modifiedDate DATE null,jiraProjectId LONG,jiraComponentId LONG,jiraStatusId LONG,jiraPriorityId LONG,day INTEGER,month INTEGER,year INTEGER,total INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table jirametrics_JiraMetric";
 	public static final String ORDER_BY_JPQL = " ORDER BY jiraMetric.jiraMetricId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY jirametrics_JiraMetric.jiraMetricId ASC";
@@ -93,10 +93,10 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 			true);
 	public static long DAY_COLUMN_BITMASK = 1L;
 	public static long JIRACOMPONENTID_COLUMN_BITMASK = 2L;
-	public static long JIRAPROJECTID_COLUMN_BITMASK = 4L;
-	public static long JIRASTATUSID_COLUMN_BITMASK = 8L;
-	public static long MONTH_COLUMN_BITMASK = 16L;
-	public static long PRIORITY_COLUMN_BITMASK = 32L;
+	public static long JIRAPRIORITYID_COLUMN_BITMASK = 4L;
+	public static long JIRAPROJECTID_COLUMN_BITMASK = 8L;
+	public static long JIRASTATUSID_COLUMN_BITMASK = 16L;
+	public static long MONTH_COLUMN_BITMASK = 32L;
 	public static long YEAR_COLUMN_BITMASK = 64L;
 	public static long JIRAMETRICID_COLUMN_BITMASK = 128L;
 
@@ -119,7 +119,7 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		model.setJiraProjectId(soapModel.getJiraProjectId());
 		model.setJiraComponentId(soapModel.getJiraComponentId());
 		model.setJiraStatusId(soapModel.getJiraStatusId());
-		model.setPriority(soapModel.getPriority());
+		model.setJiraPriorityId(soapModel.getJiraPriorityId());
 		model.setDay(soapModel.getDay());
 		model.setMonth(soapModel.getMonth());
 		model.setYear(soapModel.getYear());
@@ -194,7 +194,7 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		attributes.put("jiraProjectId", getJiraProjectId());
 		attributes.put("jiraComponentId", getJiraComponentId());
 		attributes.put("jiraStatusId", getJiraStatusId());
-		attributes.put("priority", getPriority());
+		attributes.put("jiraPriorityId", getJiraPriorityId());
 		attributes.put("day", getDay());
 		attributes.put("month", getMonth());
 		attributes.put("year", getYear());
@@ -241,10 +241,10 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 			setJiraStatusId(jiraStatusId);
 		}
 
-		Integer priority = (Integer)attributes.get("priority");
+		Long jiraPriorityId = (Long)attributes.get("jiraPriorityId");
 
-		if (priority != null) {
-			setPriority(priority);
+		if (jiraPriorityId != null) {
+			setJiraPriorityId(jiraPriorityId);
 		}
 
 		Integer day = (Integer)attributes.get("day");
@@ -376,25 +376,25 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 	@JSON
 	@Override
-	public int getPriority() {
-		return _priority;
+	public long getJiraPriorityId() {
+		return _jiraPriorityId;
 	}
 
 	@Override
-	public void setPriority(int priority) {
-		_columnBitmask |= PRIORITY_COLUMN_BITMASK;
+	public void setJiraPriorityId(long jiraPriorityId) {
+		_columnBitmask |= JIRAPRIORITYID_COLUMN_BITMASK;
 
-		if (!_setOriginalPriority) {
-			_setOriginalPriority = true;
+		if (!_setOriginalJiraPriorityId) {
+			_setOriginalJiraPriorityId = true;
 
-			_originalPriority = _priority;
+			_originalJiraPriorityId = _jiraPriorityId;
 		}
 
-		_priority = priority;
+		_jiraPriorityId = jiraPriorityId;
 	}
 
-	public int getOriginalPriority() {
-		return _originalPriority;
+	public long getOriginalJiraPriorityId() {
+		return _originalJiraPriorityId;
 	}
 
 	@JSON
@@ -514,7 +514,7 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		jiraMetricImpl.setJiraProjectId(getJiraProjectId());
 		jiraMetricImpl.setJiraComponentId(getJiraComponentId());
 		jiraMetricImpl.setJiraStatusId(getJiraStatusId());
-		jiraMetricImpl.setPriority(getPriority());
+		jiraMetricImpl.setJiraPriorityId(getJiraPriorityId());
 		jiraMetricImpl.setDay(getDay());
 		jiraMetricImpl.setMonth(getMonth());
 		jiraMetricImpl.setYear(getYear());
@@ -583,9 +583,9 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 		jiraMetricModelImpl._setOriginalJiraStatusId = false;
 
-		jiraMetricModelImpl._originalPriority = jiraMetricModelImpl._priority;
+		jiraMetricModelImpl._originalJiraPriorityId = jiraMetricModelImpl._jiraPriorityId;
 
-		jiraMetricModelImpl._setOriginalPriority = false;
+		jiraMetricModelImpl._setOriginalJiraPriorityId = false;
 
 		jiraMetricModelImpl._originalDay = jiraMetricModelImpl._day;
 
@@ -632,7 +632,7 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 
 		jiraMetricCacheModel.jiraStatusId = getJiraStatusId();
 
-		jiraMetricCacheModel.priority = getPriority();
+		jiraMetricCacheModel.jiraPriorityId = getJiraPriorityId();
 
 		jiraMetricCacheModel.day = getDay();
 
@@ -661,8 +661,8 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		sb.append(getJiraComponentId());
 		sb.append(", jiraStatusId=");
 		sb.append(getJiraStatusId());
-		sb.append(", priority=");
-		sb.append(getPriority());
+		sb.append(", jiraPriorityId=");
+		sb.append(getJiraPriorityId());
 		sb.append(", day=");
 		sb.append(getDay());
 		sb.append(", month=");
@@ -709,8 +709,8 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		sb.append(getJiraStatusId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>priority</column-name><column-value><![CDATA[");
-		sb.append(getPriority());
+			"<column><column-name>jiraPriorityId</column-name><column-value><![CDATA[");
+		sb.append(getJiraPriorityId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>day</column-name><column-value><![CDATA[");
@@ -750,9 +750,9 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 	private long _jiraStatusId;
 	private long _originalJiraStatusId;
 	private boolean _setOriginalJiraStatusId;
-	private int _priority;
-	private int _originalPriority;
-	private boolean _setOriginalPriority;
+	private long _jiraPriorityId;
+	private long _originalJiraPriorityId;
+	private boolean _setOriginalJiraPriorityId;
 	private int _day;
 	private int _originalDay;
 	private boolean _setOriginalDay;

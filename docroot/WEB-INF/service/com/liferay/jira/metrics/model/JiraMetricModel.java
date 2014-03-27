@@ -143,18 +143,18 @@ public interface JiraMetricModel extends BaseModel<JiraMetric> {
 	public void setJiraStatusId(long jiraStatusId);
 
 	/**
-	 * Returns the priority of this jira metric.
+	 * Returns the jira priority ID of this jira metric.
 	 *
-	 * @return the priority of this jira metric
+	 * @return the jira priority ID of this jira metric
 	 */
-	public int getPriority();
+	public long getJiraPriorityId();
 
 	/**
-	 * Sets the priority of this jira metric.
+	 * Sets the jira priority ID of this jira metric.
 	 *
-	 * @param priority the priority of this jira metric
+	 * @param jiraPriorityId the jira priority ID of this jira metric
 	 */
-	public void setPriority(int priority);
+	public void setJiraPriorityId(long jiraPriorityId);
 
 	/**
 	 * Returns the day of this jira metric.

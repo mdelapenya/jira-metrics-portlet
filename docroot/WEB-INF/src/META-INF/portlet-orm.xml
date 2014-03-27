@@ -37,11 +37,27 @@
 			<basic name="jiraProjectId" />
 			<basic name="jiraComponentId" />
 			<basic name="jiraStatusId" />
-			<basic name="priority" />
+			<basic name="jiraPriorityId" />
 			<basic name="day" />
 			<basic name="month" />
 			<basic name="year" />
 			<basic name="total" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraPriorityModelImpl">
+		<attributes>
+			<id name="jiraPriorityId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="value" />
+			<basic name="name" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -87,6 +103,10 @@
 	</entity>
 	<entity class="com.liferay.jira.metrics.model.impl.JiraMetricImpl" name="JiraMetric">
 		<table name="jirametrics_JiraMetric" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.jira.metrics.model.impl.JiraPriorityImpl" name="JiraPriority">
+		<table name="jirametrics_JiraPriority" />
 		<attributes />
 	</entity>
 	<entity class="com.liferay.jira.metrics.model.impl.JiraProjectImpl" name="JiraProject">
