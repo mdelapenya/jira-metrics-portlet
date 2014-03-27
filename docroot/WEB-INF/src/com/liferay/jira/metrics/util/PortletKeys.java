@@ -21,6 +21,16 @@ public class PortletKeys extends com.liferay.portal.util.PortletKeys {
 
 	public static final String JIRA_METRICS_PORTLET_ID = "jirametricsportlet";
 
+	public static final String PARAM_JIRA_COMPONENTS = "jiraComponents";
+
+	public static final String PARAM_JIRA_PRIORITIES = "jiraPriorities";
+
+	public static final String PARAM_JIRA_PROJECT = "jiraProject";
+
+	public static final String PARAM_JIRA_STATUSES = "jiraStatuses";
+
+	public static final String PARAM_JIRA_TEAM_NAME = "teamName";
+
 	public static final String PREFERENCE_JIRA_COMPONENTS = "jiraComponents";
 
 	public static final String PREFERENCE_JIRA_PRIORITIES = "jiraPriorities";
