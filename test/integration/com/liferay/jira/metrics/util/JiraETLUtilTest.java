@@ -20,6 +20,9 @@ import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 
 import com.google.common.collect.Lists;
+
+import com.liferay.jira.metrics.client.MockJiraClientImpl;
+import com.liferay.jira.metrics.client.JiraClientImpl;
 import com.liferay.jira.metrics.client.MockJiraStorage;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraMetric;
@@ -29,16 +32,21 @@ import com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
-import com.liferay.plugins.test.BaseArquillianTestCase;
+import com.liferay.plugins.test.WebArchiveUtil;
 import com.liferay.portal.kernel.util.StringPool;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 
 import java.util.Date;
 import java.util.List;
 
+import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,7 +57,34 @@ import org.junit.runner.RunWith;
  * @author Cristina González
  */
 @RunWith(Arquillian.class)
-public class JiraETLUtilTest extends BaseArquillianTestCase {
+public class JiraETLUtilTest {
+
+	@Deployment
+	public static Archive<?> getGetDeployment() throws IOException {
+		WebArchive webArchive = WebArchiveUtil.createWebArchive();
+		mockJiraSpringConfig(webArchive);
+
+		return webArchive;
+	}
+
+	protected static void mockJiraSpringConfig(WebArchive webArchive) {
+		webArchive.addClass(WebArchiveUtil.class);
+
+		webArchive.deleteClass(JiraClientImpl.class);
+
+		webArchive.addClass(MockJiraClientImpl.class);
+
+		webArchive.addClass(MockJiraStorage.class);
+
+		webArchive.addClass(PortletPreferencesTestUtil.class);
+
+		File jiraSpringMockFile = new File(
+			"./test/integration/" +
+				"META-INF/ext-spring.xml");
+
+		webArchive.addAsWebResource(
+			jiraSpringMockFile, "/WEB-INF/classes/META-INF/ext-spring.xml");
+	}
 
 	@Before
 	public void setUp() throws Exception {
