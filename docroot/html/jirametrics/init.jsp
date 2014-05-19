@@ -23,34 +23,29 @@
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-
-<%@ page import="com.liferay.portal.kernel.util.Constants" %>
-
-<%@ page
-		import="com.liferay.jira.metrics.util.comparator.JiraProjectComparator" %>
-<%@ page
-		import="com.liferay.jira.metrics.util.comparator.JiraStatusComparator" %>
-<%@ page import="com.liferay.jira.metrics.model.JiraStatus" %>
-<%@ page import="com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil" %>
 <%@ page import="com.atlassian.jira.rest.client.domain.Priority" %>
-<%@ page import="com.liferay.portal.kernel.util.ArrayUtil" %>
+
 <%@ page import="com.liferay.jira.metrics.model.JiraComponent" %>
-<%@ page
-		import="com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil" %>
-<%@ page import="com.liferay.portal.kernel.util.PropsKeys" %>
-<%@ page import="com.liferay.jira.metrics.util.PortletKeys" %>
-<%@ page import="com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil" %>
 <%@ page import="com.liferay.jira.metrics.model.JiraPriority" %>
-<%@ page
-		import="com.liferay.jira.metrics.service.impl.JiraPriorityLocalServiceImpl" %>
-<%@ page
-		import="com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil" %>
-<%@ page
-		import="com.liferay.jira.metrics.util.comparator.JiraPriorityComparator" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.liferay.jira.metrics.model.JiraProject" %>
-<%@ page
-		import="com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil" %>
+<%@ page import="com.liferay.jira.metrics.model.JiraStatus" %>
+<%@ page import="com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil" %>
+<%@ page import="com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil" %>
+<%@ page import="com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil" %>
+<%@ page import="com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil" %>
+<%@ page import="com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil" %>
+<%@ page import="com.liferay.jira.metrics.service.impl.JiraPriorityLocalServiceImpl" %>
+<%@ page import="com.liferay.jira.metrics.util.PortletKeys" %>
+<%@ page import="com.liferay.jira.metrics.util.comparator.JiraPriorityComparator" %>
+<%@ page import="com.liferay.jira.metrics.util.comparator.JiraProjectComparator" %>
+<%@ page import="com.liferay.jira.metrics.util.comparator.JiraStatusComparator" %>
+
+<%@ page import="com.liferay.portal.kernel.util.ArrayUtil" %>
+<%@ page import="com.liferay.portal.kernel.util.Constants" %>
+<%@ page import="com.liferay.portal.kernel.util.PropsKeys" %>
+
+<%@ page import="java.util.List" %>
+
 <%@ page import="javax.portlet.PortletURL" %>
 
 <portlet:defineObjects />
