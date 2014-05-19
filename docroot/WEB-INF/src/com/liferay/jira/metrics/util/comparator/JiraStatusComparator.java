@@ -14,7 +14,6 @@
 package com.liferay.jira.metrics.util.comparator;
 
 import com.liferay.jira.metrics.model.JiraProject;
-import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 /**
@@ -27,7 +26,6 @@ public class JiraStatusComparator extends OrderByComparator {
 	public static final String ORDER_BY_DESC = "name DESC";
 
 	public static final String[] ORDER_BY_FIELDS = {"name"};
-
 
 	public JiraStatusComparator() {
 		this(false);
@@ -73,4 +71,5 @@ public class JiraStatusComparator extends OrderByComparator {
 	}
 
 	private boolean _ascending;
+
 }

@@ -27,7 +27,6 @@ public class JiraProjectComparator extends OrderByComparator {
 
 	public static final String[] ORDER_BY_FIELDS = {"key"};
 
-
 	public JiraProjectComparator() {
 		this(false);
 	}
@@ -35,7 +34,6 @@ public class JiraProjectComparator extends OrderByComparator {
 	public JiraProjectComparator(boolean ascending) {
 		_ascending = ascending;
 	}
-
 
 	@Override
 	public int compare(Object o1, Object o2) {
@@ -73,4 +71,5 @@ public class JiraProjectComparator extends OrderByComparator {
 	}
 
 	private boolean _ascending;
+
 }

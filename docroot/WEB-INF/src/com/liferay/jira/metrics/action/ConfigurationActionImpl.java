@@ -99,4 +99,5 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 	private static Log _log = LogFactoryUtil.getLog(
 		ConfigurationActionImpl.class);
+
 }

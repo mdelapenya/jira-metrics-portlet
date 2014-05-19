@@ -14,7 +14,6 @@
 package com.liferay.jira.metrics.util.comparator;
 
 import com.liferay.jira.metrics.model.JiraPriority;
-import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 /**
@@ -28,7 +27,6 @@ public class JiraPriorityComparator extends OrderByComparator {
 
 	public static final String[] ORDER_BY_FIELDS = {"value"};
 
-
 	public JiraPriorityComparator() {
 		this(false);
 	}
@@ -36,7 +34,6 @@ public class JiraPriorityComparator extends OrderByComparator {
 	public JiraPriorityComparator(boolean ascending) {
 		_ascending = ascending;
 	}
-
 
 	@Override
 	public int compare(Object o1, Object o2) {
@@ -75,4 +72,5 @@ public class JiraPriorityComparator extends OrderByComparator {
 	}
 
 	private boolean _ascending;
+
 }

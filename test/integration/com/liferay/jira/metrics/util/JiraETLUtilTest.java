@@ -259,8 +259,9 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 					JiraPriority jiraPriority = null;
 
 					if (priority != null) {
-						jiraPriority = JiraPriorityLocalServiceUtil.getJiraPriorityByValue(
-							priority.getId().toString());
+						jiraPriority =
+							JiraPriorityLocalServiceUtil.getJiraPriorityByValue(
+								priority.getId().toString());
 					}
 
 					jiraMetric =
@@ -268,8 +269,7 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 							jiraProject.getJiraProjectId(),
 							jiraComponent.getJiraComponentId(),
 							jiraStatus.getJiraStatusId(),
-							jiraPriority.getJiraPriorityId(),
-							new Date());
+							jiraPriority.getJiraPriorityId(), new Date());
 
 					Assert.assertNotNull(jiraMetric);
 					Assert.assertEquals(jiraMetric.getTotal(), count);
@@ -278,9 +278,10 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 		}
 	}
 
-	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
 	private static final String _PORTLET_ID =
 		PortletKeys.JIRA_METRICS_PORTLET_ID + StringPool.UNDERLINE +
 			JiraETLUtilTest.class.getCanonicalName();
+
+	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
 
 }

@@ -197,8 +197,7 @@ public class JiraETLUtil {
 					jiraComponent.getJiraProjectId(),
 					jiraComponent.getJiraComponentId(),
 					jiraStatus.getJiraStatusId(),
-					jiraPriorityId,
-					date, issueMetric.getTotal());
+					jiraPriorityId, date, issueMetric.getTotal());
 
 				if (_log.isInfoEnabled()) {
 					_log.info(

@@ -29,6 +29,7 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.portlet.PortletException;
@@ -54,7 +55,8 @@ public class JiraMetricsPortlet extends MVCPortlet {
 			jiraProject =
 				JiraProjectLocalServiceUtil.getJiraProjectByProjectLabel(
 					jiraProjectKey);
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			throw new PortletException(e);
 		}
 
@@ -62,19 +64,29 @@ public class JiraMetricsPortlet extends MVCPortlet {
 		JSONArray componentsNameCode = JSONFactoryUtil.getJSONFactory().createJSONArray();
 
 		List<JiraComponent> componentList = null;
+
 		try {
-			componentList = JiraComponentLocalServiceUtil.getJiraComponentsByJiraProjectId(jiraProject.getJiraProjectId());
-		} catch (SystemException e) {
+			componentList =
+				JiraComponentLocalServiceUtil.getJiraComponentsByJiraProjectId(
+					jiraProject.getJiraProjectId());
+		}
+		catch (SystemException e) {
 			throw new PortletException(e);
 		}
 
-		for (JiraComponent component : componentList)
-			componentsNameCode.put( component.getName() + ":" + component.getName());
+		for (JiraComponent component : componentList) {
+			componentsNameCode.put(
+				component.getName() + ":" + component.getName());
+		}
 
 		jsonFeed.put("componentsNameCode", componentsNameCode);
+
 		resourceResponse.setContentType("application/json");
 		resourceResponse.setCharacterEncoding("UTF-8");
-		resourceResponse.getWriter().write(jsonFeed.toString());
+
+		PrintWriter writer = resourceResponse.getWriter();
+
+		writer.write(jsonFeed.toString());
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(JiraMetricsPortlet.class);

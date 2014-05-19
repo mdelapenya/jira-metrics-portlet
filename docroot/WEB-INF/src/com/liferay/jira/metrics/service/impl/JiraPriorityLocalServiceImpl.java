@@ -67,7 +67,6 @@ public class JiraPriorityLocalServiceImpl
 
 		jiraPriority.setCreateDate(now);
 		jiraPriority.setModifiedDate(now);
-
 		jiraPriority.setValue(value);
 		jiraPriority.setName(name);
 
@@ -97,7 +96,7 @@ public class JiraPriorityLocalServiceImpl
 	 * @throws SystemException
 	 */
 	public List<JiraPriority> getAllJiraPriorities(
-		OrderByComparator orderByComparator)
+			OrderByComparator orderByComparator)
 		throws SystemException {
 
 		return jiraPriorityPersistence.findAll(
