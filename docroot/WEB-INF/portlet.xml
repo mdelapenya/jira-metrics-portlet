@@ -6,18 +6,18 @@
 		<display-name>JIRA Metrics Portlet</display-name>
 		<portlet-class>com.liferay.jira.metrics.portlet.JiraMetricsPortlet</portlet-class>
 		<init-param>
-			<name>view-template</name>
-			<value>/html/jirametrics/view.jsp</value>
-		</init-param>
-		<init-param>
 			<name>config-template</name>
 			<value>/html/jirametrics/config.jsp</value>
+		</init-param>
+		<init-param>
+			<name>view-template</name>
+			<value>/html/jirametrics/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
-			<portlet-mode>view</portlet-mode>
 			<portlet-mode>config</portlet-mode>
+			<portlet-mode>view</portlet-mode>
 		</supports>
 		<resource-bundle>content/Language</resource-bundle>
 		<portlet-info>
