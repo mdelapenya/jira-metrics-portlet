@@ -13,7 +13,7 @@
  */
 package com.liferay.jira.metrics.util.comparator;
 
-import com.liferay.jira.metrics.model.JiraProject;
+import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 /**
@@ -37,10 +37,10 @@ public class JiraStatusComparator extends OrderByComparator {
 
 	@Override
 	public int compare(Object o1, Object o2) {
-		JiraProject jiraProject1 = (JiraProject)o1;
-		JiraProject jiraProject2 = (JiraProject)o2;
+		JiraStatus jiraStatus1 = (JiraStatus)o1;
+		JiraStatus jiraStatus2 = (JiraStatus)o2;
 
-		int value = jiraProject1.getKey().compareTo(jiraProject2.getKey());
+		int value = jiraStatus1.getName().compareTo(jiraStatus2.getName());
 
 		if(_ascending) {
 			return value;
