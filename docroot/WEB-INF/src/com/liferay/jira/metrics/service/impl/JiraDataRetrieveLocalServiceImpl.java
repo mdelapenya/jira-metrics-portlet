@@ -70,6 +70,15 @@ public class JiraDataRetrieveLocalServiceImpl
 		return jiraDataRetrievePersistence.update(jiraDataRetrieve);
 	}
 
+	public JiraDataRetrieve fetchByDate(Date date)
+		throws PortalException, SystemException {
+
+		int[] dateElements = parseDate(date);
+
+		return jiraDataRetrievePersistence.fetchByD_M_Y(
+			dateElements[0], dateElements[1], dateElements[2]);
+	}
+
 	protected int[] parseDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
 
