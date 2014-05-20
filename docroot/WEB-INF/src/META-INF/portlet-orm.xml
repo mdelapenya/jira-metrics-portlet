@@ -25,6 +25,25 @@
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraDataRetrieveModelImpl">
+		<attributes>
+			<id name="jiraDataRetrieveId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="status" />
+			<basic name="statusDescription" />
+			<basic name="day" />
+			<basic name="month" />
+			<basic name="year" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraMetricModelImpl">
 		<attributes>
 			<id name="jiraMetricId" />
@@ -99,6 +118,10 @@
 	</mapped-superclass>
 	<entity class="com.liferay.jira.metrics.model.impl.JiraComponentImpl" name="JiraComponent">
 		<table name="jirametrics_JiraComponent" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.jira.metrics.model.impl.JiraDataRetrieveImpl" name="JiraDataRetrieve">
+		<table name="jirametrics_JiraDataRetrieve" />
 		<attributes />
 	</entity>
 	<entity class="com.liferay.jira.metrics.model.impl.JiraMetricImpl" name="JiraMetric">

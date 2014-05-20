@@ -15,20 +15,20 @@
 package com.liferay.jira.metrics.model.impl;
 
 /**
- * The extended model implementation for the JiraPriority service. Represents a row in the &quot;jirametrics_JiraPriority&quot; database table, with each column mapped to a property of this class.
+ * The extended model implementation for the JiraDataRetrieve service. Represents a row in the &quot;jirametrics_JiraDataRetrieve&quot; database table, with each column mapped to a property of this class.
  *
  * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.jira.metrics.model.JiraPriority} interface.
+ * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.jira.metrics.model.JiraDataRetrieve} interface.
  * </p>
  *
  * @author Manuel de la Peña
  */
-public class JiraPriorityImpl extends JiraPriorityBaseImpl {
+public class JiraDataRetrieveImpl extends JiraDataRetrieveBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. All methods that expect a jira priority model instance should use the {@link com.liferay.jira.metrics.model.JiraPriority} interface instead.
+	 * Never reference this class directly. All methods that expect a jira data retrieve model instance should use the {@link com.liferay.jira.metrics.model.JiraDataRetrieve} interface instead.
 	 */
-	public JiraPriorityImpl() {
+	public JiraDataRetrieveImpl() {
 	}
 }

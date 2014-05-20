@@ -14,26 +14,26 @@
 
 package com.liferay.jira.metrics.service.impl;
 
-import com.liferay.jira.metrics.service.base.JiraPriorityServiceBaseImpl;
+import com.liferay.jira.metrics.service.base.JiraDataRetrieveServiceBaseImpl;
 
 /**
- * The implementation of the jira priority remote service.
+ * The implementation of the jira data retrieve remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.jira.metrics.service.JiraPriorityService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.jira.metrics.service.JiraDataRetrieveService} interface.
  *
  * <p>
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
  * </p>
  *
  * @author Manuel de la Peña
- * @see com.liferay.jira.metrics.service.base.JiraPriorityServiceBaseImpl
- * @see com.liferay.jira.metrics.service.JiraPriorityServiceUtil
+ * @see com.liferay.jira.metrics.service.base.JiraDataRetrieveServiceBaseImpl
+ * @see com.liferay.jira.metrics.service.JiraDataRetrieveServiceUtil
  */
-public class JiraPriorityServiceImpl extends JiraPriorityServiceBaseImpl {
+public class JiraDataRetrieveServiceImpl extends JiraDataRetrieveServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraPriorityServiceUtil} to access the jira priority remote service.
+	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraDataRetrieveServiceUtil} to access the jira data retrieve remote service.
 	 */
 }

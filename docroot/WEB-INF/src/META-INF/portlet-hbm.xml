@@ -3,6 +3,7 @@
 
 <hibernate-mapping default-lazy="false" auto-import="false">
 	<import class="com.liferay.jira.metrics.model.JiraComponent" />
+	<import class="com.liferay.jira.metrics.model.JiraDataRetrieve" />
 	<import class="com.liferay.jira.metrics.model.JiraMetric" />
 	<import class="com.liferay.jira.metrics.model.JiraPriority" />
 	<import class="com.liferay.jira.metrics.model.JiraProject" />
@@ -18,6 +19,19 @@
 		<property name="jiraProjectId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="disabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+	<class name="com.liferay.jira.metrics.model.impl.JiraDataRetrieveImpl" table="jirametrics_JiraDataRetrieve">
+		<cache usage="read-write" />
+		<id name="jiraDataRetrieveId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="statusDescription" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="day" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="month" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="year" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
 	<class name="com.liferay.jira.metrics.model.impl.JiraMetricImpl" table="jirametrics_JiraMetric">
 		<cache usage="read-write" />
