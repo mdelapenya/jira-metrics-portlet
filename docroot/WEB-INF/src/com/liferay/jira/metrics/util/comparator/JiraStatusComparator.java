@@ -14,62 +14,31 @@
 package com.liferay.jira.metrics.util.comparator;
 
 import com.liferay.jira.metrics.model.JiraStatus;
-import com.liferay.portal.kernel.util.OrderByComparator;
 
 /**
  * @author Cristina González
  */
-public class JiraStatusComparator extends OrderByComparator {
-
-	public static final String ORDER_BY_ASC = "name ASC";
-
-	public static final String ORDER_BY_DESC = "name DESC";
-
-	public static final String[] ORDER_BY_FIELDS = {"name"};
+public class JiraStatusComparator extends BaseJiraComparator {
 
 	public JiraStatusComparator() {
 		this(false);
 	}
 
 	public JiraStatusComparator(boolean ascending) {
-		_ascending = ascending;
+		super(ascending);
 	}
 
 	@Override
-	public int compare(Object o1, Object o2) {
+	public int getCompareToValue(Object o1, Object o2) {
 		JiraStatus jiraStatus1 = (JiraStatus)o1;
 		JiraStatus jiraStatus2 = (JiraStatus)o2;
 
-		int value = jiraStatus1.getName().compareTo(jiraStatus2.getName());
-
-		if(_ascending) {
-			return value;
-		}
-		else {
-			return -value;
-		}
+		return jiraStatus1.getName().compareTo(jiraStatus2.getName());
 	}
 
 	@Override
-	public String getOrderBy() {
-		if (_ascending) {
-			return ORDER_BY_ASC;
-		}
-		else {
-			return ORDER_BY_DESC;
-		}
+	public String getFieldName() {
+		return "name";
 	}
-
-	@Override
-	public String[] getOrderByFields() {
-		return ORDER_BY_FIELDS;
-	}
-
-	@Override
-	public boolean isAscending() {
-		return _ascending;
-	}
-
-	private boolean _ascending;
 
 }

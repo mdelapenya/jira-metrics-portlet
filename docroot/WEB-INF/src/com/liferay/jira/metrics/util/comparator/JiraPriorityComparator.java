@@ -19,58 +19,30 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 /**
  * @author Cristina González
  */
-public class JiraPriorityComparator extends OrderByComparator {
-
-	public static final String ORDER_BY_ASC = "value ASC";
-
-	public static final String ORDER_BY_DESC = "value DESC";
-
-	public static final String[] ORDER_BY_FIELDS = {"value"};
+public class JiraPriorityComparator extends BaseJiraComparator {
 
 	public JiraPriorityComparator() {
 		this(false);
 	}
 
 	public JiraPriorityComparator(boolean ascending) {
-		_ascending = ascending;
+		super(ascending);
 	}
 
 	@Override
-	public int compare(Object o1, Object o2) {
+	protected int getCompareToValue(Object o1, Object o2) {
 		JiraPriority jiraPriority1 = (JiraPriority)o1;
 		JiraPriority jiraPriority2 = (JiraPriority)o2;
 
 		int value = jiraPriority1.getValue().compareTo(
 			jiraPriority2.getValue());
 
-		if(_ascending) {
-			return value;
-		}
-		else {
-			return -value;
-		}
+		return value;
 	}
 
 	@Override
-	public String getOrderBy() {
-		if (_ascending) {
-			return ORDER_BY_ASC;
-		}
-		else {
-			return ORDER_BY_DESC;
-		}
+	protected String getFieldName() {
+		return "value";
 	}
-
-	@Override
-	public String[] getOrderByFields() {
-		return ORDER_BY_FIELDS;
-	}
-
-	@Override
-	public boolean isAscending() {
-		return _ascending;
-	}
-
-	private boolean _ascending;
 
 }

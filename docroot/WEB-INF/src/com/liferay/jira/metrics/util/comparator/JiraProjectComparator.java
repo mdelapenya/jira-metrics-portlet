@@ -14,62 +14,31 @@
 package com.liferay.jira.metrics.util.comparator;
 
 import com.liferay.jira.metrics.model.JiraProject;
-import com.liferay.portal.kernel.util.OrderByComparator;
 
 /**
  * @author Cristina González
  */
-public class JiraProjectComparator extends OrderByComparator {
-
-	public static final String ORDER_BY_ASC = "key ASC";
-
-	public static final String ORDER_BY_DESC = "key DESC";
-
-	public static final String[] ORDER_BY_FIELDS = {"key"};
+public class JiraProjectComparator extends BaseJiraComparator {
 
 	public JiraProjectComparator() {
 		this(false);
 	}
 
 	public JiraProjectComparator(boolean ascending) {
-		_ascending = ascending;
+		super(ascending);
 	}
 
 	@Override
-	public int compare(Object o1, Object o2) {
+	public int getCompareToValue(Object o1, Object o2) {
 		JiraProject jiraProject1 = (JiraProject)o1;
 		JiraProject jiraProject2 = (JiraProject)o2;
 
-		int value = jiraProject1.getKey().compareTo(jiraProject2.getKey());
-
-		if(_ascending) {
-			return value;
-		}
-		else {
-			return -value;
-		}
+		return jiraProject1.getKey().compareTo(jiraProject2.getKey());
 	}
 
 	@Override
-	public String getOrderBy() {
-		if (_ascending) {
-			return ORDER_BY_ASC;
-		}
-		else {
-			return ORDER_BY_DESC;
-		}
+	public String getFieldName() {
+		return "key";
 	}
-
-	@Override
-	public String[] getOrderByFields() {
-		return ORDER_BY_FIELDS;
-	}
-
-	@Override
-	public boolean isAscending() {
-		return _ascending;
-	}
-
-	private boolean _ascending;
 
 }
