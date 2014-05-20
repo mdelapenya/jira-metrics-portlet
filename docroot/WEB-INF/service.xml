@@ -189,6 +189,37 @@
 		<reference package-path="com.liferay.portal" entity="PortletPreferences" />
 	</entity>
 
+	<entity name="JiraDataRetrieve" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="jiraDataRetrieveId" type="long" primary="true" />
+
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="status" type="String" />
+		<column name="statusDescription" type="String" />
+		<column name="day" type="int" />
+		<column name="month" type="int" />
+		<column name="year" type="int" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="modifiedDate" />
+		</order>
+
+		<!-- Finder methods -->
+		<finder name="D_M_Y" return-type="JiraDataRetrieve">
+			<finder-column name="day" />
+			<finder-column name="month" />
+			<finder-column name="year" />
+		</finder>
+	</entity>
+
 	<exceptions>
 		<exception>DuplicateJiraProject</exception>
 		<exception>DuplicateJiraPriority</exception>
