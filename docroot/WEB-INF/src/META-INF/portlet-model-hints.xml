@@ -10,6 +10,16 @@
 		<field name="name" type="String" />
 		<field name="disabled" type="boolean" />
 	</model>
+	<model name="com.liferay.jira.metrics.model.JiraDataRetrieve">
+		<field name="jiraDataRetrieveId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="status" type="String" />
+		<field name="statusDescription" type="String" />
+		<field name="day" type="int" />
+		<field name="month" type="int" />
+		<field name="year" type="int" />
+	</model>
 	<model name="com.liferay.jira.metrics.model.JiraMetric">
 		<field name="jiraMetricId" type="long" />
 		<field name="createDate" type="Date" />
