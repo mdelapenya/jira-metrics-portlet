@@ -14,7 +14,13 @@
 
 package com.liferay.jira.metrics.service.impl;
 
+import com.liferay.jira.metrics.model.JiraDataRetrieve;
 import com.liferay.jira.metrics.service.base.JiraDataRetrieveLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * The implementation of the jira data retrieve local service.
@@ -32,9 +38,49 @@ import com.liferay.jira.metrics.service.base.JiraDataRetrieveLocalServiceBaseImp
  */
 public class JiraDataRetrieveLocalServiceImpl
 	extends JiraDataRetrieveLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraDataRetrieveLocalServiceUtil} to access the jira data retrieve local service.
-	 */
+
+
+	public JiraDataRetrieve addJiraDataRetrieve(
+			String status, String statusDescription, Date date)
+		throws PortalException, SystemException {
+
+		int[] dateElements = parseDate(date);
+
+		Date now = new Date();
+
+		JiraDataRetrieve jiraDataRetrieve =
+			jiraDataRetrievePersistence.fetchByD_M_Y(
+				dateElements[0], dateElements[1], dateElements[2]);
+
+		if (jiraDataRetrieve == null) {
+			long id = counterLocalService.increment();
+
+			jiraDataRetrieve = jiraDataRetrievePersistence.create(id);
+
+			jiraDataRetrieve.setCreateDate(now);
+			jiraDataRetrieve.setDay(dateElements[0]);
+			jiraDataRetrieve.setMonth(dateElements[1]);
+			jiraDataRetrieve.setYear(dateElements[2]);
+		}
+
+		jiraDataRetrieve.setModifiedDate(now);
+		jiraDataRetrieve.setStatus(status);
+		jiraDataRetrieve.setStatusDescription(statusDescription);
+
+		return jiraDataRetrievePersistence.update(jiraDataRetrieve);
+	}
+
+	protected int[] parseDate(Date date) {
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.setTime(date);
+
+		int[] dateElements = new int[3];
+
+		dateElements[0] = calendar.get(Calendar.DAY_OF_MONTH);
+		dateElements[1] = calendar.get(Calendar.MONTH);
+		dateElements[2] = calendar.get(Calendar.YEAR);
+
+		return dateElements;
+	}
 }
