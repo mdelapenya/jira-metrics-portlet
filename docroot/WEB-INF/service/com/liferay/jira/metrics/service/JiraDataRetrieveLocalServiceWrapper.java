@@ -299,6 +299,30 @@ public class JiraDataRetrieveLocalServiceWrapper
 			statusDescription, date);
 	}
 
+	@Override
+	public com.liferay.jira.metrics.model.JiraDataRetrieve fetchByDate(
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraDataRetrieveLocalService.fetchByDate(date);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> getByStatus(
+		java.lang.String status, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraDataRetrieveLocalService.getByStatus(status, start, end);
+	}
+
+	@Override
+	public java.util.Date getDate(
+		com.liferay.jira.metrics.model.JiraDataRetrieve jiraDataRetrieve)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraDataRetrieveLocalService.getDate(jiraDataRetrieve);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

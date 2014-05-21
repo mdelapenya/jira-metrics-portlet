@@ -283,6 +283,27 @@ public class JiraDataRetrieveLocalServiceUtil {
 		return getService().addJiraDataRetrieve(status, statusDescription, date);
 	}
 
+	public static com.liferay.jira.metrics.model.JiraDataRetrieve fetchByDate(
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchByDate(date);
+	}
+
+	public static java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> getByStatus(
+		java.lang.String status, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getByStatus(status, start, end);
+	}
+
+	public static java.util.Date getDate(
+		com.liferay.jira.metrics.model.JiraDataRetrieve jiraDataRetrieve)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDate(jiraDataRetrieve);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

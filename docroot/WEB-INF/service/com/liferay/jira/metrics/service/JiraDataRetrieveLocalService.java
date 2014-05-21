@@ -254,4 +254,22 @@ public interface JiraDataRetrieveLocalService extends BaseLocalService,
 		java.util.Date date)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraDataRetrieve fetchByDate(
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> getByStatus(
+		java.lang.String status, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.Date getDate(
+		com.liferay.jira.metrics.model.JiraDataRetrieve jiraDataRetrieve)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }
