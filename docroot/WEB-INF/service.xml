@@ -218,6 +218,9 @@
 			<finder-column name="month" />
 			<finder-column name="year" />
 		</finder>
+		<finder name="Status" return-type="Collection">
+			<finder-column name="status" />
+		</finder>
 	</entity>
 
 	<exceptions>
