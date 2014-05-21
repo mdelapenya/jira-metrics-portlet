@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * The implementation of the jira data retrieve local service.
@@ -77,6 +78,13 @@ public class JiraDataRetrieveLocalServiceImpl
 
 		return jiraDataRetrievePersistence.fetchByD_M_Y(
 			dateElements[0], dateElements[1], dateElements[2]);
+	}
+
+	public List<JiraDataRetrieve> getByStatus(
+			String status, int start, int end)
+		throws PortalException, SystemException {
+
+		return jiraDataRetrievePersistence.findByStatus(status, start, end);
 	}
 
 	protected int[] parseDate(Date date) {
