@@ -19,6 +19,7 @@ import com.atlassian.jira.rest.client.JiraRestClient;
 import com.atlassian.jira.rest.client.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.MetadataRestClient;
 import com.atlassian.jira.rest.client.ProjectRestClient;
+import com.atlassian.jira.rest.client.RestClientException;
 import com.atlassian.jira.rest.client.SearchRestClient;
 import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.BasicProject;
@@ -250,9 +251,19 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 
 		Promise<SearchResult> promise = searchClient.searchJql(sb.toString());
 
-		SearchResult result = promise.claim();
+		int total = 0;
 
-		return result.getTotal();
+		try {
+			SearchResult result = promise.claim();
+			total = result.getTotal();
+		}
+		catch (RestClientException e) {
+			_log.error(
+				"Exception when trying to obtain a result for the query [ " +
+					sb.toString() + "] : "+ e.getMessage(), e);
+		}
+
+		return  total;
 	}
 
 	protected static String getJiraRestResponse(String restURL)
