@@ -17,7 +17,9 @@ package com.liferay.jira.metrics.service.base;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.JiraProjectLocalService;
 import com.liferay.jira.metrics.service.persistence.JiraComponentPersistence;
+import com.liferay.jira.metrics.service.persistence.JiraDataRetrievePersistence;
 import com.liferay.jira.metrics.service.persistence.JiraMetricPersistence;
+import com.liferay.jira.metrics.service.persistence.JiraPriorityPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraProjectPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraStatusPersistence;
 
@@ -342,6 +344,63 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the jira data retrieve local service.
+	 *
+	 * @return the jira data retrieve local service
+	 */
+	public com.liferay.jira.metrics.service.JiraDataRetrieveLocalService getJiraDataRetrieveLocalService() {
+		return jiraDataRetrieveLocalService;
+	}
+
+	/**
+	 * Sets the jira data retrieve local service.
+	 *
+	 * @param jiraDataRetrieveLocalService the jira data retrieve local service
+	 */
+	public void setJiraDataRetrieveLocalService(
+		com.liferay.jira.metrics.service.JiraDataRetrieveLocalService jiraDataRetrieveLocalService) {
+		this.jiraDataRetrieveLocalService = jiraDataRetrieveLocalService;
+	}
+
+	/**
+	 * Returns the jira data retrieve remote service.
+	 *
+	 * @return the jira data retrieve remote service
+	 */
+	public com.liferay.jira.metrics.service.JiraDataRetrieveService getJiraDataRetrieveService() {
+		return jiraDataRetrieveService;
+	}
+
+	/**
+	 * Sets the jira data retrieve remote service.
+	 *
+	 * @param jiraDataRetrieveService the jira data retrieve remote service
+	 */
+	public void setJiraDataRetrieveService(
+		com.liferay.jira.metrics.service.JiraDataRetrieveService jiraDataRetrieveService) {
+		this.jiraDataRetrieveService = jiraDataRetrieveService;
+	}
+
+	/**
+	 * Returns the jira data retrieve persistence.
+	 *
+	 * @return the jira data retrieve persistence
+	 */
+	public JiraDataRetrievePersistence getJiraDataRetrievePersistence() {
+		return jiraDataRetrievePersistence;
+	}
+
+	/**
+	 * Sets the jira data retrieve persistence.
+	 *
+	 * @param jiraDataRetrievePersistence the jira data retrieve persistence
+	 */
+	public void setJiraDataRetrievePersistence(
+		JiraDataRetrievePersistence jiraDataRetrievePersistence) {
+		this.jiraDataRetrievePersistence = jiraDataRetrievePersistence;
+	}
+
+	/**
 	 * Returns the jira metric local service.
 	 *
 	 * @return the jira metric local service
@@ -396,6 +455,63 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	public void setJiraMetricPersistence(
 		JiraMetricPersistence jiraMetricPersistence) {
 		this.jiraMetricPersistence = jiraMetricPersistence;
+	}
+
+	/**
+	 * Returns the jira priority local service.
+	 *
+	 * @return the jira priority local service
+	 */
+	public com.liferay.jira.metrics.service.JiraPriorityLocalService getJiraPriorityLocalService() {
+		return jiraPriorityLocalService;
+	}
+
+	/**
+	 * Sets the jira priority local service.
+	 *
+	 * @param jiraPriorityLocalService the jira priority local service
+	 */
+	public void setJiraPriorityLocalService(
+		com.liferay.jira.metrics.service.JiraPriorityLocalService jiraPriorityLocalService) {
+		this.jiraPriorityLocalService = jiraPriorityLocalService;
+	}
+
+	/**
+	 * Returns the jira priority remote service.
+	 *
+	 * @return the jira priority remote service
+	 */
+	public com.liferay.jira.metrics.service.JiraPriorityService getJiraPriorityService() {
+		return jiraPriorityService;
+	}
+
+	/**
+	 * Sets the jira priority remote service.
+	 *
+	 * @param jiraPriorityService the jira priority remote service
+	 */
+	public void setJiraPriorityService(
+		com.liferay.jira.metrics.service.JiraPriorityService jiraPriorityService) {
+		this.jiraPriorityService = jiraPriorityService;
+	}
+
+	/**
+	 * Returns the jira priority persistence.
+	 *
+	 * @return the jira priority persistence
+	 */
+	public JiraPriorityPersistence getJiraPriorityPersistence() {
+		return jiraPriorityPersistence;
+	}
+
+	/**
+	 * Sets the jira priority persistence.
+	 *
+	 * @param jiraPriorityPersistence the jira priority persistence
+	 */
+	public void setJiraPriorityPersistence(
+		JiraPriorityPersistence jiraPriorityPersistence) {
+		this.jiraPriorityPersistence = jiraPriorityPersistence;
 	}
 
 	/**
@@ -751,12 +867,24 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	protected com.liferay.jira.metrics.service.JiraComponentService jiraComponentService;
 	@BeanReference(type = JiraComponentPersistence.class)
 	protected JiraComponentPersistence jiraComponentPersistence;
+	@BeanReference(type = com.liferay.jira.metrics.service.JiraDataRetrieveLocalService.class)
+	protected com.liferay.jira.metrics.service.JiraDataRetrieveLocalService jiraDataRetrieveLocalService;
+	@BeanReference(type = com.liferay.jira.metrics.service.JiraDataRetrieveService.class)
+	protected com.liferay.jira.metrics.service.JiraDataRetrieveService jiraDataRetrieveService;
+	@BeanReference(type = JiraDataRetrievePersistence.class)
+	protected JiraDataRetrievePersistence jiraDataRetrievePersistence;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraMetricLocalService.class)
 	protected com.liferay.jira.metrics.service.JiraMetricLocalService jiraMetricLocalService;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraMetricService.class)
 	protected com.liferay.jira.metrics.service.JiraMetricService jiraMetricService;
 	@BeanReference(type = JiraMetricPersistence.class)
 	protected JiraMetricPersistence jiraMetricPersistence;
+	@BeanReference(type = com.liferay.jira.metrics.service.JiraPriorityLocalService.class)
+	protected com.liferay.jira.metrics.service.JiraPriorityLocalService jiraPriorityLocalService;
+	@BeanReference(type = com.liferay.jira.metrics.service.JiraPriorityService.class)
+	protected com.liferay.jira.metrics.service.JiraPriorityService jiraPriorityService;
+	@BeanReference(type = JiraPriorityPersistence.class)
+	protected JiraPriorityPersistence jiraPriorityPersistence;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraProjectLocalService.class)
 	protected com.liferay.jira.metrics.service.JiraProjectLocalService jiraProjectLocalService;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraProjectService.class)

@@ -15,7 +15,9 @@
 package com.liferay.jira.metrics.service;
 
 import com.liferay.jira.metrics.model.JiraComponentClp;
+import com.liferay.jira.metrics.model.JiraDataRetrieveClp;
 import com.liferay.jira.metrics.model.JiraMetricClp;
+import com.liferay.jira.metrics.model.JiraPriorityClp;
 import com.liferay.jira.metrics.model.JiraProjectClp;
 import com.liferay.jira.metrics.model.JiraStatusClp;
 
@@ -109,8 +111,16 @@ public class ClpSerializer {
 			return translateInputJiraComponent(oldModel);
 		}
 
+		if (oldModelClassName.equals(JiraDataRetrieveClp.class.getName())) {
+			return translateInputJiraDataRetrieve(oldModel);
+		}
+
 		if (oldModelClassName.equals(JiraMetricClp.class.getName())) {
 			return translateInputJiraMetric(oldModel);
+		}
+
+		if (oldModelClassName.equals(JiraPriorityClp.class.getName())) {
+			return translateInputJiraPriority(oldModel);
 		}
 
 		if (oldModelClassName.equals(JiraProjectClp.class.getName())) {
@@ -146,10 +156,30 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputJiraDataRetrieve(BaseModel<?> oldModel) {
+		JiraDataRetrieveClp oldClpModel = (JiraDataRetrieveClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getJiraDataRetrieveRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputJiraMetric(BaseModel<?> oldModel) {
 		JiraMetricClp oldClpModel = (JiraMetricClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getJiraMetricRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputJiraPriority(BaseModel<?> oldModel) {
+		JiraPriorityClp oldClpModel = (JiraPriorityClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getJiraPriorityRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -199,8 +229,18 @@ public class ClpSerializer {
 		}
 
 		if (oldModelClassName.equals(
+					"com.liferay.jira.metrics.model.impl.JiraDataRetrieveImpl")) {
+			return translateOutputJiraDataRetrieve(oldModel);
+		}
+
+		if (oldModelClassName.equals(
 					"com.liferay.jira.metrics.model.impl.JiraMetricImpl")) {
 			return translateOutputJiraMetric(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.liferay.jira.metrics.model.impl.JiraPriorityImpl")) {
+			return translateOutputJiraPriority(oldModel);
 		}
 
 		if (oldModelClassName.equals(
@@ -304,6 +344,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.jira.metrics.DuplicateJiraPriorityException")) {
+			return new com.liferay.jira.metrics.DuplicateJiraPriorityException();
+		}
+
+		if (className.equals(
 					"com.liferay.jira.metrics.DuplicateJiraProjectException")) {
 			return new com.liferay.jira.metrics.DuplicateJiraProjectException();
 		}
@@ -319,8 +364,18 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.jira.metrics.NoSuchJiraDataRetrieveException")) {
+			return new com.liferay.jira.metrics.NoSuchJiraDataRetrieveException();
+		}
+
+		if (className.equals(
 					"com.liferay.jira.metrics.NoSuchJiraMetricException")) {
 			return new com.liferay.jira.metrics.NoSuchJiraMetricException();
+		}
+
+		if (className.equals(
+					"com.liferay.jira.metrics.NoSuchJiraPriorityException")) {
+			return new com.liferay.jira.metrics.NoSuchJiraPriorityException();
 		}
 
 		if (className.equals(
@@ -346,12 +401,32 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateOutputJiraDataRetrieve(BaseModel<?> oldModel) {
+		JiraDataRetrieveClp newModel = new JiraDataRetrieveClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setJiraDataRetrieveRemoteModel(oldModel);
+
+		return newModel;
+	}
+
 	public static Object translateOutputJiraMetric(BaseModel<?> oldModel) {
 		JiraMetricClp newModel = new JiraMetricClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setJiraMetricRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputJiraPriority(BaseModel<?> oldModel) {
+		JiraPriorityClp newModel = new JiraPriorityClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setJiraPriorityRemoteModel(oldModel);
 
 		return newModel;
 	}

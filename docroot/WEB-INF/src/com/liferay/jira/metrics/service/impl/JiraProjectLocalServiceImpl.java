@@ -82,11 +82,12 @@ public class JiraProjectLocalServiceImpl
 	 * @return a list with all Jira projects
 	 * @throws SystemException
 	 */
-	public List<JiraProject> getAllJiraProjects()
+	public List<JiraProject> getAllJiraProjects(
+			OrderByComparator orderByComparator)
 		throws SystemException {
 
 		return jiraProjectPersistence.findAll(
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS, new JiraProjectComparator());
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
 	}
 
 	public List<JiraProject> getInstalledJiraProjects()
@@ -146,17 +147,6 @@ public class JiraProjectLocalServiceImpl
 		throws NoSuchJiraProjectException, SystemException {
 
 		return jiraProjectPersistence.findByLabel(label);
-	}
-
-	private class JiraProjectComparator extends OrderByComparator {
-
-		@Override
-		public int compare(Object o1, Object o2) {
-			JiraProject jiraProject1 = (JiraProject)o1;
-			JiraProject jiraProject2 = (JiraProject)o2;
-
-			return jiraProject1.getKey().compareTo(jiraProject2.getKey());
-		}
 	}
 
 }

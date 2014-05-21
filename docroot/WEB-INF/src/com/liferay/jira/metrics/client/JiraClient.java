@@ -16,6 +16,7 @@ package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
+import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 
@@ -32,6 +33,9 @@ import java.util.List;
 public interface JiraClient {
 
 	public List<BasicProject> getAllJiraProjects()
+		throws JiraConnectionException;
+
+	public List<Priority> getAllJiraPriorities()
 		throws JiraConnectionException;
 
 	public List<Status> getAllJiraStatuses()

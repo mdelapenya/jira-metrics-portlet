@@ -25,6 +25,25 @@
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraDataRetrieveModelImpl">
+		<attributes>
+			<id name="jiraDataRetrieveId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="status" />
+			<basic name="statusDescription" />
+			<basic name="day" />
+			<basic name="month" />
+			<basic name="year" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraMetricModelImpl">
 		<attributes>
 			<id name="jiraMetricId" />
@@ -37,11 +56,27 @@
 			<basic name="jiraProjectId" />
 			<basic name="jiraComponentId" />
 			<basic name="jiraStatusId" />
-			<basic name="priority" />
+			<basic name="jiraPriorityId" />
 			<basic name="day" />
 			<basic name="month" />
 			<basic name="year" />
 			<basic name="total" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.jira.metrics.model.impl.JiraPriorityModelImpl">
+		<attributes>
+			<id name="jiraPriorityId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="value" />
+			<basic name="name" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -85,8 +120,16 @@
 		<table name="jirametrics_JiraComponent" />
 		<attributes />
 	</entity>
+	<entity class="com.liferay.jira.metrics.model.impl.JiraDataRetrieveImpl" name="JiraDataRetrieve">
+		<table name="jirametrics_JiraDataRetrieve" />
+		<attributes />
+	</entity>
 	<entity class="com.liferay.jira.metrics.model.impl.JiraMetricImpl" name="JiraMetric">
 		<table name="jirametrics_JiraMetric" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.jira.metrics.model.impl.JiraPriorityImpl" name="JiraPriority">
+		<table name="jirametrics_JiraPriority" />
 		<attributes />
 	</entity>
 	<entity class="com.liferay.jira.metrics.model.impl.JiraProjectImpl" name="JiraProject">

@@ -87,13 +87,13 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 			FINDER_CLASS_NAME_ENTITY, "fetchByP_C_S_P_D_M_Y",
 			new String[] {
 				Long.class.getName(), Long.class.getName(), Long.class.getName(),
-				Integer.class.getName(), Integer.class.getName(),
+				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), Integer.class.getName()
 			},
 			JiraMetricModelImpl.JIRAPROJECTID_COLUMN_BITMASK |
 			JiraMetricModelImpl.JIRACOMPONENTID_COLUMN_BITMASK |
 			JiraMetricModelImpl.JIRASTATUSID_COLUMN_BITMASK |
-			JiraMetricModelImpl.PRIORITY_COLUMN_BITMASK |
+			JiraMetricModelImpl.JIRAPRIORITYID_COLUMN_BITMASK |
 			JiraMetricModelImpl.DAY_COLUMN_BITMASK |
 			JiraMetricModelImpl.MONTH_COLUMN_BITMASK |
 			JiraMetricModelImpl.YEAR_COLUMN_BITMASK);
@@ -102,17 +102,17 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByP_C_S_P_D_M_Y",
 			new String[] {
 				Long.class.getName(), Long.class.getName(), Long.class.getName(),
-				Integer.class.getName(), Integer.class.getName(),
+				Long.class.getName(), Integer.class.getName(),
 				Integer.class.getName(), Integer.class.getName()
 			});
 
 	/**
-	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraMetricException} if it could not be found.
+	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraMetricException} if it could not be found.
 	 *
 	 * @param jiraProjectId the jira project ID
 	 * @param jiraComponentId the jira component ID
 	 * @param jiraStatusId the jira status ID
-	 * @param priority the priority
+	 * @param jiraPriorityId the jira priority ID
 	 * @param day the day
 	 * @param month the month
 	 * @param year the year
@@ -122,10 +122,10 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	 */
 	@Override
 	public JiraMetric findByP_C_S_P_D_M_Y(long jiraProjectId,
-		long jiraComponentId, long jiraStatusId, int priority, int day,
+		long jiraComponentId, long jiraStatusId, long jiraPriorityId, int day,
 		int month, int year) throws NoSuchJiraMetricException, SystemException {
 		JiraMetric jiraMetric = fetchByP_C_S_P_D_M_Y(jiraProjectId,
-				jiraComponentId, jiraStatusId, priority, day, month, year);
+				jiraComponentId, jiraStatusId, jiraPriorityId, day, month, year);
 
 		if (jiraMetric == null) {
 			StringBundler msg = new StringBundler(16);
@@ -141,8 +141,8 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 			msg.append(", jiraStatusId=");
 			msg.append(jiraStatusId);
 
-			msg.append(", priority=");
-			msg.append(priority);
+			msg.append(", jiraPriorityId=");
+			msg.append(jiraPriorityId);
 
 			msg.append(", day=");
 			msg.append(day);
@@ -166,12 +166,12 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	}
 
 	/**
-	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param jiraProjectId the jira project ID
 	 * @param jiraComponentId the jira component ID
 	 * @param jiraStatusId the jira status ID
-	 * @param priority the priority
+	 * @param jiraPriorityId the jira priority ID
 	 * @param day the day
 	 * @param month the month
 	 * @param year the year
@@ -180,19 +180,19 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	 */
 	@Override
 	public JiraMetric fetchByP_C_S_P_D_M_Y(long jiraProjectId,
-		long jiraComponentId, long jiraStatusId, int priority, int day,
+		long jiraComponentId, long jiraStatusId, long jiraPriorityId, int day,
 		int month, int year) throws SystemException {
 		return fetchByP_C_S_P_D_M_Y(jiraProjectId, jiraComponentId,
-			jiraStatusId, priority, day, month, year, true);
+			jiraStatusId, jiraPriorityId, day, month, year, true);
 	}
 
 	/**
-	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param jiraProjectId the jira project ID
 	 * @param jiraComponentId the jira component ID
 	 * @param jiraStatusId the jira status ID
-	 * @param priority the priority
+	 * @param jiraPriorityId the jira priority ID
 	 * @param day the day
 	 * @param month the month
 	 * @param year the year
@@ -202,12 +202,12 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	 */
 	@Override
 	public JiraMetric fetchByP_C_S_P_D_M_Y(long jiraProjectId,
-		long jiraComponentId, long jiraStatusId, int priority, int day,
+		long jiraComponentId, long jiraStatusId, long jiraPriorityId, int day,
 		int month, int year, boolean retrieveFromCache)
 		throws SystemException {
 		Object[] finderArgs = new Object[] {
-				jiraProjectId, jiraComponentId, jiraStatusId, priority, day,
-				month, year
+				jiraProjectId, jiraComponentId, jiraStatusId, jiraPriorityId,
+				day, month, year
 			};
 
 		Object result = null;
@@ -223,7 +223,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 			if ((jiraProjectId != jiraMetric.getJiraProjectId()) ||
 					(jiraComponentId != jiraMetric.getJiraComponentId()) ||
 					(jiraStatusId != jiraMetric.getJiraStatusId()) ||
-					(priority != jiraMetric.getPriority()) ||
+					(jiraPriorityId != jiraMetric.getJiraPriorityId()) ||
 					(day != jiraMetric.getDay()) ||
 					(month != jiraMetric.getMonth()) ||
 					(year != jiraMetric.getYear())) {
@@ -242,7 +242,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 
 			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRASTATUSID_2);
 
-			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_PRIORITY_2);
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRAPRIORITYID_2);
 
 			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_DAY_2);
 
@@ -267,7 +267,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 
 				qPos.add(jiraStatusId);
 
-				qPos.add(priority);
+				qPos.add(jiraPriorityId);
 
 				qPos.add(day);
 
@@ -291,7 +291,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 					if ((jiraMetric.getJiraProjectId() != jiraProjectId) ||
 							(jiraMetric.getJiraComponentId() != jiraComponentId) ||
 							(jiraMetric.getJiraStatusId() != jiraStatusId) ||
-							(jiraMetric.getPriority() != priority) ||
+							(jiraMetric.getJiraPriorityId() != jiraPriorityId) ||
 							(jiraMetric.getDay() != day) ||
 							(jiraMetric.getMonth() != month) ||
 							(jiraMetric.getYear() != year)) {
@@ -320,12 +320,12 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	}
 
 	/**
-	 * Removes the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; from the database.
+	 * Removes the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; from the database.
 	 *
 	 * @param jiraProjectId the jira project ID
 	 * @param jiraComponentId the jira component ID
 	 * @param jiraStatusId the jira status ID
-	 * @param priority the priority
+	 * @param jiraPriorityId the jira priority ID
 	 * @param day the day
 	 * @param month the month
 	 * @param year the year
@@ -334,21 +334,21 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	 */
 	@Override
 	public JiraMetric removeByP_C_S_P_D_M_Y(long jiraProjectId,
-		long jiraComponentId, long jiraStatusId, int priority, int day,
+		long jiraComponentId, long jiraStatusId, long jiraPriorityId, int day,
 		int month, int year) throws NoSuchJiraMetricException, SystemException {
 		JiraMetric jiraMetric = findByP_C_S_P_D_M_Y(jiraProjectId,
-				jiraComponentId, jiraStatusId, priority, day, month, year);
+				jiraComponentId, jiraStatusId, jiraPriorityId, day, month, year);
 
 		return remove(jiraMetric);
 	}
 
 	/**
-	 * Returns the number of jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63;.
+	 * Returns the number of jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63;.
 	 *
 	 * @param jiraProjectId the jira project ID
 	 * @param jiraComponentId the jira component ID
 	 * @param jiraStatusId the jira status ID
-	 * @param priority the priority
+	 * @param jiraPriorityId the jira priority ID
 	 * @param day the day
 	 * @param month the month
 	 * @param year the year
@@ -357,13 +357,13 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	 */
 	@Override
 	public int countByP_C_S_P_D_M_Y(long jiraProjectId, long jiraComponentId,
-		long jiraStatusId, int priority, int day, int month, int year)
+		long jiraStatusId, long jiraPriorityId, int day, int month, int year)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_P_C_S_P_D_M_Y;
 
 		Object[] finderArgs = new Object[] {
-				jiraProjectId, jiraComponentId, jiraStatusId, priority, day,
-				month, year
+				jiraProjectId, jiraComponentId, jiraStatusId, jiraPriorityId,
+				day, month, year
 			};
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
@@ -380,7 +380,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 
 			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRASTATUSID_2);
 
-			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_PRIORITY_2);
+			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_JIRAPRIORITYID_2);
 
 			query.append(_FINDER_COLUMN_P_C_S_P_D_M_Y_DAY_2);
 
@@ -405,7 +405,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 
 				qPos.add(jiraStatusId);
 
-				qPos.add(priority);
+				qPos.add(jiraPriorityId);
 
 				qPos.add(day);
 
@@ -433,7 +433,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_JIRAPROJECTID_2 = "jiraMetric.jiraProjectId = ? AND ";
 	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_JIRACOMPONENTID_2 = "jiraMetric.jiraComponentId = ? AND ";
 	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_JIRASTATUSID_2 = "jiraMetric.jiraStatusId = ? AND ";
-	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_PRIORITY_2 = "jiraMetric.priority = ? AND ";
+	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_JIRAPRIORITYID_2 = "jiraMetric.jiraPriorityId = ? AND ";
 	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_DAY_2 = "jiraMetric.day = ? AND ";
 	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_MONTH_2 = "jiraMetric.month = ? AND ";
 	private static final String _FINDER_COLUMN_P_C_S_P_D_M_Y_YEAR_2 = "jiraMetric.year = ?";
@@ -1145,7 +1145,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_P_C_S_P_D_M_Y,
 			new Object[] {
 				jiraMetric.getJiraProjectId(), jiraMetric.getJiraComponentId(),
-				jiraMetric.getJiraStatusId(), jiraMetric.getPriority(),
+				jiraMetric.getJiraStatusId(), jiraMetric.getJiraPriorityId(),
 				jiraMetric.getDay(), jiraMetric.getMonth(), jiraMetric.getYear()
 			}, jiraMetric);
 
@@ -1227,7 +1227,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 			Object[] args = new Object[] {
 					jiraMetric.getJiraProjectId(),
 					jiraMetric.getJiraComponentId(),
-					jiraMetric.getJiraStatusId(), jiraMetric.getPriority(),
+					jiraMetric.getJiraStatusId(), jiraMetric.getJiraPriorityId(),
 					jiraMetric.getDay(), jiraMetric.getMonth(),
 					jiraMetric.getYear()
 				};
@@ -1245,9 +1245,9 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 				Object[] args = new Object[] {
 						jiraMetric.getJiraProjectId(),
 						jiraMetric.getJiraComponentId(),
-						jiraMetric.getJiraStatusId(), jiraMetric.getPriority(),
-						jiraMetric.getDay(), jiraMetric.getMonth(),
-						jiraMetric.getYear()
+						jiraMetric.getJiraStatusId(),
+						jiraMetric.getJiraPriorityId(), jiraMetric.getDay(),
+						jiraMetric.getMonth(), jiraMetric.getYear()
 					};
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_P_C_S_P_D_M_Y,
@@ -1263,7 +1263,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 
 		Object[] args = new Object[] {
 				jiraMetric.getJiraProjectId(), jiraMetric.getJiraComponentId(),
-				jiraMetric.getJiraStatusId(), jiraMetric.getPriority(),
+				jiraMetric.getJiraStatusId(), jiraMetric.getJiraPriorityId(),
 				jiraMetric.getDay(), jiraMetric.getMonth(), jiraMetric.getYear()
 			};
 
@@ -1276,7 +1276,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 					jiraMetricModelImpl.getOriginalJiraProjectId(),
 					jiraMetricModelImpl.getOriginalJiraComponentId(),
 					jiraMetricModelImpl.getOriginalJiraStatusId(),
-					jiraMetricModelImpl.getOriginalPriority(),
+					jiraMetricModelImpl.getOriginalJiraPriorityId(),
 					jiraMetricModelImpl.getOriginalDay(),
 					jiraMetricModelImpl.getOriginalMonth(),
 					jiraMetricModelImpl.getOriginalYear()
@@ -1488,7 +1488,7 @@ public class JiraMetricPersistenceImpl extends BasePersistenceImpl<JiraMetric>
 		jiraMetricImpl.setJiraProjectId(jiraMetric.getJiraProjectId());
 		jiraMetricImpl.setJiraComponentId(jiraMetric.getJiraComponentId());
 		jiraMetricImpl.setJiraStatusId(jiraMetric.getJiraStatusId());
-		jiraMetricImpl.setPriority(jiraMetric.getPriority());
+		jiraMetricImpl.setJiraPriorityId(jiraMetric.getJiraPriorityId());
 		jiraMetricImpl.setDay(jiraMetric.getDay());
 		jiraMetricImpl.setMonth(jiraMetric.getMonth());
 		jiraMetricImpl.setYear(jiraMetric.getYear());

@@ -255,7 +255,8 @@ public interface JiraStatusLocalService extends BaseLocalService,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses()
+	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -266,14 +267,14 @@ public interface JiraStatusLocalService extends BaseLocalService,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
-		java.lang.String uri)
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
+		java.lang.String name)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
-		java.lang.String name)
+	public com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
+		java.lang.String uri)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException;
 }

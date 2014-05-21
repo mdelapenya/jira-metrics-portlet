@@ -282,10 +282,11 @@ public class JiraStatusLocalServiceUtil {
 		return getService().addJiraStatus(uri, name);
 	}
 
-	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses()
+	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> getAllJiraStatuses(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getAllJiraStatuses();
+		return getService().getAllJiraStatuses(orderByComparator);
 	}
 
 	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> getInstalledJiraStatuses(
@@ -295,18 +296,18 @@ public class JiraStatusLocalServiceUtil {
 		return getService().getInstalledJiraStatuses(jiraProject);
 	}
 
-	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
-		java.lang.String uri)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getJiraStatusByUri(uri);
-	}
-
 	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByName(
 		java.lang.String name)
 		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getJiraStatusByName(name);
+	}
+
+	public static com.liferay.jira.metrics.model.JiraStatus getJiraStatusByUri(
+		java.lang.String uri)
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getJiraStatusByUri(uri);
 	}
 
 	public static void clearService() {

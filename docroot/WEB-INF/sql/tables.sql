@@ -8,6 +8,17 @@ create table jirametrics_JiraComponent (
 	disabled BOOLEAN
 );
 
+create table jirametrics_JiraDataRetrieve (
+	jiraDataRetrieveId LONG not null primary key,
+	createDate DATE null,
+	modifiedDate DATE null,
+	status VARCHAR(75) null,
+	statusDescription VARCHAR(75) null,
+	day INTEGER,
+	month INTEGER,
+	year INTEGER
+);
+
 create table jirametrics_JiraMetric (
 	jiraMetricId LONG not null primary key,
 	createDate DATE null,
@@ -15,11 +26,19 @@ create table jirametrics_JiraMetric (
 	jiraProjectId LONG,
 	jiraComponentId LONG,
 	jiraStatusId LONG,
-	priority INTEGER,
+	jiraPriorityId LONG,
 	day INTEGER,
 	month INTEGER,
 	year INTEGER,
 	total INTEGER
+);
+
+create table jirametrics_JiraPriority (
+	jiraPriorityId LONG not null primary key,
+	createDate DATE null,
+	modifiedDate DATE null,
+	value VARCHAR(75) null,
+	name VARCHAR(75) null
 );
 
 create table jirametrics_JiraProject (

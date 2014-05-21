@@ -111,12 +111,12 @@ public class JiraMetricUtil {
 	}
 
 	/**
-	* Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraMetricException} if it could not be found.
+	* Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraMetricException} if it could not be found.
 	*
 	* @param jiraProjectId the jira project ID
 	* @param jiraComponentId the jira component ID
 	* @param jiraStatusId the jira status ID
-	* @param priority the priority
+	* @param jiraPriorityId the jira priority ID
 	* @param day the day
 	* @param month the month
 	* @param year the year
@@ -126,21 +126,21 @@ public class JiraMetricUtil {
 	*/
 	public static com.liferay.jira.metrics.model.JiraMetric findByP_C_S_P_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		int priority, int day, int month, int year)
+		long jiraPriorityId, int day, int month, int year)
 		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
 				   .findByP_C_S_P_D_M_Y(jiraProjectId, jiraComponentId,
-			jiraStatusId, priority, day, month, year);
+			jiraStatusId, jiraPriorityId, day, month, year);
 	}
 
 	/**
-	* Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param jiraProjectId the jira project ID
 	* @param jiraComponentId the jira component ID
 	* @param jiraStatusId the jira status ID
-	* @param priority the priority
+	* @param jiraPriorityId the jira priority ID
 	* @param day the day
 	* @param month the month
 	* @param year the year
@@ -149,20 +149,20 @@ public class JiraMetricUtil {
 	*/
 	public static com.liferay.jira.metrics.model.JiraMetric fetchByP_C_S_P_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		int priority, int day, int month, int year)
+		long jiraPriorityId, int day, int month, int year)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
 				   .fetchByP_C_S_P_D_M_Y(jiraProjectId, jiraComponentId,
-			jiraStatusId, priority, day, month, year);
+			jiraStatusId, jiraPriorityId, day, month, year);
 	}
 
 	/**
-	* Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param jiraProjectId the jira project ID
 	* @param jiraComponentId the jira component ID
 	* @param jiraStatusId the jira status ID
-	* @param priority the priority
+	* @param jiraPriorityId the jira priority ID
 	* @param day the day
 	* @param month the month
 	* @param year the year
@@ -172,20 +172,21 @@ public class JiraMetricUtil {
 	*/
 	public static com.liferay.jira.metrics.model.JiraMetric fetchByP_C_S_P_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		int priority, int day, int month, int year, boolean retrieveFromCache)
+		long jiraPriorityId, int day, int month, int year,
+		boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
 				   .fetchByP_C_S_P_D_M_Y(jiraProjectId, jiraComponentId,
-			jiraStatusId, priority, day, month, year, retrieveFromCache);
+			jiraStatusId, jiraPriorityId, day, month, year, retrieveFromCache);
 	}
 
 	/**
-	* Removes the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63; from the database.
+	* Removes the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; from the database.
 	*
 	* @param jiraProjectId the jira project ID
 	* @param jiraComponentId the jira component ID
 	* @param jiraStatusId the jira status ID
-	* @param priority the priority
+	* @param jiraPriorityId the jira priority ID
 	* @param day the day
 	* @param month the month
 	* @param year the year
@@ -194,21 +195,21 @@ public class JiraMetricUtil {
 	*/
 	public static com.liferay.jira.metrics.model.JiraMetric removeByP_C_S_P_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		int priority, int day, int month, int year)
+		long jiraPriorityId, int day, int month, int year)
 		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
 				   .removeByP_C_S_P_D_M_Y(jiraProjectId, jiraComponentId,
-			jiraStatusId, priority, day, month, year);
+			jiraStatusId, jiraPriorityId, day, month, year);
 	}
 
 	/**
-	* Returns the number of jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and priority = &#63; and day = &#63; and month = &#63; and year = &#63;.
+	* Returns the number of jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63;.
 	*
 	* @param jiraProjectId the jira project ID
 	* @param jiraComponentId the jira component ID
 	* @param jiraStatusId the jira status ID
-	* @param priority the priority
+	* @param jiraPriorityId the jira priority ID
 	* @param day the day
 	* @param month the month
 	* @param year the year
@@ -216,12 +217,12 @@ public class JiraMetricUtil {
 	* @throws SystemException if a system exception occurred
 	*/
 	public static int countByP_C_S_P_D_M_Y(long jiraProjectId,
-		long jiraComponentId, long jiraStatusId, int priority, int day,
+		long jiraComponentId, long jiraStatusId, long jiraPriorityId, int day,
 		int month, int year)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
 				   .countByP_C_S_P_D_M_Y(jiraProjectId, jiraComponentId,
-			jiraStatusId, priority, day, month, year);
+			jiraStatusId, jiraPriorityId, day, month, year);
 	}
 
 	/**

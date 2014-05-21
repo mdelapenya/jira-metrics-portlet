@@ -17,8 +17,12 @@ package com.liferay.jira.metrics.service.messaging;
 import com.liferay.jira.metrics.service.ClpSerializer;
 import com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraComponentServiceUtil;
+import com.liferay.jira.metrics.service.JiraDataRetrieveLocalServiceUtil;
+import com.liferay.jira.metrics.service.JiraDataRetrieveServiceUtil;
 import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraMetricServiceUtil;
+import com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil;
+import com.liferay.jira.metrics.service.JiraPriorityServiceUtil;
 import com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraProjectServiceUtil;
 import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
@@ -45,9 +49,15 @@ public class ClpMessageListener extends BaseMessageListener {
 			JiraComponentLocalServiceUtil.clearService();
 
 			JiraComponentServiceUtil.clearService();
+			JiraDataRetrieveLocalServiceUtil.clearService();
+
+			JiraDataRetrieveServiceUtil.clearService();
 			JiraMetricLocalServiceUtil.clearService();
 
 			JiraMetricServiceUtil.clearService();
+			JiraPriorityLocalServiceUtil.clearService();
+
+			JiraPriorityServiceUtil.clearService();
 			JiraProjectLocalServiceUtil.clearService();
 
 			JiraProjectServiceUtil.clearService();
