@@ -92,8 +92,9 @@ public class JiraDataRetrieveModelImpl extends BaseModelImpl<JiraDataRetrieve>
 			true);
 	public static long DAY_COLUMN_BITMASK = 1L;
 	public static long MONTH_COLUMN_BITMASK = 2L;
-	public static long YEAR_COLUMN_BITMASK = 4L;
-	public static long MODIFIEDDATE_COLUMN_BITMASK = 8L;
+	public static long STATUS_COLUMN_BITMASK = 4L;
+	public static long YEAR_COLUMN_BITMASK = 8L;
+	public static long MODIFIEDDATE_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -292,7 +293,17 @@ public class JiraDataRetrieveModelImpl extends BaseModelImpl<JiraDataRetrieve>
 
 	@Override
 	public void setStatus(String status) {
+		_columnBitmask |= STATUS_COLUMN_BITMASK;
+
+		if (_originalStatus == null) {
+			_originalStatus = _status;
+		}
+
 		_status = status;
+	}
+
+	public String getOriginalStatus() {
+		return GetterUtil.getString(_originalStatus);
 	}
 
 	@JSON
@@ -470,6 +481,8 @@ public class JiraDataRetrieveModelImpl extends BaseModelImpl<JiraDataRetrieve>
 	public void resetOriginalValues() {
 		JiraDataRetrieveModelImpl jiraDataRetrieveModelImpl = this;
 
+		jiraDataRetrieveModelImpl._originalStatus = jiraDataRetrieveModelImpl._status;
+
 		jiraDataRetrieveModelImpl._originalDay = jiraDataRetrieveModelImpl._day;
 
 		jiraDataRetrieveModelImpl._setOriginalDay = false;
@@ -613,6 +626,7 @@ public class JiraDataRetrieveModelImpl extends BaseModelImpl<JiraDataRetrieve>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _status;
+	private String _originalStatus;
 	private String _statusDescription;
 	private int _day;
 	private int _originalDay;

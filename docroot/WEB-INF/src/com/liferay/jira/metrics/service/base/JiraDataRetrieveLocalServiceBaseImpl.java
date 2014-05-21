@@ -18,7 +18,6 @@ import com.liferay.jira.metrics.model.JiraDataRetrieve;
 import com.liferay.jira.metrics.service.JiraDataRetrieveLocalService;
 import com.liferay.jira.metrics.service.persistence.JiraComponentPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraDataRetrievePersistence;
-import com.liferay.jira.metrics.service.persistence.JiraMetricFinder;
 import com.liferay.jira.metrics.service.persistence.JiraMetricPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraPriorityPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraProjectPersistence;
@@ -458,24 +457,6 @@ public abstract class JiraDataRetrieveLocalServiceBaseImpl
 	}
 
 	/**
-	 * Returns the jira metric finder.
-	 *
-	 * @return the jira metric finder
-	 */
-	public JiraMetricFinder getJiraMetricFinder() {
-		return jiraMetricFinder;
-	}
-
-	/**
-	 * Sets the jira metric finder.
-	 *
-	 * @param jiraMetricFinder the jira metric finder
-	 */
-	public void setJiraMetricFinder(JiraMetricFinder jiraMetricFinder) {
-		this.jiraMetricFinder = jiraMetricFinder;
-	}
-
-	/**
 	 * Returns the jira priority local service.
 	 *
 	 * @return the jira priority local service
@@ -840,8 +821,6 @@ public abstract class JiraDataRetrieveLocalServiceBaseImpl
 	protected com.liferay.jira.metrics.service.JiraMetricService jiraMetricService;
 	@BeanReference(type = JiraMetricPersistence.class)
 	protected JiraMetricPersistence jiraMetricPersistence;
-	@BeanReference(type = JiraMetricFinder.class)
-	protected JiraMetricFinder jiraMetricFinder;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraPriorityLocalService.class)
 	protected com.liferay.jira.metrics.service.JiraPriorityLocalService jiraPriorityLocalService;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraPriorityService.class)

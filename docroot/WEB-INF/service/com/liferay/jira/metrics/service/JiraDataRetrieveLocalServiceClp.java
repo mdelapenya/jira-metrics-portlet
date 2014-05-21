@@ -121,6 +121,20 @@ public class JiraDataRetrieveLocalServiceClp
 		_methodParameterTypes19 = new String[] {
 				"java.lang.String", "java.lang.String", "java.util.Date"
 			};
+
+		_methodName20 = "fetchByDate";
+
+		_methodParameterTypes20 = new String[] { "java.util.Date" };
+
+		_methodName21 = "getByStatus";
+
+		_methodParameterTypes21 = new String[] { "java.lang.String", "int", "int" };
+
+		_methodName22 = "getDate";
+
+		_methodParameterTypes22 = new String[] {
+				"com.liferay.jira.metrics.model.JiraDataRetrieve"
+			};
 	}
 
 	@Override
@@ -718,6 +732,118 @@ public class JiraDataRetrieveLocalServiceClp
 		return (com.liferay.jira.metrics.model.JiraDataRetrieve)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public com.liferay.jira.metrics.model.JiraDataRetrieve fetchByDate(
+		java.util.Date date)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
+					new Object[] { ClpSerializer.translateInput(date) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.jira.metrics.model.JiraDataRetrieve)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> getByStatus(
+		java.lang.String status, int start, int end)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] {
+						ClpSerializer.translateInput(status),
+						
+					start,
+						
+					end
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.Date getDate(
+		com.liferay.jira.metrics.model.JiraDataRetrieve jiraDataRetrieve)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
+					new Object[] { ClpSerializer.translateInput(
+							jiraDataRetrieve) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.Date)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -757,4 +883,10 @@ public class JiraDataRetrieveLocalServiceClp
 	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
 }

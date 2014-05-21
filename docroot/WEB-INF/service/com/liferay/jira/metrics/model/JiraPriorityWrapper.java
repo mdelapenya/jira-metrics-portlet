@@ -26,7 +26,7 @@ import java.util.Map;
  * This class is a wrapper for {@link JiraPriority}.
  * </p>
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see JiraPriority
  * @generated
  */

@@ -19,7 +19,7 @@ import com.liferay.portal.model.PersistedModel;
 /**
  * The extended model interface for the JiraPriority service. Represents a row in the &quot;jirametrics_JiraPriority&quot; database table, with each column mapped to a property of this class.
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see JiraPriorityModel
  * @see com.liferay.jira.metrics.model.impl.JiraPriorityImpl
  * @see com.liferay.jira.metrics.model.impl.JiraPriorityModelImpl
