@@ -48,7 +48,8 @@
 				<value>Verified</value>
 			</preference>
 			<preference>
-				<name>name</name>
+				<name>jiraComponents</name>
+				<value>UI Infraestructure</value>
 				<value>UI</value>
 			</preference>
 		</portlet-preferences>
