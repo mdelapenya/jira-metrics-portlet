@@ -87,6 +87,22 @@ public class JiraDataRetrieveLocalServiceImpl
 		return jiraDataRetrievePersistence.findByStatus(status, start, end);
 	}
 
+	public Date getDate(JiraDataRetrieve jiraDataRetrieve)
+		throws PortalException, SystemException {
+
+		Calendar calendar = Calendar.getInstance();
+
+		calendar.set(Calendar.YEAR, jiraDataRetrieve.getYear());
+		calendar.set(Calendar.MONTH, jiraDataRetrieve.getMonth());
+		calendar.set(Calendar.DAY_OF_MONTH, jiraDataRetrieve.getDay());
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.HOUR, 0);
+
+		return calendar.getTime();
+	}
+
 	protected int[] parseDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
 
