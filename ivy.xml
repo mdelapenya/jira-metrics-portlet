@@ -80,6 +80,7 @@
 		<dependency org="org.apache.ant" name="ant" rev="1.9.3" force="true" conf="test->*" />
 		<dependency org="org.powermock" name="powermock-module-junit4" rev="1.5.1" force="true" conf="test->*" />
 		<dependency org="org.powermock" name="powermock-api-mockito" rev="1.5.1" force="true" conf="test->*" />
+		<dependency name="jira-rest-java-client" org="com.atlassian.jira" rev="2.0.0-m2" />
 
 		<override org="org.jboss.shrinkwrap.resolver" module="shrinkwrap-resolver-maven-plugin" matcher="exact" rev="2.0.2" />
 		<override org="org.jboss.shrinkwrap.resolver" module="shrinkwrap-resolver-impl-maven-archive" matcher="exact" rev="2.0.2" />
