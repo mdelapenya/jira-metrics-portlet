@@ -46,30 +46,36 @@
 
 <liferay-portlet:resourceURL portletName="jirametricsportlet_WAR_jirametricsportlet" var="fetchValuesOriginalValues" />
 
-<script type="text/javascript">
+<aui:script use="aui-io-request">
+	var projectSelector = A.one('#<portlet:namespace />jiraProject');
 
-	jQuery(document).ready(function() {
-		$("#<portlet:namespace />jiraProject").change(function() {
+	projectSelector.on(
+		'change',
+		function(event) {
+			A.io.request(
+				'<%= fetchValuesOriginalValues %>&jiraProjectKey=' + event.currentTarget.val() + '&actionName=componentsValues',
+				{
+					dataType: 'json',
+					on: {
+						success: function(event) {
+							var data = this.get('responseData');
 
-			url="<%= fetchValuesOriginalValues %>";
+							var newComponentsSelector = A.Node.create('<select class="aui-field-select" id="<portlet:namespace />jiraComponents" multiple="" name="<portlet:namespace />jiraComponents">');
 
-			var jiraProjectKey=$("#<portlet:namespace />jiraProject").val();
+							for (var i = 0; i < data.componentsNameCode.length; i++) {
+								componentNameCode = data.componentsNameCode[i].split(':');
 
-			jQuery.getJSON(url+"&jiraProjectKey=" +jiraProjectKey+"&actionName=componentsValues", function(data) {
+								newComponentsSelector.append('<option value="' + componentNameCode[0] + '">' + componentNameCode[1] + '</option>');
+							}
 
-				$("#<portlet:namespace />jiraComponents").empty();
-
-				for (i=0;i<data.componentsNameCode.length;i++) {
-
-				   componentNameCode = data.componentsNameCode[i].split(":");
-
-				   $("#<portlet:namespace />jiraComponents").append("<option value='"+ componentNameCode[0] +"'>"+componentNameCode[1]+"</option> " );
+							A.one('#<portlet:namespace />jiraComponents').replace(newComponentsSelector);
+						}
+					}
 				}
-			});
-		});
-	});
-
-</script>
+			);
+		}
+	);
+</aui:script>
 
 <aui:form action="<%= actionURL %>" method="post" name="fm">
 
