@@ -124,7 +124,6 @@ public class GraphData {
 	}
 
 	public String getGraphSeriesStyles() {
-
 		int i = 0;
 
 		if (_series != null) {

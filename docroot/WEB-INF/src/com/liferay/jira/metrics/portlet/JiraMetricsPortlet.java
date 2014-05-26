@@ -61,6 +61,7 @@ public class JiraMetricsPortlet extends MVCPortlet {
 		}
 
 		JSONObject jsonFeed = JSONFactoryUtil.createJSONObject();
+
 		JSONArray componentsNameCode =
 			JSONFactoryUtil.getJSONFactory().createJSONArray();
 
