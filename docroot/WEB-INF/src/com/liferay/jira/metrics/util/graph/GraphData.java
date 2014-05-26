@@ -137,22 +137,16 @@ public class GraphData {
 					sb.append(StringPool.NEW_LINE);
 				}
 
-				sb.append(serie);
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, serie);
 
-				sb.append("area");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, "area");
 
 				concatQuotedAttribute(sb, "color", _BACKGROUND_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
 
-				sb.append("marker");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, "marker");
 
 				sb.append(
 					"fill" + StringPool.COLON + StringPool.OPEN_CURLY_BRACE);
@@ -162,31 +156,23 @@ public class GraphData {
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
 
-				sb.append("border");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, "border");
 
 				concatQuotedAttribute(sb, "color", _LINES_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
 
-				sb.append("over");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, "over");
 
-				sb.append("fill");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, "fill");
 
 				concatQuotedAttribute(sb, "color", _LINES_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
 
-				sb.append("border");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, "border");
 
 				concatQuotedAttribute(sb, "color", _LINES_COLORS[i]);
 
@@ -202,9 +188,7 @@ public class GraphData {
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
 
-				sb.append("line");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, "line");
 
 				concatQuotedAttribute(sb, "color", _LINES_COLORS[i]);
 
@@ -264,6 +248,12 @@ public class GraphData {
 		sb.append(attributeName);
 		sb.append(StringPool.COLON);
 		sb.append(attributeValue);
+	}
+
+	protected void concatObjectOpener(StringBundler sb, String objectName) {
+		sb.append(objectName);
+		sb.append(StringPool.COLON);
+		sb.append(StringPool.OPEN_CURLY_BRACE);
 	}
 
 	protected void concatQuotedAttribute(
