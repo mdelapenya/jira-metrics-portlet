@@ -129,6 +129,11 @@
 	}
 	).render(chartContainer);
 
+	chartContainer.one('.yui3-graph-content').all('path[fill=none], circle').each(
+		function(item) {
+			item.ancestor().append(item);
+		}
+	);
 
 	Liferay.after(
 		['portletMoved', 'liferaypanel:collapse'],
