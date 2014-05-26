@@ -30,7 +30,7 @@ import java.util.Date;
 /**
  * The cache model class for representing JiraPriority in entity cache.
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see JiraPriority
  * @generated
  */

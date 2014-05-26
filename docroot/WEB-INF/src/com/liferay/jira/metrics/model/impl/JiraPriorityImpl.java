@@ -21,7 +21,7 @@ package com.liferay.jira.metrics.model.impl;
  * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.jira.metrics.model.JiraPriority} interface.
  * </p>
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  */
 public class JiraPriorityImpl extends JiraPriorityBaseImpl {
 	/*

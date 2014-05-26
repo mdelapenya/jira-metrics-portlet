@@ -26,7 +26,7 @@ import com.liferay.jira.metrics.service.base.JiraPriorityServiceBaseImpl;
  * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
  * </p>
  *
- * @author Manuel de la Pe√±a
+ * @author Manuel de la Peña
  * @see com.liferay.jira.metrics.service.base.JiraPriorityServiceBaseImpl
  * @see com.liferay.jira.metrics.service.JiraPriorityServiceUtil
  */
