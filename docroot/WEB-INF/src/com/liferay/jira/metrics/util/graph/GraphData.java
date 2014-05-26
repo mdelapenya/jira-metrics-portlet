@@ -145,11 +145,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				sb.append("color");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.QUOTE);
-				sb.append(_BACKGROUND_COLORS[i]);
-				sb.append(StringPool.QUOTE);
+				sb.append(getQuotedAttribute("color", _BACKGROUND_COLORS[i]));
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -161,11 +157,7 @@ public class GraphData {
 				sb.append(
 					"fill" + StringPool.COLON + StringPool.OPEN_CURLY_BRACE);
 
-				sb.append("color");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.QUOTE);
-				sb.append(_BACKGROUND_COLORS[i]);
-				sb.append(StringPool.QUOTE);
+				sb.append(getQuotedAttribute("color", _BACKGROUND_COLORS[i]));
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -174,11 +166,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				sb.append("color");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.QUOTE);
-				sb.append(_LINES_COLORS[i]);
-				sb.append(StringPool.QUOTE);
+				sb.append(getQuotedAttribute("color", _LINES_COLORS[i]));
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -191,11 +179,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				sb.append("color");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.QUOTE);
-				sb.append(_LINES_COLORS[i]);
-				sb.append(StringPool.QUOTE);
+				sb.append(getQuotedAttribute("color", _LINES_COLORS[i]));
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -204,11 +188,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				sb.append("color");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.QUOTE);
-				sb.append(_LINES_COLORS[i]);
-				sb.append(StringPool.QUOTE);
+				sb.append(getQuotedAttribute("color", _LINES_COLORS[i]));
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -231,11 +211,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				sb.append("color");
-				sb.append(StringPool.COLON);
-				sb.append(StringPool.QUOTE);
-				sb.append(_LINES_COLORS[i]);
-				sb.append(StringPool.QUOTE);
+				sb.append(getQuotedAttribute("color", _LINES_COLORS[i]));
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -285,6 +261,20 @@ public class GraphData {
 		}
 
 		return null;
+	}
+
+	protected String getQuotedAttribute(
+		String attributeName, String attributeValue) {
+
+		StringBundler sb = new StringBundler(5);
+
+		sb.append(attributeName);
+		sb.append(StringPool.COLON);
+		sb.append(StringPool.QUOTE);
+		sb.append(attributeValue);
+		sb.append(StringPool.QUOTE);
+
+		return sb.toString();
 	}
 
 	private static final String[] _BACKGROUND_COLORS =
