@@ -193,13 +193,8 @@ public class GraphData {
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
 
-				sb.append("width");
-				sb.append(StringPool.COLON);
-				sb.append("12");
-				sb.append(StringPool.COMMA);
-				sb.append("height");
-				sb.append(StringPool.COLON);
-				sb.append("12");
+				sb.append(getAttribute("width", "12"));
+				sb.append(getAttribute("height", "12"));
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -261,6 +256,18 @@ public class GraphData {
 		}
 
 		return null;
+	}
+
+	protected String getAttribute(
+		String attributeName, String attributeValue) {
+
+		StringBundler sb = new StringBundler(3);
+
+		sb.append(attributeName);
+		sb.append(StringPool.COLON);
+		sb.append(attributeValue);
+
+		return sb.toString();
 	}
 
 	protected String getQuotedAttribute(
