@@ -85,59 +85,58 @@
 
 	<aui:select id="<%= PortletKeys.PARAM_JIRA_PROJECT %>" inlineField="true" label="project"  name="<%= PortletKeys.PARAM_JIRA_PROJECT %>">
 
-		<%
-			for (JiraProject jiraProject : jiraProjects) {
-		%>
-
-		<%String jiraProjectLabel = jiraProject.getKey() + " - " + jiraProject.getName(); %>
+<%
+	for (JiraProject jiraProject : jiraProjects) {
+		String jiraProjectLabel = jiraProject.getKey() + " - " + jiraProject.getName();
+%>
 
 		<aui:option label="<%=jiraProjectLabel %>" selected="<%= jiraProjectKey.equals(jiraProject.getKey()) %>" value="<%= jiraProject.getKey() %>" />
 
-		<%
-			}
-		%>
+<%
+	}
+%>
 
 	</aui:select>
 
 	<aui:select id="<%= PortletKeys.PARAM_JIRA_COMPONENTS %>" inlineField="true" label="components" multiple="true" name="<%= PortletKeys.PARAM_JIRA_COMPONENTS %>">
 
-		<%
-			for (JiraComponent jiraComponent : jiraComponents) {
-		%>
+<%
+	for (JiraComponent jiraComponent : jiraComponents) {
+%>
 
-		<aui:option label="<%=jiraComponent.getName() %>"  selected="<%= ArrayUtil.contains(jiraComponentsNames, jiraComponent.getName()) %>" value="<%=jiraComponent.getName() %>" />
+		<aui:option label="<%=jiraComponent.getName() %>" selected="<%= ArrayUtil.contains(jiraComponentsNames, jiraComponent.getName()) %>" value="<%=jiraComponent.getName() %>" />
 
-		<%
-			}
-		%>
+<%
+	}
+%>
 
 	</aui:select>
 
 	<aui:select inlineField="true" label="status" multiple="true" name="<%= PortletKeys.PARAM_JIRA_STATUSES %>">
 
-		<%
-			for (JiraStatus jiraStatus : jiraStatuses) {
-		%>
+<%
+	for (JiraStatus jiraStatus : jiraStatuses) {
+%>
 
-		<aui:option label="<%=jiraStatus.getName() %>"  selected="<%= ArrayUtil.contains(jiraStatusesNames, jiraStatus.getName()) %>" value="<%= jiraStatus.getName() %>" />
+		<aui:option label="<%=jiraStatus.getName() %>" selected="<%= ArrayUtil.contains(jiraStatusesNames, jiraStatus.getName()) %>" value="<%= jiraStatus.getName() %>" />
 
-		<%
-			}
-		%>
+<%
+	}
+%>
 
 	</aui:select>
 
 	<aui:select inlineField="true" label="priority" multiple="true" name="<%= PortletKeys.PARAM_JIRA_PRIORITIES %>">
 
-		<%
-			for (JiraPriority jiraPriority: jiraPriorities) {
-		%>
+<%
+	for (JiraPriority jiraPriority: jiraPriorities) {
+%>
 
-		<aui:option label="<%= jiraPriority.getValue() %>"  selected="<%= ArrayUtil.contains(jiraPrioritiesVales, jiraPriority.getValue()) %>" value="<%= jiraPriority.getValue() %>" />
+		<aui:option label="<%= jiraPriority.getValue() %>" selected="<%= ArrayUtil.contains(jiraPrioritiesVales, jiraPriority.getValue()) %>" value="<%= jiraPriority.getValue() %>" />
 
-		<%
-			}
-		%>
+<%
+	}
+%>
 
 	</aui:select>
 
