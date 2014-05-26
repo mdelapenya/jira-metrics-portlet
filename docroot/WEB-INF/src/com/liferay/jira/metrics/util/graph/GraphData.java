@@ -145,7 +145,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				getQuotedAttribute(sb, "color", _BACKGROUND_COLORS[i]);
+				concatQuotedAttribute(sb, "color", _BACKGROUND_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -157,7 +157,7 @@ public class GraphData {
 				sb.append(
 					"fill" + StringPool.COLON + StringPool.OPEN_CURLY_BRACE);
 
-				getQuotedAttribute(sb, "color", _BACKGROUND_COLORS[i]);
+				concatQuotedAttribute(sb, "color", _BACKGROUND_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -166,7 +166,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				getQuotedAttribute(sb, "color", _LINES_COLORS[i]);
+				concatQuotedAttribute(sb, "color", _LINES_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -179,7 +179,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				getQuotedAttribute(sb, "color", _LINES_COLORS[i]);
+				concatQuotedAttribute(sb, "color", _LINES_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -188,13 +188,13 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				getQuotedAttribute(sb, "color", _LINES_COLORS[i]);
+				concatQuotedAttribute(sb, "color", _LINES_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
 
-				getAttribute(sb, "width", "12");
-				getAttribute(sb, "height", "12");
+				concatAttribute(sb, "width", "12");
+				concatAttribute(sb, "height", "12");
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 				sb.append(StringPool.COMMA);
@@ -206,7 +206,7 @@ public class GraphData {
 				sb.append(StringPool.COLON);
 				sb.append(StringPool.OPEN_CURLY_BRACE);
 
-				getQuotedAttribute(sb, "color", _LINES_COLORS[i]);
+				concatQuotedAttribute(sb, "color", _LINES_COLORS[i]);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -258,7 +258,7 @@ public class GraphData {
 		return null;
 	}
 
-	protected void getAttribute(
+	protected void concatAttribute(
 		StringBundler sb, String attributeName, String attributeValue) {
 
 		sb.append(attributeName);
@@ -266,7 +266,7 @@ public class GraphData {
 		sb.append(attributeValue);
 	}
 
-	protected void getQuotedAttribute(
+	protected void concatQuotedAttribute(
 		StringBundler sb, String attributeName, String attributeValue) {
 
 		sb.append(attributeName);
