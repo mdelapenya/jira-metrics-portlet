@@ -82,6 +82,16 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 
 	public JiraMetric getJiraMetric(
 			long jiraProjectId, long jiraComponentId, long jiraStatusId,
+			int priority, int day, int month, int year)
+		throws NoSuchJiraMetricException, SystemException {
+
+		return jiraMetricPersistence.findByP_C_S_P_D_M_Y(
+			jiraProjectId, jiraComponentId, jiraStatusId, priority, day, month,
+			year);
+	}
+
+	public JiraMetric getJiraMetric(
+			long jiraProjectId, long jiraComponentId, long jiraStatusId,
 			long priority, Date date)
 		throws NoSuchJiraMetricException, SystemException {
 
@@ -90,16 +100,6 @@ public class JiraMetricLocalServiceImpl extends JiraMetricLocalServiceBaseImpl {
 		return jiraMetricPersistence.findByP_C_S_P_D_M_Y(
 			jiraProjectId, jiraComponentId, jiraStatusId, priority,
 			dateElements[0], dateElements[1], dateElements[2]);
-	}
-
-	public JiraMetric getJiraMetric(
-			long jiraProjectId, long jiraComponentId, long jiraStatusId,
-			int priority, int day, int month, int year)
-		throws NoSuchJiraMetricException, SystemException {
-
-		return jiraMetricPersistence.findByP_C_S_P_D_M_Y(
-			jiraProjectId, jiraComponentId, jiraStatusId, priority, day, month,
-			year);
 	}
 
 	public List<JiraMetric> getJiraMetrics(

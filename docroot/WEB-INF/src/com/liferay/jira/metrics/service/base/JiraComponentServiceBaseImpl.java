@@ -17,6 +17,7 @@ package com.liferay.jira.metrics.service.base;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.service.JiraComponentService;
 import com.liferay.jira.metrics.service.persistence.JiraComponentPersistence;
+import com.liferay.jira.metrics.service.persistence.JiraDataRetrievePersistence;
 import com.liferay.jira.metrics.service.persistence.JiraMetricPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraPriorityPersistence;
 import com.liferay.jira.metrics.service.persistence.JiraProjectPersistence;
@@ -107,6 +108,63 @@ public abstract class JiraComponentServiceBaseImpl extends BaseServiceImpl
 	public void setJiraComponentPersistence(
 		JiraComponentPersistence jiraComponentPersistence) {
 		this.jiraComponentPersistence = jiraComponentPersistence;
+	}
+
+	/**
+	 * Returns the jira data retrieve local service.
+	 *
+	 * @return the jira data retrieve local service
+	 */
+	public com.liferay.jira.metrics.service.JiraDataRetrieveLocalService getJiraDataRetrieveLocalService() {
+		return jiraDataRetrieveLocalService;
+	}
+
+	/**
+	 * Sets the jira data retrieve local service.
+	 *
+	 * @param jiraDataRetrieveLocalService the jira data retrieve local service
+	 */
+	public void setJiraDataRetrieveLocalService(
+		com.liferay.jira.metrics.service.JiraDataRetrieveLocalService jiraDataRetrieveLocalService) {
+		this.jiraDataRetrieveLocalService = jiraDataRetrieveLocalService;
+	}
+
+	/**
+	 * Returns the jira data retrieve remote service.
+	 *
+	 * @return the jira data retrieve remote service
+	 */
+	public com.liferay.jira.metrics.service.JiraDataRetrieveService getJiraDataRetrieveService() {
+		return jiraDataRetrieveService;
+	}
+
+	/**
+	 * Sets the jira data retrieve remote service.
+	 *
+	 * @param jiraDataRetrieveService the jira data retrieve remote service
+	 */
+	public void setJiraDataRetrieveService(
+		com.liferay.jira.metrics.service.JiraDataRetrieveService jiraDataRetrieveService) {
+		this.jiraDataRetrieveService = jiraDataRetrieveService;
+	}
+
+	/**
+	 * Returns the jira data retrieve persistence.
+	 *
+	 * @return the jira data retrieve persistence
+	 */
+	public JiraDataRetrievePersistence getJiraDataRetrievePersistence() {
+		return jiraDataRetrievePersistence;
+	}
+
+	/**
+	 * Sets the jira data retrieve persistence.
+	 *
+	 * @param jiraDataRetrievePersistence the jira data retrieve persistence
+	 */
+	public void setJiraDataRetrievePersistence(
+		JiraDataRetrievePersistence jiraDataRetrievePersistence) {
+		this.jiraDataRetrievePersistence = jiraDataRetrievePersistence;
 	}
 
 	/**
@@ -514,6 +572,12 @@ public abstract class JiraComponentServiceBaseImpl extends BaseServiceImpl
 	protected com.liferay.jira.metrics.service.JiraComponentService jiraComponentService;
 	@BeanReference(type = JiraComponentPersistence.class)
 	protected JiraComponentPersistence jiraComponentPersistence;
+	@BeanReference(type = com.liferay.jira.metrics.service.JiraDataRetrieveLocalService.class)
+	protected com.liferay.jira.metrics.service.JiraDataRetrieveLocalService jiraDataRetrieveLocalService;
+	@BeanReference(type = com.liferay.jira.metrics.service.JiraDataRetrieveService.class)
+	protected com.liferay.jira.metrics.service.JiraDataRetrieveService jiraDataRetrieveService;
+	@BeanReference(type = JiraDataRetrievePersistence.class)
+	protected JiraDataRetrievePersistence jiraDataRetrievePersistence;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraMetricLocalService.class)
 	protected com.liferay.jira.metrics.service.JiraMetricLocalService jiraMetricLocalService;
 	@BeanReference(type = com.liferay.jira.metrics.service.JiraMetricService.class)

@@ -32,14 +32,16 @@ import java.util.List;
  */
 public interface JiraClient {
 
-	public List<BasicProject> getAllJiraProjects()
+	public List<Priority> getAllJiraPriorities()
 		throws JiraConnectionException;
 
-	public List<Priority> getAllJiraPriorities()
+	public List<BasicProject> getAllJiraProjects()
 		throws JiraConnectionException;
 
 	public List<Status> getAllJiraStatuses()
 		throws JiraConnectionException;
+
+	public java.lang.String getBeanIdentifier();
 
 	public Component getComponent(URI componentURI)
 		throws JiraConnectionException;
@@ -52,8 +54,6 @@ public interface JiraClient {
 		throws JiraConnectionException;
 
 	public Status getStatus(URI uri) throws JiraConnectionException;
-
-	public java.lang.String getBeanIdentifier();
 
 	public void setBeanIdentifier(java.lang.String beanIdentifier);
 

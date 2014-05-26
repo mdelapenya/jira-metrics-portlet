@@ -31,9 +31,11 @@ import com.liferay.jira.metrics.service.base.JiraPriorityServiceBaseImpl;
  * @see com.liferay.jira.metrics.service.JiraPriorityServiceUtil
  */
 public class JiraPriorityServiceImpl extends JiraPriorityServiceBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraPriorityServiceUtil} to access the jira priority remote service.
 	 */
+
 }

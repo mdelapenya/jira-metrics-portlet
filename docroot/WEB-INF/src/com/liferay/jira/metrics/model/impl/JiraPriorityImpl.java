@@ -24,11 +24,13 @@ package com.liferay.jira.metrics.model.impl;
  * @author Manuel de la Peña
  */
 public class JiraPriorityImpl extends JiraPriorityBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a jira priority model instance should use the {@link com.liferay.jira.metrics.model.JiraPriority} interface instead.
 	 */
 	public JiraPriorityImpl() {
 	}
+
 }

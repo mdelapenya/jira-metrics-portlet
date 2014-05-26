@@ -27,7 +27,8 @@
 		</portlet-info>
 		<portlet-preferences>
 			<preference>
-				<name>teamName</name>
+				<name>jiraComponents</name>
+				<value>UI Infraestructure</value>
 				<value>UI</value>
 			</preference>
 			<preference>
@@ -48,7 +49,7 @@
 				<value>Verified</value>
 			</preference>
 			<preference>
-				<name>name</name>
+				<name>teamName</name>
 				<value>UI</value>
 			</preference>
 		</portlet-preferences>

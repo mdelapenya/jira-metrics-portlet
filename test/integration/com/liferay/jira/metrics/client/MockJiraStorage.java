@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2014 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -15,16 +15,14 @@
 package com.liferay.jira.metrics.client;
 
 import com.atlassian.jira.rest.client.domain.BasicComponent;
-import com.atlassian.jira.rest.client.domain.BasicProject;
 import com.atlassian.jira.rest.client.domain.Component;
 import com.atlassian.jira.rest.client.domain.Priority;
 import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
-import com.liferay.portal.kernel.security.RandomUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +31,6 @@ import java.util.List;
  * @author Manuel de la Peña
  */
 public class MockJiraStorage {
-
-	protected static String JIRA_TEST_URI = "http://www.liferay.com/test/";
 
 	public MockJiraStorage() {
 	}
@@ -102,6 +98,8 @@ public class MockJiraStorage {
 
 		return _statuses;
 	}
+
+	protected static String JIRA_TEST_URI = "http://www.liferay.com/test/";
 
 	private Component _newComponent(int id) {
 		String componentKeyword = "component";

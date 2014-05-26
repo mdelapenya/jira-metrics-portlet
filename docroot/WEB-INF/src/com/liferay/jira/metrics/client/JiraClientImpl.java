@@ -19,6 +19,7 @@ import com.atlassian.jira.rest.client.JiraRestClient;
 import com.atlassian.jira.rest.client.JiraRestClientFactory;
 import com.atlassian.jira.rest.client.MetadataRestClient;
 import com.atlassian.jira.rest.client.ProjectRestClient;
+import com.atlassian.jira.rest.client.RestClientException;
 import com.atlassian.jira.rest.client.SearchRestClient;
 import com.atlassian.jira.rest.client.domain.BasicComponent;
 import com.atlassian.jira.rest.client.domain.BasicProject;
@@ -65,6 +66,19 @@ import org.codehaus.jettison.json.JSONObject;
 public class JiraClientImpl implements IdentifiableBean, JiraClient {
 
 	@Override
+	public List<Priority> getAllJiraPriorities()
+		throws JiraConnectionException {
+
+		MetadataRestClient metaClient = _getClient().getMetadataClient();
+
+		Promise<Iterable<Priority>> promise = metaClient.getPriorities();
+
+		Iterable<Priority> priorities = promise.claim();
+
+		return Lists.newArrayList(priorities);
+	}
+
+	@Override
 	public List<BasicProject> getAllJiraProjects()
 		throws JiraConnectionException {
 
@@ -76,19 +90,6 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 		Iterable<BasicProject> basicProjects = promise.claim();
 
 		return Lists.newArrayList(basicProjects);
-	}
-
-	@Override
-	public List<Priority> getAllJiraPriorities()
-		throws JiraConnectionException {
-
-		MetadataRestClient metaClient = _getClient().getMetadataClient();
-
-		Promise<Iterable<Priority>> promise = metaClient.getPriorities();
-
-		Iterable<Priority> priorities = promise.claim();
-
-		return Lists.newArrayList(priorities);
 	}
 
 	@Override
@@ -111,6 +112,11 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 		}
 
 		return statuses;
+	}
+
+	@Override
+	public String getBeanIdentifier() {
+		return _beanIdentifier;
 	}
 
 	@Override
@@ -203,6 +209,11 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 		return promise.claim();
 	}
 
+	@Override
+	public void setBeanIdentifier(String beanIdentifier) {
+		_beanIdentifier = beanIdentifier;
+	}
+
 	protected static String getBase64Auth() {
 		StringBundler sb = new StringBundler(3);
 
@@ -250,9 +261,19 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 
 		Promise<SearchResult> promise = searchClient.searchJql(sb.toString());
 
-		SearchResult result = promise.claim();
+		int total = 0;
 
-		return result.getTotal();
+		try {
+			SearchResult result = promise.claim();
+			total = result.getTotal();
+		}
+		catch (RestClientException e) {
+			_log.error(
+				"Exception when trying to obtain a result for the query [ " +
+					sb.toString() + "] : "+ e.getMessage(), e);
+		}
+
+		return total;
 	}
 
 	protected static String getJiraRestResponse(String restURL)
@@ -327,26 +348,15 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 		return _client;
 	}
 
-
-	@Override
-	public String getBeanIdentifier() {
-		return _beanIdentifier;
-	}
-
-	@Override
-	public void setBeanIdentifier(String beanIdentifier) {
-		 _beanIdentifier = beanIdentifier;
-	}
-
 	private static final String _AUTHORIZATION = "Authorization";
 
 	private static final String _AUTHORIZATION_TYPE = "Basic ";
 
 	private static final String _STATUS_API = "rest/api/2/status";
 
-	private static JiraRestClient _client;
-
 	private static Log _log = LogFactoryUtil.getLog(JiraClientImpl.class);
+
+	private static JiraRestClient _client;
 
 	private String _beanIdentifier;
 

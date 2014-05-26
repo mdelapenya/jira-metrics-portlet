@@ -28,11 +28,13 @@ import com.liferay.jira.metrics.DuplicateJiraStatusException;
 import com.liferay.jira.metrics.client.JiraClient;
 import com.liferay.jira.metrics.exception.JiraConnectionException;
 import com.liferay.jira.metrics.model.JiraComponent;
+import com.liferay.jira.metrics.model.JiraDataRetrieve;
 import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.model.JiraPriority;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil;
+import com.liferay.jira.metrics.service.JiraDataRetrieveLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil;
@@ -57,8 +59,41 @@ import org.apache.commons.lang.time.StopWatch;
  */
 public class JiraETLUtil {
 
+	public static final String STATUS_FAILED = "FAILED";
+
+	public static final String STATUS_OK = "OK";
+
+	public static final String STATUS_RUNNING = "RUNNING";
+
 	public static void load() {
+
+		Date now = new Date();
+
 		try {
+			JiraDataRetrieve jiraDataRetrieve =
+				JiraDataRetrieveLocalServiceUtil.fetchByDate(now);
+
+			if ((jiraDataRetrieve != null) &&
+				(STATUS_OK.equals(jiraDataRetrieve.getStatus()) ||
+				 STATUS_RUNNING.equals(jiraDataRetrieve.getStatus()))) {
+
+				if (_log.isInfoEnabled() &&
+					STATUS_RUNNING.equals(jiraDataRetrieve.getStatus())) {
+
+					_log.info("The process is running now");
+				}
+				else if (_log.isInfoEnabled()) {
+					_log.info(
+						"Data from Jira has been loaded sucessfully in " +
+							jiraDataRetrieve.getModifiedDate());
+				}
+
+				return;
+			}
+
+			JiraDataRetrieveLocalServiceUtil.addJiraDataRetrieve(
+				STATUS_RUNNING, null, now);
+
 			StopWatch stopWatch = new StopWatch();
 
 			stopWatch.start();
@@ -70,6 +105,9 @@ public class JiraETLUtil {
 
 			stopWatch.stop();
 
+			JiraDataRetrieveLocalServiceUtil.addJiraDataRetrieve(
+				STATUS_OK, null, now);
+
 			if (_log.isInfoEnabled()) {
 				_log.info(
 					"Data from Jira has been loaded sucessfully in " +
@@ -77,6 +115,16 @@ public class JiraETLUtil {
 			}
 		}
 		catch (Exception e) {
+			try {
+				JiraDataRetrieveLocalServiceUtil.addJiraDataRetrieve(
+					STATUS_FAILED, e.getMessage(), now);
+			}
+			catch (Exception e1) {
+				_log.error(
+					"Exception when trying to persist an error" +
+						e.getMessage(), e);
+			}
+
 			_log.error("Exception " + e.getMessage(), e);
 		}
 	}
@@ -134,7 +182,7 @@ public class JiraETLUtil {
 	}
 
 	private static void _loadIssueMetricsFromJira()
-		throws PortalException, SystemException, JiraConnectionException {
+		throws JiraConnectionException, PortalException, SystemException {
 
 		List<JiraProject> installedJiraProjects =
 			JiraProjectLocalServiceUtil.getInstalledJiraProjects();
@@ -196,15 +244,15 @@ public class JiraETLUtil {
 				jiraMetric = JiraMetricLocalServiceUtil.addJiraMetric(
 					jiraComponent.getJiraProjectId(),
 					jiraComponent.getJiraComponentId(),
-					jiraStatus.getJiraStatusId(),
-					jiraPriorityId, date, issueMetric.getTotal());
+					jiraStatus.getJiraStatusId(), jiraPriorityId, date,
+					issueMetric.getTotal());
 
 				if (_log.isInfoEnabled()) {
 					_log.info(
 						"[" + jiraMetric.getJiraProjectId() + "][" +
 							jiraMetric.getJiraComponentId() + "][" +
-							jiraMetric.getJiraStatusId()+ "]"  +
-							" imported sucessfully");
+							jiraMetric.getJiraStatusId()+ "]["  +
+							jiraPriorityId + "] imported sucessfully");
 				}
 			}
 			catch (DuplicateJiraMetricException djme) {
@@ -225,8 +273,7 @@ public class JiraETLUtil {
 					JiraMetricLocalServiceUtil.getJiraMetric(
 						jiraComponent.getJiraProjectId(),
 						jiraComponent.getJiraComponentId(),
-						jiraStatus.getJiraStatusId(),
-						jiraPriorityId, date);
+						jiraStatus.getJiraStatusId(), jiraPriorityId, date);
 
 				jiraMetric.setTotal(issueMetric.getTotal());
 				jiraMetric.setModifiedDate(new Date());
@@ -240,6 +287,56 @@ public class JiraETLUtil {
 							jiraMetric.getJiraStatusId()+ "]"  +
 							" updated sucessfully");
 				}
+			}
+		}
+	}
+
+	private static void _loadPrioritiesFromJira()
+		throws JiraConnectionException, PortalException, SystemException {
+
+		List<Priority> priorities = _jiraClient.getAllJiraPriorities();
+
+		for (Priority priority : priorities) {
+			_loadPriorityFromJira(priority);
+		}
+	}
+
+	private static void _loadPriorityFromJira(Priority priority)
+		throws JiraConnectionException, PortalException, SystemException {
+
+		JiraPriority jiraPriority = null;
+
+		try {
+			jiraPriority =
+				JiraPriorityLocalServiceUtil.addJiraProject(
+					priority.getId().toString(), priority.getName());
+
+			if (_log.isInfoEnabled()) {
+				_log.info(jiraPriority.getValue() + " imported sucessfully");
+			}
+		}
+		catch (DuplicateJiraPriorityException djse) {
+			if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
+				return;
+			}
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Jira Priority with Name '" + priority.getName() +
+						"' already exists. Let's update it.");
+			}
+
+			jiraPriority =
+				JiraPriorityLocalServiceUtil.getJiraPriorityByValue(
+					priority.getId().toString());
+
+			jiraPriority.setName(priority.getName());
+			jiraPriority.setModifiedDate(new Date());
+
+			JiraPriorityLocalServiceUtil.updateJiraPriority(jiraPriority);
+
+			if (_log.isInfoEnabled()) {
+				_log.info(jiraPriority.getValue() + " updated sucessfully");
 			}
 		}
 	}
@@ -296,57 +393,6 @@ public class JiraETLUtil {
 		}
 	}
 
-	private static void _loadPrioritiesFromJira()
-		throws JiraConnectionException, PortalException, SystemException {
-
-		List<Priority> priorities = _jiraClient.getAllJiraPriorities();
-
-		for (Priority priority : priorities) {
-			_loadPriorityFromJira(priority);
-		}
-	}
-
-	private static void _loadPriorityFromJira(Priority priority)
-		throws JiraConnectionException, PortalException, SystemException {
-
-		JiraPriority jiraPriority = null;
-
-		try {
-			jiraPriority =
-				JiraPriorityLocalServiceUtil.addJiraProject(
-					priority.getId().toString(), priority.getName());
-
-			if (_log.isInfoEnabled()) {
-				_log.info(jiraPriority.getValue() + " imported sucessfully");
-			}
-		}
-		catch (DuplicateJiraPriorityException djse) {
-			if (!PortletPropsValues.MERGE_STRATEGY.equals("update")) {
-				return;
-			}
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					"Jira Priority with Name '" + priority.getName() +
-						"' already exists. Let's update it.");
-			}
-
-			jiraPriority =
-				JiraPriorityLocalServiceUtil.getJiraPriorityByValue(
-					priority.getId().toString());
-
-			jiraPriority.setName(priority.getName());
-			jiraPriority.setModifiedDate(new Date());
-
-			JiraPriorityLocalServiceUtil.updateJiraPriority(jiraPriority);
-
-			if (_log.isInfoEnabled()) {
-				_log.info(jiraPriority.getValue() + " updated sucessfully");
-			}
-		}
-	}
-
-
 	private static void _loadStatusesFromJira()
 		throws JiraConnectionException, PortalException, SystemException {
 
@@ -397,9 +443,9 @@ public class JiraETLUtil {
 		}
 	}
 
+	private static Log _log = LogFactoryUtil.getLog(JiraETLUtil.class);
+
 	@BeanReference(type = JiraClient.class)
 	private static JiraClient _jiraClient;
-
-	private static Log _log = LogFactoryUtil.getLog(JiraETLUtil.class);
 
 }

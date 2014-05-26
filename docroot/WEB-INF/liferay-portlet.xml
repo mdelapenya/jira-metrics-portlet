@@ -12,7 +12,7 @@
 			<scheduler-event-listener-class>com.liferay.jira.metrics.messaging.JiraLoadMessageListener</scheduler-event-listener-class>
 			<trigger>
 				<cron>
-					<cron-trigger-value>0 1 0 * * ?</cron-trigger-value>
+					<cron-trigger-value>0 0/59 * * * ?</cron-trigger-value>
 				</cron>
 			</trigger>
 		</scheduler-entry>

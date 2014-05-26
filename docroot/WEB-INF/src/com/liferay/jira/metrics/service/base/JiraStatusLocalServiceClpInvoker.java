@@ -106,39 +106,39 @@ public class JiraStatusLocalServiceClpInvoker {
 				"com.liferay.jira.metrics.model.JiraStatus"
 			};
 
-		_methodName58 = "getBeanIdentifier";
+		_methodName64 = "getBeanIdentifier";
 
-		_methodParameterTypes58 = new String[] {  };
+		_methodParameterTypes64 = new String[] {  };
 
-		_methodName59 = "setBeanIdentifier";
+		_methodName65 = "setBeanIdentifier";
 
-		_methodParameterTypes59 = new String[] { "java.lang.String" };
+		_methodParameterTypes65 = new String[] { "java.lang.String" };
 
-		_methodName64 = "addJiraStatus";
+		_methodName70 = "addJiraStatus";
 
-		_methodParameterTypes64 = new String[] {
+		_methodParameterTypes70 = new String[] {
 				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName65 = "getAllJiraStatuses";
+		_methodName71 = "getAllJiraStatuses";
 
-		_methodParameterTypes65 = new String[] {
+		_methodParameterTypes71 = new String[] {
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName66 = "getInstalledJiraStatuses";
+		_methodName72 = "getInstalledJiraStatuses";
 
-		_methodParameterTypes66 = new String[] {
+		_methodParameterTypes72 = new String[] {
 				"com.liferay.jira.metrics.model.JiraProject"
 			};
 
-		_methodName67 = "getJiraStatusByName";
+		_methodName73 = "getJiraStatusByName";
 
-		_methodParameterTypes67 = new String[] { "java.lang.String" };
+		_methodParameterTypes73 = new String[] { "java.lang.String" };
 
-		_methodName68 = "getJiraStatusByUri";
+		_methodName74 = "getJiraStatusByUri";
 
-		_methodParameterTypes68 = new String[] { "java.lang.String" };
+		_methodParameterTypes74 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -230,41 +230,41 @@ public class JiraStatusLocalServiceClpInvoker {
 			return JiraStatusLocalServiceUtil.updateJiraStatus((com.liferay.jira.metrics.model.JiraStatus)arguments[0]);
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			JiraStatusLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.addJiraStatus((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.getAllJiraStatuses((com.liferay.portal.kernel.util.OrderByComparator)arguments[0]);
 		}
 
-		if (_methodName66.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+		if (_methodName72.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.getInstalledJiraStatuses((com.liferay.jira.metrics.model.JiraProject)arguments[0]);
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.getJiraStatusByName((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName74.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
 			return JiraStatusLocalServiceUtil.getJiraStatusByUri((java.lang.String)arguments[0]);
 		}
 
@@ -303,18 +303,18 @@ public class JiraStatusLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName58;
-	private String[] _methodParameterTypes58;
-	private String _methodName59;
-	private String[] _methodParameterTypes59;
 	private String _methodName64;
 	private String[] _methodParameterTypes64;
 	private String _methodName65;
 	private String[] _methodParameterTypes65;
-	private String _methodName66;
-	private String[] _methodParameterTypes66;
-	private String _methodName67;
-	private String[] _methodParameterTypes67;
-	private String _methodName68;
-	private String[] _methodParameterTypes68;
+	private String _methodName70;
+	private String[] _methodParameterTypes70;
+	private String _methodName71;
+	private String[] _methodParameterTypes71;
+	private String _methodName72;
+	private String[] _methodParameterTypes72;
+	private String _methodName73;
+	private String[] _methodParameterTypes73;
+	private String _methodName74;
+	private String[] _methodParameterTypes74;
 }

@@ -4,6 +4,9 @@
 	<bean id="com.liferay.jira.metrics.service.JiraComponentLocalService" class="com.liferay.jira.metrics.service.impl.JiraComponentLocalServiceImpl" />
 	<bean id="com.liferay.jira.metrics.service.JiraComponentService" class="com.liferay.jira.metrics.service.impl.JiraComponentServiceImpl" />
 	<bean id="com.liferay.jira.metrics.service.persistence.JiraComponentPersistence" class="com.liferay.jira.metrics.service.persistence.JiraComponentPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.jira.metrics.service.JiraDataRetrieveLocalService" class="com.liferay.jira.metrics.service.impl.JiraDataRetrieveLocalServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.JiraDataRetrieveService" class="com.liferay.jira.metrics.service.impl.JiraDataRetrieveServiceImpl" />
+	<bean id="com.liferay.jira.metrics.service.persistence.JiraDataRetrievePersistence" class="com.liferay.jira.metrics.service.persistence.JiraDataRetrievePersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.jira.metrics.service.JiraMetricLocalService" class="com.liferay.jira.metrics.service.impl.JiraMetricLocalServiceImpl" />
 	<bean id="com.liferay.jira.metrics.service.JiraMetricService" class="com.liferay.jira.metrics.service.impl.JiraMetricServiceImpl" />
 	<bean id="com.liferay.jira.metrics.service.persistence.JiraMetricPersistence" class="com.liferay.jira.metrics.service.persistence.JiraMetricPersistenceImpl" parent="basePersistence" />

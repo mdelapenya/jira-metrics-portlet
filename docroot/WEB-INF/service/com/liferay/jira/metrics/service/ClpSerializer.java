@@ -15,6 +15,7 @@
 package com.liferay.jira.metrics.service;
 
 import com.liferay.jira.metrics.model.JiraComponentClp;
+import com.liferay.jira.metrics.model.JiraDataRetrieveClp;
 import com.liferay.jira.metrics.model.JiraMetricClp;
 import com.liferay.jira.metrics.model.JiraPriorityClp;
 import com.liferay.jira.metrics.model.JiraProjectClp;
@@ -110,6 +111,10 @@ public class ClpSerializer {
 			return translateInputJiraComponent(oldModel);
 		}
 
+		if (oldModelClassName.equals(JiraDataRetrieveClp.class.getName())) {
+			return translateInputJiraDataRetrieve(oldModel);
+		}
+
 		if (oldModelClassName.equals(JiraMetricClp.class.getName())) {
 			return translateInputJiraMetric(oldModel);
 		}
@@ -145,6 +150,16 @@ public class ClpSerializer {
 		JiraComponentClp oldClpModel = (JiraComponentClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getJiraComponentRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputJiraDataRetrieve(BaseModel<?> oldModel) {
+		JiraDataRetrieveClp oldClpModel = (JiraDataRetrieveClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getJiraDataRetrieveRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -211,6 +226,11 @@ public class ClpSerializer {
 		if (oldModelClassName.equals(
 					"com.liferay.jira.metrics.model.impl.JiraComponentImpl")) {
 			return translateOutputJiraComponent(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.liferay.jira.metrics.model.impl.JiraDataRetrieveImpl")) {
+			return translateOutputJiraDataRetrieve(oldModel);
 		}
 
 		if (oldModelClassName.equals(
@@ -344,6 +364,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.jira.metrics.NoSuchJiraDataRetrieveException")) {
+			return new com.liferay.jira.metrics.NoSuchJiraDataRetrieveException();
+		}
+
+		if (className.equals(
 					"com.liferay.jira.metrics.NoSuchJiraMetricException")) {
 			return new com.liferay.jira.metrics.NoSuchJiraMetricException();
 		}
@@ -372,6 +397,16 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setJiraComponentRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputJiraDataRetrieve(BaseModel<?> oldModel) {
+		JiraDataRetrieveClp newModel = new JiraDataRetrieveClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setJiraDataRetrieveRemoteModel(oldModel);
 
 		return newModel;
 	}
