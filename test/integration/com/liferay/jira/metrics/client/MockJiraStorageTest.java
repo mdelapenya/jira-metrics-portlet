@@ -21,6 +21,7 @@ import com.atlassian.jira.rest.client.domain.Status;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
 import java.util.List;
 
 import org.junit.Assert;
@@ -55,8 +56,7 @@ public class MockJiraStorageTest {
 	public void testGetMockPriorities() throws Exception {
 		MockJiraStorage mockJiraStorage = new MockJiraStorage();
 
-		List<Priority> mockPriorities =
-			mockJiraStorage.getMockPriorities();
+		List<Priority> mockPriorities = mockJiraStorage.getMockPriorities();
 
 		Assert.assertEquals(2, mockPriorities.size());
 
@@ -85,8 +85,7 @@ public class MockJiraStorageTest {
 	public void testGetMockStatuses() throws Exception {
 		MockJiraStorage mockJiraStorage = new MockJiraStorage();
 
-		List<Status> mockStatuses =
-			mockJiraStorage.getMockStatuses();
+		List<Status> mockStatuses = mockJiraStorage.getMockStatuses();
 
 		Assert.assertEquals(2, mockStatuses.size());
 

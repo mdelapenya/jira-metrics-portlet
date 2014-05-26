@@ -33,7 +33,7 @@ public abstract class BaseJiraComparator extends OrderByComparator {
 	public int compare(Object o1, Object o2) {
 		int value = getCompareToValue(o1, o2);
 
-		if(ascending) {
+		if (ascending) {
 			return value;
 		}
 		else {

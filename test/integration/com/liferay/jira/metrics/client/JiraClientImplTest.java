@@ -84,8 +84,6 @@ public class JiraClientImplTest  extends BaseJiraClientTestCase {
 		);
 	}
 
-	private static JiraClient _jiraClient = new JiraClientImpl();;
-
 	private static final String _COMPONENT_URI =
 		"https://issues.liferay.com/rest/api/latest/component/" ;
 
@@ -95,5 +93,7 @@ public class JiraClientImplTest  extends BaseJiraClientTestCase {
 
 	private static final String _STATUS_URI =
 		"https://issues.liferay.com/rest/api/latest/status/" ;
+
+	private static JiraClient _jiraClient = new JiraClientImpl();;
 
 }

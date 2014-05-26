@@ -28,8 +28,8 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
+
 import java.util.List;
 
 import javax.portlet.PortletException;
@@ -61,7 +61,8 @@ public class JiraMetricsPortlet extends MVCPortlet {
 		}
 
 		JSONObject jsonFeed = JSONFactoryUtil.createJSONObject();
-		JSONArray componentsNameCode = JSONFactoryUtil.getJSONFactory().createJSONArray();
+		JSONArray componentsNameCode =
+			JSONFactoryUtil.getJSONFactory().createJSONArray();
 
 		List<JiraComponent> componentList = null;
 

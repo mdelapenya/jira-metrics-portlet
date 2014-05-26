@@ -30,10 +30,13 @@ import com.liferay.jira.metrics.service.base.JiraDataRetrieveServiceBaseImpl;
  * @see com.liferay.jira.metrics.service.base.JiraDataRetrieveServiceBaseImpl
  * @see com.liferay.jira.metrics.service.JiraDataRetrieveServiceUtil
  */
-public class JiraDataRetrieveServiceImpl extends JiraDataRetrieveServiceBaseImpl {
-	/*
+public class JiraDataRetrieveServiceImpl
+	extends JiraDataRetrieveServiceBaseImpl {
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraDataRetrieveServiceUtil} to access the jira data retrieve remote service.
 	 */
+
 }

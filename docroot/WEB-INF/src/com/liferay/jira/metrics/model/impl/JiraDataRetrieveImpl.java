@@ -24,11 +24,13 @@ package com.liferay.jira.metrics.model.impl;
  * @author Manuel de la Peña
  */
 public class JiraDataRetrieveImpl extends JiraDataRetrieveBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a jira data retrieve model instance should use the {@link com.liferay.jira.metrics.model.JiraDataRetrieve} interface instead.
 	 */
 	public JiraDataRetrieveImpl() {
 	}
+
 }

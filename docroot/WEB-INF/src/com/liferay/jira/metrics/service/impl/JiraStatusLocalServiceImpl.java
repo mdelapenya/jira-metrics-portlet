@@ -77,7 +77,8 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 			jiraStatus.getPrimaryKey());
 	}
 
-	public List<JiraStatus> getAllJiraStatuses(OrderByComparator orderByComparator)
+	public List<JiraStatus> getAllJiraStatuses(
+			OrderByComparator orderByComparator)
 		throws NoSuchJiraStatusException, SystemException {
 
 		return jiraStatusPersistence.findAll(

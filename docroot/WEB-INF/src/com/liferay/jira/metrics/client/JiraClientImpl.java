@@ -66,6 +66,19 @@ import org.codehaus.jettison.json.JSONObject;
 public class JiraClientImpl implements IdentifiableBean, JiraClient {
 
 	@Override
+	public List<Priority> getAllJiraPriorities()
+		throws JiraConnectionException {
+
+		MetadataRestClient metaClient = _getClient().getMetadataClient();
+
+		Promise<Iterable<Priority>> promise = metaClient.getPriorities();
+
+		Iterable<Priority> priorities = promise.claim();
+
+		return Lists.newArrayList(priorities);
+	}
+
+	@Override
 	public List<BasicProject> getAllJiraProjects()
 		throws JiraConnectionException {
 
@@ -77,19 +90,6 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 		Iterable<BasicProject> basicProjects = promise.claim();
 
 		return Lists.newArrayList(basicProjects);
-	}
-
-	@Override
-	public List<Priority> getAllJiraPriorities()
-		throws JiraConnectionException {
-
-		MetadataRestClient metaClient = _getClient().getMetadataClient();
-
-		Promise<Iterable<Priority>> promise = metaClient.getPriorities();
-
-		Iterable<Priority> priorities = promise.claim();
-
-		return Lists.newArrayList(priorities);
 	}
 
 	@Override
@@ -112,6 +112,11 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 		}
 
 		return statuses;
+	}
+
+	@Override
+	public String getBeanIdentifier() {
+		return _beanIdentifier;
 	}
 
 	@Override
@@ -204,6 +209,11 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 		return promise.claim();
 	}
 
+	@Override
+	public void setBeanIdentifier(String beanIdentifier) {
+		_beanIdentifier = beanIdentifier;
+	}
+
 	protected static String getBase64Auth() {
 		StringBundler sb = new StringBundler(3);
 
@@ -263,7 +273,7 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 					sb.toString() + "] : "+ e.getMessage(), e);
 		}
 
-		return  total;
+		return total;
 	}
 
 	protected static String getJiraRestResponse(String restURL)
@@ -338,26 +348,15 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 		return _client;
 	}
 
-
-	@Override
-	public String getBeanIdentifier() {
-		return _beanIdentifier;
-	}
-
-	@Override
-	public void setBeanIdentifier(String beanIdentifier) {
-		 _beanIdentifier = beanIdentifier;
-	}
-
 	private static final String _AUTHORIZATION = "Authorization";
 
 	private static final String _AUTHORIZATION_TYPE = "Basic ";
 
 	private static final String _STATUS_API = "rest/api/2/status";
 
-	private static JiraRestClient _client;
-
 	private static Log _log = LogFactoryUtil.getLog(JiraClientImpl.class);
+
+	private static JiraRestClient _client;
 
 	private String _beanIdentifier;
 

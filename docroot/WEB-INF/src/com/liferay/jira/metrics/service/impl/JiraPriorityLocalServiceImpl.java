@@ -15,10 +15,8 @@
 package com.liferay.jira.metrics.service.impl;
 
 import com.liferay.jira.metrics.DuplicateJiraPriorityException;
-import com.liferay.jira.metrics.DuplicateJiraProjectException;
 import com.liferay.jira.metrics.NoSuchJiraPriorityException;
 import com.liferay.jira.metrics.model.JiraPriority;
-import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.base.JiraPriorityLocalServiceBaseImpl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -44,7 +42,8 @@ import java.util.List;
  */
 public class JiraPriorityLocalServiceImpl
 	extends JiraPriorityLocalServiceBaseImpl {
-	/*
+
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil} to access the jira priority local service.
@@ -76,19 +75,6 @@ public class JiraPriorityLocalServiceImpl
 			jiraPriority.getPrimaryKey());
 	}
 
-
-	public JiraPriority getJiraPriorityByName(String name)
-		throws NoSuchJiraPriorityException, SystemException {
-
-		return jiraPriorityPersistence.findByName(name);
-	}
-
-	public JiraPriority getJiraPriorityByValue(String value)
-		throws NoSuchJiraPriorityException, SystemException {
-
-		return jiraPriorityPersistence.findByValue(value);
-	}
-
 	/**
 	 * Retrieves all Jira projects
 	 *
@@ -101,6 +87,18 @@ public class JiraPriorityLocalServiceImpl
 
 		return jiraPriorityPersistence.findAll(
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, orderByComparator);
+	}
+
+	public JiraPriority getJiraPriorityByName(String name)
+		throws NoSuchJiraPriorityException, SystemException {
+
+		return jiraPriorityPersistence.findByName(name);
+	}
+
+	public JiraPriority getJiraPriorityByValue(String value)
+		throws NoSuchJiraPriorityException, SystemException {
+
+		return jiraPriorityPersistence.findByValue(value);
 	}
 
 }

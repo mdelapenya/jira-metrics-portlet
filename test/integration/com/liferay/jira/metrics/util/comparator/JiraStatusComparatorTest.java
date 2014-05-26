@@ -11,11 +11,14 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.util.comparator;
 
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.model.impl.JiraStatusImpl;
+
 import org.jboss.arquillian.junit.Arquillian;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

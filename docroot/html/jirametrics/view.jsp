@@ -56,8 +56,6 @@
 	<div id="groupStatisticsChart"></div>
 </div>
 
-
-
 <aui:script use="charts-legend">
 	var graphData = [
 		<%= stringData %>
@@ -86,10 +84,9 @@
 
 	chartContainer.setStyle('height', containerWidth);
 
-
 	var styleDef = {
 			series: {
-				<%= data.getGraphSeriesStyles()%>
+				<%= data.getGraphSeriesStyles() %>
 			}
 	};
 

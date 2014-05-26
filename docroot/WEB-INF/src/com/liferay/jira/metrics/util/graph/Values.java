@@ -11,14 +11,13 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.util.graph;
 
 /**
  * @author Cristina González
  */
 public class Values {
-	private String _serieName;
-	private Integer _value;
 
 	public Values(String serieName, Integer value) {
 		_serieName = serieName;
@@ -32,5 +31,8 @@ public class Values {
 	public Integer getValue() {
 		return _value;
 	}
+
+	private String _serieName;
+	private Integer _value;
 
 }

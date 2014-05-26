@@ -20,6 +20,7 @@ import com.atlassian.jira.rest.client.domain.Project;
 import com.atlassian.jira.rest.client.domain.Status;
 
 import com.google.common.collect.Lists;
+
 import com.liferay.jira.metrics.client.MockJiraStorage;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraMetric;
@@ -99,12 +100,13 @@ public class JiraETLUtilTest extends BaseArquillianTestCase {
 		i = 0;
 
 		for (Priority priority : priorities) {
-			if(priority == null) {
+			if (priority == null) {
 				priorityNames[i] = "";
 			}
 			else {
 				priorityNames[i] = priority.getId().toString();
 			}
+
 			i++;
 		}
 

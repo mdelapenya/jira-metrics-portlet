@@ -25,35 +25,33 @@
 
 <%@ page import="com.atlassian.jira.rest.client.domain.Priority" %>
 
-<%@ page import="com.liferay.jira.metrics.model.JiraComponent" %>
-<%@ page import="com.liferay.jira.metrics.model.JiraDataRetrieve" %>
-<%@ page import="com.liferay.jira.metrics.model.JiraPriority" %>
-<%@ page import="com.liferay.jira.metrics.model.JiraProject" %>
-<%@ page import="com.liferay.jira.metrics.model.JiraStatus" %>
-<%@ page import="com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil" %>
-<%@ page import="com.liferay.jira.metrics.service.JiraDataRetrieveLocalServiceUtil" %>
-<%@ page import="com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil" %>
-<%@ page import="com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil" %>
-<%@ page import="com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil" %>
-<%@ page import="com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil" %>
-<%@ page import="com.liferay.jira.metrics.service.impl.JiraPriorityLocalServiceImpl" %>
-<%@ page import="com.liferay.jira.metrics.util.PortletKeys" %>
-<%@ page import="com.liferay.jira.metrics.util.comparator.JiraPriorityComparator" %>
-<%@ page import="com.liferay.jira.metrics.util.comparator.JiraProjectComparator" %>
-<%@ page import="com.liferay.jira.metrics.util.comparator.JiraStatusComparator" %>
-<%@ page import="com.liferay.jira.metrics.util.graph.GraphData" %>
-<%@ page import="com.liferay.jira.metrics.util.JiraETLUtil" %>
+<%@ page import="com.liferay.jira.metrics.model.JiraComponent" %><%@
+page import="com.liferay.jira.metrics.model.JiraDataRetrieve" %><%@
+page import="com.liferay.jira.metrics.model.JiraPriority" %><%@
+page import="com.liferay.jira.metrics.model.JiraProject" %><%@
+page import="com.liferay.jira.metrics.model.JiraStatus" %><%@
+page import="com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil" %><%@
+page import="com.liferay.jira.metrics.service.JiraDataRetrieveLocalServiceUtil" %><%@
+page import="com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil" %><%@
+page import="com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil" %><%@
+page import="com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil" %><%@
+page import="com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil" %><%@
+page import="com.liferay.jira.metrics.service.impl.JiraPriorityLocalServiceImpl" %><%@
+page import="com.liferay.jira.metrics.util.JiraETLUtil" %><%@
+page import="com.liferay.jira.metrics.util.PortletKeys" %><%@
+page import="com.liferay.jira.metrics.util.comparator.JiraPriorityComparator" %><%@
+page import="com.liferay.jira.metrics.util.comparator.JiraProjectComparator" %><%@
+page import="com.liferay.jira.metrics.util.comparator.JiraStatusComparator" %><%@
+page import="com.liferay.jira.metrics.util.graph.GraphData" %><%@
+page import="com.liferay.portal.kernel.util.ArrayUtil" %><%@
+page import="com.liferay.portal.kernel.util.Constants" %><%@
+page import="com.liferay.portal.kernel.util.PropsKeys" %>
 
-<%@ page import="com.liferay.portal.kernel.util.ArrayUtil" %>
-<%@ page import="com.liferay.portal.kernel.util.Constants" %>
-<%@ page import="com.liferay.portal.kernel.util.PropsKeys" %>
-
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%@
+page import="java.util.Date" %><%@
+page import="java.util.List" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
-
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Date" %>
 
 <portlet:defineObjects />
 

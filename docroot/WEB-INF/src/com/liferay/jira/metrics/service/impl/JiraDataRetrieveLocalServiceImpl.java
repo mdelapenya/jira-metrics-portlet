@@ -40,7 +40,6 @@ import java.util.List;
 public class JiraDataRetrieveLocalServiceImpl
 	extends JiraDataRetrieveLocalServiceBaseImpl {
 
-
 	public JiraDataRetrieve addJiraDataRetrieve(
 			String status, String statusDescription, Date date)
 		throws PortalException, SystemException {
@@ -80,8 +79,7 @@ public class JiraDataRetrieveLocalServiceImpl
 			dateElements[0], dateElements[1], dateElements[2]);
 	}
 
-	public List<JiraDataRetrieve> getByStatus(
-			String status, int start, int end)
+	public List<JiraDataRetrieve> getByStatus(String status, int start, int end)
 		throws PortalException, SystemException {
 
 		return jiraDataRetrievePersistence.findByStatus(status, start, end);
@@ -116,4 +114,5 @@ public class JiraDataRetrieveLocalServiceImpl
 
 		return dateElements;
 	}
+
 }

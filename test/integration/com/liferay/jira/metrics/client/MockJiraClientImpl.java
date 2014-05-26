@@ -40,6 +40,13 @@ import java.util.regex.Pattern;
 public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 
 	@Override
+	public List<Priority> getAllJiraPriorities()
+		throws JiraConnectionException {
+
+		return _mockJiraStorage.getMockPriorities();
+	}
+
+	@Override
 	public List<BasicProject> getAllJiraProjects()
 		throws JiraConnectionException {
 
@@ -51,15 +58,13 @@ public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 	}
 
 	@Override
-	public List<Priority> getAllJiraPriorities()
-		throws JiraConnectionException {
-
-		return _mockJiraStorage.getMockPriorities();
+	public List<Status> getAllJiraStatuses() throws JiraConnectionException {
+		return _mockJiraStorage.getMockStatuses();
 	}
 
 	@Override
-	public List<Status> getAllJiraStatuses() throws JiraConnectionException {
-		return _mockJiraStorage.getMockStatuses();
+	public String getBeanIdentifier() {
+		return _beanIdentifier;
 	}
 
 	@Override
@@ -84,7 +89,8 @@ public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 
 		String componentId = matcher.group(1);
 
-		throw new RestClientException("The component with id " + componentId +
+		throw new RestClientException(
+			"The component with id " + componentId +
 			" does not exist.", new Throwable());
 	}
 
@@ -111,6 +117,7 @@ public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 						count));
 
 				count++;
+
 				for (Priority priority : _mockJiraStorage.getMockPriorities()) {
 					issuesMetrics.add(
 						new IssuesMetric(
@@ -162,13 +169,9 @@ public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 
 		String componentId = matcher.group(1);
 
-		throw new RestClientException("The status with id '" + componentId +
-			"' does not exist", new Throwable());
-	}
-
-	@Override
-	public String getBeanIdentifier() {
-		return _beanIdentifier;
+		throw new RestClientException(
+			"The status with id '" + componentId +
+				"' does not exist", new Throwable());
 	}
 
 	@Override
@@ -176,13 +179,11 @@ public class MockJiraClientImpl implements JiraClient, IdentifiableBean {
 		_beanIdentifier = beanIdentifier;
 	}
 
-	private String _beanIdentifier;
-
-	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
-
-	private static Project _mockProject = _mockJiraStorage.getMockProject();
-
 	private static final Pattern _LAST_URL_FIELD = Pattern.compile(".*/(.*)");
 
+	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
+	private static Project _mockProject = _mockJiraStorage.getMockProject();
+
+	private String _beanIdentifier;
 
 }

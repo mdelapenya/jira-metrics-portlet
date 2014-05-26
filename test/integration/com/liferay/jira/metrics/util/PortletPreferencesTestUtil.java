@@ -11,6 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.jira.metrics.util;
 
 import com.liferay.portal.kernel.exception.PortalException;
@@ -47,8 +48,7 @@ public class PortletPreferencesTestUtil {
 		sb.append("<portlet-preferences>");
 
 		if (teamName != null) {
-			sb.append(
-				_addProperty(PortletKeys.PREFERENCE_TEAM_NAME, teamName));
+			sb.append(_addProperty(PortletKeys.PREFERENCE_TEAM_NAME, teamName));
 		}
 
 		if (projectKeys != null) {
@@ -66,8 +66,7 @@ public class PortletPreferencesTestUtil {
 		if (componentNames != null) {
 			sb.append(
 				_addProperty(
-					PortletKeys.PREFERENCE_JIRA_COMPONENTS,
-					componentNames));
+					PortletKeys.PREFERENCE_JIRA_COMPONENTS, componentNames));
 		}
 
 		if (priorities != null) {
