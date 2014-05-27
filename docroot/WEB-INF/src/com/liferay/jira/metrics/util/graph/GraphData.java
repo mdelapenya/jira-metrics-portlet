@@ -168,8 +168,8 @@ public class GraphData {
 
 				concatCloseAndContinue(sb);
 
-				concatAttribute(sb, "width", "12");
-				concatAttribute(sb, "height", "12");
+				concatAttribute(sb, "width", "12", true);
+				concatAttribute(sb, "height", "12", false);
 
 				concatCloseAndContinue(sb);
 
@@ -233,11 +233,16 @@ public class GraphData {
 	}
 
 	protected void concatAttribute(
-		StringBundler sb, String attributeName, String attributeValue) {
+		StringBundler sb, String attributeName, String attributeValue,
+		boolean comma) {
 
 		sb.append(attributeName);
 		sb.append(StringPool.COLON);
 		sb.append(attributeValue);
+
+		if (comma) {
+			sb.append(StringPool.COMMA);
+		}
 	}
 
 	protected void concatCloseAndContinue(StringBundler sb) {
