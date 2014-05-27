@@ -48,16 +48,16 @@ public class MockJiraClientImplTest extends BaseJiraClientTestCase {
 	private static final String _COMPONENT_URI =
 		MockJiraStorage.JIRA_TEST_URI + "/component/" ;
 
-	private static final String _PROJECT_KEY =
-		_mockJiraStorage.getMockProject().getKey();
-
-	private static final String _STATUS_NAME =
-		_mockJiraStorage.getMockStatuses().get(0).getName();
-
 	private static final String _STATUS_URI =
 		MockJiraStorage.JIRA_TEST_URI + "/status/";
 
 	private static JiraClient _mockJiraClient = new MockJiraClientImpl();
 	private static MockJiraStorage _mockJiraStorage = new MockJiraStorage();
+
+	private static final String _PROJECT_KEY =
+		_mockJiraStorage.getMockProject().getKey();
+
+	private static final String _STATUS_NAME =
+		_mockJiraStorage.getMockStatuses().get(0).getName();
 
 }
