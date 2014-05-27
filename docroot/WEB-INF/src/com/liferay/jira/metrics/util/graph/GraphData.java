@@ -81,7 +81,7 @@ public class GraphData {
 				for (JiraComponent jiraComponent : jiraComponents) {
 					for (JiraStatus jiraStatus : jiraStatuses) {
 						Integer value = bugsByPriority.get(
-							"priority"+jiraPriority.getValue());
+							"priority" + jiraPriority.getValue());
 
 						if (value == null) {
 							value = 0;
