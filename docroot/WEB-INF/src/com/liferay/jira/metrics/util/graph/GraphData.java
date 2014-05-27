@@ -168,8 +168,8 @@ public class GraphData {
 
 				concatCloseAndContinue(sb);
 
-				concatAttribute(sb, "width", "12", true);
-				concatAttribute(sb, "height", "12", false);
+				concatAttributeAndContinue(sb, "width", "12");
+				concatAttribute(sb, "height", "12");
 
 				concatCloseAndContinue(sb);
 
@@ -233,16 +233,15 @@ public class GraphData {
 	}
 
 	protected void concatAttribute(
-		StringBundler sb, String attributeName, String attributeValue,
-		boolean comma) {
+		StringBundler sb, String attributeName, String attributeValue) {
 
-		sb.append(attributeName);
-		sb.append(StringPool.COLON);
-		sb.append(attributeValue);
+		_concatAttribute(sb, attributeName, attributeValue, false);
+	}
 
-		if (comma) {
-			sb.append(StringPool.COMMA);
-		}
+	protected void concatAttributeAndContinue(
+		StringBundler sb, String attributeName, String attributeValue) {
+
+		_concatAttribute(sb, attributeName, attributeValue, true);
 	}
 
 	protected void concatCloseAndContinue(StringBundler sb) {
@@ -264,6 +263,19 @@ public class GraphData {
 		sb.append(StringPool.QUOTE);
 		sb.append(attributeValue);
 		sb.append(StringPool.QUOTE);
+	}
+
+	private void _concatAttribute(
+		StringBundler sb, String attributeName, String attributeValue,
+		boolean comma) {
+
+		sb.append(attributeName);
+		sb.append(StringPool.COLON);
+		sb.append(attributeValue);
+
+		if (comma) {
+			sb.append(StringPool.COMMA);
+		}
 	}
 
 	private static final String[] _BACKGROUND_COLORS =
