@@ -215,9 +215,10 @@ public class GraphData {
 
 				for (Values value : _data.get(date)) {
 					sb.append(StringPool.COMMA);
-					sb.append(value.getSerieName());
-					sb.append(StringPool.COLON);
-					sb.append(value.getValue());
+
+					concatAttribute(
+						sb, value.getSerieName(),
+						String.valueOf(value.getValue()));
 				}
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
