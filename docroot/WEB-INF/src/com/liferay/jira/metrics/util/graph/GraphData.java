@@ -124,14 +124,14 @@ public class GraphData {
 	}
 
 	public String getGraphSeriesStyles() {
-		int i = 0;
-
 		if (_series != null) {
 			StringBundler sb = new StringBundler(19);
 
 			sb.append(StringPool.BLANK);
 
-			for (String serie : _series) {
+			for (int i = 0; i < _series.size(); i++) {
+				String serie = _series.get(i);
+
 				if (!StringPool.BLANK.equals(sb.toString())) {
 					sb.append(StringPool.COMMA);
 					sb.append(StringPool.NEW_LINE);
@@ -187,8 +187,6 @@ public class GraphData {
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
-
-				i++;
 			}
 
 			return sb.toString();
