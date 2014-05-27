@@ -197,7 +197,7 @@ public class GraphData {
 
 	public String getStringData() {
 		if (_data != null) {
-			StringBundler sb = new StringBundler(19);
+			StringBundler sb = new StringBundler(23);
 
 			sb.append(StringPool.BLANK);
 
@@ -214,9 +214,10 @@ public class GraphData {
 				concatQuotedAttribute(sb, "date", stringDate);
 
 				for (Values value : _data.get(date)) {
-					sb.append(
-						StringPool.COMMA + value.getSerieName() +
-							StringPool.COLON + value.getValue());
+					sb.append(StringPool.COMMA);
+					sb.append(value.getSerieName());
+					sb.append(StringPool.COLON);
+					sb.append(value.getValue());
 				}
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
