@@ -132,11 +132,6 @@ public class GraphData {
 			for (int i = 0; i < _series.size(); i++) {
 				String serie = _series.get(i);
 
-				if (!StringPool.BLANK.equals(sb.toString())) {
-					sb.append(StringPool.COMMA);
-					sb.append(StringPool.NEW_LINE);
-				}
-
 				concatObjectOpener(sb, serie);
 
 				concatObjectOpener(sb, "area");
@@ -187,6 +182,11 @@ public class GraphData {
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
 
 				sb.append(StringPool.CLOSE_CURLY_BRACE);
+
+				if (i != (_series.size() - 1)) {
+					sb.append(StringPool.COMMA);
+					sb.append(StringPool.NEW_LINE);
+				}
 			}
 
 			return sb.toString();
