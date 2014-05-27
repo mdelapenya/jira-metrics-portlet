@@ -14,6 +14,7 @@
 
 package com.liferay.jira.metrics.util.graph;
 
+import com.liferay.jira.metrics.NoSuchJiraMetricException;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.model.JiraDataRetrieve;
 import com.liferay.jira.metrics.model.JiraMetric;
@@ -24,6 +25,8 @@ import com.liferay.jira.metrics.service.JiraDataRetrieveLocalServiceUtil;
 import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 
@@ -78,23 +81,33 @@ public class GraphData {
 				for (JiraComponent jiraComponent : jiraComponents) {
 					for (JiraStatus jiraStatus : jiraStatuses) {
 						Integer value = bugsByPriority.get(
-							jiraPriority.getValue());
+							"priority"+jiraPriority.getValue());
 
 						if (value == null) {
 							value = 0;
 						}
 
-						JiraMetric jiraMetric =
-							JiraMetricLocalServiceUtil.getJiraMetric(
-								jiraProject.getJiraProjectId(),
-								jiraComponent.getJiraComponentId(),
-								jiraStatus.getJiraStatusId(),
-								jiraPriority.getJiraPriorityId(), date);
+						try {
+							JiraMetric jiraMetric =
+								JiraMetricLocalServiceUtil.getJiraMetric(
+									jiraProject.getJiraProjectId(),
+									jiraComponent.getJiraComponentId(),
+									jiraStatus.getJiraStatusId(),
+									jiraPriority.getJiraPriorityId(), date);
 
-						value += jiraMetric.getTotal();
+							value += jiraMetric.getTotal();
 
-						bugsByPriority.put(
-							"priority"+jiraPriority.getValue(), value);
+							bugsByPriority.put(
+								"priority" + jiraPriority.getValue(), value);
+
+						} catch (NoSuchJiraMetricException e) {
+							_log.error("Can't find JiraMetric for JiraProject: "
+								+ jiraProject.getKey() +
+									"JiraComponent " + jiraComponent.getName() +
+									"Jira Status " + jiraStatus.getName()  +
+									"Jira Priority " + jiraPriority.getName(),
+								e);
+						}
 					}
 				}
 			}
@@ -287,6 +300,8 @@ public class GraphData {
 			"#92A8CD", "#A47D7C", "#B5CA92"};
 
 	private static DateFormat _formatter = new SimpleDateFormat("MM/dd/yyyy");
+
+	private static Log _log = LogFactoryUtil.getLog(GraphData.class);
 
 	private Map<Date, List<Values>> _data = new HashMap<Date, List<Values>>();
 	private List<String> _series = new ArrayList<String>();
