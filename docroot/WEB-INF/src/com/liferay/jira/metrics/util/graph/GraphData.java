@@ -210,12 +210,8 @@ public class GraphData {
 				}
 
 				sb.append(StringPool.OPEN_CURLY_BRACE);
-				sb.append("date");
-				sb.append(StringPool.COLON);
 
-				sb.append(StringPool.QUOTE);
-				sb.append(stringDate);
-				sb.append(StringPool.QUOTE);
+				concatQuotedAttribute(sb, "date", stringDate);
 
 				for (Values value : _data.get(date)) {
 					sb.append(
