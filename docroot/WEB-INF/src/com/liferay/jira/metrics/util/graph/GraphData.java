@@ -147,8 +147,7 @@ public class GraphData {
 
 				concatObjectOpener(sb, "marker");
 
-				sb.append(
-					"fill" + StringPool.COLON + StringPool.OPEN_CURLY_BRACE);
+				concatObjectOpener(sb, "fill");
 
 				concatQuotedAttribute(sb, "color", _BACKGROUND_COLORS[i]);
 
