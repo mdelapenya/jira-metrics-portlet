@@ -118,7 +118,9 @@ public class JiraStatusLocalServiceImpl extends JiraStatusLocalServiceBaseImpl {
 						JiraStatusLocalServiceUtil.getJiraStatusByName(
 							jiraStatusName);
 
-					jiraStatuses.add(jiraStatus);
+					if(!jiraStatuses.contains(jiraStatus)) {
+						jiraStatuses.add(jiraStatus);
+					}
 				}
 			}
 		}
