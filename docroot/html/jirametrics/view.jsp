@@ -52,8 +52,8 @@
 
 <b><%= teamName %></b>
 
-<div class="group-statistics-chart">
-	<div id="groupStatisticsChart"></div>
+<div class="group-statistics-chart<%= portletDisplay.getId() %>">
+	<div id="groupStatisticsChart<%= portletDisplay.getId() %>"></div>
 </div>
 
 <aui:script use="charts-legend">
@@ -74,7 +74,7 @@
 		}
 	};
 
-	var chartContainer = A.one('#groupStatisticsChart');
+	var chartContainer = A.one('#groupStatisticsChart<%= portletDisplay.getId() %>');
 
 	var getContainerWidth = function(container) {
 		return container.width() * 0.7;

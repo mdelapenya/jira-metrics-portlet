@@ -16,7 +16,7 @@
 				</cron>
 			</trigger>
 		</scheduler-entry>
-		<instanceable>false</instanceable>
+		<instanceable>true</instanceable>
 		<requires-namespaced-parameters>false</requires-namespaced-parameters>
 		<ajaxable>true</ajaxable>
 		<header-portlet-css>/css/main.css</header-portlet-css>
