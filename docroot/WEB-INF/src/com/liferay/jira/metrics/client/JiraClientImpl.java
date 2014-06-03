@@ -267,7 +267,7 @@ public class JiraClientImpl implements IdentifiableBean, JiraClient {
 			SearchResult result = promise.claim();
 			total = result.getTotal();
 		}
-		catch (RestClientException e) {
+		catch (Exception e) {
 			_log.error(
 				"Exception when trying to obtain a result for the query [ " +
 					sb.toString() + "] : "+ e.getMessage(), e);
