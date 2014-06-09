@@ -115,7 +115,9 @@ public class JiraProjectLocalServiceImpl
 			JiraProject jiraProject = getJiraProjectByProjectLabel(
 				jiraProjectName);
 
-			jiraProjects.add(jiraProject);
+			if (!jiraProjects.contains(jiraProject)) {
+				jiraProjects.add(jiraProject);
+			}
 		}
 
 		return jiraProjects;
