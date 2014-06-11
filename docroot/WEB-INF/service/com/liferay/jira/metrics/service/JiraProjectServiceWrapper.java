@@ -59,6 +59,7 @@ public class JiraProjectServiceWrapper implements JiraProjectService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraProjectService getWrappedJiraProjectService() {
 		return _jiraProjectService;
 	}
@@ -66,6 +67,7 @@ public class JiraProjectServiceWrapper implements JiraProjectService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraProjectService(
 		JiraProjectService jiraProjectService) {
 		_jiraProjectService = jiraProjectService;

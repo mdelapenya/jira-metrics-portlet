@@ -18,15 +18,16 @@ import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 
 import com.liferay.portal.kernel.dao.orm.BaseActionableDynamicQuery;
-import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * @author Manuel de la Peña
+ * @deprecated As of 7.0.0, replaced by {@link JiraMetricLocalServiceUtil#getExportActionableDynamicQuery()}
  * @generated
  */
+@Deprecated
 public abstract class JiraMetricActionableDynamicQuery
 	extends BaseActionableDynamicQuery {
-	public JiraMetricActionableDynamicQuery() throws SystemException {
+	public JiraMetricActionableDynamicQuery() {
 		setBaseLocalService(JiraMetricLocalServiceUtil.getService());
 		setClass(JiraMetric.class);
 

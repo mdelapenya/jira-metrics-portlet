@@ -18,7 +18,7 @@ import com.liferay.jira.metrics.service.ClpSerializer;
 import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -80,6 +80,9 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		attributes.put("uri", getUri());
 		attributes.put("name", getName());
 
+		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
+		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
+
 		return attributes;
 	}
 
@@ -114,6 +117,9 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 		if (name != null) {
 			setName(name);
 		}
+
+		_entityCacheEnabled = GetterUtil.getBoolean("entityCacheEnabled");
+		_finderCacheEnabled = GetterUtil.getBoolean("finderCacheEnabled");
 	}
 
 	@Override
@@ -281,7 +287,7 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 	}
 
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraStatusLocalServiceUtil.addJiraStatus(this);
 		}
@@ -350,6 +356,16 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 	}
 
 	@Override
+	public boolean isEntityCacheEnabled() {
+		return _entityCacheEnabled;
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _finderCacheEnabled;
+	}
+
+	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(11);
 
@@ -408,4 +424,6 @@ public class JiraStatusClp extends BaseModelImpl<JiraStatus>
 	private String _uri;
 	private String _name;
 	private BaseModel<?> _jiraStatusRemoteModel;
+	private boolean _entityCacheEnabled;
+	private boolean _finderCacheEnabled;
 }

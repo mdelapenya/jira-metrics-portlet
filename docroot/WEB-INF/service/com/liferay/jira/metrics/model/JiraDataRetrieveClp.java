@@ -18,8 +18,8 @@ import com.liferay.jira.metrics.service.ClpSerializer;
 import com.liferay.jira.metrics.service.JiraDataRetrieveLocalServiceUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.DateUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -84,6 +84,9 @@ public class JiraDataRetrieveClp extends BaseModelImpl<JiraDataRetrieve>
 		attributes.put("month", getMonth());
 		attributes.put("year", getYear());
 
+		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
+		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
+
 		return attributes;
 	}
 
@@ -136,6 +139,9 @@ public class JiraDataRetrieveClp extends BaseModelImpl<JiraDataRetrieve>
 		if (year != null) {
 			setYear(year);
 		}
+
+		_entityCacheEnabled = GetterUtil.getBoolean("entityCacheEnabled");
+		_finderCacheEnabled = GetterUtil.getBoolean("finderCacheEnabled");
 	}
 
 	@Override
@@ -375,7 +381,7 @@ public class JiraDataRetrieveClp extends BaseModelImpl<JiraDataRetrieve>
 	}
 
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraDataRetrieveLocalServiceUtil.addJiraDataRetrieve(this);
 		}
@@ -446,6 +452,16 @@ public class JiraDataRetrieveClp extends BaseModelImpl<JiraDataRetrieve>
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _entityCacheEnabled;
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _finderCacheEnabled;
 	}
 
 	@Override
@@ -528,4 +544,6 @@ public class JiraDataRetrieveClp extends BaseModelImpl<JiraDataRetrieve>
 	private int _month;
 	private int _year;
 	private BaseModel<?> _jiraDataRetrieveRemoteModel;
+	private boolean _entityCacheEnabled;
+	private boolean _finderCacheEnabled;
 }

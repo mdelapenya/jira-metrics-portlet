@@ -61,6 +61,7 @@ public class JiraComponentServiceWrapper implements JiraComponentService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraComponentService getWrappedJiraComponentService() {
 		return _jiraComponentService;
 	}
@@ -68,6 +69,7 @@ public class JiraComponentServiceWrapper implements JiraComponentService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraComponentService(
 		JiraComponentService jiraComponentService) {
 		_jiraComponentService = jiraComponentService;

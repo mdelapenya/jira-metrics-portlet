@@ -59,6 +59,7 @@ public class JiraMetricServiceWrapper implements JiraMetricService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraMetricService getWrappedJiraMetricService() {
 		return _jiraMetricService;
 	}
@@ -66,6 +67,7 @@ public class JiraMetricServiceWrapper implements JiraMetricService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraMetricService(JiraMetricService jiraMetricService) {
 		_jiraMetricService = jiraMetricService;
 	}

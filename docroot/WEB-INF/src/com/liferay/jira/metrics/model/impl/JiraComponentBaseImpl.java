@@ -17,8 +17,6 @@ package com.liferay.jira.metrics.model.impl;
 import com.liferay.jira.metrics.model.JiraComponent;
 import com.liferay.jira.metrics.service.JiraComponentLocalServiceUtil;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 /**
  * The extended model base implementation for the JiraComponent service. Represents a row in the &quot;jirametrics_JiraComponent&quot; database table, with each column mapped to a property of this class.
  *
@@ -39,7 +37,7 @@ public abstract class JiraComponentBaseImpl extends JiraComponentModelImpl
 	 * Never modify or reference this class directly. All methods that expect a jira component model instance should use the {@link JiraComponent} interface instead.
 	 */
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraComponentLocalServiceUtil.addJiraComponent(this);
 		}

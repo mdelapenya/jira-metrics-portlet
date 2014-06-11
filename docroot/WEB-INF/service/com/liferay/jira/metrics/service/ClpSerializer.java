@@ -21,8 +21,6 @@ import com.liferay.jira.metrics.model.JiraPriorityClp;
 import com.liferay.jira.metrics.model.JiraProjectClp;
 import com.liferay.jira.metrics.model.JiraStatusClp;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
@@ -307,6 +305,13 @@ public class ClpSerializer {
 
 				return throwable;
 			}
+			catch (ClassNotFoundException cnfe) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Do not use reflection to translate throwable");
+				}
+
+				_useReflectionToTranslateThrowable = false;
+			}
 			catch (SecurityException se) {
 				if (_log.isInfoEnabled()) {
 					_log.info("Do not use reflection to translate throwable");
@@ -325,67 +330,70 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals(PortalException.class.getName())) {
-			return new PortalException();
-		}
-
-		if (className.equals(SystemException.class.getName())) {
-			return new SystemException();
-		}
-
 		if (className.equals(
 					"com.liferay.jira.metrics.DuplicateJiraComponentException")) {
-			return new com.liferay.jira.metrics.DuplicateJiraComponentException();
+			return new com.liferay.jira.metrics.DuplicateJiraComponentException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.DuplicateJiraMetricException")) {
-			return new com.liferay.jira.metrics.DuplicateJiraMetricException();
+			return new com.liferay.jira.metrics.DuplicateJiraMetricException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.DuplicateJiraPriorityException")) {
-			return new com.liferay.jira.metrics.DuplicateJiraPriorityException();
+			return new com.liferay.jira.metrics.DuplicateJiraPriorityException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.DuplicateJiraProjectException")) {
-			return new com.liferay.jira.metrics.DuplicateJiraProjectException();
+			return new com.liferay.jira.metrics.DuplicateJiraProjectException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.DuplicateJiraStatusException")) {
-			return new com.liferay.jira.metrics.DuplicateJiraStatusException();
+			return new com.liferay.jira.metrics.DuplicateJiraStatusException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.NoSuchJiraComponentException")) {
-			return new com.liferay.jira.metrics.NoSuchJiraComponentException();
+			return new com.liferay.jira.metrics.NoSuchJiraComponentException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.NoSuchJiraDataRetrieveException")) {
-			return new com.liferay.jira.metrics.NoSuchJiraDataRetrieveException();
+			return new com.liferay.jira.metrics.NoSuchJiraDataRetrieveException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.NoSuchJiraMetricException")) {
-			return new com.liferay.jira.metrics.NoSuchJiraMetricException();
+			return new com.liferay.jira.metrics.NoSuchJiraMetricException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.NoSuchJiraPriorityException")) {
-			return new com.liferay.jira.metrics.NoSuchJiraPriorityException();
+			return new com.liferay.jira.metrics.NoSuchJiraPriorityException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.NoSuchJiraProjectException")) {
-			return new com.liferay.jira.metrics.NoSuchJiraProjectException();
+			return new com.liferay.jira.metrics.NoSuchJiraProjectException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.jira.metrics.NoSuchJiraStatusException")) {
-			return new com.liferay.jira.metrics.NoSuchJiraStatusException();
+			return new com.liferay.jira.metrics.NoSuchJiraStatusException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		return throwable;

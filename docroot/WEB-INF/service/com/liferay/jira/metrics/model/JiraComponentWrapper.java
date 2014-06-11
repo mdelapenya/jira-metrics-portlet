@@ -376,8 +376,7 @@ public class JiraComponentWrapper implements JiraComponent,
 	}
 
 	@Override
-	public void persist()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void persist() {
 		_jiraComponent.persist();
 	}
 
@@ -403,6 +402,7 @@ public class JiraComponentWrapper implements JiraComponent,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
+	@Deprecated
 	public JiraComponent getWrappedJiraComponent() {
 		return _jiraComponent;
 	}
@@ -410,6 +410,16 @@ public class JiraComponentWrapper implements JiraComponent,
 	@Override
 	public JiraComponent getWrappedModel() {
 		return _jiraComponent;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _jiraComponent.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _jiraComponent.isFinderCacheEnabled();
 	}
 
 	@Override

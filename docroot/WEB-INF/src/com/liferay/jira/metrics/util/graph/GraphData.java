@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -184,7 +185,7 @@ public class GraphData {
 				concatAttributeAndContinue(sb, "width", "12");
 				concatAttribute(sb, "height", "12");
 
-				concatCloseAndContinue(sb);
+				sb.append(StringPool.CLOSE_CURLY_BRACE);
 
 				concatCloseAndContinue(sb);
 

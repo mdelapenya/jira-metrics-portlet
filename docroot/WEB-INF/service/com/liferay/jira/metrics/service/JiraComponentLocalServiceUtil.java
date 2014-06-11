@@ -44,11 +44,9 @@ public class JiraComponentLocalServiceUtil {
 	*
 	* @param jiraComponent the jira component
 	* @return the jira component that was added
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent addJiraComponent(
-		com.liferay.jira.metrics.model.JiraComponent jiraComponent)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraComponent jiraComponent) {
 		return getService().addJiraComponent(jiraComponent);
 	}
 
@@ -69,12 +67,10 @@ public class JiraComponentLocalServiceUtil {
 	* @param jiraComponentId the primary key of the jira component
 	* @return the jira component that was removed
 	* @throws PortalException if a jira component with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent deleteJiraComponent(
 		long jiraComponentId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().deleteJiraComponent(jiraComponentId);
 	}
 
@@ -83,11 +79,9 @@ public class JiraComponentLocalServiceUtil {
 	*
 	* @param jiraComponent the jira component
 	* @return the jira component that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent deleteJiraComponent(
-		com.liferay.jira.metrics.model.JiraComponent jiraComponent)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraComponent jiraComponent) {
 		return getService().deleteJiraComponent(jiraComponent);
 	}
 
@@ -100,12 +94,10 @@ public class JiraComponentLocalServiceUtil {
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public static java.util.List dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return getService().dynamicQuery(dynamicQuery);
 	}
 
@@ -120,12 +112,11 @@ public class JiraComponentLocalServiceUtil {
 	* @param start the lower bound of the range of model instances
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public static java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		int end) {
 		return getService().dynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -141,14 +132,12 @@ public class JiraComponentLocalServiceUtil {
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public static java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return getService()
 				   .dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
@@ -158,11 +147,9 @@ public class JiraComponentLocalServiceUtil {
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	public static long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
@@ -172,18 +159,15 @@ public class JiraComponentLocalServiceUtil {
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	public static long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return getService().dynamicQueryCount(dynamicQuery, projection);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraComponent fetchJiraComponent(
-		long jiraComponentId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long jiraComponentId) {
 		return getService().fetchJiraComponent(jiraComponentId);
 	}
 
@@ -193,19 +177,29 @@ public class JiraComponentLocalServiceUtil {
 	* @param jiraComponentId the primary key of the jira component
 	* @return the jira component
 	* @throws PortalException if a jira component with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent getJiraComponent(
 		long jiraComponentId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getJiraComponent(jiraComponentId);
+	}
+
+	public static com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return getService().getActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	public static com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().deletePersistedModel(persistedModel);
 	}
 
 	public static com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
@@ -219,11 +213,9 @@ public class JiraComponentLocalServiceUtil {
 	* @param start the lower bound of the range of jira components
 	* @param end the upper bound of the range of jira components (not inclusive)
 	* @return the range of jira components
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraComponent> getJiraComponents(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int start, int end) {
 		return getService().getJiraComponents(start, end);
 	}
 
@@ -231,10 +223,8 @@ public class JiraComponentLocalServiceUtil {
 	* Returns the number of jira components.
 	*
 	* @return the number of jira components
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int getJiraComponentsCount()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int getJiraComponentsCount() {
 		return getService().getJiraComponentsCount();
 	}
 
@@ -243,11 +233,9 @@ public class JiraComponentLocalServiceUtil {
 	*
 	* @param jiraComponent the jira component
 	* @return the jira component that was updated
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraComponent updateJiraComponent(
-		com.liferay.jira.metrics.model.JiraComponent jiraComponent)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraComponent jiraComponent) {
 		return getService().updateJiraComponent(jiraComponent);
 	}
 
@@ -330,6 +318,7 @@ public class JiraComponentLocalServiceUtil {
 	/**
 	 * @deprecated As of 6.2.0
 	 */
+	@Deprecated
 	public void setService(JiraComponentLocalService service) {
 	}
 

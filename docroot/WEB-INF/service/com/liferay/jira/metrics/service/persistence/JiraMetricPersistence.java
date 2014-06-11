@@ -49,13 +49,11 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param year the year
 	* @return the matching jira metric
 	* @throws com.liferay.jira.metrics.NoSuchJiraMetricException if a matching jira metric could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric findByP_C_S_P_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
 		long jiraPriorityId, int day, int month, int year)
-		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException;
 
 	/**
 	* Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
@@ -68,12 +66,10 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param month the month
 	* @param year the year
 	* @return the matching jira metric, or <code>null</code> if a matching jira metric could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric fetchByP_C_S_P_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		long jiraPriorityId, int day, int month, int year)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraPriorityId, int day, int month, int year);
 
 	/**
 	* Returns the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -87,13 +83,11 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param year the year
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira metric, or <code>null</code> if a matching jira metric could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric fetchByP_C_S_P_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
 		long jiraPriorityId, int day, int month, int year,
-		boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		boolean retrieveFromCache);
 
 	/**
 	* Removes the jira metric where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63; from the database.
@@ -106,13 +100,11 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param month the month
 	* @param year the year
 	* @return the jira metric that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric removeByP_C_S_P_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
 		long jiraPriorityId, int day, int month, int year)
-		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException;
 
 	/**
 	* Returns the number of jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and jiraPriorityId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -125,11 +117,9 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param month the month
 	* @param year the year
 	* @return the number of matching jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	public int countByP_C_S_P_D_M_Y(long jiraProjectId, long jiraComponentId,
-		long jiraStatusId, long jiraPriorityId, int day, int month, int year)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraStatusId, long jiraPriorityId, int day, int month, int year);
 
 	/**
 	* Returns all the jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -141,12 +131,10 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param month the month
 	* @param year the year
 	* @return the matching jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> findByP_C_S_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
-		int month, int year)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		int month, int year);
 
 	/**
 	* Returns a range of all the jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -164,12 +152,10 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param start the lower bound of the range of jira metrics
 	* @param end the upper bound of the range of jira metrics (not inclusive)
 	* @return the range of matching jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> findByP_C_S_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
-		int month, int year, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		int month, int year, int start, int end);
 
 	/**
 	* Returns an ordered range of all the jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -188,13 +174,11 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param end the upper bound of the range of jira metrics (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> findByP_C_S_D_M_Y(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
 		int month, int year, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Returns the first jira metric in the ordered set where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -208,14 +192,12 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching jira metric
 	* @throws com.liferay.jira.metrics.NoSuchJiraMetricException if a matching jira metric could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric findByP_C_S_D_M_Y_First(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
 		int month, int year,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException;
 
 	/**
 	* Returns the first jira metric in the ordered set where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -228,13 +210,11 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param year the year
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching jira metric, or <code>null</code> if a matching jira metric could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric fetchByP_C_S_D_M_Y_First(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
 		int month, int year,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Returns the last jira metric in the ordered set where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -248,14 +228,12 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching jira metric
 	* @throws com.liferay.jira.metrics.NoSuchJiraMetricException if a matching jira metric could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric findByP_C_S_D_M_Y_Last(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
 		int month, int year,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException;
 
 	/**
 	* Returns the last jira metric in the ordered set where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -268,13 +246,11 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param year the year
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching jira metric, or <code>null</code> if a matching jira metric could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric fetchByP_C_S_D_M_Y_Last(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId, int day,
 		int month, int year,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Returns the jira metrics before and after the current jira metric in the ordered set where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -289,14 +265,12 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next jira metric
 	* @throws com.liferay.jira.metrics.NoSuchJiraMetricException if a jira metric with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric[] findByP_C_S_D_M_Y_PrevAndNext(
 		long jiraMetricId, long jiraProjectId, long jiraComponentId,
 		long jiraStatusId, int day, int month, int year,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException;
 
 	/**
 	* Removes all the jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63; from the database.
@@ -307,11 +281,9 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param day the day
 	* @param month the month
 	* @param year the year
-	* @throws SystemException if a system exception occurred
 	*/
 	public void removeByP_C_S_D_M_Y(long jiraProjectId, long jiraComponentId,
-		long jiraStatusId, int day, int month, int year)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraStatusId, int day, int month, int year);
 
 	/**
 	* Returns the number of jira metrics where jiraProjectId = &#63; and jiraComponentId = &#63; and jiraStatusId = &#63; and day = &#63; and month = &#63; and year = &#63;.
@@ -323,11 +295,9 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param month the month
 	* @param year the year
 	* @return the number of matching jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	public int countByP_C_S_D_M_Y(long jiraProjectId, long jiraComponentId,
-		long jiraStatusId, int day, int month, int year)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraStatusId, int day, int month, int year);
 
 	/**
 	* Caches the jira metric in the entity cache if it is enabled.
@@ -359,15 +329,12 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param jiraMetricId the primary key of the jira metric
 	* @return the jira metric that was removed
 	* @throws com.liferay.jira.metrics.NoSuchJiraMetricException if a jira metric with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric remove(long jiraMetricId)
-		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException;
 
 	public com.liferay.jira.metrics.model.JiraMetric updateImpl(
-		com.liferay.jira.metrics.model.JiraMetric jiraMetric)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraMetric jiraMetric);
 
 	/**
 	* Returns the jira metric with the primary key or throws a {@link com.liferay.jira.metrics.NoSuchJiraMetricException} if it could not be found.
@@ -375,32 +342,30 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param jiraMetricId the primary key of the jira metric
 	* @return the jira metric
 	* @throws com.liferay.jira.metrics.NoSuchJiraMetricException if a jira metric with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric findByPrimaryKey(
 		long jiraMetricId)
-		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException;
 
 	/**
 	* Returns the jira metric with the primary key or returns <code>null</code> if it could not be found.
 	*
 	* @param jiraMetricId the primary key of the jira metric
 	* @return the jira metric, or <code>null</code> if a jira metric with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric fetchByPrimaryKey(
-		long jiraMetricId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraMetricId);
+
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.jira.metrics.model.JiraMetric> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
 
 	/**
 	* Returns all the jira metrics.
 	*
 	* @return the jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> findAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> findAll();
 
 	/**
 	* Returns a range of all the jira metrics.
@@ -412,11 +377,9 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param start the lower bound of the range of jira metrics
 	* @param end the upper bound of the range of jira metrics (not inclusive)
 	* @return the range of jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> findAll(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		int start, int end);
 
 	/**
 	* Returns an ordered range of all the jira metrics.
@@ -429,27 +392,20 @@ public interface JiraMetricPersistence extends BasePersistence<JiraMetric> {
 	* @param end the upper bound of the range of jira metrics (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Removes all the jira metrics from the database.
-	*
-	* @throws SystemException if a system exception occurred
 	*/
-	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public void removeAll();
 
 	/**
 	* Returns the number of jira metrics.
 	*
 	* @return the number of jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countAll();
 }

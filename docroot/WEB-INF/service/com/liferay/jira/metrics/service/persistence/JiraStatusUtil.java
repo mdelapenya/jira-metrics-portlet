@@ -18,7 +18,6 @@ import com.liferay.jira.metrics.model.JiraStatus;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.ServiceContext;
@@ -61,8 +60,7 @@ public class JiraStatusUtil {
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
 	 */
-	public static long countWithDynamicQuery(DynamicQuery dynamicQuery)
-		throws SystemException {
+	public static long countWithDynamicQuery(DynamicQuery dynamicQuery) {
 		return getPersistence().countWithDynamicQuery(dynamicQuery);
 	}
 
@@ -70,7 +68,7 @@ public class JiraStatusUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery)
 	 */
 	public static List<JiraStatus> findWithDynamicQuery(
-		DynamicQuery dynamicQuery) throws SystemException {
+		DynamicQuery dynamicQuery) {
 		return getPersistence().findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -78,8 +76,7 @@ public class JiraStatusUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int)
 	 */
 	public static List<JiraStatus> findWithDynamicQuery(
-		DynamicQuery dynamicQuery, int start, int end)
-		throws SystemException {
+		DynamicQuery dynamicQuery, int start, int end) {
 		return getPersistence().findWithDynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -88,7 +85,7 @@ public class JiraStatusUtil {
 	 */
 	public static List<JiraStatus> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
+		OrderByComparator orderByComparator) {
 		return getPersistence()
 				   .findWithDynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
@@ -97,8 +94,7 @@ public class JiraStatusUtil {
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static JiraStatus update(JiraStatus jiraStatus)
-		throws SystemException {
+	public static JiraStatus update(JiraStatus jiraStatus) {
 		return getPersistence().update(jiraStatus);
 	}
 
@@ -106,7 +102,7 @@ public class JiraStatusUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
 	public static JiraStatus update(JiraStatus jiraStatus,
-		ServiceContext serviceContext) throws SystemException {
+		ServiceContext serviceContext) {
 		return getPersistence().update(jiraStatus, serviceContext);
 	}
 
@@ -116,12 +112,10 @@ public class JiraStatusUtil {
 	* @param name the name
 	* @return the matching jira status
 	* @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus findByStatus(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException {
 		return getPersistence().findByStatus(name);
 	}
 
@@ -130,11 +124,9 @@ public class JiraStatusUtil {
 	*
 	* @param name the name
 	* @return the matching jira status, or <code>null</code> if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus fetchByStatus(
-		java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String name) {
 		return getPersistence().fetchByStatus(name);
 	}
 
@@ -144,11 +136,9 @@ public class JiraStatusUtil {
 	* @param name the name
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira status, or <code>null</code> if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus fetchByStatus(
-		java.lang.String name, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String name, boolean retrieveFromCache) {
 		return getPersistence().fetchByStatus(name, retrieveFromCache);
 	}
 
@@ -157,12 +147,10 @@ public class JiraStatusUtil {
 	*
 	* @param name the name
 	* @return the jira status that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus removeByStatus(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException {
 		return getPersistence().removeByStatus(name);
 	}
 
@@ -171,10 +159,8 @@ public class JiraStatusUtil {
 	*
 	* @param name the name
 	* @return the number of matching jira statuses
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByStatus(java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countByStatus(java.lang.String name) {
 		return getPersistence().countByStatus(name);
 	}
 
@@ -184,12 +170,10 @@ public class JiraStatusUtil {
 	* @param uri the uri
 	* @return the matching jira status
 	* @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus findByUri(
 		java.lang.String uri)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException {
 		return getPersistence().findByUri(uri);
 	}
 
@@ -198,11 +182,9 @@ public class JiraStatusUtil {
 	*
 	* @param uri the uri
 	* @return the matching jira status, or <code>null</code> if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus fetchByUri(
-		java.lang.String uri)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String uri) {
 		return getPersistence().fetchByUri(uri);
 	}
 
@@ -212,11 +194,9 @@ public class JiraStatusUtil {
 	* @param uri the uri
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira status, or <code>null</code> if a matching jira status could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus fetchByUri(
-		java.lang.String uri, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String uri, boolean retrieveFromCache) {
 		return getPersistence().fetchByUri(uri, retrieveFromCache);
 	}
 
@@ -225,12 +205,10 @@ public class JiraStatusUtil {
 	*
 	* @param uri the uri
 	* @return the jira status that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus removeByUri(
 		java.lang.String uri)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException {
 		return getPersistence().removeByUri(uri);
 	}
 
@@ -239,10 +217,8 @@ public class JiraStatusUtil {
 	*
 	* @param uri the uri
 	* @return the number of matching jira statuses
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByUri(java.lang.String uri)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countByUri(java.lang.String uri) {
 		return getPersistence().countByUri(uri);
 	}
 
@@ -283,18 +259,15 @@ public class JiraStatusUtil {
 	* @param jiraStatusId the primary key of the jira status
 	* @return the jira status that was removed
 	* @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a jira status with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus remove(
 		long jiraStatusId)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException {
 		return getPersistence().remove(jiraStatusId);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraStatus updateImpl(
-		com.liferay.jira.metrics.model.JiraStatus jiraStatus)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraStatus jiraStatus) {
 		return getPersistence().updateImpl(jiraStatus);
 	}
 
@@ -304,12 +277,10 @@ public class JiraStatusUtil {
 	* @param jiraStatusId the primary key of the jira status
 	* @return the jira status
 	* @throws com.liferay.jira.metrics.NoSuchJiraStatusException if a jira status with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus findByPrimaryKey(
 		long jiraStatusId)
-		throws com.liferay.jira.metrics.NoSuchJiraStatusException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraStatusException {
 		return getPersistence().findByPrimaryKey(jiraStatusId);
 	}
 
@@ -318,22 +289,23 @@ public class JiraStatusUtil {
 	*
 	* @param jiraStatusId the primary key of the jira status
 	* @return the jira status, or <code>null</code> if a jira status with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraStatus fetchByPrimaryKey(
-		long jiraStatusId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long jiraStatusId) {
 		return getPersistence().fetchByPrimaryKey(jiraStatusId);
+	}
+
+	public static java.util.Map<java.io.Serializable, com.liferay.jira.metrics.model.JiraStatus> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
 	}
 
 	/**
 	* Returns all the jira statuses.
 	*
 	* @return the jira statuses
-	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> findAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> findAll() {
 		return getPersistence().findAll();
 	}
 
@@ -347,11 +319,9 @@ public class JiraStatusUtil {
 	* @param start the lower bound of the range of jira statuses
 	* @param end the upper bound of the range of jira statuses (not inclusive)
 	* @return the range of jira statuses
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> findAll(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int start, int end) {
 		return getPersistence().findAll(start, end);
 	}
 
@@ -366,22 +336,17 @@ public class JiraStatusUtil {
 	* @param end the upper bound of the range of jira statuses (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of jira statuses
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraStatus> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return getPersistence().findAll(start, end, orderByComparator);
 	}
 
 	/**
 	* Removes all the jira statuses from the database.
-	*
-	* @throws SystemException if a system exception occurred
 	*/
-	public static void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static void removeAll() {
 		getPersistence().removeAll();
 	}
 
@@ -389,10 +354,8 @@ public class JiraStatusUtil {
 	* Returns the number of jira statuses.
 	*
 	* @return the number of jira statuses
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countAll() {
 		return getPersistence().countAll();
 	}
 
@@ -411,6 +374,7 @@ public class JiraStatusUtil {
 	/**
 	 * @deprecated As of 6.2.0
 	 */
+	@Deprecated
 	public void setPersistence(JiraStatusPersistence persistence) {
 	}
 

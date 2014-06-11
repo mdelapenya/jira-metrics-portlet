@@ -43,23 +43,19 @@ public interface JiraProjectPersistence extends BasePersistence<JiraProject> {
 	* @param key the key
 	* @return the matching jira project
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject findByLabel(
 		java.lang.String key)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException;
 
 	/**
 	* Returns the jira project where key = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param key the key
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject fetchByLabel(
-		java.lang.String key)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String key);
 
 	/**
 	* Returns the jira project where key = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -67,33 +63,27 @@ public interface JiraProjectPersistence extends BasePersistence<JiraProject> {
 	* @param key the key
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject fetchByLabel(
-		java.lang.String key, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String key, boolean retrieveFromCache);
 
 	/**
 	* Removes the jira project where key = &#63; from the database.
 	*
 	* @param key the key
 	* @return the jira project that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject removeByLabel(
 		java.lang.String key)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException;
 
 	/**
 	* Returns the number of jira projects where key = &#63;.
 	*
 	* @param key the key
 	* @return the number of matching jira projects
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countByLabel(java.lang.String key)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countByLabel(java.lang.String key);
 
 	/**
 	* Returns the jira project where name = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraProjectException} if it could not be found.
@@ -101,23 +91,19 @@ public interface JiraProjectPersistence extends BasePersistence<JiraProject> {
 	* @param name the name
 	* @return the matching jira project
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject findByName(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException;
 
 	/**
 	* Returns the jira project where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param name the name
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject fetchByName(
-		java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String name);
 
 	/**
 	* Returns the jira project where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -125,33 +111,27 @@ public interface JiraProjectPersistence extends BasePersistence<JiraProject> {
 	* @param name the name
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject fetchByName(
-		java.lang.String name, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String name, boolean retrieveFromCache);
 
 	/**
 	* Removes the jira project where name = &#63; from the database.
 	*
 	* @param name the name
 	* @return the jira project that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject removeByName(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException;
 
 	/**
 	* Returns the number of jira projects where name = &#63;.
 	*
 	* @param name the name
 	* @return the number of matching jira projects
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countByName(java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countByName(java.lang.String name);
 
 	/**
 	* Caches the jira project in the entity cache if it is enabled.
@@ -183,15 +163,12 @@ public interface JiraProjectPersistence extends BasePersistence<JiraProject> {
 	* @param jiraProjectId the primary key of the jira project
 	* @return the jira project that was removed
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a jira project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject remove(long jiraProjectId)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException;
 
 	public com.liferay.jira.metrics.model.JiraProject updateImpl(
-		com.liferay.jira.metrics.model.JiraProject jiraProject)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraProject jiraProject);
 
 	/**
 	* Returns the jira project with the primary key or throws a {@link com.liferay.jira.metrics.NoSuchJiraProjectException} if it could not be found.
@@ -199,32 +176,30 @@ public interface JiraProjectPersistence extends BasePersistence<JiraProject> {
 	* @param jiraProjectId the primary key of the jira project
 	* @return the jira project
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a jira project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject findByPrimaryKey(
 		long jiraProjectId)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException;
 
 	/**
 	* Returns the jira project with the primary key or returns <code>null</code> if it could not be found.
 	*
 	* @param jiraProjectId the primary key of the jira project
 	* @return the jira project, or <code>null</code> if a jira project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraProject fetchByPrimaryKey(
-		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraProjectId);
+
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.jira.metrics.model.JiraProject> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
 
 	/**
 	* Returns all the jira projects.
 	*
 	* @return the jira projects
-	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.jira.metrics.model.JiraProject> findAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public java.util.List<com.liferay.jira.metrics.model.JiraProject> findAll();
 
 	/**
 	* Returns a range of all the jira projects.
@@ -236,11 +211,9 @@ public interface JiraProjectPersistence extends BasePersistence<JiraProject> {
 	* @param start the lower bound of the range of jira projects
 	* @param end the upper bound of the range of jira projects (not inclusive)
 	* @return the range of jira projects
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraProject> findAll(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		int start, int end);
 
 	/**
 	* Returns an ordered range of all the jira projects.
@@ -253,27 +226,20 @@ public interface JiraProjectPersistence extends BasePersistence<JiraProject> {
 	* @param end the upper bound of the range of jira projects (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of jira projects
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraProject> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Removes all the jira projects from the database.
-	*
-	* @throws SystemException if a system exception occurred
 	*/
-	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public void removeAll();
 
 	/**
 	* Returns the number of jira projects.
 	*
 	* @return the number of jira projects
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countAll();
 }

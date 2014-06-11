@@ -310,8 +310,7 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	}
 
 	@Override
-	public void persist()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void persist() {
 		_jiraStatus.persist();
 	}
 
@@ -337,6 +336,7 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
+	@Deprecated
 	public JiraStatus getWrappedJiraStatus() {
 		return _jiraStatus;
 	}
@@ -344,6 +344,16 @@ public class JiraStatusWrapper implements JiraStatus, ModelWrapper<JiraStatus> {
 	@Override
 	public JiraStatus getWrappedModel() {
 		return _jiraStatus;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _jiraStatus.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _jiraStatus.isFinderCacheEnabled();
 	}
 
 	@Override

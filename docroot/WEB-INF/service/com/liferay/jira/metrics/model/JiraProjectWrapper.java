@@ -311,8 +311,7 @@ public class JiraProjectWrapper implements JiraProject,
 	}
 
 	@Override
-	public void persist()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void persist() {
 		_jiraProject.persist();
 	}
 
@@ -338,6 +337,7 @@ public class JiraProjectWrapper implements JiraProject,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
+	@Deprecated
 	public JiraProject getWrappedJiraProject() {
 		return _jiraProject;
 	}
@@ -345,6 +345,16 @@ public class JiraProjectWrapper implements JiraProject,
 	@Override
 	public JiraProject getWrappedModel() {
 		return _jiraProject;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _jiraProject.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _jiraProject.isFinderCacheEnabled();
 	}
 
 	@Override

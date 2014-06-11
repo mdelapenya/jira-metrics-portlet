@@ -472,8 +472,7 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 	}
 
 	@Override
-	public void persist()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void persist() {
 		_jiraMetric.persist();
 	}
 
@@ -499,6 +498,7 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
+	@Deprecated
 	public JiraMetric getWrappedJiraMetric() {
 		return _jiraMetric;
 	}
@@ -506,6 +506,16 @@ public class JiraMetricWrapper implements JiraMetric, ModelWrapper<JiraMetric> {
 	@Override
 	public JiraMetric getWrappedModel() {
 		return _jiraMetric;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _jiraMetric.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _jiraMetric.isFinderCacheEnabled();
 	}
 
 	@Override

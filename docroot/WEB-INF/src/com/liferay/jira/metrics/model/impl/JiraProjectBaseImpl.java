@@ -17,8 +17,6 @@ package com.liferay.jira.metrics.model.impl;
 import com.liferay.jira.metrics.model.JiraProject;
 import com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 /**
  * The extended model base implementation for the JiraProject service. Represents a row in the &quot;jirametrics_JiraProject&quot; database table, with each column mapped to a property of this class.
  *
@@ -39,7 +37,7 @@ public abstract class JiraProjectBaseImpl extends JiraProjectModelImpl
 	 * Never modify or reference this class directly. All methods that expect a jira project model instance should use the {@link JiraProject} interface instead.
 	 */
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraProjectLocalServiceUtil.addJiraProject(this);
 		}

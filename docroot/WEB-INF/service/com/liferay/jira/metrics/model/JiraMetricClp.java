@@ -18,7 +18,7 @@ import com.liferay.jira.metrics.service.ClpSerializer;
 import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
-import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -85,6 +85,9 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		attributes.put("month", getMonth());
 		attributes.put("year", getYear());
 		attributes.put("total", getTotal());
+
+		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
+		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
 
 		return attributes;
 	}
@@ -156,6 +159,9 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 		if (total != null) {
 			setTotal(total);
 		}
+
+		_entityCacheEnabled = GetterUtil.getBoolean("entityCacheEnabled");
+		_finderCacheEnabled = GetterUtil.getBoolean("finderCacheEnabled");
 	}
 
 	@Override
@@ -461,7 +467,7 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 	}
 
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraMetricLocalServiceUtil.addJiraMetric(this);
 		}
@@ -535,6 +541,16 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _entityCacheEnabled;
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _finderCacheEnabled;
 	}
 
 	@Override
@@ -638,4 +654,6 @@ public class JiraMetricClp extends BaseModelImpl<JiraMetric>
 	private int _year;
 	private int _total;
 	private BaseModel<?> _jiraMetricRemoteModel;
+	private boolean _entityCacheEnabled;
+	private boolean _finderCacheEnabled;
 }

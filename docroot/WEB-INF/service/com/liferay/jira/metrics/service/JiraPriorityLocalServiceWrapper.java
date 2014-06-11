@@ -35,12 +35,10 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	*
 	* @param jiraPriority the jira priority
 	* @return the jira priority that was added
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraPriority addJiraPriority(
-		com.liferay.jira.metrics.model.JiraPriority jiraPriority)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraPriority jiraPriority) {
 		return _jiraPriorityLocalService.addJiraPriority(jiraPriority);
 	}
 
@@ -62,13 +60,11 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	* @param jiraPriorityId the primary key of the jira priority
 	* @return the jira priority that was removed
 	* @throws PortalException if a jira priority with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraPriority deleteJiraPriority(
 		long jiraPriorityId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraPriorityLocalService.deleteJiraPriority(jiraPriorityId);
 	}
 
@@ -77,12 +73,10 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	*
 	* @param jiraPriority the jira priority
 	* @return the jira priority that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraPriority deleteJiraPriority(
-		com.liferay.jira.metrics.model.JiraPriority jiraPriority)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraPriority jiraPriority) {
 		return _jiraPriorityLocalService.deleteJiraPriority(jiraPriority);
 	}
 
@@ -96,13 +90,11 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _jiraPriorityLocalService.dynamicQuery(dynamicQuery);
 	}
 
@@ -117,13 +109,12 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	* @param start the lower bound of the range of model instances
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		int end) {
 		return _jiraPriorityLocalService.dynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -139,15 +130,13 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return _jiraPriorityLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
@@ -157,12 +146,10 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _jiraPriorityLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
@@ -172,21 +159,18 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return _jiraPriorityLocalService.dynamicQueryCount(dynamicQuery,
 			projection);
 	}
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraPriority fetchJiraPriority(
-		long jiraPriorityId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long jiraPriorityId) {
 		return _jiraPriorityLocalService.fetchJiraPriority(jiraPriorityId);
 	}
 
@@ -196,21 +180,33 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	* @param jiraPriorityId the primary key of the jira priority
 	* @return the jira priority
 	* @throws PortalException if a jira priority with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraPriority getJiraPriority(
 		long jiraPriorityId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraPriorityLocalService.getJiraPriority(jiraPriorityId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _jiraPriorityLocalService.getActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _jiraPriorityLocalService.deletePersistedModel(persistedModel);
 	}
 
 	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraPriorityLocalService.getPersistedModel(primaryKeyObj);
 	}
 
@@ -224,12 +220,10 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	* @param start the lower bound of the range of jira priorities
 	* @param end the upper bound of the range of jira priorities (not inclusive)
 	* @return the range of jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> getJiraPriorities(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int start, int end) {
 		return _jiraPriorityLocalService.getJiraPriorities(start, end);
 	}
 
@@ -237,11 +231,9 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	* Returns the number of jira priorities.
 	*
 	* @return the number of jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
-	public int getJiraPrioritiesCount()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public int getJiraPrioritiesCount() {
 		return _jiraPriorityLocalService.getJiraPrioritiesCount();
 	}
 
@@ -250,12 +242,10 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	*
 	* @param jiraPriority the jira priority
 	* @return the jira priority that was updated
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraPriority updateJiraPriority(
-		com.liferay.jira.metrics.model.JiraPriority jiraPriority)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraPriority jiraPriority) {
 		return _jiraPriorityLocalService.updateJiraPriority(jiraPriority);
 	}
 
@@ -287,12 +277,30 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 			arguments);
 	}
 
+	/**
+	* NOTE FOR DEVELOPERS:
+	*
+	* Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil} to access the jira priority local service.
+	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraPriority addJiraProject(
 		java.lang.String value, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _jiraPriorityLocalService.addJiraProject(value, name);
+	}
+
+	/**
+	* Retrieves all Jira projects
+	*
+	* @return a list with all Jira projects
+	* @throws SystemException
+	*/
+	@Override
+	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> getAllJiraPriorities(
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _jiraPriorityLocalService.getAllJiraPriorities(orderByComparator);
 	}
 
 	@Override
@@ -312,21 +320,9 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	}
 
 	/**
-	* Retrieves all Jira projects
-	*
-	* @return a list with all Jira projects
-	* @throws SystemException
-	*/
-	@Override
-	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> getAllJiraPriorities(
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _jiraPriorityLocalService.getAllJiraPriorities(orderByComparator);
-	}
-
-	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraPriorityLocalService getWrappedJiraPriorityLocalService() {
 		return _jiraPriorityLocalService;
 	}
@@ -334,6 +330,7 @@ public class JiraPriorityLocalServiceWrapper implements JiraPriorityLocalService
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraPriorityLocalService(
 		JiraPriorityLocalService jiraPriorityLocalService) {
 		_jiraPriorityLocalService = jiraPriorityLocalService;

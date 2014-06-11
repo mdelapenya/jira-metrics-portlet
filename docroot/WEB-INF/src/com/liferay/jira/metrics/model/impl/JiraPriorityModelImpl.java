@@ -177,6 +177,9 @@ public class JiraPriorityModelImpl extends BaseModelImpl<JiraPriority>
 		attributes.put("value", getValue());
 		attributes.put("name", getName());
 
+		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
+		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
+
 		return attributes;
 	}
 
@@ -378,6 +381,16 @@ public class JiraPriorityModelImpl extends BaseModelImpl<JiraPriority>
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return ENTITY_CACHE_ENABLED;
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return FINDER_CACHE_ENABLED;
 	}
 
 	@Override

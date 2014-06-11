@@ -88,49 +88,59 @@ public class JiraDataRetrieveLocalServiceClpInvoker {
 
 		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getPersistedModel";
+		_methodName12 = "getActionableDynamicQuery";
 
-		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes12 = new String[] {  };
 
-		_methodName13 = "getJiraDataRetrieves";
+		_methodName14 = "deletePersistedModel";
 
-		_methodParameterTypes13 = new String[] { "int", "int" };
+		_methodParameterTypes14 = new String[] {
+				"com.liferay.portal.model.PersistedModel"
+			};
 
-		_methodName14 = "getJiraDataRetrievesCount";
+		_methodName15 = "getPersistedModel";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes15 = new String[] { "java.io.Serializable" };
 
-		_methodName15 = "updateJiraDataRetrieve";
+		_methodName16 = "getJiraDataRetrieves";
 
-		_methodParameterTypes15 = new String[] {
+		_methodParameterTypes16 = new String[] { "int", "int" };
+
+		_methodName17 = "getJiraDataRetrievesCount";
+
+		_methodParameterTypes17 = new String[] {  };
+
+		_methodName18 = "updateJiraDataRetrieve";
+
+		_methodParameterTypes18 = new String[] {
 				"com.liferay.jira.metrics.model.JiraDataRetrieve"
 			};
 
-		_methodName64 = "getBeanIdentifier";
+		_methodName73 = "getBeanIdentifier";
 
-		_methodParameterTypes64 = new String[] {  };
+		_methodParameterTypes73 = new String[] {  };
 
-		_methodName65 = "setBeanIdentifier";
+		_methodName74 = "setBeanIdentifier";
 
-		_methodParameterTypes65 = new String[] { "java.lang.String" };
+		_methodParameterTypes74 = new String[] { "java.lang.String" };
 
-		_methodName70 = "addJiraDataRetrieve";
+		_methodName79 = "addJiraDataRetrieve";
 
-		_methodParameterTypes70 = new String[] {
+		_methodParameterTypes79 = new String[] {
 				"java.lang.String", "java.lang.String", "java.util.Date"
 			};
 
-		_methodName71 = "fetchByDate";
+		_methodName80 = "fetchByDate";
 
-		_methodParameterTypes71 = new String[] { "java.util.Date" };
+		_methodParameterTypes80 = new String[] { "java.util.Date" };
 
-		_methodName72 = "getByStatus";
+		_methodName81 = "getByStatus";
 
-		_methodParameterTypes72 = new String[] { "java.lang.String", "int", "int" };
+		_methodParameterTypes81 = new String[] { "java.lang.String", "int", "int" };
 
-		_methodName73 = "getDate";
+		_methodName82 = "getDate";
 
-		_methodParameterTypes73 = new String[] {
+		_methodParameterTypes82 = new String[] {
 				"com.liferay.jira.metrics.model.JiraDataRetrieve"
 			};
 	}
@@ -205,57 +215,67 @@ public class JiraDataRetrieveLocalServiceClpInvoker {
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return JiraDataRetrieveLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
-		}
-
-		if (_methodName13.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return JiraDataRetrieveLocalServiceUtil.getJiraDataRetrieves(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return JiraDataRetrieveLocalServiceUtil.getActionableDynamicQuery();
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return JiraDataRetrieveLocalServiceUtil.getJiraDataRetrievesCount();
+			return JiraDataRetrieveLocalServiceUtil.deletePersistedModel((com.liferay.portal.model.PersistedModel)arguments[0]);
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
+			return JiraDataRetrieveLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+		}
+
+		if (_methodName16.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
+			return JiraDataRetrieveLocalServiceUtil.getJiraDataRetrieves(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			return JiraDataRetrieveLocalServiceUtil.getJiraDataRetrievesCount();
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
 			return JiraDataRetrieveLocalServiceUtil.updateJiraDataRetrieve((com.liferay.jira.metrics.model.JiraDataRetrieve)arguments[0]);
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
 			return JiraDataRetrieveLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName74.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
 			JiraDataRetrieveLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName70.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return JiraDataRetrieveLocalServiceUtil.addJiraDataRetrieve((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.util.Date)arguments[2]);
 		}
 
-		if (_methodName71.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 			return JiraDataRetrieveLocalServiceUtil.fetchByDate((java.util.Date)arguments[0]);
 		}
 
-		if (_methodName72.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
 			return JiraDataRetrieveLocalServiceUtil.getByStatus((java.lang.String)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName73.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 			return JiraDataRetrieveLocalServiceUtil.getDate((com.liferay.jira.metrics.model.JiraDataRetrieve)arguments[0]);
 		}
 
@@ -288,22 +308,26 @@ public class JiraDataRetrieveLocalServiceClpInvoker {
 	private String[] _methodParameterTypes11;
 	private String _methodName12;
 	private String[] _methodParameterTypes12;
-	private String _methodName13;
-	private String[] _methodParameterTypes13;
 	private String _methodName14;
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
-	private String _methodName65;
-	private String[] _methodParameterTypes65;
-	private String _methodName70;
-	private String[] _methodParameterTypes70;
-	private String _methodName71;
-	private String[] _methodParameterTypes71;
-	private String _methodName72;
-	private String[] _methodParameterTypes72;
+	private String _methodName16;
+	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
 	private String _methodName73;
 	private String[] _methodParameterTypes73;
+	private String _methodName74;
+	private String[] _methodParameterTypes74;
+	private String _methodName79;
+	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
 }
