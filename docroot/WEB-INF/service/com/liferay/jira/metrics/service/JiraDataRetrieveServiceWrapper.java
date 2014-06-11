@@ -61,6 +61,7 @@ public class JiraDataRetrieveServiceWrapper implements JiraDataRetrieveService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraDataRetrieveService getWrappedJiraDataRetrieveService() {
 		return _jiraDataRetrieveService;
 	}
@@ -68,6 +69,7 @@ public class JiraDataRetrieveServiceWrapper implements JiraDataRetrieveService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraDataRetrieveService(
 		JiraDataRetrieveService jiraDataRetrieveService) {
 		_jiraDataRetrieveService = jiraDataRetrieveService;

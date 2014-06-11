@@ -200,6 +200,9 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 		attributes.put("year", getYear());
 		attributes.put("total", getTotal());
 
+		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
+		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
+
 		return attributes;
 	}
 
@@ -565,6 +568,16 @@ public class JiraMetricModelImpl extends BaseModelImpl<JiraMetric>
 	@Override
 	public int hashCode() {
 		return (int)getPrimaryKey();
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return ENTITY_CACHE_ENABLED;
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return FINDER_CACHE_ENABLED;
 	}
 
 	@Override

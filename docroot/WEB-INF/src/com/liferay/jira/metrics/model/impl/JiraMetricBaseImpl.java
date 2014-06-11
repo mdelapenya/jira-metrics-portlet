@@ -17,8 +17,6 @@ package com.liferay.jira.metrics.model.impl;
 import com.liferay.jira.metrics.model.JiraMetric;
 import com.liferay.jira.metrics.service.JiraMetricLocalServiceUtil;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 /**
  * The extended model base implementation for the JiraMetric service. Represents a row in the &quot;jirametrics_JiraMetric&quot; database table, with each column mapped to a property of this class.
  *
@@ -39,7 +37,7 @@ public abstract class JiraMetricBaseImpl extends JiraMetricModelImpl
 	 * Never modify or reference this class directly. All methods that expect a jira metric model instance should use the {@link JiraMetric} interface instead.
 	 */
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraMetricLocalServiceUtil.addJiraMetric(this);
 		}

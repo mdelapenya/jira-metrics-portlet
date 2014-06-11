@@ -18,7 +18,6 @@ import com.liferay.jira.metrics.model.JiraProject;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.ServiceContext;
@@ -61,8 +60,7 @@ public class JiraProjectUtil {
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
 	 */
-	public static long countWithDynamicQuery(DynamicQuery dynamicQuery)
-		throws SystemException {
+	public static long countWithDynamicQuery(DynamicQuery dynamicQuery) {
 		return getPersistence().countWithDynamicQuery(dynamicQuery);
 	}
 
@@ -70,7 +68,7 @@ public class JiraProjectUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery)
 	 */
 	public static List<JiraProject> findWithDynamicQuery(
-		DynamicQuery dynamicQuery) throws SystemException {
+		DynamicQuery dynamicQuery) {
 		return getPersistence().findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -78,8 +76,7 @@ public class JiraProjectUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int)
 	 */
 	public static List<JiraProject> findWithDynamicQuery(
-		DynamicQuery dynamicQuery, int start, int end)
-		throws SystemException {
+		DynamicQuery dynamicQuery, int start, int end) {
 		return getPersistence().findWithDynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -88,7 +85,7 @@ public class JiraProjectUtil {
 	 */
 	public static List<JiraProject> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
+		OrderByComparator orderByComparator) {
 		return getPersistence()
 				   .findWithDynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
@@ -97,8 +94,7 @@ public class JiraProjectUtil {
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static JiraProject update(JiraProject jiraProject)
-		throws SystemException {
+	public static JiraProject update(JiraProject jiraProject) {
 		return getPersistence().update(jiraProject);
 	}
 
@@ -106,7 +102,7 @@ public class JiraProjectUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
 	public static JiraProject update(JiraProject jiraProject,
-		ServiceContext serviceContext) throws SystemException {
+		ServiceContext serviceContext) {
 		return getPersistence().update(jiraProject, serviceContext);
 	}
 
@@ -116,12 +112,10 @@ public class JiraProjectUtil {
 	* @param key the key
 	* @return the matching jira project
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject findByLabel(
 		java.lang.String key)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException {
 		return getPersistence().findByLabel(key);
 	}
 
@@ -130,11 +124,9 @@ public class JiraProjectUtil {
 	*
 	* @param key the key
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject fetchByLabel(
-		java.lang.String key)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String key) {
 		return getPersistence().fetchByLabel(key);
 	}
 
@@ -144,11 +136,9 @@ public class JiraProjectUtil {
 	* @param key the key
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject fetchByLabel(
-		java.lang.String key, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String key, boolean retrieveFromCache) {
 		return getPersistence().fetchByLabel(key, retrieveFromCache);
 	}
 
@@ -157,12 +147,10 @@ public class JiraProjectUtil {
 	*
 	* @param key the key
 	* @return the jira project that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject removeByLabel(
 		java.lang.String key)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException {
 		return getPersistence().removeByLabel(key);
 	}
 
@@ -171,10 +159,8 @@ public class JiraProjectUtil {
 	*
 	* @param key the key
 	* @return the number of matching jira projects
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByLabel(java.lang.String key)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countByLabel(java.lang.String key) {
 		return getPersistence().countByLabel(key);
 	}
 
@@ -184,12 +170,10 @@ public class JiraProjectUtil {
 	* @param name the name
 	* @return the matching jira project
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject findByName(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException {
 		return getPersistence().findByName(name);
 	}
 
@@ -198,11 +182,9 @@ public class JiraProjectUtil {
 	*
 	* @param name the name
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject fetchByName(
-		java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String name) {
 		return getPersistence().fetchByName(name);
 	}
 
@@ -212,11 +194,9 @@ public class JiraProjectUtil {
 	* @param name the name
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira project, or <code>null</code> if a matching jira project could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject fetchByName(
-		java.lang.String name, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String name, boolean retrieveFromCache) {
 		return getPersistence().fetchByName(name, retrieveFromCache);
 	}
 
@@ -225,12 +205,10 @@ public class JiraProjectUtil {
 	*
 	* @param name the name
 	* @return the jira project that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject removeByName(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException {
 		return getPersistence().removeByName(name);
 	}
 
@@ -239,10 +217,8 @@ public class JiraProjectUtil {
 	*
 	* @param name the name
 	* @return the number of matching jira projects
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByName(java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countByName(java.lang.String name) {
 		return getPersistence().countByName(name);
 	}
 
@@ -283,18 +259,15 @@ public class JiraProjectUtil {
 	* @param jiraProjectId the primary key of the jira project
 	* @return the jira project that was removed
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a jira project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject remove(
 		long jiraProjectId)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException {
 		return getPersistence().remove(jiraProjectId);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraProject updateImpl(
-		com.liferay.jira.metrics.model.JiraProject jiraProject)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraProject jiraProject) {
 		return getPersistence().updateImpl(jiraProject);
 	}
 
@@ -304,12 +277,10 @@ public class JiraProjectUtil {
 	* @param jiraProjectId the primary key of the jira project
 	* @return the jira project
 	* @throws com.liferay.jira.metrics.NoSuchJiraProjectException if a jira project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject findByPrimaryKey(
 		long jiraProjectId)
-		throws com.liferay.jira.metrics.NoSuchJiraProjectException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraProjectException {
 		return getPersistence().findByPrimaryKey(jiraProjectId);
 	}
 
@@ -318,22 +289,23 @@ public class JiraProjectUtil {
 	*
 	* @param jiraProjectId the primary key of the jira project
 	* @return the jira project, or <code>null</code> if a jira project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraProject fetchByPrimaryKey(
-		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long jiraProjectId) {
 		return getPersistence().fetchByPrimaryKey(jiraProjectId);
+	}
+
+	public static java.util.Map<java.io.Serializable, com.liferay.jira.metrics.model.JiraProject> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
 	}
 
 	/**
 	* Returns all the jira projects.
 	*
 	* @return the jira projects
-	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> findAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> findAll() {
 		return getPersistence().findAll();
 	}
 
@@ -347,11 +319,9 @@ public class JiraProjectUtil {
 	* @param start the lower bound of the range of jira projects
 	* @param end the upper bound of the range of jira projects (not inclusive)
 	* @return the range of jira projects
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> findAll(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int start, int end) {
 		return getPersistence().findAll(start, end);
 	}
 
@@ -366,22 +336,17 @@ public class JiraProjectUtil {
 	* @param end the upper bound of the range of jira projects (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of jira projects
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraProject> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return getPersistence().findAll(start, end, orderByComparator);
 	}
 
 	/**
 	* Removes all the jira projects from the database.
-	*
-	* @throws SystemException if a system exception occurred
 	*/
-	public static void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static void removeAll() {
 		getPersistence().removeAll();
 	}
 
@@ -389,10 +354,8 @@ public class JiraProjectUtil {
 	* Returns the number of jira projects.
 	*
 	* @return the number of jira projects
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countAll() {
 		return getPersistence().countAll();
 	}
 
@@ -411,6 +374,7 @@ public class JiraProjectUtil {
 	/**
 	 * @deprecated As of 6.2.0
 	 */
+	@Deprecated
 	public void setPersistence(JiraProjectPersistence persistence) {
 	}
 

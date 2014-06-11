@@ -50,11 +50,9 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	*
 	* @param jiraMetric the jira metric
 	* @return the jira metric that was added
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric addJiraMetric(
-		com.liferay.jira.metrics.model.JiraMetric jiraMetric)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraMetric jiraMetric);
 
 	/**
 	* Creates a new jira metric with the primary key. Does not add the jira metric to the database.
@@ -71,23 +69,19 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	* @param jiraMetricId the primary key of the jira metric
 	* @return the jira metric that was removed
 	* @throws PortalException if a jira metric with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric deleteJiraMetric(
 		long jiraMetricId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
 	* Deletes the jira metric from the database. Also notifies the appropriate model listeners.
 	*
 	* @param jiraMetric the jira metric
 	* @return the jira metric that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric deleteJiraMetric(
-		com.liferay.jira.metrics.model.JiraMetric jiraMetric)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraMetric jiraMetric);
 
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
 
@@ -96,12 +90,10 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
 
 	/**
 	* Performs a dynamic query on the database and returns a range of the matching rows.
@@ -114,12 +106,11 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	* @param start the lower bound of the range of model instances
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException;
+		int end);
 
 	/**
 	* Performs a dynamic query on the database and returns an ordered range of the matching rows.
@@ -133,25 +124,21 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Returns the number of rows that match the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
 
 	/**
 	* Returns the number of rows that match the dynamic query.
@@ -159,17 +146,14 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.dao.orm.Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraMetric fetchJiraMetric(
-		long jiraMetricId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraMetricId);
 
 	/**
 	* Returns the jira metric with the primary key.
@@ -177,20 +161,28 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	* @param jiraMetricId the primary key of the jira metric
 	* @return the jira metric
 	* @throws PortalException if a jira metric with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraMetricId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery();
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException;
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
 	* Returns a range of all the jira metrics.
@@ -202,33 +194,27 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	* @param start the lower bound of the range of jira metrics
 	* @param end the upper bound of the range of jira metrics (not inclusive)
 	* @return the range of jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		int start, int end);
 
 	/**
 	* Returns the number of jira metrics.
 	*
 	* @return the number of jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getJiraMetricsCount()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int getJiraMetricsCount();
 
 	/**
 	* Updates the jira metric in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param jiraMetric the jira metric
 	* @return the jira metric that was updated
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraMetric updateJiraMetric(
-		com.liferay.jira.metrics.model.JiraMetric jiraMetric)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraMetric jiraMetric);
 
 	/**
 	* Returns the Spring bean ID for this bean.
@@ -258,14 +244,14 @@ public interface JiraMetricLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		long priority, java.util.Date date)
+		int priority, int day, int month, int year)
 		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		int priority, int day, int month, int year)
+		long priority, java.util.Date date)
 		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
 			com.liferay.portal.kernel.exception.SystemException;
 

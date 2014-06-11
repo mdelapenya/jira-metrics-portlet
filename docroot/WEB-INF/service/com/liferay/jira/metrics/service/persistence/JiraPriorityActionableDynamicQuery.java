@@ -18,15 +18,16 @@ import com.liferay.jira.metrics.model.JiraPriority;
 import com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil;
 
 import com.liferay.portal.kernel.dao.orm.BaseActionableDynamicQuery;
-import com.liferay.portal.kernel.exception.SystemException;
 
 /**
  * @author Manuel de la Peña
+ * @deprecated As of 7.0.0, replaced by {@link JiraPriorityLocalServiceUtil#getExportActionableDynamicQuery()}
  * @generated
  */
+@Deprecated
 public abstract class JiraPriorityActionableDynamicQuery
 	extends BaseActionableDynamicQuery {
-	public JiraPriorityActionableDynamicQuery() throws SystemException {
+	public JiraPriorityActionableDynamicQuery() {
 		setBaseLocalService(JiraPriorityLocalServiceUtil.getService());
 		setClass(JiraPriority.class);
 

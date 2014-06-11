@@ -43,23 +43,19 @@ public interface JiraPriorityPersistence extends BasePersistence<JiraPriority> {
 	* @param value the value
 	* @return the matching jira priority
 	* @throws com.liferay.jira.metrics.NoSuchJiraPriorityException if a matching jira priority could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority findByValue(
 		java.lang.String value)
-		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraPriorityException;
 
 	/**
 	* Returns the jira priority where value = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param value the value
 	* @return the matching jira priority, or <code>null</code> if a matching jira priority could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority fetchByValue(
-		java.lang.String value)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String value);
 
 	/**
 	* Returns the jira priority where value = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -67,33 +63,27 @@ public interface JiraPriorityPersistence extends BasePersistence<JiraPriority> {
 	* @param value the value
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira priority, or <code>null</code> if a matching jira priority could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority fetchByValue(
-		java.lang.String value, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String value, boolean retrieveFromCache);
 
 	/**
 	* Removes the jira priority where value = &#63; from the database.
 	*
 	* @param value the value
 	* @return the jira priority that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority removeByValue(
 		java.lang.String value)
-		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraPriorityException;
 
 	/**
 	* Returns the number of jira priorities where value = &#63;.
 	*
 	* @param value the value
 	* @return the number of matching jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countByValue(java.lang.String value)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countByValue(java.lang.String value);
 
 	/**
 	* Returns the jira priority where name = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraPriorityException} if it could not be found.
@@ -101,23 +91,19 @@ public interface JiraPriorityPersistence extends BasePersistence<JiraPriority> {
 	* @param name the name
 	* @return the matching jira priority
 	* @throws com.liferay.jira.metrics.NoSuchJiraPriorityException if a matching jira priority could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority findByName(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraPriorityException;
 
 	/**
 	* Returns the jira priority where name = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param name the name
 	* @return the matching jira priority, or <code>null</code> if a matching jira priority could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority fetchByName(
-		java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String name);
 
 	/**
 	* Returns the jira priority where name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -125,33 +111,27 @@ public interface JiraPriorityPersistence extends BasePersistence<JiraPriority> {
 	* @param name the name
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira priority, or <code>null</code> if a matching jira priority could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority fetchByName(
-		java.lang.String name, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String name, boolean retrieveFromCache);
 
 	/**
 	* Removes the jira priority where name = &#63; from the database.
 	*
 	* @param name the name
 	* @return the jira priority that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority removeByName(
 		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraPriorityException;
 
 	/**
 	* Returns the number of jira priorities where name = &#63;.
 	*
 	* @param name the name
 	* @return the number of matching jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countByName(java.lang.String name)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countByName(java.lang.String name);
 
 	/**
 	* Caches the jira priority in the entity cache if it is enabled.
@@ -184,16 +164,13 @@ public interface JiraPriorityPersistence extends BasePersistence<JiraPriority> {
 	* @param jiraPriorityId the primary key of the jira priority
 	* @return the jira priority that was removed
 	* @throws com.liferay.jira.metrics.NoSuchJiraPriorityException if a jira priority with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority remove(
 		long jiraPriorityId)
-		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraPriorityException;
 
 	public com.liferay.jira.metrics.model.JiraPriority updateImpl(
-		com.liferay.jira.metrics.model.JiraPriority jiraPriority)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraPriority jiraPriority);
 
 	/**
 	* Returns the jira priority with the primary key or throws a {@link com.liferay.jira.metrics.NoSuchJiraPriorityException} if it could not be found.
@@ -201,32 +178,30 @@ public interface JiraPriorityPersistence extends BasePersistence<JiraPriority> {
 	* @param jiraPriorityId the primary key of the jira priority
 	* @return the jira priority
 	* @throws com.liferay.jira.metrics.NoSuchJiraPriorityException if a jira priority with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority findByPrimaryKey(
 		long jiraPriorityId)
-		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraPriorityException;
 
 	/**
 	* Returns the jira priority with the primary key or returns <code>null</code> if it could not be found.
 	*
 	* @param jiraPriorityId the primary key of the jira priority
 	* @return the jira priority, or <code>null</code> if a jira priority with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority fetchByPrimaryKey(
-		long jiraPriorityId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraPriorityId);
+
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.jira.metrics.model.JiraPriority> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
 
 	/**
 	* Returns all the jira priorities.
 	*
 	* @return the jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> findAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> findAll();
 
 	/**
 	* Returns a range of all the jira priorities.
@@ -238,11 +213,9 @@ public interface JiraPriorityPersistence extends BasePersistence<JiraPriority> {
 	* @param start the lower bound of the range of jira priorities
 	* @param end the upper bound of the range of jira priorities (not inclusive)
 	* @return the range of jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> findAll(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		int start, int end);
 
 	/**
 	* Returns an ordered range of all the jira priorities.
@@ -255,27 +228,20 @@ public interface JiraPriorityPersistence extends BasePersistence<JiraPriority> {
 	* @param end the upper bound of the range of jira priorities (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Removes all the jira priorities from the database.
-	*
-	* @throws SystemException if a system exception occurred
 	*/
-	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public void removeAll();
 
 	/**
 	* Returns the number of jira priorities.
 	*
 	* @return the number of jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countAll();
 }

@@ -35,12 +35,10 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	*
 	* @param jiraMetric the jira metric
 	* @return the jira metric that was added
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric addJiraMetric(
-		com.liferay.jira.metrics.model.JiraMetric jiraMetric)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraMetric jiraMetric) {
 		return _jiraMetricLocalService.addJiraMetric(jiraMetric);
 	}
 
@@ -62,13 +60,11 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	* @param jiraMetricId the primary key of the jira metric
 	* @return the jira metric that was removed
 	* @throws PortalException if a jira metric with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric deleteJiraMetric(
 		long jiraMetricId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraMetricLocalService.deleteJiraMetric(jiraMetricId);
 	}
 
@@ -77,12 +73,10 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	*
 	* @param jiraMetric the jira metric
 	* @return the jira metric that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric deleteJiraMetric(
-		com.liferay.jira.metrics.model.JiraMetric jiraMetric)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraMetric jiraMetric) {
 		return _jiraMetricLocalService.deleteJiraMetric(jiraMetric);
 	}
 
@@ -96,13 +90,11 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _jiraMetricLocalService.dynamicQuery(dynamicQuery);
 	}
 
@@ -117,13 +109,12 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	* @param start the lower bound of the range of model instances
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		int end) {
 		return _jiraMetricLocalService.dynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -139,15 +130,13 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return _jiraMetricLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
@@ -157,12 +146,10 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _jiraMetricLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
@@ -172,21 +159,18 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return _jiraMetricLocalService.dynamicQueryCount(dynamicQuery,
 			projection);
 	}
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric fetchJiraMetric(
-		long jiraMetricId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long jiraMetricId) {
 		return _jiraMetricLocalService.fetchJiraMetric(jiraMetricId);
 	}
 
@@ -196,21 +180,33 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	* @param jiraMetricId the primary key of the jira metric
 	* @return the jira metric
 	* @throws PortalException if a jira metric with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraMetricId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraMetricLocalService.getJiraMetric(jiraMetricId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _jiraMetricLocalService.getActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _jiraMetricLocalService.deletePersistedModel(persistedModel);
 	}
 
 	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraMetricLocalService.getPersistedModel(primaryKeyObj);
 	}
 
@@ -224,12 +220,10 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	* @param start the lower bound of the range of jira metrics
 	* @param end the upper bound of the range of jira metrics (not inclusive)
 	* @return the range of jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public java.util.List<com.liferay.jira.metrics.model.JiraMetric> getJiraMetrics(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int start, int end) {
 		return _jiraMetricLocalService.getJiraMetrics(start, end);
 	}
 
@@ -237,11 +231,9 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	* Returns the number of jira metrics.
 	*
 	* @return the number of jira metrics
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
-	public int getJiraMetricsCount()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public int getJiraMetricsCount() {
 		return _jiraMetricLocalService.getJiraMetricsCount();
 	}
 
@@ -250,12 +242,10 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	*
 	* @param jiraMetric the jira metric
 	* @return the jira metric that was updated
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric updateJiraMetric(
-		com.liferay.jira.metrics.model.JiraMetric jiraMetric)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraMetric jiraMetric) {
 		return _jiraMetricLocalService.updateJiraMetric(jiraMetric);
 	}
 
@@ -300,21 +290,21 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	@Override
 	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
 		long jiraProjectId, long jiraComponentId, long jiraStatusId,
-		long priority, java.util.Date date)
-		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _jiraMetricLocalService.getJiraMetric(jiraProjectId,
-			jiraComponentId, jiraStatusId, priority, date);
-	}
-
-	@Override
-	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
-		long jiraProjectId, long jiraComponentId, long jiraStatusId,
 		int priority, int day, int month, int year)
 		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _jiraMetricLocalService.getJiraMetric(jiraProjectId,
 			jiraComponentId, jiraStatusId, priority, day, month, year);
+	}
+
+	@Override
+	public com.liferay.jira.metrics.model.JiraMetric getJiraMetric(
+		long jiraProjectId, long jiraComponentId, long jiraStatusId,
+		long priority, java.util.Date date)
+		throws com.liferay.jira.metrics.NoSuchJiraMetricException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _jiraMetricLocalService.getJiraMetric(jiraProjectId,
+			jiraComponentId, jiraStatusId, priority, date);
 	}
 
 	@Override
@@ -338,6 +328,7 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraMetricLocalService getWrappedJiraMetricLocalService() {
 		return _jiraMetricLocalService;
 	}
@@ -345,6 +336,7 @@ public class JiraMetricLocalServiceWrapper implements JiraMetricLocalService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraMetricLocalService(
 		JiraMetricLocalService jiraMetricLocalService) {
 		_jiraMetricLocalService = jiraMetricLocalService;

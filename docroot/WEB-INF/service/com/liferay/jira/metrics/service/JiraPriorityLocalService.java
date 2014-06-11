@@ -50,11 +50,9 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	*
 	* @param jiraPriority the jira priority
 	* @return the jira priority that was added
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority addJiraPriority(
-		com.liferay.jira.metrics.model.JiraPriority jiraPriority)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraPriority jiraPriority);
 
 	/**
 	* Creates a new jira priority with the primary key. Does not add the jira priority to the database.
@@ -71,23 +69,19 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	* @param jiraPriorityId the primary key of the jira priority
 	* @return the jira priority that was removed
 	* @throws PortalException if a jira priority with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority deleteJiraPriority(
 		long jiraPriorityId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
 	* Deletes the jira priority from the database. Also notifies the appropriate model listeners.
 	*
 	* @param jiraPriority the jira priority
 	* @return the jira priority that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority deleteJiraPriority(
-		com.liferay.jira.metrics.model.JiraPriority jiraPriority)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraPriority jiraPriority);
 
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
 
@@ -96,12 +90,10 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
 
 	/**
 	* Performs a dynamic query on the database and returns a range of the matching rows.
@@ -114,12 +106,11 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	* @param start the lower bound of the range of model instances
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException;
+		int end);
 
 	/**
 	* Performs a dynamic query on the database and returns an ordered range of the matching rows.
@@ -133,25 +124,21 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Returns the number of rows that match the dynamic query.
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery);
 
 	/**
 	* Returns the number of rows that match the dynamic query.
@@ -159,17 +146,14 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.dao.orm.Projection projection);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraPriority fetchJiraPriority(
-		long jiraPriorityId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraPriorityId);
 
 	/**
 	* Returns the jira priority with the primary key.
@@ -177,20 +161,28 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	* @param jiraPriorityId the primary key of the jira priority
 	* @return the jira priority
 	* @throws PortalException if a jira priority with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.jira.metrics.model.JiraPriority getJiraPriority(
 		long jiraPriorityId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery();
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException;
 
 	@Override
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException;
 
 	/**
 	* Returns a range of all the jira priorities.
@@ -202,33 +194,27 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	* @param start the lower bound of the range of jira priorities
 	* @param end the upper bound of the range of jira priorities (not inclusive)
 	* @return the range of jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> getJiraPriorities(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		int start, int end);
 
 	/**
 	* Returns the number of jira priorities.
 	*
 	* @return the number of jira priorities
-	* @throws SystemException if a system exception occurred
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getJiraPrioritiesCount()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int getJiraPrioritiesCount();
 
 	/**
 	* Updates the jira priority in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*
 	* @param jiraPriority the jira priority
 	* @return the jira priority that was updated
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraPriority updateJiraPriority(
-		com.liferay.jira.metrics.model.JiraPriority jiraPriority)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraPriority jiraPriority);
 
 	/**
 	* Returns the Spring bean ID for this bean.
@@ -249,21 +235,14 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
+	/**
+	* NOTE FOR DEVELOPERS:
+	*
+	* Never reference this interface directly. Always use {@link com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil} to access the jira priority local service.
+	*/
 	public com.liferay.jira.metrics.model.JiraPriority addJiraProject(
 		java.lang.String value, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraPriority getJiraPriorityByName(
-		java.lang.String name)
-		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public com.liferay.jira.metrics.model.JiraPriority getJiraPriorityByValue(
-		java.lang.String value)
-		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -276,4 +255,16 @@ public interface JiraPriorityLocalService extends BaseLocalService,
 	public java.util.List<com.liferay.jira.metrics.model.JiraPriority> getAllJiraPriorities(
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraPriority getJiraPriorityByName(
+		java.lang.String name)
+		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.jira.metrics.model.JiraPriority getJiraPriorityByValue(
+		java.lang.String value)
+		throws com.liferay.jira.metrics.NoSuchJiraPriorityException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

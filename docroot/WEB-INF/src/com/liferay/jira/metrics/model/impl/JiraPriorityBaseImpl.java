@@ -17,8 +17,6 @@ package com.liferay.jira.metrics.model.impl;
 import com.liferay.jira.metrics.model.JiraPriority;
 import com.liferay.jira.metrics.service.JiraPriorityLocalServiceUtil;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 /**
  * The extended model base implementation for the JiraPriority service. Represents a row in the &quot;jirametrics_JiraPriority&quot; database table, with each column mapped to a property of this class.
  *
@@ -39,7 +37,7 @@ public abstract class JiraPriorityBaseImpl extends JiraPriorityModelImpl
 	 * Never modify or reference this class directly. All methods that expect a jira priority model instance should use the {@link JiraPriority} interface instead.
 	 */
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraPriorityLocalServiceUtil.addJiraPriority(this);
 		}

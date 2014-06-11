@@ -44,12 +44,10 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param jiraProjectId the jira project ID
 	* @return the matching jira component
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent findByJiraComponent(
 		java.lang.String name, long jiraProjectId)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	/**
 	* Returns the jira component where name = &#63; and jiraProjectId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
@@ -57,11 +55,9 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param name the name
 	* @param jiraProjectId the jira project ID
 	* @return the matching jira component, or <code>null</code> if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent fetchByJiraComponent(
-		java.lang.String name, long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String name, long jiraProjectId);
 
 	/**
 	* Returns the jira component where name = &#63; and jiraProjectId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -70,11 +66,9 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param jiraProjectId the jira project ID
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira component, or <code>null</code> if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent fetchByJiraComponent(
-		java.lang.String name, long jiraProjectId, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String name, long jiraProjectId, boolean retrieveFromCache);
 
 	/**
 	* Removes the jira component where name = &#63; and jiraProjectId = &#63; from the database.
@@ -82,12 +76,10 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param name the name
 	* @param jiraProjectId the jira project ID
 	* @return the jira component that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent removeByJiraComponent(
 		java.lang.String name, long jiraProjectId)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	/**
 	* Returns the number of jira components where name = &#63; and jiraProjectId = &#63;.
@@ -95,10 +87,8 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param name the name
 	* @param jiraProjectId the jira project ID
 	* @return the number of matching jira components
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countByJiraComponent(java.lang.String name, long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countByJiraComponent(java.lang.String name, long jiraProjectId);
 
 	/**
 	* Returns the jira component where uri = &#63; or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
@@ -106,23 +96,19 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param uri the uri
 	* @return the matching jira component
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent findByUri(
 		java.lang.String uri)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	/**
 	* Returns the jira component where uri = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param uri the uri
 	* @return the matching jira component, or <code>null</code> if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent fetchByUri(
-		java.lang.String uri)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String uri);
 
 	/**
 	* Returns the jira component where uri = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -130,44 +116,36 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param uri the uri
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira component, or <code>null</code> if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent fetchByUri(
-		java.lang.String uri, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		java.lang.String uri, boolean retrieveFromCache);
 
 	/**
 	* Removes the jira component where uri = &#63; from the database.
 	*
 	* @param uri the uri
 	* @return the jira component that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent removeByUri(
 		java.lang.String uri)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	/**
 	* Returns the number of jira components where uri = &#63;.
 	*
 	* @param uri the uri
 	* @return the number of matching jira components
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countByUri(java.lang.String uri)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countByUri(java.lang.String uri);
 
 	/**
 	* Returns all the jira components where jiraProjectId = &#63;.
 	*
 	* @param jiraProjectId the jira project ID
 	* @return the matching jira components
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraComponent> findByJiraProjectId(
-		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraProjectId);
 
 	/**
 	* Returns a range of all the jira components where jiraProjectId = &#63;.
@@ -180,11 +158,9 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param start the lower bound of the range of jira components
 	* @param end the upper bound of the range of jira components (not inclusive)
 	* @return the range of matching jira components
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraComponent> findByJiraProjectId(
-		long jiraProjectId, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraProjectId, int start, int end);
 
 	/**
 	* Returns an ordered range of all the jira components where jiraProjectId = &#63;.
@@ -198,12 +174,10 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param end the upper bound of the range of jira components (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching jira components
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraComponent> findByJiraProjectId(
 		long jiraProjectId, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Returns the first jira component in the ordered set where jiraProjectId = &#63;.
@@ -212,13 +186,11 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching jira component
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent findByJiraProjectId_First(
 		long jiraProjectId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	/**
 	* Returns the first jira component in the ordered set where jiraProjectId = &#63;.
@@ -226,12 +198,10 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param jiraProjectId the jira project ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching jira component, or <code>null</code> if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent fetchByJiraProjectId_First(
 		long jiraProjectId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Returns the last jira component in the ordered set where jiraProjectId = &#63;.
@@ -240,13 +210,11 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching jira component
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent findByJiraProjectId_Last(
 		long jiraProjectId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	/**
 	* Returns the last jira component in the ordered set where jiraProjectId = &#63;.
@@ -254,12 +222,10 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param jiraProjectId the jira project ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching jira component, or <code>null</code> if a matching jira component could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent fetchByJiraProjectId_Last(
 		long jiraProjectId,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Returns the jira components before and after the current jira component in the ordered set where jiraProjectId = &#63;.
@@ -269,32 +235,26 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next jira component
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a jira component with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent[] findByJiraProjectId_PrevAndNext(
 		long jiraComponentId, long jiraProjectId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	/**
 	* Removes all the jira components where jiraProjectId = &#63; from the database.
 	*
 	* @param jiraProjectId the jira project ID
-	* @throws SystemException if a system exception occurred
 	*/
-	public void removeByJiraProjectId(long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public void removeByJiraProjectId(long jiraProjectId);
 
 	/**
 	* Returns the number of jira components where jiraProjectId = &#63;.
 	*
 	* @param jiraProjectId the jira project ID
 	* @return the number of matching jira components
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countByJiraProjectId(long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countByJiraProjectId(long jiraProjectId);
 
 	/**
 	* Caches the jira component in the entity cache if it is enabled.
@@ -327,16 +287,13 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param jiraComponentId the primary key of the jira component
 	* @return the jira component that was removed
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a jira component with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent remove(
 		long jiraComponentId)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	public com.liferay.jira.metrics.model.JiraComponent updateImpl(
-		com.liferay.jira.metrics.model.JiraComponent jiraComponent)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.jira.metrics.model.JiraComponent jiraComponent);
 
 	/**
 	* Returns the jira component with the primary key or throws a {@link com.liferay.jira.metrics.NoSuchJiraComponentException} if it could not be found.
@@ -344,32 +301,30 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param jiraComponentId the primary key of the jira component
 	* @return the jira component
 	* @throws com.liferay.jira.metrics.NoSuchJiraComponentException if a jira component with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent findByPrimaryKey(
 		long jiraComponentId)
-		throws com.liferay.jira.metrics.NoSuchJiraComponentException,
-			com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.jira.metrics.NoSuchJiraComponentException;
 
 	/**
 	* Returns the jira component with the primary key or returns <code>null</code> if it could not be found.
 	*
 	* @param jiraComponentId the primary key of the jira component
 	* @return the jira component, or <code>null</code> if a jira component with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.jira.metrics.model.JiraComponent fetchByPrimaryKey(
-		long jiraComponentId)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		long jiraComponentId);
+
+	@Override
+	public java.util.Map<java.io.Serializable, com.liferay.jira.metrics.model.JiraComponent> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys);
 
 	/**
 	* Returns all the jira components.
 	*
 	* @return the jira components
-	* @throws SystemException if a system exception occurred
 	*/
-	public java.util.List<com.liferay.jira.metrics.model.JiraComponent> findAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public java.util.List<com.liferay.jira.metrics.model.JiraComponent> findAll();
 
 	/**
 	* Returns a range of all the jira components.
@@ -381,11 +336,9 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param start the lower bound of the range of jira components
 	* @param end the upper bound of the range of jira components (not inclusive)
 	* @return the range of jira components
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraComponent> findAll(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		int start, int end);
 
 	/**
 	* Returns an ordered range of all the jira components.
@@ -398,27 +351,20 @@ public interface JiraComponentPersistence extends BasePersistence<JiraComponent>
 	* @param end the upper bound of the range of jira components (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of jira components
-	* @throws SystemException if a system exception occurred
 	*/
 	public java.util.List<com.liferay.jira.metrics.model.JiraComponent> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator);
 
 	/**
 	* Removes all the jira components from the database.
-	*
-	* @throws SystemException if a system exception occurred
 	*/
-	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public void removeAll();
 
 	/**
 	* Returns the number of jira components.
 	*
 	* @return the number of jira components
-	* @throws SystemException if a system exception occurred
 	*/
-	public int countAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
+	public int countAll();
 }

@@ -88,50 +88,60 @@ public class JiraComponentLocalServiceClpInvoker {
 
 		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getPersistedModel";
+		_methodName12 = "getActionableDynamicQuery";
 
-		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes12 = new String[] {  };
 
-		_methodName13 = "getJiraComponents";
+		_methodName14 = "deletePersistedModel";
 
-		_methodParameterTypes13 = new String[] { "int", "int" };
+		_methodParameterTypes14 = new String[] {
+				"com.liferay.portal.model.PersistedModel"
+			};
 
-		_methodName14 = "getJiraComponentsCount";
+		_methodName15 = "getPersistedModel";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes15 = new String[] { "java.io.Serializable" };
 
-		_methodName15 = "updateJiraComponent";
+		_methodName16 = "getJiraComponents";
 
-		_methodParameterTypes15 = new String[] {
+		_methodParameterTypes16 = new String[] { "int", "int" };
+
+		_methodName17 = "getJiraComponentsCount";
+
+		_methodParameterTypes17 = new String[] {  };
+
+		_methodName18 = "updateJiraComponent";
+
+		_methodParameterTypes18 = new String[] {
 				"com.liferay.jira.metrics.model.JiraComponent"
 			};
 
-		_methodName64 = "getBeanIdentifier";
+		_methodName73 = "getBeanIdentifier";
 
-		_methodParameterTypes64 = new String[] {  };
+		_methodParameterTypes73 = new String[] {  };
 
-		_methodName65 = "setBeanIdentifier";
+		_methodName74 = "setBeanIdentifier";
 
-		_methodParameterTypes65 = new String[] { "java.lang.String" };
+		_methodParameterTypes74 = new String[] { "java.lang.String" };
 
-		_methodName70 = "addJiraComponent";
+		_methodName79 = "addJiraComponent";
 
-		_methodParameterTypes70 = new String[] {
+		_methodParameterTypes79 = new String[] {
 				"java.lang.String", "long", "java.lang.String",
 				"java.lang.Boolean"
 			};
 
-		_methodName71 = "getJiraComponentByNameAndJiraProjectId";
+		_methodName80 = "getJiraComponentByNameAndJiraProjectId";
 
-		_methodParameterTypes71 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes80 = new String[] { "java.lang.String", "long" };
 
-		_methodName72 = "getJiraComponentByUri";
+		_methodName81 = "getJiraComponentByUri";
 
-		_methodParameterTypes72 = new String[] { "java.lang.String" };
+		_methodParameterTypes81 = new String[] { "java.lang.String" };
 
-		_methodName73 = "getJiraComponentsByJiraProjectId";
+		_methodName82 = "getJiraComponentsByJiraProjectId";
 
-		_methodParameterTypes73 = new String[] { "long" };
+		_methodParameterTypes82 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -204,57 +214,67 @@ public class JiraComponentLocalServiceClpInvoker {
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
-		}
-
-		if (_methodName13.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.getJiraComponents(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return JiraComponentLocalServiceUtil.getActionableDynamicQuery();
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return JiraComponentLocalServiceUtil.getJiraComponentsCount();
+			return JiraComponentLocalServiceUtil.deletePersistedModel((com.liferay.portal.model.PersistedModel)arguments[0]);
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
+			return JiraComponentLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+		}
+
+		if (_methodName16.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
+			return JiraComponentLocalServiceUtil.getJiraComponents(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			return JiraComponentLocalServiceUtil.getJiraComponentsCount();
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.updateJiraComponent((com.liferay.jira.metrics.model.JiraComponent)arguments[0]);
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName74.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
 			JiraComponentLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName70.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.addJiraComponent((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.Boolean)arguments[3]);
 		}
 
-		if (_methodName71.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getJiraComponentByNameAndJiraProjectId((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName72.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getJiraComponentByUri((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName73.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 			return JiraComponentLocalServiceUtil.getJiraComponentsByJiraProjectId(((Long)arguments[0]).longValue());
 		}
 
@@ -287,22 +307,26 @@ public class JiraComponentLocalServiceClpInvoker {
 	private String[] _methodParameterTypes11;
 	private String _methodName12;
 	private String[] _methodParameterTypes12;
-	private String _methodName13;
-	private String[] _methodParameterTypes13;
 	private String _methodName14;
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
-	private String _methodName65;
-	private String[] _methodParameterTypes65;
-	private String _methodName70;
-	private String[] _methodParameterTypes70;
-	private String _methodName71;
-	private String[] _methodParameterTypes71;
-	private String _methodName72;
-	private String[] _methodParameterTypes72;
+	private String _methodName16;
+	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
 	private String _methodName73;
 	private String[] _methodParameterTypes73;
+	private String _methodName74;
+	private String[] _methodParameterTypes74;
+	private String _methodName79;
+	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
 }

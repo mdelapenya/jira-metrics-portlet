@@ -35,12 +35,10 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	*
 	* @param jiraProject the jira project
 	* @return the jira project that was added
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraProject addJiraProject(
-		com.liferay.jira.metrics.model.JiraProject jiraProject)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraProject jiraProject) {
 		return _jiraProjectLocalService.addJiraProject(jiraProject);
 	}
 
@@ -62,13 +60,11 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	* @param jiraProjectId the primary key of the jira project
 	* @return the jira project that was removed
 	* @throws PortalException if a jira project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraProject deleteJiraProject(
 		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraProjectLocalService.deleteJiraProject(jiraProjectId);
 	}
 
@@ -77,12 +73,10 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	*
 	* @param jiraProject the jira project
 	* @return the jira project that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraProject deleteJiraProject(
-		com.liferay.jira.metrics.model.JiraProject jiraProject)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraProject jiraProject) {
 		return _jiraProjectLocalService.deleteJiraProject(jiraProject);
 	}
 
@@ -96,13 +90,11 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _jiraProjectLocalService.dynamicQuery(dynamicQuery);
 	}
 
@@ -117,13 +109,12 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	* @param start the lower bound of the range of model instances
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		int end) {
 		return _jiraProjectLocalService.dynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -139,15 +130,13 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return _jiraProjectLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
@@ -157,12 +146,10 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _jiraProjectLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
@@ -172,21 +159,18 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return _jiraProjectLocalService.dynamicQueryCount(dynamicQuery,
 			projection);
 	}
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraProject fetchJiraProject(
-		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long jiraProjectId) {
 		return _jiraProjectLocalService.fetchJiraProject(jiraProjectId);
 	}
 
@@ -196,21 +180,33 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	* @param jiraProjectId the primary key of the jira project
 	* @return the jira project
 	* @throws PortalException if a jira project with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraProject getJiraProject(
 		long jiraProjectId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraProjectLocalService.getJiraProject(jiraProjectId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _jiraProjectLocalService.getActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _jiraProjectLocalService.deletePersistedModel(persistedModel);
 	}
 
 	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraProjectLocalService.getPersistedModel(primaryKeyObj);
 	}
 
@@ -224,12 +220,10 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	* @param start the lower bound of the range of jira projects
 	* @param end the upper bound of the range of jira projects (not inclusive)
 	* @return the range of jira projects
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public java.util.List<com.liferay.jira.metrics.model.JiraProject> getJiraProjects(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int start, int end) {
 		return _jiraProjectLocalService.getJiraProjects(start, end);
 	}
 
@@ -237,11 +231,9 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	* Returns the number of jira projects.
 	*
 	* @return the number of jira projects
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
-	public int getJiraProjectsCount()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public int getJiraProjectsCount() {
 		return _jiraProjectLocalService.getJiraProjectsCount();
 	}
 
@@ -250,12 +242,10 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	*
 	* @param jiraProject the jira project
 	* @return the jira project that was updated
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraProject updateJiraProject(
-		com.liferay.jira.metrics.model.JiraProject jiraProject)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraProject jiraProject) {
 		return _jiraProjectLocalService.updateJiraProject(jiraProject);
 	}
 
@@ -350,6 +340,7 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraProjectLocalService getWrappedJiraProjectLocalService() {
 		return _jiraProjectLocalService;
 	}
@@ -357,6 +348,7 @@ public class JiraProjectLocalServiceWrapper implements JiraProjectLocalService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraProjectLocalService(
 		JiraProjectLocalService jiraProjectLocalService) {
 		_jiraProjectLocalService = jiraProjectLocalService;

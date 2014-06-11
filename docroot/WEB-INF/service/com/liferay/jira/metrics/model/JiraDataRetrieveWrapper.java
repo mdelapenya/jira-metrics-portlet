@@ -393,8 +393,7 @@ public class JiraDataRetrieveWrapper implements JiraDataRetrieve,
 	}
 
 	@Override
-	public void persist()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void persist() {
 		_jiraDataRetrieve.persist();
 	}
 
@@ -421,6 +420,7 @@ public class JiraDataRetrieveWrapper implements JiraDataRetrieve,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
+	@Deprecated
 	public JiraDataRetrieve getWrappedJiraDataRetrieve() {
 		return _jiraDataRetrieve;
 	}
@@ -428,6 +428,16 @@ public class JiraDataRetrieveWrapper implements JiraDataRetrieve,
 	@Override
 	public JiraDataRetrieve getWrappedModel() {
 		return _jiraDataRetrieve;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _jiraDataRetrieve.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _jiraDataRetrieve.isFinderCacheEnabled();
 	}
 
 	@Override

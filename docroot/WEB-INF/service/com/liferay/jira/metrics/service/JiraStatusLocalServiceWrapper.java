@@ -35,12 +35,10 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	*
 	* @param jiraStatus the jira status
 	* @return the jira status that was added
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraStatus addJiraStatus(
-		com.liferay.jira.metrics.model.JiraStatus jiraStatus)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraStatus jiraStatus) {
 		return _jiraStatusLocalService.addJiraStatus(jiraStatus);
 	}
 
@@ -62,13 +60,11 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	* @param jiraStatusId the primary key of the jira status
 	* @return the jira status that was removed
 	* @throws PortalException if a jira status with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraStatus deleteJiraStatus(
 		long jiraStatusId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraStatusLocalService.deleteJiraStatus(jiraStatusId);
 	}
 
@@ -77,12 +73,10 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	*
 	* @param jiraStatus the jira status
 	* @return the jira status that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraStatus deleteJiraStatus(
-		com.liferay.jira.metrics.model.JiraStatus jiraStatus)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraStatus jiraStatus) {
 		return _jiraStatusLocalService.deleteJiraStatus(jiraStatus);
 	}
 
@@ -96,13 +90,11 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _jiraStatusLocalService.dynamicQuery(dynamicQuery);
 	}
 
@@ -117,13 +109,12 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	* @param start the lower bound of the range of model instances
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @return the range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
-		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		int end) {
 		return _jiraStatusLocalService.dynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -139,15 +130,13 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	* @param end the upper bound of the range of model instances (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching rows
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
 		int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return _jiraStatusLocalService.dynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
 	}
@@ -157,12 +146,10 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	*
 	* @param dynamicQuery the dynamic query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public long dynamicQueryCount(
-		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
 		return _jiraStatusLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
@@ -172,21 +159,18 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	* @param dynamicQuery the dynamic query
 	* @param projection the projection to apply to the query
 	* @return the number of rows that match the dynamic query
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
-		com.liferay.portal.kernel.dao.orm.Projection projection)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
 		return _jiraStatusLocalService.dynamicQueryCount(dynamicQuery,
 			projection);
 	}
 
 	@Override
 	public com.liferay.jira.metrics.model.JiraStatus fetchJiraStatus(
-		long jiraStatusId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long jiraStatusId) {
 		return _jiraStatusLocalService.fetchJiraStatus(jiraStatusId);
 	}
 
@@ -196,21 +180,33 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	* @param jiraStatusId the primary key of the jira status
 	* @return the jira status
 	* @throws PortalException if a jira status with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraStatus getJiraStatus(
 		long jiraStatusId)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraStatusLocalService.getJiraStatus(jiraStatusId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery getActionableDynamicQuery() {
+		return _jiraStatusLocalService.getActionableDynamicQuery();
+	}
+
+	/**
+	* @throws PortalException
+	*/
+	@Override
+	public com.liferay.portal.model.PersistedModel deletePersistedModel(
+		com.liferay.portal.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _jiraStatusLocalService.deletePersistedModel(persistedModel);
 	}
 
 	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _jiraStatusLocalService.getPersistedModel(primaryKeyObj);
 	}
 
@@ -224,12 +220,10 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	* @param start the lower bound of the range of jira statuses
 	* @param end the upper bound of the range of jira statuses (not inclusive)
 	* @return the range of jira statuses
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public java.util.List<com.liferay.jira.metrics.model.JiraStatus> getJiraStatuses(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int start, int end) {
 		return _jiraStatusLocalService.getJiraStatuses(start, end);
 	}
 
@@ -237,11 +231,9 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	* Returns the number of jira statuses.
 	*
 	* @return the number of jira statuses
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
-	public int getJiraStatusesCount()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public int getJiraStatusesCount() {
 		return _jiraStatusLocalService.getJiraStatusesCount();
 	}
 
@@ -250,12 +242,10 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	*
 	* @param jiraStatus the jira status
 	* @return the jira status that was updated
-	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.jira.metrics.model.JiraStatus updateJiraStatus(
-		com.liferay.jira.metrics.model.JiraStatus jiraStatus)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraStatus jiraStatus) {
 		return _jiraStatusLocalService.updateJiraStatus(jiraStatus);
 	}
 
@@ -330,6 +320,7 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraStatusLocalService getWrappedJiraStatusLocalService() {
 		return _jiraStatusLocalService;
 	}
@@ -337,6 +328,7 @@ public class JiraStatusLocalServiceWrapper implements JiraStatusLocalService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraStatusLocalService(
 		JiraStatusLocalService jiraStatusLocalService) {
 		_jiraStatusLocalService = jiraStatusLocalService;

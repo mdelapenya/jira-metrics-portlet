@@ -17,8 +17,6 @@ package com.liferay.jira.metrics.model.impl;
 import com.liferay.jira.metrics.model.JiraDataRetrieve;
 import com.liferay.jira.metrics.service.JiraDataRetrieveLocalServiceUtil;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 /**
  * The extended model base implementation for the JiraDataRetrieve service. Represents a row in the &quot;jirametrics_JiraDataRetrieve&quot; database table, with each column mapped to a property of this class.
  *
@@ -39,7 +37,7 @@ public abstract class JiraDataRetrieveBaseImpl extends JiraDataRetrieveModelImpl
 	 * Never modify or reference this class directly. All methods that expect a jira data retrieve model instance should use the {@link JiraDataRetrieve} interface instead.
 	 */
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraDataRetrieveLocalServiceUtil.addJiraDataRetrieve(this);
 		}

@@ -18,7 +18,6 @@ import com.liferay.jira.metrics.model.JiraDataRetrieve;
 
 import com.liferay.portal.kernel.bean.PortletBeanLocatorUtil;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.ServiceContext;
@@ -61,8 +60,7 @@ public class JiraDataRetrieveUtil {
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#countWithDynamicQuery(DynamicQuery)
 	 */
-	public static long countWithDynamicQuery(DynamicQuery dynamicQuery)
-		throws SystemException {
+	public static long countWithDynamicQuery(DynamicQuery dynamicQuery) {
 		return getPersistence().countWithDynamicQuery(dynamicQuery);
 	}
 
@@ -70,7 +68,7 @@ public class JiraDataRetrieveUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery)
 	 */
 	public static List<JiraDataRetrieve> findWithDynamicQuery(
-		DynamicQuery dynamicQuery) throws SystemException {
+		DynamicQuery dynamicQuery) {
 		return getPersistence().findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -78,8 +76,7 @@ public class JiraDataRetrieveUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#findWithDynamicQuery(DynamicQuery, int, int)
 	 */
 	public static List<JiraDataRetrieve> findWithDynamicQuery(
-		DynamicQuery dynamicQuery, int start, int end)
-		throws SystemException {
+		DynamicQuery dynamicQuery, int start, int end) {
 		return getPersistence().findWithDynamicQuery(dynamicQuery, start, end);
 	}
 
@@ -88,7 +85,7 @@ public class JiraDataRetrieveUtil {
 	 */
 	public static List<JiraDataRetrieve> findWithDynamicQuery(
 		DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
+		OrderByComparator orderByComparator) {
 		return getPersistence()
 				   .findWithDynamicQuery(dynamicQuery, start, end,
 			orderByComparator);
@@ -97,8 +94,7 @@ public class JiraDataRetrieveUtil {
 	/**
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static JiraDataRetrieve update(JiraDataRetrieve jiraDataRetrieve)
-		throws SystemException {
+	public static JiraDataRetrieve update(JiraDataRetrieve jiraDataRetrieve) {
 		return getPersistence().update(jiraDataRetrieve);
 	}
 
@@ -106,7 +102,7 @@ public class JiraDataRetrieveUtil {
 	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
 	public static JiraDataRetrieve update(JiraDataRetrieve jiraDataRetrieve,
-		ServiceContext serviceContext) throws SystemException {
+		ServiceContext serviceContext) {
 		return getPersistence().update(jiraDataRetrieve, serviceContext);
 	}
 
@@ -118,12 +114,10 @@ public class JiraDataRetrieveUtil {
 	* @param year the year
 	* @return the matching jira data retrieve
 	* @throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException if a matching jira data retrieve could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve findByD_M_Y(
 		int day, int month, int year)
-		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException {
 		return getPersistence().findByD_M_Y(day, month, year);
 	}
 
@@ -134,11 +128,9 @@ public class JiraDataRetrieveUtil {
 	* @param month the month
 	* @param year the year
 	* @return the matching jira data retrieve, or <code>null</code> if a matching jira data retrieve could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve fetchByD_M_Y(
-		int day, int month, int year)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int day, int month, int year) {
 		return getPersistence().fetchByD_M_Y(day, month, year);
 	}
 
@@ -150,11 +142,9 @@ public class JiraDataRetrieveUtil {
 	* @param year the year
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching jira data retrieve, or <code>null</code> if a matching jira data retrieve could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve fetchByD_M_Y(
-		int day, int month, int year, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int day, int month, int year, boolean retrieveFromCache) {
 		return getPersistence().fetchByD_M_Y(day, month, year, retrieveFromCache);
 	}
 
@@ -165,12 +155,10 @@ public class JiraDataRetrieveUtil {
 	* @param month the month
 	* @param year the year
 	* @return the jira data retrieve that was removed
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve removeByD_M_Y(
 		int day, int month, int year)
-		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException {
 		return getPersistence().removeByD_M_Y(day, month, year);
 	}
 
@@ -181,10 +169,8 @@ public class JiraDataRetrieveUtil {
 	* @param month the month
 	* @param year the year
 	* @return the number of matching jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByD_M_Y(int day, int month, int year)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countByD_M_Y(int day, int month, int year) {
 		return getPersistence().countByD_M_Y(day, month, year);
 	}
 
@@ -193,11 +179,9 @@ public class JiraDataRetrieveUtil {
 	*
 	* @param status the status
 	* @return the matching jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> findByStatus(
-		java.lang.String status)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String status) {
 		return getPersistence().findByStatus(status);
 	}
 
@@ -212,11 +196,9 @@ public class JiraDataRetrieveUtil {
 	* @param start the lower bound of the range of jira data retrieves
 	* @param end the upper bound of the range of jira data retrieves (not inclusive)
 	* @return the range of matching jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> findByStatus(
-		java.lang.String status, int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		java.lang.String status, int start, int end) {
 		return getPersistence().findByStatus(status, start, end);
 	}
 
@@ -232,12 +214,10 @@ public class JiraDataRetrieveUtil {
 	* @param end the upper bound of the range of jira data retrieves (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of matching jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> findByStatus(
 		java.lang.String status, int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return getPersistence()
 				   .findByStatus(status, start, end, orderByComparator);
 	}
@@ -249,13 +229,11 @@ public class JiraDataRetrieveUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching jira data retrieve
 	* @throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException if a matching jira data retrieve could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve findByStatus_First(
 		java.lang.String status,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException {
 		return getPersistence().findByStatus_First(status, orderByComparator);
 	}
 
@@ -265,12 +243,10 @@ public class JiraDataRetrieveUtil {
 	* @param status the status
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching jira data retrieve, or <code>null</code> if a matching jira data retrieve could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve fetchByStatus_First(
 		java.lang.String status,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return getPersistence().fetchByStatus_First(status, orderByComparator);
 	}
 
@@ -281,13 +257,11 @@ public class JiraDataRetrieveUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching jira data retrieve
 	* @throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException if a matching jira data retrieve could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve findByStatus_Last(
 		java.lang.String status,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException {
 		return getPersistence().findByStatus_Last(status, orderByComparator);
 	}
 
@@ -297,12 +271,10 @@ public class JiraDataRetrieveUtil {
 	* @param status the status
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the last matching jira data retrieve, or <code>null</code> if a matching jira data retrieve could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve fetchByStatus_Last(
 		java.lang.String status,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return getPersistence().fetchByStatus_Last(status, orderByComparator);
 	}
 
@@ -314,13 +286,11 @@ public class JiraDataRetrieveUtil {
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the previous, current, and next jira data retrieve
 	* @throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException if a jira data retrieve with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve[] findByStatus_PrevAndNext(
 		long jiraDataRetrieveId, java.lang.String status,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException {
 		return getPersistence()
 				   .findByStatus_PrevAndNext(jiraDataRetrieveId, status,
 			orderByComparator);
@@ -330,10 +300,8 @@ public class JiraDataRetrieveUtil {
 	* Removes all the jira data retrieves where status = &#63; from the database.
 	*
 	* @param status the status
-	* @throws SystemException if a system exception occurred
 	*/
-	public static void removeByStatus(java.lang.String status)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static void removeByStatus(java.lang.String status) {
 		getPersistence().removeByStatus(status);
 	}
 
@@ -342,10 +310,8 @@ public class JiraDataRetrieveUtil {
 	*
 	* @param status the status
 	* @return the number of matching jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByStatus(java.lang.String status)
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countByStatus(java.lang.String status) {
 		return getPersistence().countByStatus(status);
 	}
 
@@ -386,18 +352,15 @@ public class JiraDataRetrieveUtil {
 	* @param jiraDataRetrieveId the primary key of the jira data retrieve
 	* @return the jira data retrieve that was removed
 	* @throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException if a jira data retrieve with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve remove(
 		long jiraDataRetrieveId)
-		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException {
 		return getPersistence().remove(jiraDataRetrieveId);
 	}
 
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve updateImpl(
-		com.liferay.jira.metrics.model.JiraDataRetrieve jiraDataRetrieve)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.jira.metrics.model.JiraDataRetrieve jiraDataRetrieve) {
 		return getPersistence().updateImpl(jiraDataRetrieve);
 	}
 
@@ -407,12 +370,10 @@ public class JiraDataRetrieveUtil {
 	* @param jiraDataRetrieveId the primary key of the jira data retrieve
 	* @return the jira data retrieve
 	* @throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException if a jira data retrieve with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve findByPrimaryKey(
 		long jiraDataRetrieveId)
-		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException,
-			com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.jira.metrics.NoSuchJiraDataRetrieveException {
 		return getPersistence().findByPrimaryKey(jiraDataRetrieveId);
 	}
 
@@ -421,22 +382,23 @@ public class JiraDataRetrieveUtil {
 	*
 	* @param jiraDataRetrieveId the primary key of the jira data retrieve
 	* @return the jira data retrieve, or <code>null</code> if a jira data retrieve with the primary key could not be found
-	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.jira.metrics.model.JiraDataRetrieve fetchByPrimaryKey(
-		long jiraDataRetrieveId)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		long jiraDataRetrieveId) {
 		return getPersistence().fetchByPrimaryKey(jiraDataRetrieveId);
+	}
+
+	public static java.util.Map<java.io.Serializable, com.liferay.jira.metrics.model.JiraDataRetrieve> fetchByPrimaryKeys(
+		java.util.Set<java.io.Serializable> primaryKeys) {
+		return getPersistence().fetchByPrimaryKeys(primaryKeys);
 	}
 
 	/**
 	* Returns all the jira data retrieves.
 	*
 	* @return the jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> findAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> findAll() {
 		return getPersistence().findAll();
 	}
 
@@ -450,11 +412,9 @@ public class JiraDataRetrieveUtil {
 	* @param start the lower bound of the range of jira data retrieves
 	* @param end the upper bound of the range of jira data retrieves (not inclusive)
 	* @return the range of jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> findAll(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		int start, int end) {
 		return getPersistence().findAll(start, end);
 	}
 
@@ -469,22 +429,17 @@ public class JiraDataRetrieveUtil {
 	* @param end the upper bound of the range of jira data retrieves (not inclusive)
 	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	* @return the ordered range of jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
 	public static java.util.List<com.liferay.jira.metrics.model.JiraDataRetrieve> findAll(
 		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator) {
 		return getPersistence().findAll(start, end, orderByComparator);
 	}
 
 	/**
 	* Removes all the jira data retrieves from the database.
-	*
-	* @throws SystemException if a system exception occurred
 	*/
-	public static void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static void removeAll() {
 		getPersistence().removeAll();
 	}
 
@@ -492,10 +447,8 @@ public class JiraDataRetrieveUtil {
 	* Returns the number of jira data retrieves.
 	*
 	* @return the number of jira data retrieves
-	* @throws SystemException if a system exception occurred
 	*/
-	public static int countAll()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public static int countAll() {
 		return getPersistence().countAll();
 	}
 
@@ -514,6 +467,7 @@ public class JiraDataRetrieveUtil {
 	/**
 	 * @deprecated As of 6.2.0
 	 */
+	@Deprecated
 	public void setPersistence(JiraDataRetrievePersistence persistence) {
 	}
 

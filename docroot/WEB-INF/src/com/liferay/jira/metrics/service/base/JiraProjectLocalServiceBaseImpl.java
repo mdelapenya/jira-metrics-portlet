@@ -25,8 +25,12 @@ import com.liferay.jira.metrics.service.persistence.JiraStatusPersistence;
 
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
+import com.liferay.portal.kernel.dao.db.DB;
+import com.liferay.portal.kernel.dao.db.DBFactoryUtil;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DefaultActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Projection;
@@ -38,8 +42,10 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PersistedModel;
 import com.liferay.portal.service.BaseLocalServiceImpl;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
+import com.liferay.portal.service.persistence.ClassNamePersistence;
 import com.liferay.portal.service.persistence.PortletPreferencesPersistence;
 import com.liferay.portal.service.persistence.UserPersistence;
+import com.liferay.portal.util.PortalUtil;
 
 import java.io.Serializable;
 
@@ -73,12 +79,10 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 *
 	 * @param jiraProject the jira project
 	 * @return the jira project that was added
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public JiraProject addJiraProject(JiraProject jiraProject)
-		throws SystemException {
+	public JiraProject addJiraProject(JiraProject jiraProject) {
 		jiraProject.setNew(true);
 
 		return jiraProjectPersistence.update(jiraProject);
@@ -101,12 +105,11 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 * @param jiraProjectId the primary key of the jira project
 	 * @return the jira project that was removed
 	 * @throws PortalException if a jira project with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public JiraProject deleteJiraProject(long jiraProjectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return jiraProjectPersistence.remove(jiraProjectId);
 	}
 
@@ -115,12 +118,10 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 *
 	 * @param jiraProject the jira project
 	 * @return the jira project that was removed
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public JiraProject deleteJiraProject(JiraProject jiraProject)
-		throws SystemException {
+	public JiraProject deleteJiraProject(JiraProject jiraProject) {
 		return jiraProjectPersistence.remove(jiraProject);
 	}
 
@@ -137,12 +138,10 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 *
 	 * @param dynamicQuery the dynamic query
 	 * @return the matching rows
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery)
-		throws SystemException {
+	public List dynamicQuery(DynamicQuery dynamicQuery) {
 		return jiraProjectPersistence.findWithDynamicQuery(dynamicQuery);
 	}
 
@@ -157,12 +156,10 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 * @param start the lower bound of the range of model instances
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @return the range of matching rows
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@SuppressWarnings("rawtypes")
-	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
-		throws SystemException {
+	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end) {
 		return jiraProjectPersistence.findWithDynamicQuery(dynamicQuery, start,
 			end);
 	}
@@ -179,12 +176,11 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 * @param end the upper bound of the range of model instances (not inclusive)
 	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
 	 * @return the ordered range of matching rows
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
+		OrderByComparator orderByComparator) {
 		return jiraProjectPersistence.findWithDynamicQuery(dynamicQuery, start,
 			end, orderByComparator);
 	}
@@ -194,11 +190,9 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 *
 	 * @param dynamicQuery the dynamic query
 	 * @return the number of rows that match the dynamic query
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public long dynamicQueryCount(DynamicQuery dynamicQuery)
-		throws SystemException {
+	public long dynamicQueryCount(DynamicQuery dynamicQuery) {
 		return jiraProjectPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
@@ -208,18 +202,16 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 * @param dynamicQuery the dynamic query
 	 * @param projection the projection to apply to the query
 	 * @return the number of rows that match the dynamic query
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery,
-		Projection projection) throws SystemException {
+		Projection projection) {
 		return jiraProjectPersistence.countWithDynamicQuery(dynamicQuery,
 			projection);
 	}
 
 	@Override
-	public JiraProject fetchJiraProject(long jiraProjectId)
-		throws SystemException {
+	public JiraProject fetchJiraProject(long jiraProjectId) {
 		return jiraProjectPersistence.fetchByPrimaryKey(jiraProjectId);
 	}
 
@@ -229,17 +221,47 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 * @param jiraProjectId the primary key of the jira project
 	 * @return the jira project
 	 * @throws PortalException if a jira project with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public JiraProject getJiraProject(long jiraProjectId)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return jiraProjectPersistence.findByPrimaryKey(jiraProjectId);
 	}
 
 	@Override
+	public ActionableDynamicQuery getActionableDynamicQuery() {
+		ActionableDynamicQuery actionableDynamicQuery = new DefaultActionableDynamicQuery();
+
+		actionableDynamicQuery.setBaseLocalService(com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil.getService());
+		actionableDynamicQuery.setClass(JiraProject.class);
+		actionableDynamicQuery.setClassLoader(getClassLoader());
+
+		actionableDynamicQuery.setPrimaryKeyPropertyName("jiraProjectId");
+
+		return actionableDynamicQuery;
+	}
+
+	protected void initActionableDynamicQuery(
+		ActionableDynamicQuery actionableDynamicQuery) {
+		actionableDynamicQuery.setBaseLocalService(com.liferay.jira.metrics.service.JiraProjectLocalServiceUtil.getService());
+		actionableDynamicQuery.setClass(JiraProject.class);
+		actionableDynamicQuery.setClassLoader(getClassLoader());
+
+		actionableDynamicQuery.setPrimaryKeyPropertyName("jiraProjectId");
+	}
+
+	/**
+	 * @throws PortalException
+	 */
+	@Override
+	public PersistedModel deletePersistedModel(PersistedModel persistedModel)
+		throws PortalException {
+		return deleteJiraProject((JiraProject)persistedModel);
+	}
+
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
-		throws PortalException, SystemException {
+		throws PortalException {
 		return jiraProjectPersistence.findByPrimaryKey(primaryKeyObj);
 	}
 
@@ -253,11 +275,9 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 * @param start the lower bound of the range of jira projects
 	 * @param end the upper bound of the range of jira projects (not inclusive)
 	 * @return the range of jira projects
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<JiraProject> getJiraProjects(int start, int end)
-		throws SystemException {
+	public List<JiraProject> getJiraProjects(int start, int end) {
 		return jiraProjectPersistence.findAll(start, end);
 	}
 
@@ -265,10 +285,9 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 * Returns the number of jira projects.
 	 *
 	 * @return the number of jira projects
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int getJiraProjectsCount() throws SystemException {
+	public int getJiraProjectsCount() {
 		return jiraProjectPersistence.countAll();
 	}
 
@@ -277,12 +296,10 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	 *
 	 * @param jiraProject the jira project
 	 * @return the jira project that was updated
-	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
-	public JiraProject updateJiraProject(JiraProject jiraProject)
-		throws SystemException {
+	public JiraProject updateJiraProject(JiraProject jiraProject) {
 		return jiraProjectPersistence.update(jiraProject);
 	}
 
@@ -648,6 +665,63 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the class name local service.
+	 *
+	 * @return the class name local service
+	 */
+	public com.liferay.portal.service.ClassNameLocalService getClassNameLocalService() {
+		return classNameLocalService;
+	}
+
+	/**
+	 * Sets the class name local service.
+	 *
+	 * @param classNameLocalService the class name local service
+	 */
+	public void setClassNameLocalService(
+		com.liferay.portal.service.ClassNameLocalService classNameLocalService) {
+		this.classNameLocalService = classNameLocalService;
+	}
+
+	/**
+	 * Returns the class name remote service.
+	 *
+	 * @return the class name remote service
+	 */
+	public com.liferay.portal.service.ClassNameService getClassNameService() {
+		return classNameService;
+	}
+
+	/**
+	 * Sets the class name remote service.
+	 *
+	 * @param classNameService the class name remote service
+	 */
+	public void setClassNameService(
+		com.liferay.portal.service.ClassNameService classNameService) {
+		this.classNameService = classNameService;
+	}
+
+	/**
+	 * Returns the class name persistence.
+	 *
+	 * @return the class name persistence
+	 */
+	public ClassNamePersistence getClassNamePersistence() {
+		return classNamePersistence;
+	}
+
+	/**
+	 * Sets the class name persistence.
+	 *
+	 * @param classNamePersistence the class name persistence
+	 */
+	public void setClassNamePersistence(
+		ClassNamePersistence classNamePersistence) {
+		this.classNamePersistence = classNamePersistence;
+	}
+
+	/**
 	 * Returns the portlet preferences local service.
 	 *
 	 * @return the portlet preferences local service
@@ -843,13 +917,18 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	}
 
 	/**
-	 * Performs an SQL query.
+	 * Performs a SQL query.
 	 *
 	 * @param sql the sql query
 	 */
-	protected void runSQL(String sql) throws SystemException {
+	protected void runSQL(String sql) {
 		try {
 			DataSource dataSource = jiraProjectPersistence.getDataSource();
+
+			DB db = DBFactoryUtil.getDB();
+
+			sql = db.buildSQL(sql);
+			sql = PortalUtil.transformSQL(sql);
 
 			SqlUpdate sqlUpdate = SqlUpdateFactoryUtil.getSqlUpdate(dataSource,
 					sql, new int[0]);
@@ -899,6 +978,12 @@ public abstract class JiraProjectLocalServiceBaseImpl
 	protected JiraStatusPersistence jiraStatusPersistence;
 	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
 	protected com.liferay.counter.service.CounterLocalService counterLocalService;
+	@BeanReference(type = com.liferay.portal.service.ClassNameLocalService.class)
+	protected com.liferay.portal.service.ClassNameLocalService classNameLocalService;
+	@BeanReference(type = com.liferay.portal.service.ClassNameService.class)
+	protected com.liferay.portal.service.ClassNameService classNameService;
+	@BeanReference(type = ClassNamePersistence.class)
+	protected ClassNamePersistence classNamePersistence;
 	@BeanReference(type = com.liferay.portal.service.PortletPreferencesLocalService.class)
 	protected com.liferay.portal.service.PortletPreferencesLocalService portletPreferencesLocalService;
 	@BeanReference(type = com.liferay.portal.service.PortletPreferencesService.class)

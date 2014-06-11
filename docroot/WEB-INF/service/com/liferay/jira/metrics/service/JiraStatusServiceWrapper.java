@@ -59,6 +59,7 @@ public class JiraStatusServiceWrapper implements JiraStatusService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
+	@Deprecated
 	public JiraStatusService getWrappedJiraStatusService() {
 		return _jiraStatusService;
 	}
@@ -66,6 +67,7 @@ public class JiraStatusServiceWrapper implements JiraStatusService,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
+	@Deprecated
 	public void setWrappedJiraStatusService(JiraStatusService jiraStatusService) {
 		_jiraStatusService = jiraStatusService;
 	}

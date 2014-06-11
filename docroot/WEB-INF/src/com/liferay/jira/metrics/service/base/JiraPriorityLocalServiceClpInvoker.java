@@ -88,51 +88,61 @@ public class JiraPriorityLocalServiceClpInvoker {
 
 		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getPersistedModel";
+		_methodName12 = "getActionableDynamicQuery";
 
-		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes12 = new String[] {  };
 
-		_methodName13 = "getJiraPriorities";
+		_methodName14 = "deletePersistedModel";
 
-		_methodParameterTypes13 = new String[] { "int", "int" };
+		_methodParameterTypes14 = new String[] {
+				"com.liferay.portal.model.PersistedModel"
+			};
 
-		_methodName14 = "getJiraPrioritiesCount";
+		_methodName15 = "getPersistedModel";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes15 = new String[] { "java.io.Serializable" };
 
-		_methodName15 = "updateJiraPriority";
+		_methodName16 = "getJiraPriorities";
 
-		_methodParameterTypes15 = new String[] {
+		_methodParameterTypes16 = new String[] { "int", "int" };
+
+		_methodName17 = "getJiraPrioritiesCount";
+
+		_methodParameterTypes17 = new String[] {  };
+
+		_methodName18 = "updateJiraPriority";
+
+		_methodParameterTypes18 = new String[] {
 				"com.liferay.jira.metrics.model.JiraPriority"
 			};
 
-		_methodName70 = "getBeanIdentifier";
+		_methodName79 = "getBeanIdentifier";
 
-		_methodParameterTypes70 = new String[] {  };
+		_methodParameterTypes79 = new String[] {  };
 
-		_methodName71 = "setBeanIdentifier";
+		_methodName80 = "setBeanIdentifier";
 
-		_methodParameterTypes71 = new String[] { "java.lang.String" };
+		_methodParameterTypes80 = new String[] { "java.lang.String" };
 
-		_methodName76 = "addJiraProject";
+		_methodName85 = "addJiraProject";
 
-		_methodParameterTypes76 = new String[] {
+		_methodParameterTypes85 = new String[] {
 				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName77 = "getJiraPriorityByName";
+		_methodName86 = "getAllJiraPriorities";
 
-		_methodParameterTypes77 = new String[] { "java.lang.String" };
-
-		_methodName78 = "getJiraPriorityByValue";
-
-		_methodParameterTypes78 = new String[] { "java.lang.String" };
-
-		_methodName79 = "getAllJiraPriorities";
-
-		_methodParameterTypes79 = new String[] {
+		_methodParameterTypes86 = new String[] {
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
+
+		_methodName87 = "getJiraPriorityByName";
+
+		_methodParameterTypes87 = new String[] { "java.lang.String" };
+
+		_methodName88 = "getJiraPriorityByValue";
+
+		_methodParameterTypes88 = new String[] { "java.lang.String" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -205,56 +215,66 @@ public class JiraPriorityLocalServiceClpInvoker {
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return JiraPriorityLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
-		}
-
-		if (_methodName13.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return JiraPriorityLocalServiceUtil.getJiraPriorities(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return JiraPriorityLocalServiceUtil.getActionableDynamicQuery();
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return JiraPriorityLocalServiceUtil.getJiraPrioritiesCount();
+			return JiraPriorityLocalServiceUtil.deletePersistedModel((com.liferay.portal.model.PersistedModel)arguments[0]);
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
+			return JiraPriorityLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+		}
+
+		if (_methodName16.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
+			return JiraPriorityLocalServiceUtil.getJiraPriorities(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			return JiraPriorityLocalServiceUtil.getJiraPrioritiesCount();
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
 			return JiraPriorityLocalServiceUtil.updateJiraPriority((com.liferay.jira.metrics.model.JiraPriority)arguments[0]);
 		}
 
-		if (_methodName70.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return JiraPriorityLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName71.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 			JiraPriorityLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName76.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
+		if (_methodName85.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes85, parameterTypes)) {
 			return JiraPriorityLocalServiceUtil.addJiraProject((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName77.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
+		if (_methodName86.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes86, parameterTypes)) {
+			return JiraPriorityLocalServiceUtil.getAllJiraPriorities((com.liferay.portal.kernel.util.OrderByComparator)arguments[0]);
+		}
+
+		if (_methodName87.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes87, parameterTypes)) {
 			return JiraPriorityLocalServiceUtil.getJiraPriorityByName((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName78.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
+		if (_methodName88.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes88, parameterTypes)) {
 			return JiraPriorityLocalServiceUtil.getJiraPriorityByValue((java.lang.String)arguments[0]);
-		}
-
-		if (_methodName79.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
-			return JiraPriorityLocalServiceUtil.getAllJiraPriorities((com.liferay.portal.kernel.util.OrderByComparator)arguments[0]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -286,22 +306,26 @@ public class JiraPriorityLocalServiceClpInvoker {
 	private String[] _methodParameterTypes11;
 	private String _methodName12;
 	private String[] _methodParameterTypes12;
-	private String _methodName13;
-	private String[] _methodParameterTypes13;
 	private String _methodName14;
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName70;
-	private String[] _methodParameterTypes70;
-	private String _methodName71;
-	private String[] _methodParameterTypes71;
-	private String _methodName76;
-	private String[] _methodParameterTypes76;
-	private String _methodName77;
-	private String[] _methodParameterTypes77;
-	private String _methodName78;
-	private String[] _methodParameterTypes78;
+	private String _methodName16;
+	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
 	private String _methodName79;
 	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
+	private String _methodName85;
+	private String[] _methodParameterTypes85;
+	private String _methodName86;
+	private String[] _methodParameterTypes86;
+	private String _methodName87;
+	private String[] _methodParameterTypes87;
+	private String _methodName88;
+	private String[] _methodParameterTypes88;
 }

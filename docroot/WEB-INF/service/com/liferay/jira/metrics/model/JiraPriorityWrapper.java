@@ -312,8 +312,7 @@ public class JiraPriorityWrapper implements JiraPriority,
 	}
 
 	@Override
-	public void persist()
-		throws com.liferay.portal.kernel.exception.SystemException {
+	public void persist() {
 		_jiraPriority.persist();
 	}
 
@@ -339,6 +338,7 @@ public class JiraPriorityWrapper implements JiraPriority,
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
+	@Deprecated
 	public JiraPriority getWrappedJiraPriority() {
 		return _jiraPriority;
 	}
@@ -346,6 +346,16 @@ public class JiraPriorityWrapper implements JiraPriority,
 	@Override
 	public JiraPriority getWrappedModel() {
 		return _jiraPriority;
+	}
+
+	@Override
+	public boolean isEntityCacheEnabled() {
+		return _jiraPriority.isEntityCacheEnabled();
+	}
+
+	@Override
+	public boolean isFinderCacheEnabled() {
+		return _jiraPriority.isFinderCacheEnabled();
 	}
 
 	@Override

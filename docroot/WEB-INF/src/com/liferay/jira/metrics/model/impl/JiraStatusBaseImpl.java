@@ -17,8 +17,6 @@ package com.liferay.jira.metrics.model.impl;
 import com.liferay.jira.metrics.model.JiraStatus;
 import com.liferay.jira.metrics.service.JiraStatusLocalServiceUtil;
 
-import com.liferay.portal.kernel.exception.SystemException;
-
 /**
  * The extended model base implementation for the JiraStatus service. Represents a row in the &quot;jirametrics_JiraStatus&quot; database table, with each column mapped to a property of this class.
  *
@@ -39,7 +37,7 @@ public abstract class JiraStatusBaseImpl extends JiraStatusModelImpl
 	 * Never modify or reference this class directly. All methods that expect a jira status model instance should use the {@link JiraStatus} interface instead.
 	 */
 	@Override
-	public void persist() throws SystemException {
+	public void persist() {
 		if (this.isNew()) {
 			JiraStatusLocalServiceUtil.addJiraStatus(this);
 		}
